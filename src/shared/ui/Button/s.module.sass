@@ -1,0 +1,14 @@
+.btn
+    transition: 0.2s
+    outline: none
+    &:not([disabled])
+        &:active
+            scale: 0.9
+        &.active
+            background: black
+            color: white
+        &:hover
+            &:not(.active)
+                background: var(--global-btn-hover)
+    &:disabled
+        opacity: 50%
