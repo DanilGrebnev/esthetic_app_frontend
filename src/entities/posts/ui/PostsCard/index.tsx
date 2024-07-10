@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type CSSProperties, type FC } from 'react'
+import { type CSSProperties, type FC, useEffect, useRef, useState } from 'react'
 
 import { CardCircleIcon } from '../CardCircleIcon'
 import { SavePostsButton } from '../SavePostsButton'
@@ -16,17 +16,27 @@ interface PostCardProps {
 
 export const PostsCard: FC<PostCardProps> = (props) => {
     const { url, aspect = '9/16', className } = props
+    const [w, setW] = useState(0)
+    const cardRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (cardRef.current) {
+            const width = cardRef.current.offsetWidth
+            setW(width)
+        }
+    }, [])
 
     const mathes = aspect.match(/([\d{0,2}])\/(\d{0,2})/)
     const a = Number(mathes?.[1])
     const b = Number(mathes?.[2])
-    const height = +((246 * b) / a).toFixed()
+    const height = +((w * b) / a).toFixed()
 
     return (
         <div
+            ref={cardRef}
             className={clsx(
                 s.card,
-                `relative w-full max-w-[auto] cursor-pointer overflow-hidden rounded-[20px]`,
+                `relative w-full cursor-pointer overflow-hidden rounded-[20px]`,
                 className,
             )}
             style={{ height: height + 'px' }}
