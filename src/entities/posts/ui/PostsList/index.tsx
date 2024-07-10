@@ -1,13 +1,18 @@
-import t1 from '@/shared/assets/t1.jpg'
-import t2 from '@/shared/assets/t2.jpg'
-import t3 from '@/shared/assets/t3.jpg'
-import t4 from '@/shared/assets/t4.jpg'
-import t5 from '@/shared/assets/t5.jpg'
-
+import { mock } from '../../mock'
 import { PostsCard } from '../PostsCard'
-
-const a = [t1, t2, t3, t4, t5] as any as string[]
+import s from './s.module.sass'
 
 export const PostsList = () => {
-    return a.map((src, i) => <PostsCard url={src} key={i} />)
+    return (
+        <div className={s.list}>
+            {mock.map(({ url, aspect }, i) => (
+                <PostsCard
+                    className={s.card}
+                    url={url}
+                    aspect={aspect}
+                    key={i}
+                />
+            ))}
+        </div>
+    )
 }

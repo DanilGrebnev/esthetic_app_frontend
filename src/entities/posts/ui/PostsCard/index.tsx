@@ -1,6 +1,8 @@
+'use client'
+
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC } from 'react'
+import { type CSSProperties, type FC } from 'react'
 
 import { CardCircleIcon } from '../CardCircleIcon'
 import { SavePostsButton } from '../SavePostsButton'
@@ -8,17 +10,26 @@ import s from './s.module.sass'
 
 interface PostCardProps {
     url: string
+    aspect?: string
+    className?: string
 }
 
 export const PostsCard: FC<PostCardProps> = (props) => {
-    const { url } = props
+    const { url, aspect = '9/16', className } = props
+
+    const mathes = aspect.match(/([\d{0,2}])\/(\d{0,2})/)
+    const a = Number(mathes?.[1])
+    const b = Number(mathes?.[2])
+    const height = +((246 * b) / a).toFixed()
 
     return (
         <div
             className={clsx(
                 s.card,
-                'relative h-[419px] w-[236px] cursor-pointer overflow-hidden rounded-[20px]',
+                `relative w-full max-w-[auto] cursor-pointer overflow-hidden rounded-[20px]`,
+                className,
             )}
+            style={{ height: height + 'px' }}
         >
             <div
                 className={clsx(
@@ -32,8 +43,13 @@ export const PostsCard: FC<PostCardProps> = (props) => {
                     className='absolute bottom-[10px] right-[10px]'
                 />
             </div>
-
-            <Image loading='lazy' alt='test' src={url} fill={true} />
+            <Image
+                className='object-cover'
+                loading='lazy'
+                alt='test'
+                src={url}
+                fill={true}
+            />
         </div>
     )
 }
