@@ -1,6 +1,6 @@
 'use client'
 
-import { NavigationPaths } from '@/shared/consts/NavigatioPaths'
+import { routes } from '@/shared/routes'
 import { Button } from '@/shared/ui/Button'
 import { usePathname } from 'next/navigation'
 
@@ -10,16 +10,16 @@ export const LeftNavigationGroup = () => {
     return (
         <>
             <Button
-                active={patch === NavigationPaths.main}
+                active={patch === routes.main}
                 heightSize='full'
-                href={NavigationPaths.main}
+                href={routes.main}
             >
                 Главная
             </Button>
             <Button
-                active={patch === NavigationPaths.createPosts}
+                active={patch === routes.createPost}
                 heightSize='full'
-                href={NavigationPaths.createPosts}
+                href={routes.createPost}
             >
                 Создать
             </Button>

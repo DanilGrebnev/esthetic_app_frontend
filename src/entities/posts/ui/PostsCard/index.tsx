@@ -1,9 +1,11 @@
 'use client'
 
+import t1 from '@/shared/assets/t1.jpg'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type CSSProperties, type FC, useEffect, useRef, useState } from 'react'
+import { type FC, useEffect, useRef, useState } from 'react'
 
+import { calculateCardHeight } from '../../model/lib/calculateCardHeight'
 import { CardCircleIcon } from '../CardCircleIcon'
 import { SavePostsButton } from '../SavePostsButton'
 import s from './s.module.sass'
@@ -12,24 +14,24 @@ interface PostCardProps {
     url: string
     aspect?: string
     className?: string
+    name: string
 }
 
 export const PostsCard: FC<PostCardProps> = (props) => {
-    const { url, aspect = '9/16', className } = props
-    const [w, setW] = useState(0)
+    const { url, name, aspect = '9/16', className } = props
+    const [height, setHeight] = useState(0)
+
     const cardRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        if (cardRef.current) {
-            const width = cardRef.current.offsetWidth
-            setW(width)
-        }
-    }, [])
+        if (!cardRef.current) return
+        const height = calculateCardHeight(
+            aspect,
+            cardRef?.current?.offsetWidth,
+        )
 
-    const mathes = aspect.match(/([\d{0,2}])\/(\d{0,2})/)
-    const a = Number(mathes?.[1])
-    const b = Number(mathes?.[2])
-    const height = +((w * b) / a).toFixed()
+        setHeight(height)
+    }, [aspect])
 
     return (
         <div
@@ -49,6 +51,8 @@ export const PostsCard: FC<PostCardProps> = (props) => {
             >
                 <SavePostsButton />
                 <CardCircleIcon
+                    href={url}
+                    name={name}
                     variant='download'
                     className='absolute bottom-[10px] right-[10px]'
                 />
@@ -57,6 +61,7 @@ export const PostsCard: FC<PostCardProps> = (props) => {
                 className='object-cover'
                 loading='lazy'
                 alt='test'
+                sizes='200px'
                 src={url}
                 fill={true}
             />

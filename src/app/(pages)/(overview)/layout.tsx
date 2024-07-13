@@ -4,9 +4,9 @@ import { type FC } from 'react'
 
 const OverviewLayout: FC<Layout> = ({ children }) => {
     return (
-        <section className='App flex min-h-screen flex-col justify-between gap-[--global-gap]'>
+        <section className='App flex min-h-screen flex-col justify-between'>
             <Header />
-            <main className='container grow'>{children}</main>
+            <main className='flex grow flex-col'>{children}</main>
         </section>
     )
 }

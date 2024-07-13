@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const { hostname } = require('os')
 const path = require('path')
 
 module.exports = {
@@ -9,7 +10,16 @@ module.exports = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
-
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '3000',
+                pathname: '/**',
+            },
+        ],
+    },
     webpack(config) {
         // Grab the existing rule that handles SVG imports
         const fileLoaderRule = config.module.rules.find((rule) =>
