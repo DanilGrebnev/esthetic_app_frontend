@@ -1,3 +1,7 @@
+@mixin disabled
+    &.disabled
+        opacity: 0.3
+        
 .wrapper
     position: relative
     width: max-content
@@ -6,8 +10,14 @@
     border: 1px solid rgb(0 0 0 / 50%)
     border-radius: 10px
     padding: 5px
-    &:focus
-        outline: none
+    outline: none
+    @include disabled
+
+    &.focus
+        border-color: blue
+    &.error
+        color: red
+        border-color: red
 
 .label
     transition: .2s
@@ -15,9 +25,19 @@
     top:50%
     left: 10px
     transform: translatey(-50%)
+    @include disabled
     
-    &.active
-        top:-10px
-        left: 0
+    &:not(.disabled)
+        &.focus, &.notEmpty
+            top:-10px
+            left: 10px
+            scale: .7
+
+        &.error
+            color: red
+
+    
+    
+        
     
         
