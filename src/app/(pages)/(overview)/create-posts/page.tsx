@@ -8,7 +8,14 @@ import s from './s.module.sass'
 export default function CreatePosts() {
     return (
         <div className={s.page}>
-            <header className={s.header}>Создание пина</header>
+            <header
+                className={clsx(s.header, 'flex items-center justify-between')}
+            >
+                <p className='font-bold'>Создание пина</p>
+                <button className='rounded-full bg-[red] p-[10px] font-[500] text-[white] transition-[.3s] hover:scale-[0.9]'>
+                    Опубликовать
+                </button>
+            </header>
             <section className={clsx(s.section)}>
                 <div className={s['left-col']}>
                     <div className={s.upload}></div>
@@ -16,14 +23,23 @@ export default function CreatePosts() {
                 <div className={s['right-col']}>
                     <TextField
                         id='outlined-basic'
-                        label='Добавить название'
+                        label='Название'
+                        placeholder='Добавить название'
                         variant='outlined'
                     />
                     <TextField
                         id='outlined-basic'
                         label='Добавить описание'
+                        placeholder='Добавьте подробное описание'
                         multiline
-                        maxRows={5}
+                        minRows={5}
+                        maxRows={10}
+                        variant='outlined'
+                    />
+                    <TextField
+                        id='outlined-basic'
+                        label='Ссылка'
+                        placeholder='Добавить ссылку'
                         variant='outlined'
                     />
                 </div>
