@@ -1,9 +1,15 @@
 'use client'
 
-import TextField from '@mui/material/TextField'
+import { Input } from '@/shared/ui/Input'
+import { Select } from '@/shared/ui/Select'
 import clsx from 'clsx'
 
 import s from './s.module.sass'
+
+const selectOptions = [
+    { name: 'one', value: 'one' },
+    { name: 'two', value: 'two' },
+]
 
 export default function CreatePosts() {
     return (
@@ -21,13 +27,13 @@ export default function CreatePosts() {
                     <div className={s.upload}></div>
                 </div>
                 <div className={s['right-col']}>
-                    <TextField
+                    <Input
                         id='outlined-basic'
                         label='Название'
                         placeholder='Добавить название'
                         variant='outlined'
                     />
-                    <TextField
+                    <Input
                         id='outlined-basic'
                         label='Добавить описание'
                         placeholder='Добавьте подробное описание'
@@ -36,12 +42,21 @@ export default function CreatePosts() {
                         maxRows={10}
                         variant='outlined'
                     />
-                    <TextField
+                    <Input
                         id='outlined-basic'
                         label='Ссылка'
                         placeholder='Добавить ссылку'
                         variant='outlined'
                     />
+
+                    <Select
+                        onChange={(value) => {
+                            console.log(value)
+                        }}
+                        label='Доска'
+                    >
+                        {selectOptions}
+                    </Select>
                 </div>
             </section>
         </div>

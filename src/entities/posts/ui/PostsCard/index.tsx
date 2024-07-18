@@ -1,6 +1,5 @@
 'use client'
 
-import t1 from '@/shared/assets/t1.jpg'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { type FC, useEffect, useRef, useState } from 'react'
@@ -58,7 +57,7 @@ export const PostsCard: FC<PostCardProps> = (props) => {
                 />
             </div>
             <Image
-                className='object-cover'
+                className='select-none object-cover'
                 loading='lazy'
                 alt='test'
                 sizes='200px'
