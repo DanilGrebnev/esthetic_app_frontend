@@ -1,10 +1,10 @@
 'use client'
 
+// import { calculateHeightForAspectRatio } from '@/shared/utils/calculateHeightForAspectRatio'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { type FC, useEffect, useRef, useState } from 'react'
 
-import { calculateCardHeight } from '../../model/lib/calculateCardHeight'
 import { CardCircleIcon } from '../CardCircleIcon'
 import { SavePostsButton } from '../SavePostsButton'
 import s from './s.module.sass'
@@ -18,46 +18,37 @@ interface PostCardProps {
 
 export const PostsCard: FC<PostCardProps> = (props) => {
     const { url, name, aspect = '9/16', className } = props
-    const [height, setHeight] = useState(0)
+    // const [height, setHeight] = useState<string>('')
 
-    const cardRef = useRef<HTMLDivElement>(null)
+    // const cardRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        if (!cardRef.current) return
-        const height = calculateCardHeight(
-            aspect,
-            cardRef?.current?.offsetWidth,
-        )
+    // useEffect(() => {
+    //     if (!cardRef.current) return
+    //     const height = calculateHeightForAspectRatio(
+    //         aspect,
+    //         cardRef?.current?.offsetWidth,
+    //     )
 
-        setHeight(height)
-    }, [aspect])
+    //     setHeight(height + 'px')
+    // }, [aspect])
 
     return (
         <div
-            ref={cardRef}
-            className={clsx(
-                s.card,
-                `relative w-full cursor-pointer overflow-hidden rounded-[20px]`,
-                className,
-            )}
-            style={{ height: height + 'px' }}
+            // ref={cardRef}
+            className={clsx(s.card, className)}
+            style={{ aspectRatio: aspect }}
         >
-            <div
-                className={clsx(
-                    s['button-group'],
-                    'absolute z-[1] h-full w-full',
-                )}
-            >
+            <div className={s['button-group']}>
                 <SavePostsButton />
                 <CardCircleIcon
                     href={url}
                     name={name}
                     variant='download'
-                    className='absolute bottom-[10px] right-[10px]'
+                    className={s['card-circle-icon']}
                 />
             </div>
             <Image
-                className='select-none object-cover'
+                className={s.img}
                 loading='lazy'
                 alt='test'
                 sizes='200px'

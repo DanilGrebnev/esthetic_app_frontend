@@ -8,12 +8,7 @@ interface LeftSideWithIconProps {
 
 export const LeftSideWithIcon: FC<LeftSideWithIconProps> = ({ className }) => {
     return (
-        <div
-            className={clsx(
-                'flex items-center justify-center px-[10px]',
-                className,
-            )}
-        >
+        <div className={className}>
             <SearchIcon className='h-[20px] w-[20px]' />
         </div>
     )

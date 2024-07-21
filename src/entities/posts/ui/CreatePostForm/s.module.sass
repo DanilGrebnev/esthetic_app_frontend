@@ -1,0 +1,24 @@
+.form
+    display: flex
+    gap: 20px
+    flex-grow: 1
+
+.left-col
+    max-width:  400px
+    width: 100% 
+    display: flex
+    justify-content: center
+    align-items: start 
+
+.right-col
+    display: flex
+    flex-direction: column
+    gap: 20px
+    flex-grow: 1
+    width: 100%
+
+@media screen and (max-width: 800px) 
+    .form
+        flex-direction: column
+        padding: 0 20px
+        align-items: center 

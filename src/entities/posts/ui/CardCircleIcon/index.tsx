@@ -2,6 +2,8 @@ import DownloadIcon from '@/shared/assets/download-icon.svg'
 import clsx from 'clsx'
 import { type FC, HTMLAttributes, type ReactNode } from 'react'
 
+import s from './s.module.sass'
+
 const variants = {
     download: <DownloadIcon className='h-[20px] w-[20px] stroke-[2px]' />,
 }
@@ -21,10 +23,7 @@ export const CardCircleIcon: FC<CardCircleIconProps> = (props) => {
             href={href}
             download={name}
             title='Скачать'
-            className={clsx(
-                'flex h-[35px] w-[35px] items-center justify-center rounded-full bg-[white] outline-none transition-[.3] active:scale-[.9]',
-                className,
-            )}
+            className={clsx(s.btn, className)}
             {...other}
         >
             {variants[variant]}

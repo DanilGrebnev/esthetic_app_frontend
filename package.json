@@ -16,7 +16,9 @@
         "@mui/material": "^5.16.1",
         "@mui/material-nextjs": "^5.16.1",
         "@tanstack/react-query": "^5.50.1",
+        "auto-zustand-selectors-hook": "^2.0.5",
         "clsx": "^2.1.1",
+        "immer": "^10.1.1",
         "ky": "^1.4.0",
         "nanoid": "^5.0.7",
         "next": "14.2.4",
@@ -25,7 +27,8 @@
         "react-responsive": "^10.0.0",
         "react-responsive-masonry": "^2.2.1",
         "sass": "^1.77.6",
-        "sharp": "^0.33.4"
+        "sharp": "^0.33.4",
+        "zustand": "^4.5.4"
     },
     "devDependencies": {
         "@svgr/webpack": "^8.1.0",

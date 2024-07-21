@@ -1,2 +1,5 @@
-export { SearchInput } from './ui/Search'
+export { SearchInput } from '../../widgets/Search'
 export { PostsList } from './ui/PostsList'
+export { CreatePostForm } from './ui/CreatePostForm'
+export { UploadPostsContentWindow } from './ui/UploadPostsContentWindow'
+export { usePostsSlice } from './model/slice'

@@ -1,3 +1,5 @@
+'use client'
+
 import {
     FormControl,
     InputLabel,
@@ -16,20 +18,26 @@ type BasicSelectProps = Omit<
     Parameters<typeof Select>[0],
     'children' | 'onChange'
 > & {
-    onChange?: (value: string) => void
-
+    onChange?: ({ name, value }: { name: string; value: string }) => void
     children?: MenuItem[]
+    placeholder?: string
 }
 
 const BasicSelect: FC<BasicSelectProps> = (props) => {
-    const { label, children, onChange: onChangeProps, ...other } = props
+    const {
+        label,
+        children,
+        placeholder,
+        onChange: onChangeProps,
+        ...other
+    } = props
 
     const id = useId()
     const [value, setValue] = useState('')
 
-    const handleChange = (event: SelectChangeEvent<unknown>) => {
-        setValue(event.target.value as string)
-        onChangeProps?.(event.target.value + '')
+    const handleChange = (e: SelectChangeEvent<unknown>) => {
+        setValue(e.target.value as string)
+        onChangeProps?.({ name: e.target.name, value: e.target.value + '' })
     }
 
     return (
@@ -44,7 +52,12 @@ const BasicSelect: FC<BasicSelectProps> = (props) => {
                     onChange={handleChange}
                     {...other}
                 >
-                    {children?.map(({ name, value, checked }) => {
+                    {placeholder && (
+                        <MenuItem disabled value=''>
+                            <em>{placeholder}</em>
+                        </MenuItem>
+                    )}
+                    {children?.map(({ name, value }, i) => {
                         return (
                             <MenuItem key={name} value={value}>
                                 {name}

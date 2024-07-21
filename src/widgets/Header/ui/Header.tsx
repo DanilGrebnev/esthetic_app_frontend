@@ -2,15 +2,14 @@ import { SearchInput } from '@/entities/posts'
 import { UserProfileIcon } from '@/features/user'
 
 import { LeftNavigationGroup } from './LeftNavigationGroup'
-
-const url = 'http://88.87.85.167:15551/api/'
+import s from './s.module.sass'
 
 export const Header = () => {
     return (
-        <header className='sticky top-0 z-[1000] flex gap-[--global-gap] border-b-[1px] border-solid border-[silver] bg-[--theme-bg-color-1] p-[10px]'>
+        <header className={s.header}>
             <LeftNavigationGroup />
             <SearchInput />
-            <div className='flex grow justify-end'>
+            <div className={s['user-bar']}>
                 <UserProfileIcon />
             </div>
         </header>

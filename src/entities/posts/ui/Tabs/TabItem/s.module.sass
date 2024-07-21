@@ -1,0 +1,26 @@
+.tab-item
+    padding: 10px
+    cursor: pointer
+    display: flex
+    align-items: center
+    gap: 5px
+    border-radius: var(--global-border-radius)
+    transition: .3s
+
+    &:hover
+        background: rgb(0 0 0 / 10%)
+
+    &.active
+        background: black
+        color: white
+
+        .block
+            border-color: white
+                    
+
+.block
+    width: 15px
+    border: 1px solid black
+    height: min-content
+    border-radius: 5px
+

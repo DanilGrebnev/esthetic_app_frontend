@@ -24,7 +24,6 @@ export const useOutsideClick: TUseOutsideClick = (
     }, [handler])
 
     useEffect(() => {
-        console.log('Сработал useOutside')
         if (!attached) return
         const handleClick = (e: any) => {
             if (!elementRef.current) return

@@ -3,12 +3,13 @@
 
     /* base color-palette */
     --text-palette-1: black;
+    --border-color-1: rgb(0 0 0 / 10%);
 
     /* theme palette */
     --theme-bg-color-1: white;
 
     /* rounded */
-    --global-border-radius: 20px;
+    --global-border-radius: 10px;
     --global-gap: 20px;
 
     /*effects */

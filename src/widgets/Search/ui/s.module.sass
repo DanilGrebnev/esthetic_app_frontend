@@ -1,0 +1,29 @@
+$bg: rgba(0 0 0 / 10%)
+
+.search-wrapper
+    display: flex
+    width: fit-content
+    overflow: hidden
+    border-radius: var(--global-border-radius)
+    
+
+.input
+    background: $bg
+    height: 48px
+    width: 200px
+    padding-right: 10px
+    outline: none
+    transition: .5s cubic-bezier(0.68,-0.55,0.27,1.55)
+    
+
+    &:focus
+        width: 500px
+
+
+.left-side
+    display: flex
+    align-items: center
+    jusify-content: center
+    padding-left: 10px
+    padding-right: 10px
+    background: $bg
