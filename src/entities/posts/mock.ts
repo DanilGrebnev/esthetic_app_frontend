@@ -13,7 +13,7 @@ const t7 = `${path}t7.jpg`
 const t8 = `${path}t8.jpg`
 const t9 = `${path}t9.jpg`
 const t10 = `${path}t10.jpg`
-console.log(path)
+
 const asp = ['9/16', '2/3', '3/4', '4/5', '1/1']
 const imgs = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10] as any as string[]
 

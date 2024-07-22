@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { ChangeEvent, type DragEvent, useRef, useState } from 'react'
 
 import { usePostsSliceActions } from '../../model/slice'
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 export const UploadPostsContentWindow = () => {
     const [isOver, setIsOver] = useState<boolean>(false)

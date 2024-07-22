@@ -1,16 +1,29 @@
 :root {
     --container-width: 1600px;
 
-    /* base color-palette */
-    --text-palette-1: black;
+    /* base palette */
     --border-color-1: rgb(0 0 0 / 10%);
+
+    /*TEXT*/
+    /*main text colors*/
+    --text-palette-1: black;
+
+    /*inputs texts colors*/
+    --inputs-text-color-1: rgb(0 0 0 / 60%);
+
+    /*=====BACKGROUNDS=====*/
+    /*inputs bg*/
+    --inputs-bg-1: rgb(0 0 0 / 6%);
+    --inputs-bg-2: rgb(0 0 0 / 9%);
 
     /* theme palette */
     --theme-bg-color-1: white;
 
+    /*gap's*/
+    --global-gap: 20px;
+
     /* rounded */
     --global-border-radius: 10px;
-    --global-gap: 20px;
 
     /*effects */
     --global-btn-hover: rgba(0 0 0 / 5%);

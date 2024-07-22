@@ -10,7 +10,7 @@ import {
 import { StyledEngineProvider } from '@mui/material/styles'
 import { type FC, useId, useState } from 'react'
 
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 type MenuItem = { name: string; value: string; checked?: boolean }
 
@@ -28,6 +28,7 @@ const BasicSelect: FC<BasicSelectProps> = (props) => {
         label,
         children,
         placeholder,
+        variant,
         onChange: onChangeProps,
         ...other
     } = props
@@ -42,7 +43,11 @@ const BasicSelect: FC<BasicSelectProps> = (props) => {
 
     return (
         <StyledEngineProvider injectFirst>
-            <FormControl className={s.select} fullWidth>
+            <FormControl
+                className={s.select}
+                variant='filled'
+                fullWidth
+            >
                 <InputLabel id={id}>{label}</InputLabel>
                 <Select
                     labelId={id}
@@ -53,13 +58,19 @@ const BasicSelect: FC<BasicSelectProps> = (props) => {
                     {...other}
                 >
                     {placeholder && (
-                        <MenuItem disabled value=''>
+                        <MenuItem
+                            disabled
+                            value=''
+                        >
                             <em>{placeholder}</em>
                         </MenuItem>
                     )}
                     {children?.map(({ name, value }, i) => {
                         return (
-                            <MenuItem key={name} value={value}>
+                            <MenuItem
+                                key={name}
+                                value={value}
+                            >
                                 {name}
                             </MenuItem>
                         )

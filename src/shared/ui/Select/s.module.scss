@@ -1,0 +1,20 @@
+.select {
+    & :global .MuiInputBase-root {
+        border-radius: var(--global-border-radius);
+        &:hover {
+            &::before,
+            &::after {
+                border: none;
+            }
+        }
+
+        &::before,
+        &::after {
+            border: none;
+        }
+    }
+
+    & :global .MuiFormLabel-root.Mui-focused {
+        color: black;
+    }
+}
