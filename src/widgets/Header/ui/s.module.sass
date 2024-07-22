@@ -11,3 +11,20 @@
     display: flex
     flex-grow: 1
     justify-content: end
+
+@media screen and (max-width: 550px)
+    .nav-group
+        grid-area: nav-group
+    
+    .search
+        grid-area: search
+        width: 100%
+        input
+            max-width: 100%
+    
+    .user-bar
+        grid-area: user-bar
+    
+    .header
+        display: grid
+        grid-template-areas:  'nav-group user-bar' 'search search'

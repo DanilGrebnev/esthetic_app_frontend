@@ -2,6 +2,12 @@
     transition: 0.2s
     outline: none
     user-select: none
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: var(--global-border-radius)
+    padding: 0 15px
+
     &:not([disabled])
         &:active
             scale: 0.9
@@ -13,3 +19,9 @@
                 background: var(--global-btn-hover)
     &:disabled
         opacity: 50%
+
+.h-full
+    min-height: 100%
+
+.h-content
+    height: max-content

@@ -1,8 +1,6 @@
 'use client'
 
 import clsx from 'clsx'
-import { nanoid } from 'nanoid'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { type ButtonHTMLAttributes, type FC } from 'react'
 
@@ -39,10 +37,9 @@ export const Button: FC<ButtonProps> = (props) => {
                 onClick?.(e)
             }}
             className={clsx(
-                'flex items-center justify-center rounded-[--global-border-radius] px-[15px]',
                 {
-                    'min-h-full': heightSize === 'full',
-                    'h-max': heightSize === 'content',
+                    [s['h-full']]: heightSize === 'full',
+                    [s['h-content']]: heightSize === 'content',
                     [s.active]: active,
                 },
                 s.btn,
@@ -55,4 +52,4 @@ export const Button: FC<ButtonProps> = (props) => {
     )
 }
 
-// function test(props) {}
+Button.displayName = 'Button'

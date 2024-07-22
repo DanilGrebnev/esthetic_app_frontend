@@ -2,15 +2,21 @@
 
 import { readFile } from '@/shared/utils/readFile'
 import clsx from 'clsx'
-import { type DragEvent, useState } from 'react'
+import { ChangeEvent, type DragEvent, useRef, useState } from 'react'
 
 import { usePostsSliceActions } from '../../model/slice'
-import { UploadPostsContentBtn } from '../UploadPostsContentBtn'
 import s from './s.module.sass'
 
 export const UploadPostsContentWindow = () => {
     const [isOver, setIsOver] = useState<boolean>(false)
     const setFile = usePostsSliceActions().setFileData
+
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+        const result = await readFile(e.target.files?.[0])
+        setFile(result)
+    }
 
     const onDrop = async (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault()
@@ -36,6 +42,10 @@ export const UploadPostsContentWindow = () => {
         setIsOver(false)
     }
 
+    const onClick = () => {
+        inputRef.current?.click()
+    }
+
     return (
         <div
             className={clsx(s.upload, { [s['drop-zone-over']]: isOver })}
@@ -43,8 +53,17 @@ export const UploadPostsContentWindow = () => {
             onDragEnter={onDragEnter}
             onDragLeave={onDragLeave}
             onDragOver={onDragOver}
+            onClick={onClick}
         >
-            <UploadPostsContentBtn />
+            <p>Нажмите для выбора или перетащите нужный файл</p>
+            <input
+                onChange={onChange}
+                ref={inputRef}
+                name='img'
+                accept='image/*'
+                type='file'
+                hidden={true}
+            />
         </div>
     )
 }

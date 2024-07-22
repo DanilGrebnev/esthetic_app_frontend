@@ -1,8 +1,7 @@
 'use client'
 
-import { calculateHeightForAspectRatio } from '@/shared/utils/calculateHeightForAspectRatio'
 import Image from 'next/image'
-import { FC, useLayoutEffect, useState } from 'react'
+import { type FC, useState } from 'react'
 
 import { useGetPostsImageSelector } from '../../model/slice'
 import { Tabs } from '../Tabs'
