@@ -1,12 +1,8 @@
-'use client'
-
-import { ResponsiveMasonry } from '@/shared/ui/ResponsiveMasonry'
-import clsx from 'clsx'
 import { type FC } from 'react'
 
 import { mock } from '../../mock'
 import { PostsCard } from '../PostsCard'
-import s from './s.module.sass'
+import { PostsListMasonryContainer } from '../PostsListMasonryContainer'
 
 interface PostsListProps {
     className?: string
@@ -14,20 +10,15 @@ interface PostsListProps {
 
 export const PostsList: FC<PostsListProps> = ({ className }) => {
     return (
-        <ResponsiveMasonry
-            className={clsx('container', className)}
-            columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 4, 900: 5 }}
-            gutter='10px'
-        >
+        <PostsListMasonryContainer className={className}>
             {mock.map(({ url, aspect }, i) => (
                 <PostsCard
-                    className={s.card}
+                    key={url}
                     url={url}
                     name={'test_name'}
                     aspect={aspect}
-                    key={i}
                 />
             ))}
-        </ResponsiveMasonry>
+        </PostsListMasonryContainer>
     )
 }

@@ -18,23 +18,9 @@ interface PostCardProps {
 
 export const PostsCard: FC<PostCardProps> = (props) => {
     const { url, name, aspect = '9/16', className } = props
-    // const [height, setHeight] = useState<string>('')
-
-    // const cardRef = useRef<HTMLDivElement>(null)
-
-    // useEffect(() => {
-    //     if (!cardRef.current) return
-    //     const height = calculateHeightForAspectRatio(
-    //         aspect,
-    //         cardRef?.current?.offsetWidth,
-    //     )
-
-    //     setHeight(height + 'px')
-    // }, [aspect])
 
     return (
         <div
-            // ref={cardRef}
             className={clsx(s.card, className)}
             style={{ aspectRatio: aspect }}
         >

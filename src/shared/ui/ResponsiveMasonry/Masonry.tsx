@@ -1,4 +1,6 @@
-import { FC, type ReactNode } from 'react'
+'use client'
+
+import { type FC, type ReactNode } from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 type ResponsiveMasonryWrapper = Parameters<typeof ResponsiveMasonry>[0] &
