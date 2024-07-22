@@ -14,16 +14,19 @@ export const UploadPostsContentWindow = () => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-        const result = await readFile(e.target.files?.[0])
-        setFile(result)
+        readFile(e.target.files?.[0]).then((file) => {
+            setFile(file as string)
+        })
     }
 
     const onDrop = async (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault()
         e.stopPropagation()
 
-        const file = await readFile(e.dataTransfer.files[0])
-        setFile(file)
+        readFile(e.dataTransfer.files[0]).then((file) => {
+            setFile(file as string)
+        })
+
         setIsOver(false)
     }
 

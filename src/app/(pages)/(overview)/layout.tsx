@@ -1,12 +1,15 @@
 import { type Layout } from '@/shared/types/layout'
 import { Header } from '@/widgets/Header'
+import clsx from 'clsx'
 import { type FC } from 'react'
+
+import s from './s.module.scss'
 
 const OverviewLayout: FC<Layout> = ({ children }) => {
     return (
-        <section className='App flex min-h-screen flex-col justify-between'>
+        <section className={clsx('App', s.overview)}>
             <Header />
-            <main className='flex grow flex-col'>{children}</main>
+            <main className={s.main}>{children}</main>
         </section>
     )
 }

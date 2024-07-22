@@ -3,14 +3,18 @@
 import Image from 'next/image'
 import { type FC, useState } from 'react'
 
-import { useGetPostsImageSelector } from '../../model/slice'
+import {
+    useGetPostsImageSelector,
+    usePostsSliceActions,
+} from '../../model/slice'
 import { Tabs } from '../Tabs'
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 interface PreviewImageProps {}
 
 export const PreviewImageRedactor: FC<PreviewImageProps> = () => {
-    const image = useGetPostsImageSelector() as string
+    const image = useGetPostsImageSelector()
+    const action = usePostsSliceActions()
 
     const [aspect, setAspect] = useState<string>('9/16')
 
@@ -34,6 +38,12 @@ export const PreviewImageRedactor: FC<PreviewImageProps> = () => {
                     src={image}
                     fill={true}
                 />
+                <div
+                    onClick={action.deleteFileData}
+                    className={s.delete}
+                >
+                    Удалить
+                </div>
             </div>
         </div>
     )

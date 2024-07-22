@@ -4,14 +4,14 @@
     /* base palette */
     --border-color-1: rgb(0 0 0 / 10%);
 
-    /*TEXT*/
+    /* ===== TEXT ===== */
     /*main text colors*/
     --text-palette-1: black;
 
     /*inputs texts colors*/
     --inputs-text-color-1: rgb(0 0 0 / 60%);
 
-    /*=====BACKGROUNDS=====*/
+    /* ===== BACKGROUNDS ===== */
     /*inputs bg*/
     --inputs-bg-1: rgb(0 0 0 / 6%);
     --inputs-bg-2: rgb(0 0 0 / 9%);
@@ -20,7 +20,7 @@
     --theme-bg-color-1: white;
 
     /*gap's*/
-    --global-gap: 20px;
+    --global-gap: 10px;
 
     /* rounded */
     --global-border-radius: 10px;

@@ -2,18 +2,17 @@ import { createSelectorHooks } from 'auto-zustand-selectors-hook'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
-import { File } from '../../types'
-
 type PostsState = {
     postsData: {
         name: string
         description: string
         link: string
-        image: File
+        image: string
         dashboard: string
     }
     setPostsData: (name: string, value: string) => void
-    setFileData: (file: File) => void
+    setFileData: (file: string) => void
+    deleteFileData: () => void
 }
 
 export const usePostsSlice = create<PostsState>()(
@@ -36,6 +35,11 @@ export const usePostsSlice = create<PostsState>()(
                 state.postsData.image = file
             })
         },
+        deleteFileData() {
+            set((state) => {
+                state.postsData.image = ''
+            })
+        },
     })),
 )
 
@@ -47,5 +51,6 @@ export const usePostsSliceActions = () => {
     return {
         setPostsData: usePostsSlice((state) => state.setPostsData),
         setFileData: usePostsSlice((state) => state.setFileData),
+        deleteFileData: usePostsSlice((state) => state.deleteFileData),
     }
 }

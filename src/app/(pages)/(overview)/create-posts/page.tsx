@@ -1,5 +1,4 @@
-import { CreatePostForm, UploadPostsContentWindow } from '@/entities/posts'
-import clsx from 'clsx'
+import { CreatePostForm } from '@/entities/posts'
 
 import s from './s.module.sass'
 
@@ -10,9 +9,7 @@ export default function CreatePosts() {
                 <p>Создание пина</p>
                 <button className={s['submit-btn']}>Опубликовать</button>
             </header>
-            <section className={clsx(s.section)}>
-                <CreatePostForm />
-            </section>
+            <CreatePostForm />
         </div>
     )
 }

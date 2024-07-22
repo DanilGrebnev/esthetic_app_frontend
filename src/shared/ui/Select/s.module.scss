@@ -1,6 +1,8 @@
 .select {
     & :global .MuiInputBase-root {
         border-radius: var(--global-border-radius);
+        overflow: hidden;
+
         &:hover {
             &::before,
             &::after {
