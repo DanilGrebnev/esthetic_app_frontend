@@ -1,7 +1,7 @@
 import { getRandomElementFromArray as ran } from '@/shared/utils/getRandomElementFromArr'
 
 const port = process.env.NEXT_PUBLIC_PORT
-const path = `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_HOSTNAME}${port && ':' + port}/assets/`
+const path = `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_HOSTNAME}${port ? ':' + port : ''}/assets/`
 
 const t1 = `${path}t1.jpg`
 const t2 = `${path}t2.jpg`
