@@ -32,7 +32,10 @@ export const CreatePostForm = () => {
     )
 
     return (
-        <form className={s.form} onSubmit={submit}>
+        <form
+            className={s.form}
+            onSubmit={submit}
+        >
             <div className={s['left-col']}>
                 {!data.image ? (
                     <UploadPostsContentWindow />

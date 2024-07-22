@@ -12,7 +12,10 @@ export const SearchInput: FC<SearchInputProps> = ({ className }) => {
     return (
         <div className={clsx(s['search-wrapper'], className)}>
             <LeftSideWithIcon className={s['left-side']} />
-            <input placeholder='Поиск' className={s.input} />
+            <input
+                placeholder='Поиск'
+                className={s.input}
+            />
         </div>
     )
 }

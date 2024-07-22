@@ -1,3 +1,1 @@
-export type StoreType = {
-    
-}
+export type StoreType = {}
