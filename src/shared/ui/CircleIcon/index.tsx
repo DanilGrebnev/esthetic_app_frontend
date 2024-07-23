@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { type FC, type MouseEvent, type ReactNode } from 'react'
 
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 interface CircleIconProps {
     children?: ReactNode
@@ -23,15 +23,9 @@ export const CircleIcon: FC<CircleIconProps> = (props) => {
             onClick={(e) => {
                 href ? router.push(href) : onClick?.(e)
             }}
-            className={clsx(
-                `flex h-[48px] w-[48px] items-center justify-center rounded-full outline-none duration-[.3s]`,
-                s.icon,
-                className,
-            )}
+            className={clsx(s['icon-wrapper'], className)}
         >
-            <div className='flex h-[24px] w-[24px] items-center justify-center overflow-hidden'>
-                {children}
-            </div>
+            <div className={s.icon}>{children}</div>
         </button>
     )
 }

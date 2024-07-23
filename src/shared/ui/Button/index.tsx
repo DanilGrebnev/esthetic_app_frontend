@@ -4,15 +4,15 @@ import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
 import { type ButtonHTMLAttributes, type FC } from 'react'
 
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string
     active?: boolean
     heightSize?: 'full' | 'content'
     href?: string
+    variant?: 'standart' | 'red'
 }
-
 /**
  * Кнопка, которая так же может быть использована для мягкой навигации
  * @example <Button href="some href to navigate" />
@@ -23,6 +23,7 @@ export const Button: FC<ButtonProps> = (props) => {
         className,
         heightSize = 'content',
         active,
+        variant = 'standart',
         href,
         onClick,
         ...other
@@ -37,12 +38,13 @@ export const Button: FC<ButtonProps> = (props) => {
                 onClick?.(e)
             }}
             className={clsx(
+                s.btn,
+                s[variant],
                 {
                     [s['h-full']]: heightSize === 'full',
                     [s['h-content']]: heightSize === 'content',
                     [s.active]: active,
                 },
-                s.btn,
                 className,
             )}
             {...other}

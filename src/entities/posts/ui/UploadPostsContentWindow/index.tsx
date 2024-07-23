@@ -1,72 +1,26 @@
 'use client'
 
-import { readFile } from '@/shared/utils/readFile'
-import clsx from 'clsx'
-import { ChangeEvent, type DragEvent, useRef, useState } from 'react'
+import { UploadFiles } from '@/shared/ui/UploadFile'
+import { type FC } from 'react'
 
 import { usePostsSliceActions } from '../../model/slice'
-import s from './s.module.scss'
 
-export const UploadPostsContentWindow = () => {
-    const [isOver, setIsOver] = useState<boolean>(false)
-    const setFile = usePostsSliceActions().setFileData
+interface Props {
+    className?: string
+}
 
-    const inputRef = useRef<HTMLInputElement>(null)
+export const UploadPostsContentWindow: FC<Props> = ({ className }) => {
+    const actions = usePostsSliceActions()
 
-    const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-        readFile(e.target.files?.[0]).then((file) => {
-            setFile(file as string)
-        })
-    }
-
-    const onDrop = async (e: DragEvent<HTMLDivElement>) => {
-        e.preventDefault()
-        e.stopPropagation()
-
-        readFile(e.dataTransfer.files[0]).then((file) => {
-            setFile(file as string)
-        })
-
-        setIsOver(false)
-    }
-
-    const onDragOver = (e: DragEvent<HTMLDivElement>) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setIsOver(true)
-    }
-
-    const onDragEnter = (e: DragEvent<HTMLDivElement>) => {
-        e.preventDefault()
-        e.stopPropagation()
-    }
-
-    const onDragLeave = (e: DragEvent<HTMLDivElement>) => {
-        setIsOver(false)
-    }
-
-    const onClick = () => {
-        inputRef.current?.click()
+    const onChange = (file: string) => {
+        actions.setFileData(file)
     }
 
     return (
-        <div
-            className={clsx(s.upload, { [s['drop-zone-over']]: isOver })}
-            onDrop={onDrop}
-            onDragEnter={onDragEnter}
-            onDragLeave={onDragLeave}
-            onDragOver={onDragOver}
-            onClick={onClick}
-        >
-            <p>Нажмите для выбора или перетащите нужный файл</p>
-            <input
-                onChange={onChange}
-                ref={inputRef}
-                name='img'
-                accept='image/*'
-                type='file'
-                hidden={true}
-            />
-        </div>
+        <UploadFiles
+            placeholder={'Нажмите для выбора или перетащите нужный файл'}
+            className={className}
+            onChange={onChange}
+        />
     )
 }

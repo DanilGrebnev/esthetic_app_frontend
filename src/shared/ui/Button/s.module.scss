@@ -1,0 +1,55 @@
+%in-touches {
+    scale: 0.95;
+}
+
+.btn {
+    transition: 0.3s var(--cubic-bezier-1);
+    outline: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--global-border-radius);
+    padding: 10px 20px;
+    color: black;
+    font-weight: 400;
+
+    &:disabled {
+        opacity: 50%;
+    }
+}
+
+// Стандартный вариант кнопки
+.standart {
+    &:not([disabled]) {
+        &:active {
+            @extend %in-touches;
+        }
+        &.active {
+            color: white;
+            background: black;
+        }
+        &:hover:not(.active) {
+            background: var(--global-btn-hover);
+        }
+    }
+}
+
+// Красный вариант кнопки
+.red {
+    background: red;
+    color: white;
+
+    &:not([disabled]) {
+        &:active {
+            @extend %in-touches;
+        }
+    }
+}
+
+.h-full {
+    min-height: 100%;
+}
+.h-content {
+    height: max-content;
+}
