@@ -3,33 +3,42 @@
     --container-width-2: 1000px;
     --container-width-3: 600px;
 
-    /* base palette */
+    /* ===== COLORS ===== */
+    --theme-bg-color-1: white;
+
+    --text-palette-main: black;
+    --text-palette-2:#767676;
+
+
+    --box-bg-1: #e9e9e9;
+
+    --inputs-text-color-1: rgb(0 0 0 / 60%);
+    --inputs-bg-1: rgb(0 0 0 / 6%);
+    --inputs-bg-hover: rgb(0 0 0 / 9%);
+
     --border-color-1: rgb(0 0 0 / 10%);
 
     /* ===== TEXT ===== */
-    /*main text colors*/
-    --text-palette-1: black;
+    --font-100: 12px;
+    --font-200: 14px;
+    --font-300: 16px;
+    --font-400: 20px;
+    --font-500: 28px;
+    --font-600: 36px;
 
-    /*inputs texts colors*/
-    --inputs-text-color-1: rgb(0 0 0 / 60%);
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
 
-    /* ===== BACKGROUNDS ===== */
-    /*inputs bg*/
-    --inputs-bg-1: rgb(0 0 0 / 6%);
-    --inputs-bg-2: rgb(0 0 0 / 9%);
-
-    /* theme palette */
-    --theme-bg-color-1: white;
-
-    /*gap's*/
+    /* ===== GAP'S ===== */
     --global-gap: 10px;
 
-    /* rounded */
+    /* ===== ROUNDED ===== */
     --global-border-radius: 10px;
 
-    /*effects */
+    /* ===== EFFECTS ===== */
     --global-btn-hover: rgba(0 0 0 / 5%);
 
-    /*cubic-bezier*/
-    --cubic-bezier-1: cubic-bezier(.22,.68,0,1.71);
+    /* ===== CUBIC-BEZIER ===== */
+    --cubic-bezier-1: cubic-bezier(0.22, 0.68, 0, 1.71);
 }

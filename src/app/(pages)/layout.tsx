@@ -1,11 +1,10 @@
+import { inter } from '@/shared/fonts'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 
 import { AppProvider } from '../providers/AppProvider'
 import '../styles/globals.css'
+import '../styles/reset.css'
 import '../styles/root.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
     title: 'Esthetic',
@@ -19,7 +18,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='ru'>
-            <body className={inter.className}>
+            <body>
                 <AppProvider>{children}</AppProvider>
             </body>
         </html>

@@ -1,0 +1,25 @@
+.tiles-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title {
+    font-size: var(--font-400);
+    color: var(--text-palette-main);
+}
+
+.footer {
+    display: flex;
+    gap: 5px;
+    font-size: var(--font-100);
+    font-weight: var(--font-weight-normal);
+}
+
+.count {
+    color: var(--text-palette-main);
+}
+
+.date {
+    color: var(--text-palette-2);
+}

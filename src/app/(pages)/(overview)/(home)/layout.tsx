@@ -1,5 +1,5 @@
-import { Layout as ILayout } from '@/shared/types/layout'
+import { Layout } from '@/shared/ui/Layout'
 
-export default function Layout({ children }: ILayout) {
-    return children
-}
+const HomeLayout = Layout
+
+export default HomeLayout

@@ -1,5 +1,1 @@
-const Profile = () => {
-    return <div>User Page</div>
-}
-
-export default Profile
+export { Profile as default } from '@/views'

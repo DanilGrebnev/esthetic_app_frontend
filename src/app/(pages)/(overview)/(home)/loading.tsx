@@ -1,5 +1,7 @@
 import { PostsListLoader } from '@/entities/posts'
 
-export default function Loading() {
+const Loading = () => {
     return <PostsListLoader />
 }
+
+export default Loading

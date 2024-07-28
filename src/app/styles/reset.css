@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: normal;
+
+}
+
+button, input {
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+button {
+    cursor: pointer;
+    user-select: none;
+}

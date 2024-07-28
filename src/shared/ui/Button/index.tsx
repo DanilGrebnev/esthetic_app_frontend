@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     active?: boolean
     heightSize?: 'full' | 'content'
     href?: string
-    variant?: 'standart' | 'red'
+    variant?: 'standart' | 'red' | 'silver'
 }
 /**
  * Кнопка, которая так же может быть использована для мягкой навигации

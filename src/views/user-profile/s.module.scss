@@ -1,0 +1,62 @@
+$gap: 10px;
+
+.profile {
+    //border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+    min-height: 100vh;
+    line-height: 1;
+}
+
+.user-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    gap: $gap;
+    width: max-content;
+}
+
+.full-name {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-600);
+}
+
+.username {
+    font-size: var(--font-200);
+}
+
+.subscriptions {
+    font-size: var(--font-300);
+}
+
+.btn-group {
+    display: flex;
+    align-self: center;
+    gap: 10px;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    border-radius: 100%;
+    background: rgb(0 0 0 / 10%);
+    width: 100px;
+    height: 100px;
+    color: white;
+    font-size: 30px;
+}
+
+.dashboard-list {
+    display: flex;
+    gap: var(--global-gap);
+    overflow: auto;
+}
+
+.saved-dashboard {
+    display: flex;
+    gap: 10px;
+}

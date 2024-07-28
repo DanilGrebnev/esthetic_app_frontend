@@ -1,11 +1,11 @@
 import DownloadIcon from '@/shared/assets/download-icon.svg'
 import clsx from 'clsx'
-import { type FC, HTMLAttributes, type ReactNode } from 'react'
+import type { FC, HTMLAttributes } from 'react'
 
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 const variants = {
-    download: <DownloadIcon className='h-[20px] w-[20px] stroke-[2px]' />,
+    download: <DownloadIcon className={s['download-icon']} />,
 }
 
 interface CardCircleIconProps extends HTMLAttributes<HTMLAnchorElement> {
@@ -15,7 +15,7 @@ interface CardCircleIconProps extends HTMLAttributes<HTMLAnchorElement> {
     name: string
 }
 
-export const CardCircleIcon: FC<CardCircleIconProps> = (props) => {
+export const CircleButton: FC<CardCircleIconProps> = (props) => {
     const { variant = 'download', name, href, className, ...other } = props
 
     return (

@@ -12,7 +12,8 @@
     border-radius: var(--global-border-radius);
     padding: 10px 20px;
     color: black;
-    font-weight: 400;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-300);
 
     &:disabled {
         opacity: 50%;
@@ -44,6 +45,15 @@
         &:active {
             @extend %in-touches;
         }
+    }
+}
+
+.silver {
+    background: rgb(0 0 0 / 10%);
+    color: black;
+
+    &:hover {
+        background: rgb(0 0 0 / 15%);
     }
 }
 

@@ -1,6 +1,11 @@
 .input {
     & :global .MuiInputBase-root {
         border-radius: var(--global-border-radius);
+        background: var(--inputs-bg-1);
+
+        &:hover {
+            background: var(--inputs-bg-hover);
+        }
 
         &::before,
         &::after,

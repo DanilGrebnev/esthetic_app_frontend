@@ -7,7 +7,7 @@ import { ChangeEvent, FormEvent, useCallback } from 'react'
 import { usePostsSlice } from '../../model/slice'
 import { PreviewImageRedactor } from '../PreviewImageRedactor'
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 const selectOptions = [
     { name: 'one', value: 'one' },

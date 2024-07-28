@@ -1,5 +1,1 @@
-import { PostsList } from '@/entities/posts'
-
-export default function Home() {
-    return <PostsList />
-}
+export { Home as default } from '@/views'

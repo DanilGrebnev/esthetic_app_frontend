@@ -1,6 +1,7 @@
 'use client'
 
 import { Input } from '@/shared/ui/Input'
+
 import s from './s.module.scss'
 
 export const RegistrationForm = () => {

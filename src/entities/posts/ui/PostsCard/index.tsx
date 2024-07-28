@@ -1,13 +1,12 @@
 'use client'
 
-// import { calculateHeightForAspectRatio } from '@/shared/utils/calculateHeightForAspectRatio'
+import { SavePostsButton } from '@/entities/posts/ui/SavePostsButton'
+import { CircleButton } from '@/shared/ui/CircleButton'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC, useEffect, useRef, useState } from 'react'
+import { type FC } from 'react'
 
-import { CardCircleIcon } from '../CardCircleIcon'
-import { SavePostsButton } from '../SavePostsButton'
-import s from './s.module.sass'
+import s from './s.module.scss'
 
 interface PostCardProps {
     url: string
@@ -25,8 +24,8 @@ export const PostsCard: FC<PostCardProps> = (props) => {
             style={{ aspectRatio: aspect }}
         >
             <div className={s['button-group']}>
-                <SavePostsButton />
-                <CardCircleIcon
+                <SavePostsButton className={s['save-btn']} />
+                <CircleButton
                     href={url}
                     name={name}
                     variant='download'

@@ -1,9 +1,19 @@
 'use client'
 
-export const SavePostsButton = () => {
+import { Button } from '@/shared/ui/Button'
+import { type FC } from 'react'
+
+interface ISavePostsButton {
+    className?: string
+}
+
+export const SavePostsButton: FC<ISavePostsButton> = ({ className }) => {
     return (
-        <button className='absolute right-[10px] top-[10px] z-[2] select-none rounded-[--global-border-radius] bg-[red] px-[12px] py-[6px] text-[white] outline-none transition-[.3] active:scale-[.9]'>
+        <Button
+            variant='red'
+            className={className}
+        >
             Сохранить
-        </button>
+        </Button>
     )
 }
