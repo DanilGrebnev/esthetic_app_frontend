@@ -7,10 +7,6 @@ $hover: var(--inputs-bg-hover);
     transition: 0.3s;
     border-radius: var(--global-border-radius);
     overflow: hidden;
-
-    &:hover {
-        background: $hover;
-    }
 }
 
 .input {

@@ -1,24 +1,10 @@
 *{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: 500;
+    font-weight: var(--font-weight-normal);
 }
 
 html,
 body {
     max-width: 100vw !important;
     min-height: 100vh !important;
-}
-
-.container {
-    max-width: var(--container-width);
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-@media screen and (max-width: 1600px) {
-    .container {
-        padding-right: 10px;
-        padding-left: 10px;
-    }
 }

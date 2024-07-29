@@ -1,12 +1,12 @@
 .form {
     display: flex;
     flex-grow: 1;
-    gap: 20px;
+    gap: var(--global-gap-2);
     margin: 0 auto;
-    padding: var(--global-gap);
     width: 100%;
     max-width: 1000px;
 }
+
 .left-col {
     display: flex;
     justify-content: center;

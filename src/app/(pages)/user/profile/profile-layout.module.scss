@@ -1,20 +1,13 @@
 $gap: 10px;
 
-.profile {
-    //border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
-    min-height: 100vh;
-    line-height: 1;
-}
-
-.user-header {
+.header {
     display: flex;
     flex-direction: column;
     align-items: center;
     align-self: center;
     gap: $gap;
+    margin: 0 auto;
+    margin-bottom: var(--maring-l);
     width: max-content;
 }
 
@@ -37,6 +30,11 @@ $gap: 10px;
     gap: 10px;
 }
 
+.navigation-group {
+    display: flex;
+    margin-top: var(--maring-l);
+}
+
 .avatar {
     display: flex;
     justify-content: center;
@@ -48,15 +46,4 @@ $gap: 10px;
     height: 100px;
     color: white;
     font-size: 30px;
-}
-
-.dashboard-list {
-    display: flex;
-    gap: var(--global-gap);
-    overflow: auto;
-}
-
-.saved-dashboard {
-    display: flex;
-    gap: 10px;
 }

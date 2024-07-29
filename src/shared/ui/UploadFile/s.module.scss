@@ -1,17 +1,17 @@
 .upload {
-    width: 70%;
-    aspect-ratio: 1 / 1;
-    border-radius: var(--global-border-radius);
     display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    overflow: hidden;
-    text-align: center;
-    cursor: pointer;
+    justify-content: center;
+    align-items: center;
     transition: 0.3s;
+    cursor: pointer;
+    border-radius: var(--global-border-radius);
     background: var(--inputs-bg-1);
+    aspect-ratio: 1 / 1;
+    width: 70%;
+    overflow: hidden;
     color: var(--inputs-text-color-1);
+    text-align: center;
 
     &:hover,
     &.drop-zone-over {

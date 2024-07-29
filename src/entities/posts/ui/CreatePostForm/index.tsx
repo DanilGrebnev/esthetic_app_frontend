@@ -1,5 +1,6 @@
 'use client'
 
+import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { Select } from '@/shared/ui/Select'
 import { ChangeEvent, FormEvent, useCallback } from 'react'
@@ -32,57 +33,59 @@ export const CreatePostForm = () => {
     )
 
     return (
-        <form
-            className={s.form}
-            onSubmit={submit}
-        >
-            <div className={s['left-col']}>
-                {!data.image ? (
-                    <UploadPostsContentWindow />
-                ) : (
-                    <PreviewImageRedactor />
-                )}
-            </div>
-            <div className={s['right-col']}>
-                <Input
-                    id='outlined-basic'
-                    label='Название'
-                    placeholder='Добавить название'
-                    variant='outlined'
-                    name='name'
-                    onChange={onChange}
-                />
-                <Input
-                    id='outlined-basic'
-                    label='Добавить описание'
-                    placeholder='Добавьте подробное описание'
-                    multiline
-                    minRows={5}
-                    maxRows={10}
-                    variant='outlined'
-                    name='description'
-                    onChange={onChange}
-                />
-                <Input
-                    id='outlined-basic'
-                    label='Ссылка'
-                    placeholder='Добавить ссылку'
-                    variant='outlined'
-                    name='link'
-                    onChange={onChange}
-                />
+        <Container size='m'>
+            <form
+                className={s.form}
+                onSubmit={submit}
+            >
+                <div className={s['left-col']}>
+                    {!data.image ? (
+                        <UploadPostsContentWindow />
+                    ) : (
+                        <PreviewImageRedactor />
+                    )}
+                </div>
+                <div className={s['right-col']}>
+                    <Input
+                        id='outlined-basic'
+                        label='Название'
+                        placeholder='Добавить название'
+                        variant='outlined'
+                        name='name'
+                        onChange={onChange}
+                    />
+                    <Input
+                        id='outlined-basic'
+                        label='Добавить описание'
+                        placeholder='Добавьте подробное описание'
+                        multiline
+                        minRows={5}
+                        maxRows={10}
+                        variant='outlined'
+                        name='description'
+                        onChange={onChange}
+                    />
+                    <Input
+                        id='outlined-basic'
+                        label='Ссылка'
+                        placeholder='Добавить ссылку'
+                        variant='outlined'
+                        name='link'
+                        onChange={onChange}
+                    />
 
-                <Select
-                    onChange={({ name, value }) => {
-                        setPosts(name, value)
-                    }}
-                    label='Доска'
-                    placeholder='Выбрать доску'
-                    name='dashboard'
-                >
-                    {selectOptions}
-                </Select>
-            </div>
-        </form>
+                    <Select
+                        onChange={({ name, value }) => {
+                            setPosts(name, value)
+                        }}
+                        label='Доска'
+                        placeholder='Выбрать доску'
+                        name='dashboard'
+                    >
+                        {selectOptions}
+                    </Select>
+                </div>
+            </form>
+        </Container>
     )
 }

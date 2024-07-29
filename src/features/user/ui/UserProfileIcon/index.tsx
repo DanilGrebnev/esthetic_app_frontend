@@ -7,7 +7,7 @@ import s from './s.module.scss'
 
 export const UserProfileIcon = () => {
     return (
-        <CircleIcon href={routes.userProfile}>
+        <CircleIcon href={routes.userSavedPosts}>
             <div className={s.icon}>Д</div>
         </CircleIcon>
     )

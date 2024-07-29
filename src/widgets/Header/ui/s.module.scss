@@ -5,13 +5,15 @@
     gap: var(--global-gap);
     z-index: 1000;
     background: var(--theme-bg-color-1);
-    padding: 10px;
+    padding: var(--global-padding);
 }
+
 .user-bar {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
 }
+
 .search {
     width: 100%;
     max-width: 300px;
@@ -25,6 +27,7 @@
     .nav-group {
         grid-area: nav-group;
     }
+
     .search {
         grid-area: search;
         max-width: 100%;

@@ -32,6 +32,10 @@
 
     /* ===== GAP'S ===== */
     --global-gap: 10px;
+    --global-gap-2: 20px;
+
+    --maring-l: 50px;
+    --global-padding: 10px;
 
     /* ===== ROUNDED ===== */
     --global-border-radius: 10px;

@@ -11,7 +11,7 @@ interface PostsListProps {
 export const PostsList: FC<PostsListProps> = ({ className }) => {
     return (
         <PostsListMasonryContainer className={className}>
-            {mock.map(({ url, aspect }, i) => (
+            {mock.map(({ url, aspect }) => (
                 <PostsCard
                     key={url}
                     url={url}

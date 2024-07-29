@@ -1,10 +1,12 @@
 import { PostsList } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
 
-export const Home = () => {
+const CreatedPosts = () => {
     return (
         <Container>
             <PostsList />
         </Container>
     )
 }
+
+export default CreatedPosts
