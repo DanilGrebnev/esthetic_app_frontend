@@ -2,24 +2,32 @@
 
 import { TilesInfo } from '@/entities/posts/ui/Tiles/TilesInfo'
 import { type ITilesInfo } from '@/entities/posts/ui/Tiles/tyles-types'
+import { routes } from '@/shared/routes'
 import { clsx } from 'clsx'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { type FC, useEffect, useRef, useState } from 'react'
 
 import s from './tiles.module.scss'
 
 interface IAllPostsTile extends ITilesInfo {
     images: string[] | []
+    href: string
 }
 
 export const AllPostsTile: FC<IAllPostsTile> = (props) => {
-    const { className, images, ...other } = props
+    const { className, images, href, ...other } = props
     const [cardWidth, setCardWidth] = useState<number>(0)
     const [cardWrapperWidth, setCardWrapperWidth] = useState<number>(0)
+    const router = useRouter()
 
     const cardsAmount = 5 as const
     const cardRef = useRef<HTMLDivElement>(null)
     const cardWrapperRef = useRef<HTMLDivElement>(null)
+
+    const onClick = () => {
+        router.push(href)
+    }
 
     useEffect(() => {
         const card = cardRef?.current
@@ -41,7 +49,10 @@ export const AllPostsTile: FC<IAllPostsTile> = (props) => {
     }
 
     return (
-        <div className={clsx(s['all-posts-tile'], className)}>
+        <div
+            onClick={onClick}
+            className={clsx(s['all-posts-tile'], className)}
+        >
             <div
                 ref={cardWrapperRef}
                 className={s['all-posts__images-wrapper']}

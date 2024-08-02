@@ -9,7 +9,7 @@ import s from './s.module.scss'
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string
     active?: boolean
-    activeVariant?: 'active-standart' | 'active-underline'
+    activeVariant?: 'active-fill' | 'active-underline'
     heightSize?: 'full' | 'content'
     href?: string
     variant?: 'standart' | 'red' | 'silver'
@@ -25,7 +25,7 @@ export const Button: FC<ButtonProps> = (props) => {
         heightSize = 'content',
         active,
         variant = 'standart',
-        activeVariant = 'active-standart',
+        activeVariant = 'active-fill',
         href,
         onClick,
         ...other

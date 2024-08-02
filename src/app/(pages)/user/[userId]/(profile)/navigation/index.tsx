@@ -15,15 +15,15 @@ export const Navigation: FC<NavigationProps> = ({ className }) => {
     return (
         <div className={className}>
             <Button
-                href={routes.userCreatedPosts}
-                active={pathname === routes.userCreatedPosts}
+                href={routes.userCreatedPosts.getRoute('123')}
+                active={routes.userCreatedPosts.math(pathname)}
                 activeVariant='active-underline'
             >
                 Созданные
             </Button>
             <Button
-                href={routes.userSavedPosts}
-                active={pathname === routes.userSavedPosts}
+                href={routes.userSavedPosts.getRoute('321')}
+                active={routes.userSavedPosts.math(pathname)}
                 activeVariant='active-underline'
             >
                 Сохранённые

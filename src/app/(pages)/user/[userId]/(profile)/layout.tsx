@@ -1,23 +1,16 @@
-import { Navigation } from '@/app/(pages)/user/profile/navigation'
-import { routes } from '@/shared/routes'
-import { Layout } from '@/shared/types/layout'
+import { type Layout } from '@/shared/types/layout'
 import { Button } from '@/shared/ui/Button'
 import { type FC } from 'react'
 
+import { Navigation } from './navigation'
 import s from './profile-layout.module.scss'
 
 const UserLayout: FC<Layout> = ({ children }) => {
     return (
         <div id='User layout'>
-            <Button
-                href={routes.main}
-                variant='standart'
-            >
-                На главную
-            </Button>
             <header className={s.header}>
                 <div className={s.avatar}>Д</div>
-                <p className={s['full-name']}>Данил Гребнев</p>
+                <p className={s['full-name']}>Жора Ишчанов</p>
                 <p className={s['username']}>danilgrebnev60</p>
                 <p className={s.subscriptions}>0 подписок</p>
 

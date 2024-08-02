@@ -19,9 +19,9 @@ export const NavigationGroup: FC<INavigationGroup> = ({ className }) => {
         <div className={clsx(s['btn-nav-group'], className)}>
             <Button
                 className={s.home}
-                active={patch === routes.main}
+                active={routes.main.math(patch)}
                 heightSize='full'
-                href={routes.main}
+                href={routes.main.getRoute()}
             >
                 Главная
             </Button>
