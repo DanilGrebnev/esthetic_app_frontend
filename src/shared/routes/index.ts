@@ -1,7 +1,7 @@
 export const routes = {
     main: {
         getRoute: () => '/',
-        math: (route: string) => /\//.test(route),
+        math: (route: string) => route === '/',
     },
 
     createPost: '/create-posts',
