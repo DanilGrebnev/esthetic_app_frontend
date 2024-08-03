@@ -1,5 +1,6 @@
 .tag-item {
     display: flex;
+    justify-content: space-between;
     gap: 10px;
     transition: 0.2s;
     cursor: pointer;

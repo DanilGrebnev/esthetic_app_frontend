@@ -1,5 +1,6 @@
 'use client'
 
+import { useLatest } from '@/shared/hooks/useLatest'
 import { AcceptBtn } from '@/shared/ui/InputWithTags/AcceptBtn'
 import { TagItem } from '@/shared/ui/InputWithTags/TagItem'
 import { clsx } from 'clsx'
@@ -9,6 +10,7 @@ import {
     type KeyboardEvent,
     useCallback,
     useEffect,
+    useLayoutEffect,
     useRef,
     useState,
 } from 'react'
@@ -32,25 +34,29 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
     const [tags, setTags] = useState<Tags[]>(() =>
         !initialValue?.length ? [] : initialValue,
     )
+    const latestTags = useLatest(tags)
+
     const [value, setValue] = useState('')
+    const latestValue = useLatest(value)
+
     const [wrapperWidth, setWrapperWidth] = useState<number>(0)
     const wrapperRef = useRef<HTMLDivElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
 
+    const inputRef = useRef<HTMLInputElement>(null)
     useEffect(() => {
         setWrapperWidth(wrapperRef?.current?.offsetWidth as number)
     }, [])
 
-    const addTag = () => {
+    const addTag = useCallback(() => {
         setTags([
             {
                 tagId: Date.now().toString(),
-                label: value,
+                label: latestValue.current,
             },
-            ...tags,
+            ...latestTags.current,
         ])
         setValue('')
-    }
+    }, [])
 
     const addTagByClickEnter = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.code === 'Enter') {
@@ -62,12 +68,9 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
         onChange?.(tags.map(({ label }) => label))
     }, [tags])
 
-    const deleteTag = useCallback(
-        (tagId: string) => {
-            setTags(tags.filter((tag) => tag.tagId !== tagId))
-        },
-        [tags],
-    )
+    const deleteTag = useCallback((tagId: string) => {
+        setTags(latestTags.current.filter((tag) => tag.tagId !== tagId))
+    }, [])
 
     const onChangeInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
         const value = target.value
@@ -86,7 +89,7 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
             style={wrapperWidth ? { maxWidth: wrapperWidth + 'px' } : undefined}
             className={clsx(s['input-wrapper'], className)}
         >
-            <div className={s['tags-wrapper']}>
+            <div className={s['tags-list']}>
                 {tags.map(({ tagId, label }) => {
                     return (
                         <TagItem
