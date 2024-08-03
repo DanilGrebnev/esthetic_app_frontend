@@ -45,6 +45,7 @@
 
     /* ===== EFFECTS ===== */
     --global-btn-hover: rgba(0 0 0 / 5%);
+    --global-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
     /* ===== CUBIC-BEZIER ===== */
     --cubic-bezier-1: cubic-bezier(0.22, 0.68, 0, 1.71);

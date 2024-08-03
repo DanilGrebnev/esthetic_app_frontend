@@ -1,0 +1,15 @@
+.btn {
+    transition: 0.3s;
+    &:hover,
+    &:focus {
+        scale: 1.04;
+    }
+}
+
+.icon {
+    --size: 20px;
+    aspect-ratio: 1/1;
+    width: var(--size);
+    height: var(--size);
+    fill: green;
+}

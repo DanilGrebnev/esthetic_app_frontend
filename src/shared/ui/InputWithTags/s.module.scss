@@ -9,7 +9,7 @@
 }
 
 .input {
-    width: 100%;
+    max-width: 100%;
     &,
     &::placeholder {
         color: var(--inputs-text-color-1);
@@ -25,4 +25,9 @@
     gap: 10px;
     width: 100%;
     max-width: 100%;
+}
+
+.input-container {
+    display: flex;
+    gap: 10px;
 }

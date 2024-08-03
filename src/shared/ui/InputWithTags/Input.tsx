@@ -1,6 +1,6 @@
 'use client'
 
-import CrossIcon from '@/shared/assets/cross.svg'
+import { AcceptBtn } from '@/shared/ui/InputWithTags/AcceptBtn'
 import { TagItem } from '@/shared/ui/InputWithTags/TagItem'
 import { clsx } from 'clsx'
 import {
@@ -15,38 +15,51 @@ import {
 
 import s from './s.module.scss'
 
+interface Tags {
+    tagId: string
+    label: string
+}
+
 interface InputWithTagsProps {
+    className?: string
+    initialValue?: Tags[]
     onChange?: (value: string[]) => void
 }
 
 export const InputWithTags: FC<InputWithTagsProps> = (props) => {
-    const { onChange } = props
+    const { onChange, initialValue, className } = props
+
+    const [tags, setTags] = useState<Tags[]>(() =>
+        !initialValue?.length ? [] : initialValue,
+    )
     const [value, setValue] = useState('')
-    const [tags, setTags] = useState<{ tagId: string; label: string }[]>([])
     const [wrapperWidth, setWrapperWidth] = useState<number>(0)
     const wrapperRef = useRef<HTMLDivElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         setWrapperWidth(wrapperRef?.current?.offsetWidth as number)
     }, [])
 
-    const addTag = (e: KeyboardEvent<HTMLInputElement>) => {
+    const addTag = () => {
+        setTags([
+            {
+                tagId: Date.now().toString(),
+                label: value,
+            },
+            ...tags,
+        ])
+        setValue('')
+    }
+
+    const addTagByClickEnter = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.code === 'Enter') {
-            const ev = e as unknown as ChangeEvent<HTMLInputElement>
-            if (!ev.target.value.trim()) return
-            setTags([
-                {
-                    tagId: Date.now().toString(),
-                    label: ev.target.value,
-                },
-                ...tags,
-            ])
-            setValue('')
+            addTag()
         }
     }
 
     useEffect(() => {
-        onChange?.(tags.map((el) => el.label))
+        onChange?.(tags.map(({ label }) => label))
     }, [tags])
 
     const deleteTag = useCallback(
@@ -62,11 +75,16 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
         setValue(value)
     }
 
+    const focusOnInput = (e: any) => {
+        inputRef?.current?.focus()
+    }
+
     return (
         <div
+            onClick={(e) => focusOnInput(e)}
             ref={wrapperRef}
             style={wrapperWidth ? { maxWidth: wrapperWidth + 'px' } : undefined}
-            className={clsx(s['input-wrapper'])}
+            className={clsx(s['input-wrapper'], className)}
         >
             <div className={s['tags-wrapper']}>
                 {tags.map(({ tagId, label }) => {
@@ -79,13 +97,17 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
                         />
                     )
                 })}
-                <input
-                    className={s.input}
-                    value={value}
-                    onKeyDown={addTag}
-                    onChange={onChangeInput}
-                    placeholder={!tags.length ? 'Введите теги' : undefined}
-                />
+                <div className={s['input-container']}>
+                    <input
+                        ref={inputRef}
+                        value={value}
+                        className={s.input}
+                        onChange={onChangeInput}
+                        onKeyDown={addTagByClickEnter}
+                        placeholder={!tags.length ? 'Введите теги' : undefined}
+                    />
+                    {value && <AcceptBtn onClick={addTag} />}
+                </div>
             </div>
         </div>
     )

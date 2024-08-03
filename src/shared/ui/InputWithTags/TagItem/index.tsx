@@ -21,7 +21,10 @@ export const TagItem: FC<TagItemProps> = memo((props) => {
         >
             <p>{label}</p>
             <CrossIcon
-                onClick={() => deleteTag(tagId)}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    deleteTag(tagId)
+                }}
                 className={s['tag__delete-btn']}
             />
         </div>
