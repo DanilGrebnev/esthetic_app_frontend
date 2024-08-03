@@ -2,7 +2,7 @@
 
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
-import { InputWithTags } from '@/shared/ui/InputWithTags/Input'
+import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { Select } from '@/shared/ui/Select'
 import { ChangeEvent, FormEvent, useCallback } from 'react'
 

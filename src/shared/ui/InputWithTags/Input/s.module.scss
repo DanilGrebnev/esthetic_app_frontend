@@ -1,0 +1,19 @@
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input {
+    width: 100%;
+    min-width: 20px;
+    max-width: max-content;
+
+    &,
+    &::placeholder {
+        color: var(--inputs-text-color-1);
+        font-weight: 400;
+        font-size: var(--input-text-size);
+        font-family: var(--font-roboto);
+    }
+}

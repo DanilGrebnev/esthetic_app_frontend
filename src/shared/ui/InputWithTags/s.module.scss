@@ -9,25 +9,6 @@
     min-height: 56px;
 }
 
-.input-container {
-    display: flex;
-    gap: 10px;
-}
-
-.input {
-    width: 100%;
-    min-width: 20px;
-    max-width: max-content;
-
-    &,
-    &::placeholder {
-        color: var(--inputs-text-color-1);
-        font-weight: 400;
-        font-size: var(--input-text-size);
-        font-family: var(--font-roboto);
-    }
-}
-
 .tags-list {
     display: flex;
     flex-wrap: wrap;

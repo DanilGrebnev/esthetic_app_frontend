@@ -1,8 +1,18 @@
 .btn {
     transition: 0.3s;
+    border-radius: 5px;
+    padding: 2px;
+    height: max-content;
+
     &:hover,
     &:focus {
         scale: 1.04;
+        box-shadow: var(--global-box-shadow);
+        border: 1px solid var(--border-color-1);
+    }
+
+    &:active {
+        scale: 0.9;
     }
 }
 
