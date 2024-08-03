@@ -1,0 +1,34 @@
+.tag-item {
+    display: flex;
+    gap: 10px;
+    transition: 0.2s;
+    cursor: pointer;
+    border: 1px solid var(--border-color-1);
+    border-radius: var(--global-border-radius);
+    padding: 8px;
+    min-width: 70px;
+    max-width: 200px;
+
+    &:hover {
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.tag__delete-btn {
+    --size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border-color-1);
+    border-radius: var(--global-border-radius);
+    min-width: var(--size);
+    max-width: var(--size);
+    height: var(--size);
+    line-height: 1;
+}

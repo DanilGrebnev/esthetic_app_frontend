@@ -2,6 +2,7 @@
 
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
+import { InputWithTags } from '@/shared/ui/InputWithTags/Input'
 import { Select } from '@/shared/ui/Select'
 import { ChangeEvent, FormEvent, useCallback } from 'react'
 
@@ -84,6 +85,7 @@ export const CreatePostForm = () => {
                     >
                         {selectOptions}
                     </Select>
+                    <InputWithTags onChange={(values) => console.log(values)} />
                 </div>
             </form>
         </Container>

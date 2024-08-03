@@ -1,0 +1,28 @@
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: var(--global-border-radius);
+    background: var(--inputs-bg-1);
+    padding: 8px 12px;
+    min-height: 56px;
+}
+
+.input {
+    width: 100%;
+    &,
+    &::placeholder {
+        color: var(--inputs-text-color-1);
+        font-weight: 400;
+        font-size: var(--input-text-size);
+        font-family: var(--font-roboto);
+    }
+}
+
+.tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+}

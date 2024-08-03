@@ -15,6 +15,7 @@
     --inputs-text-color-1: rgb(0 0 0 / 60%);
     --inputs-bg-1: rgb(0 0 0 / 6%);
     --inputs-bg-hover: rgb(0 0 0 / 9%);
+    --input-text-size: 17px;
 
     --border-color-1: rgb(0 0 0 / 10%);
 
@@ -22,9 +23,11 @@
     --font-100: 12px;
     --font-200: 14px;
     --font-300: 16px;
+    --font-350: 18px;
     --font-400: 20px;
     --font-500: 28px;
     --font-600: 36px;
+    --font-rem-100: 1rem;
 
     --font-weight-normal: 400;
     --font-weight-semibold: 600;

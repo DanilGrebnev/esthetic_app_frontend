@@ -1,5 +1,8 @@
-import { inter } from '@/shared/fonts'
+import { roboto } from '@/shared/fonts'
+import { Layout } from '@/shared/types/layout'
+import { clsx } from 'clsx'
 import type { Metadata } from 'next'
+import { type FC } from 'react'
 
 import { AppProvider } from '../providers/AppProvider'
 import '../styles/globals.css'
@@ -11,16 +14,14 @@ export const metadata: Metadata = {
     description: 'This is a "Esthetic App"',
 }
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode
-}>) {
+const RootLayout: FC<Layout> = ({ children }) => {
     return (
         <html lang='ru'>
-            <body>
+            <body className={clsx(roboto.variable)}>
                 <AppProvider>{children}</AppProvider>
             </body>
         </html>
     )
 }
+
+export default RootLayout
