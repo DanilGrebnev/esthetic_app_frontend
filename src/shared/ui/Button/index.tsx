@@ -1,12 +1,12 @@
 'use client'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { type ButtonHTMLAttributes, type FC } from 'react'
+import { type ComponentPropsWithoutRef, type FC } from 'react'
 
 import s from './s.module.scss'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
     className?: string
     active?: boolean
     activeVariant?: 'active-fill' | 'active-underline'
@@ -36,8 +36,8 @@ export const Button: FC<ButtonProps> = (props) => {
         <button
             type='button'
             onClick={(e) => {
-                if (href) router.push(href)
                 onClick?.(e)
+                if (href) router.push(href)
             }}
             className={clsx(
                 s.btn,

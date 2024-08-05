@@ -1,32 +1,35 @@
 'use client'
 
-import { SavePostsButton } from '@/entities/posts/ui/SavePostsButton'
 import { CircleButton } from '@/shared/ui/CircleButton'
 import clsx from 'clsx'
 import Image from 'next/image'
+import Link from 'next/link'
 import { type FC } from 'react'
 
+import { SavePostsButton } from '../SavePostsButton'
 import s from './s.module.scss'
 
 interface PostCardProps {
-    url: string
+    mediaUrl: string
     aspect?: string
     className?: string
     name: string
 }
 
 export const PostsCard: FC<PostCardProps> = (props) => {
-    const { url, name, aspect = '9/16', className } = props
+    const { mediaUrl, name, aspect = '9/16', className } = props
+    const href = '/posts-detail/postId'
 
     return (
-        <div
+        <Link
             className={clsx(s.card, className)}
             style={{ aspectRatio: aspect }}
+            href={href}
         >
             <div className={s['button-group']}>
                 <SavePostsButton className={s['save-btn']} />
                 <CircleButton
-                    href={url}
+                    href={mediaUrl}
                     name={name}
                     variant='download'
                     className={s['card-circle-icon']}
@@ -37,9 +40,9 @@ export const PostsCard: FC<PostCardProps> = (props) => {
                 loading='lazy'
                 alt='test'
                 sizes='200px'
-                src={url}
+                src={mediaUrl}
                 fill={true}
             />
-        </div>
+        </Link>
     )
 }

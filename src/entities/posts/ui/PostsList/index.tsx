@@ -8,17 +8,13 @@ interface PostsListProps {
     className?: string
 }
 
-interface IPostsList {
-    className?: string
-}
-
 export const PostsList: FC<PostsListProps> = ({ className }) => {
     return (
         <PostsListMasonryContainer className={className}>
             {mock.map(({ url, aspect }, i) => (
                 <PostsCard
                     key={i}
-                    url={url}
+                    mediaUrl={url}
                     name={'test_name'}
                     aspect={aspect}
                 />
