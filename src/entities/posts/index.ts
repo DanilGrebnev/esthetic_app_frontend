@@ -1,7 +1,10 @@
+export { DownloadFileBtn } from './ui/DownloadFileBtn'
+export { SavePostsButton } from './ui/SavePostsButton'
 export { SearchInput } from '../../widgets/Search'
 export { PostsList } from './ui/PostsList'
 export { CreatePostForm } from './ui/CreatePostForm'
 export { UploadPostsContentWindow } from './ui/UploadPostsContentWindow'
 export { usePostsSlice } from './model/slice'
 export { PostsListLoader } from './ui/PostsListLoader'
+
 export * from './ui/Tiles'

@@ -1,0 +1,29 @@
+.write-comment {
+    display: flex;
+    gap: var(--global-gap);
+    height: max-content;
+    --size: 50px;
+
+    .avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        background: rgb(0 0 0 / 40%);
+        aspect-ratio: 1 / 1;
+        width: var(--size);
+        height: var(--size);
+        color: white;
+        font-size: var(--font-500);
+        line-height: 1;
+    }
+
+    .input {
+        flex-grow: 1;
+        border: 2px solid var(--border-color-1);
+        border-radius: var(--global-border-radius);
+        padding: 0 10px;
+        height: var(--size);
+        font-size: var(--font-300);
+    }
+}

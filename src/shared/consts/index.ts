@@ -1,6 +1,10 @@
-const port = process.env.NEXT_PUBLIC_PORT
-const path = `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_HOSTNAME}${port ? ':' + port : ''}/assets/`
+const PROTOCOL = process.env.NEXT_PUBLIC_PROTOCOL
+const HOST_NAME = process.env.NEXT_PUBLIC_HOSTNAME
+const PORT = process.env.NEXT_PUBLIC_PORT
+
+const baseUrl = `${PROTOCOL}://${HOST_NAME}${PORT ? ':' + PORT : ''}/`
 
 export const consts = {
-    pathToImage: path,
+    baseUrl,
+    pathToImage: baseUrl + 'assets/',
 } as const

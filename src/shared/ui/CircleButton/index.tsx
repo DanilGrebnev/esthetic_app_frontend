@@ -1,7 +1,6 @@
 import DownloadIcon from '@/shared/assets/download-icon.svg'
-import { downloadFileByURL } from '@/shared/utils/downloadFileByURL'
 import clsx from 'clsx'
-import type { ComponentPropsWithoutRef, FC } from 'react'
+import { type ComponentPropsWithRef, type FC, forwardRef } from 'react'
 
 import s from './s.module.scss'
 
@@ -9,32 +8,24 @@ const variants = {
     download: <DownloadIcon className={s['download-icon']} />,
 }
 
-interface CardCircleIconProps extends ComponentPropsWithoutRef<'button'> {
-    className?: string
-    variant?: keyof typeof variants
-    href: string
-    name: string
+interface CardCircleIconProps extends ComponentPropsWithRef<'button'> {
+    icon?: keyof typeof variants
 }
 
-export const CircleButton: FC<CardCircleIconProps> = (props) => {
-    const { variant = 'download', name, href, className, ...other } = props
+export const CircleButton = forwardRef<HTMLButtonElement, CardCircleIconProps>(
+    (props, ref) => {
+        const { icon = 'download', className, ...other } = props
 
-    const onClick = () => {
-        downloadFileByURL(href, name)
-    }
+        return (
+            <button
+                ref={ref}
+                className={clsx(s.btn, className)}
+                {...other}
+            >
+                {variants[icon]}
+            </button>
+        )
+    },
+)
 
-    return (
-        <button
-            className={clsx(s.btn, className)}
-            title='Скачать'
-            onClick={(e) => {
-                // e.stopPropagation()
-                e.preventDefault()
-                onClick()
-            }}
-            {...other}
-        >
-            {variants[variant]}
-        </button>
-    )
-}
+CircleButton.displayName = 'CircleButton'

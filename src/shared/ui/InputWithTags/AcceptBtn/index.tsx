@@ -14,6 +14,7 @@ export const AcceptBtn: FC<AcceptBtnProps> = memo((props) => {
         <button
             className={s.btn}
             onClick={onClick}
+            type='button'
         >
             <CheckmarkIcon className={s.icon} />
         </button>

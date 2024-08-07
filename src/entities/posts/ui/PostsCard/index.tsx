@@ -1,6 +1,6 @@
 'use client'
 
-import { CircleButton } from '@/shared/ui/CircleButton'
+import { DownloadFileBtn } from '@/entities/posts/ui/DownloadFileBtn'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -28,10 +28,9 @@ export const PostsCard: FC<PostCardProps> = (props) => {
         >
             <div className={s['button-group']}>
                 <SavePostsButton className={s['save-btn']} />
-                <CircleButton
+                <DownloadFileBtn
                     href={mediaUrl}
-                    name={name}
-                    variant='download'
+                    downloadFileName={'test_file_name'}
                     className={s['card-circle-icon']}
                 />
             </div>

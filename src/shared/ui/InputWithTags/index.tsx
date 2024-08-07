@@ -8,6 +8,7 @@ import { Input } from './Input'
 import { TagItem } from './TagItem'
 import s from './s.module.scss'
 import { Tags } from './types'
+import { setInitialTagsState } from './utils'
 
 interface InputWithTagsProps {
     className?: string
@@ -19,7 +20,7 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
     const { onChange, initialValue, className } = props
 
     const [tags, setTags] = useState<Tags[]>(() =>
-        !initialValue?.length ? [] : initialValue,
+        setInitialTagsState(initialValue),
     )
     const latestTags = useLatest(tags)
 

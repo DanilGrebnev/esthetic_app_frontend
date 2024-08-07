@@ -1,0 +1,20 @@
+.user-info {
+    display: flex;
+    gap: 10px;
+}
+
+.commentaries-text {
+    word-wrap: break-word;
+
+    p {
+        display: inline-block;
+    }
+}
+
+.content {
+}
+
+.username {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-300);
+}

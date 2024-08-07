@@ -11,6 +11,7 @@ import {
 
 import { AcceptBtn } from '../AcceptBtn'
 import { type Tags } from '../types'
+import { isValidTag } from '../utils'
 import s from './s.module.scss'
 
 interface InputProps extends ComponentPropsWithRef<'input'> {
@@ -31,6 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     }
 
     const addTag = useCallback(() => {
+        if (!isValidTag(latestValue.current)) return
         setTags([
             {
                 tagId: Date.now().toString(),
