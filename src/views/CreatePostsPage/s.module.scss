@@ -4,8 +4,8 @@ $border: 1px solid var(--border-color-1);
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-
     gap: var(--global-gap-2);
+    padding-bottom: var(--global-gap-2);
 }
 
 .header {
