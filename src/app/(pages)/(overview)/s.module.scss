@@ -1,12 +1,12 @@
 .overview {
     display: flex;
-    min-height: 100dvh;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 100dvh;
 }
 
 .main {
     display: flex;
-    flex-direction: column;
     flex-grow: 1;
+    flex-direction: column;
 }

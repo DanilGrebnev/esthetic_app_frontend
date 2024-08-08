@@ -15,19 +15,18 @@ export const TagItem: FC<TagItemProps> = memo((props) => {
     const { deleteTag, tagId, label } = props
 
     return (
-        <div
+        <button
             title={label}
-            className={s['tag-item']}
+            className={s.tag}
+            type='button'
+            onClick={(e) => {
+                e.stopPropagation()
+                deleteTag(tagId)
+            }}
         >
             <p>{label}</p>
-            <CrossIcon
-                onClick={(e) => {
-                    e.stopPropagation()
-                    deleteTag(tagId)
-                }}
-                className={s['tag__delete-btn']}
-            />
-        </div>
+            <CrossIcon className={s['tag__delete-btn']} />
+        </button>
     )
 })
 

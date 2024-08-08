@@ -21,7 +21,7 @@ export const CommentariesItem: FC<CommentariesItemProps> = (props) => {
                     />
                     <span className={s['commentaries-text']}>
                         <p className={s.username}>Данил</p> Съешь ещё этих
-                        магких французских булок, да выпей чаю
+                        мягких французских булок, да выпей чаю
                     </span>
                 </div>
             </div>

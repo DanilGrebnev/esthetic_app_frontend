@@ -1,6 +1,7 @@
-.tag-item {
+.tag {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     transition: 0.2s;
     cursor: pointer;
@@ -10,12 +11,15 @@
     min-width: 70px;
     max-width: 200px;
 
-    &:hover {
+    &:hover,
+    &:focus {
         box-shadow: var(--global-box-shadow);
     }
 
     p {
         overflow: hidden;
+        font-size: var(--font-300);
+        font-family: var(--font-roboto) !important;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
