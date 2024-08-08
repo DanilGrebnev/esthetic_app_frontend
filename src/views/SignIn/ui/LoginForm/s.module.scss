@@ -3,15 +3,13 @@
     justify-content: center;
     height: 100vh;
 }
-.title {
-    font-size: 20px;
-}
+
 .form {
     display: flex;
     flex-direction: column;
-    max-width: var(--container-width-3);
-    width: 100%;
-    gap: var(--global-gap);
-    height: fit-content;
     align-self: center;
+    gap: var(--global-gap);
+    width: 100%;
+    max-width: var(--container-width-3);
+    height: fit-content;
 }

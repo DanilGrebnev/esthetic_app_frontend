@@ -1,6 +1,15 @@
 $padding: 20px;
+.content {
+    display: flex;
+    flex-direction: column;
+}
 
-.content__header,
+.content__header {
+    padding-right: $padding;
+    padding-bottom: $padding;
+    padding-left: $padding;
+}
+
 .content__comments {
     padding: $padding;
 }
@@ -28,12 +37,6 @@ $padding: 20px;
     width: 100%;
 }
 
-.content {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-}
-
 .content__comments {
     flex-grow: 1;
 }
@@ -45,12 +48,7 @@ $padding: 20px;
 .image-container {
     position: relative;
     border-radius: var(--global-border-radius);
-    //aspect-ratio: 3 / 4;
-    //aspect-ratio: 9 / 16;
-    //aspect-ratio: 2 / 3;
-    //aspect-ratio: 4 / 5;
-    aspect-ratio: 1 / 1;
-
+    aspect-ratio: 9 / 16;
     width: 100%;
     max-height: 100%;
     overflow: hidden;
@@ -64,7 +62,10 @@ $padding: 20px;
     .content-container {
         display: flex;
         flex-direction: column;
+        gap: var(--global-gap-2);
         margin: 0 auto;
+        padding: 0;
+        padding-bottom: $padding;
         max-width: 500px;
     }
 }

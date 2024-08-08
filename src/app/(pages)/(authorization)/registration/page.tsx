@@ -1,3 +1,1 @@
-export default function Registration() {
-    return <div>Registration</div>
-}
+export { RegistrationForm as default } from '@/views'

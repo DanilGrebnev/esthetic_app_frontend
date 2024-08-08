@@ -1,17 +1,35 @@
+.commentaries {
+    display: flex;
+    gap: var(--global-gap);
+}
+
 .user-info {
     display: flex;
     gap: 10px;
 }
 
-.commentaries-text {
-    word-wrap: break-word;
-
-    p {
-        display: inline-block;
+.comm {
+    &-text {
+        word-wrap: break-word;
+        p {
+            display: inline-block;
+        }
     }
 }
 
-.content {
+.comm-info,
+.comm-res-btn {
+    color: var(--text-palette-2);
+    font-size: var(--font-200);
+}
+
+.comm-info {
+    display: flex;
+    gap: var(--global-gap-2);
+}
+
+.comm-res-btn {
+    font-weight: var(--font-weight-bold);
 }
 
 .username {

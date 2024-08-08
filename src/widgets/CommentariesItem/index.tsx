@@ -13,16 +13,18 @@ export const CommentariesItem: FC<CommentariesItemProps> = (props) => {
 
     return (
         <div className={clsx(s.commentaries, className)}>
+            <UserAvatar
+                size='s'
+                className={s.avatar}
+            />
             <div className={s.content}>
-                <div className={s['user-info']}>
-                    <UserAvatar
-                        size='s'
-                        className={s.avatar}
-                    />
-                    <span className={s['commentaries-text']}>
-                        <p className={s.username}>Данил</p> Съешь ещё этих
-                        мягких французских булок, да выпей чаю
-                    </span>
+                <div className={s['comm-text']}>
+                    <p className={s.username}>Данил</p> Съешь ещё этих мягких
+                    французских булок, да выпей чаю
+                </div>
+                <div className={s['comm-info']}>
+                    <p>1 мес назад</p>
+                    <button className={'comm-res-btn'}>Ответить</button>
                 </div>
             </div>
         </div>
