@@ -1,5 +1,6 @@
-import { DownloadFileBtn, SavePostsButton } from '@/entities/posts'
-import { UserAvatar } from '@/features/user'
+import { SaveToDashboardButton } from '@/entities/dashboard'
+import { DownloadFileBtn } from '@/entities/posts'
+import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
 
@@ -21,7 +22,9 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                     href={pathToImg}
                     downloadFileName={'test'}
                 />
-                <SavePostsButton className={s['save-btn']} />
+                <SaveToDashboardButton className={s['save-btn']}>
+                    Сохранить
+                </SaveToDashboardButton>
             </div>
 
             <div className={s['posts-info']}>

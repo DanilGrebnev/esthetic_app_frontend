@@ -1,6 +1,6 @@
-import { ModalProvider } from '@/entities/modal'
 import { roboto } from '@/shared/fonts'
 import { Layout } from '@/shared/types/layout'
+import { ModalProvider } from '@/shared/ui/modal'
 import { clsx } from 'clsx'
 import type { Metadata } from 'next'
 import { type FC } from 'react'

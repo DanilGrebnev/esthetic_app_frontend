@@ -23,6 +23,7 @@
         border: 2px solid var(--border-color-1);
         border-radius: var(--global-border-radius);
         padding: 0 10px;
+        min-width: 0;
         height: var(--size);
         font-size: var(--font-300);
     }

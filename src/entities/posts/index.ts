@@ -1,5 +1,4 @@
 export { DownloadFileBtn } from './ui/DownloadFileBtn'
-export { SavePostsButton } from './ui/SavePostsButton'
 export { SearchInput } from '../../widgets/Search'
 export { CreatePostForm } from './ui/CreatePostForm'
 export { UploadPostsContentWindow } from './ui/UploadPostsContentWindow'

@@ -37,11 +37,10 @@ export const Modal = (props: ModalProps) => {
         if (!isOpen) {
             document.removeEventListener('keydown', closeOnEscapeKeyClick)
         }
-
         return () => {
             document.removeEventListener('keydown', closeOnEscapeKeyClick)
         }
-    }, [isOpen])
+    }, [isOpen, closeOnEscapeKeyClick])
 
     const modalRootRef = useRef<HTMLElement | null>(null)
     const bodyRef = useRef<HTMLElement | null>(null)
@@ -63,7 +62,11 @@ export const Modal = (props: ModalProps) => {
     return isOpen
         ? createPortal(
               <div
-                  onClick={onClose}
+                  onClick={(e) => {
+                      e.stopPropagation()
+                      e.preventDefault()
+                      onClose?.()
+                  }}
                   className={s['modal-container']}
               >
                   {children}

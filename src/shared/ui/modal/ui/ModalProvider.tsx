@@ -1,7 +1,6 @@
 'use client'
 
-import { useIsOpenModal } from '@/entities/modal'
-import { FC } from 'react'
+import { type FC } from 'react'
 
 import s from './modal.module.scss'
 
@@ -10,8 +9,6 @@ interface ModalProviderProps {
 }
 
 export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
-    const isOpen = useIsOpenModal()
-
     return (
         <div
             id='modal-root'

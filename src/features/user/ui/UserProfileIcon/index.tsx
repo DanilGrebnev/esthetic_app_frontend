@@ -2,8 +2,8 @@
 
 import { routes } from '@/shared/routes'
 import { CircleIcon } from '@/shared/ui/CircleIcon'
+import { UserAvatar } from '@/shared/ui/UserAvatar'
 
-import { UserAvatar } from '../UserAvatar'
 import s from './s.module.scss'
 
 export const UserProfileIcon = () => {

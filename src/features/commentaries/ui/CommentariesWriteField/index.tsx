@@ -1,3 +1,4 @@
+import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
 
@@ -14,7 +15,7 @@ export const CommentariesWriteField: FC<CommentariesWriteFieldProps> = (
 
     return (
         <div className={clsx(s['write-comment'], className)}>
-            <div className={s.avatar}>Д</div>
+            <UserAvatar />
             <input
                 type='text'
                 className={s.input}

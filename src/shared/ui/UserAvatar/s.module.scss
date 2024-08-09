@@ -4,8 +4,8 @@
     align-items: center;
     border-radius: 50%;
     background: rgb(0 0 0 / 40%);
-    min-width: var(--size);
-    max-width: var(--size);
+    width: var(--size);
+    min-width: var(--size) !important;
     height: var(--size);
     color: white;
     line-height: 1;

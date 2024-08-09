@@ -1,4 +1,4 @@
-import { UserAvatar } from '@/features/user'
+import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
 
