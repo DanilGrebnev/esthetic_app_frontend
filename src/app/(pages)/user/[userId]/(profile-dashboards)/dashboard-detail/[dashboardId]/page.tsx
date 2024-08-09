@@ -1,7 +1,7 @@
 'use client'
 
-import { PostsList } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
+import { PostsList } from '@/widgets/PostsList'
 import { type FC } from 'react'
 
 import s from './s.module.scss'

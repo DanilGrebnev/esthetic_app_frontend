@@ -1,3 +1,4 @@
+import { ModalProvider } from '@/entities/modal'
 import { roboto } from '@/shared/fonts'
 import { Layout } from '@/shared/types/layout'
 import { clsx } from 'clsx'
@@ -18,7 +19,7 @@ const RootLayout: FC<Layout> = ({ children }) => {
     return (
         <html lang='ru'>
             <body className={clsx(roboto.variable)}>
-                <div id='modal-root'></div>
+                <ModalProvider />
                 <AppProvider>{children}</AppProvider>
             </body>
         </html>

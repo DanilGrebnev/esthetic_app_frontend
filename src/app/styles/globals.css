@@ -9,17 +9,8 @@ body {
     height: 100vh;
 }
 
-#modal-root {
-    position: fixed;
-    /*background: rgb(0 0 0 / 30%);*/
-    z-index: 3;
-    height: 100vh;
-    width: 100vw;
-    pointer-events: none;
+.scroll-hide{
 
-    * > {
-        pointer-events: all;
-    }
 }
 
 .text-ellipsis {

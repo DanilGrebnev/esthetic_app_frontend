@@ -1,6 +1,6 @@
 import { CircleButton } from '@/shared/ui/CircleButton'
 import { downloadFileByURL } from '@/shared/utils/downloadFileByURL'
-import { type FC } from 'react'
+import { type FC, memo } from 'react'
 
 interface DownloadContentBtnProps {
     href: string
@@ -8,7 +8,7 @@ interface DownloadContentBtnProps {
     className?: string
 }
 
-export const DownloadFileBtn: FC<DownloadContentBtnProps> = (props) => {
+export const DownloadFileBtn: FC<DownloadContentBtnProps> = memo((props) => {
     const { className, href, downloadFileName } = props
 
     const onDownload = () => {
@@ -19,9 +19,10 @@ export const DownloadFileBtn: FC<DownloadContentBtnProps> = (props) => {
         <CircleButton
             className={className}
             onClick={(e) => {
-                e.preventDefault()
+                e.stopPropagation()
                 onDownload()
             }}
         />
     )
-}
+})
+DownloadFileBtn.displayName = 'DownloadFileBtn'

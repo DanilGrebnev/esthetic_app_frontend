@@ -1,5 +1,5 @@
-import { PostsList } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
+import { PostsList } from '@/widgets/PostsList'
 
 /* Созданные пользователем посты */
 const CreatedPosts = () => {

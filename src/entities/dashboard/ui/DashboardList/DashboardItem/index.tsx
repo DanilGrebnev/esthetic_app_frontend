@@ -1,10 +1,16 @@
 import { consts } from '@/shared/consts'
 import clsx from 'clsx'
 import Image from 'next/image'
+import { FC } from 'react'
 
 import s from './s.module.scss'
 
-export const DashboardItem = () => {
+interface DashboardItemProps {
+    name: string
+}
+
+export const DashboardItem: FC<DashboardItemProps> = (props) => {
+    const { name } = props
     return (
         <div className={clsx(s['dashboar-item'], 'text-ellipsis')}>
             <Image
@@ -14,7 +20,7 @@ export const DashboardItem = () => {
                 height={40}
                 alt='test'
             />
-            <p>Профиль</p>
+            <p>{name}</p>
         </div>
     )
 }
