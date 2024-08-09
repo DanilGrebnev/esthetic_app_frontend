@@ -1,0 +1,36 @@
+.dashboard-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    transition: 0.3s;
+    box-shadow: var(--global-box-shadow);
+    border-top-right-radius: var(--global-border-radius);
+    border-top-left-radius: var(--global-border-radius);
+    background: white;
+    width: 90%;
+    height: 0;
+    max-height: 80%;
+    overflow: auto;
+
+    // Отключение скролла
+    & {
+        /* хром, сафари */
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+        /* ie 10+ */
+        & {
+            -ms-overflow-style: none;
+        }
+        /* фф (свойство больше не работает, других способов тоже нет)*/
+        & {
+            overflow: -moz-scrollbars-none;
+        }
+    }
+}
+
+.dashboard-list {
+    padding: 20px;
+}

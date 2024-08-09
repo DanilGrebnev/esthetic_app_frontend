@@ -21,3 +21,9 @@ body {
         pointer-events: all;
     }
 }
+
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

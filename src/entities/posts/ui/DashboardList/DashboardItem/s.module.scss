@@ -1,0 +1,18 @@
+.dashboar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: var(--global-border-radius);
+    padding: 12px;
+    width: 100%;
+    min-height: 20px;
+
+    &:hover {
+        background: var(--global-btn-hover);
+    }
+}
+
+.dashboar-item__img {
+    border-radius: var(--global-border-radius);
+    object-fit: cover;
+}

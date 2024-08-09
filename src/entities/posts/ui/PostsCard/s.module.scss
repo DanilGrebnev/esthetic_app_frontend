@@ -3,12 +3,12 @@
     cursor: pointer;
     width: 100%;
     user-select: none;
-    //&:hover {
-    .button-group {
-        opacity: 1;
-        background: rgb(0 0 0 / 20%);
+    &:hover {
+        .button-group {
+            opacity: 1;
+            background: rgb(0 0 0 / 20%);
+        }
     }
-    //}
 }
 .card,
 .button-group,
@@ -18,12 +18,6 @@
 
 .img {
     object-fit: cover;
-}
-
-.card-circle-icon {
-    //position: absolute;
-    //right: 10px;
-    //bottom: 10px;
 }
 
 .button-group {
@@ -41,16 +35,6 @@
     height: 100%;
 }
 
-.save-btn {
-}
-
-.modal {
-    position: relative;
-    flex-grow: 1;
-    align-self: center;
-    z-index: 3;
-    box-shadow: var(--global-box-shadow);
-    border-radius: var(--global-border-radius);
-    background: white;
-    width: 80%;
+.open {
+    height: 100%;
 }

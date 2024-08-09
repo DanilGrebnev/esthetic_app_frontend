@@ -1,22 +1,17 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
-type TUseOutsideClick = (
-    elementRef: any,
-    handler: () => void,
-    attached?: boolean,
-) => void
+interface TUseOutsideClick {
+    handler: () => void
+    attached?: boolean
+}
 
 /**
  * хук, отлавливающий нажатия мимо нужного node элемента
- * @param elementRef  ref на элемент, вне нажатии которого будет вызываться функция handler
  * @param handler функция, которая будет вызвана, если событие произошло вне elementRef
  * @param attached если false, то вся логика не будет работать. К примеру, если в attached передать флаг isOpen, и он будет равен false, то обработчик события не будет вешаться на документ, а текущий обработчик события будет удалён
  */
-export const useOutsideClick: TUseOutsideClick = (
-    elementRef,
-    handler,
-    attached = true,
-) => {
+export const useOutsideClick = ({ handler, attached }: TUseOutsideClick) => {
+    const elementRef = useRef<any>(null)
     const handlerRef = useRef<any>(null)
 
     useLayoutEffect(() => {
@@ -25,6 +20,7 @@ export const useOutsideClick: TUseOutsideClick = (
 
     useEffect(() => {
         if (!attached) return
+
         const handleClick = (e: any) => {
             if (!elementRef.current) return
             if (!elementRef.current.contains(e.target)) {
@@ -37,4 +33,6 @@ export const useOutsideClick: TUseOutsideClick = (
             document.removeEventListener('click', handleClick)
         }
     }, [elementRef, attached])
+
+    return { elementRef }
 }

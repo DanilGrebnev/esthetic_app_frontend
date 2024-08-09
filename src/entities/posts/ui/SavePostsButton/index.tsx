@@ -9,6 +9,7 @@ interface ISavePostsButton extends ComponentPropsWithoutRef<'button'> {}
 
 export const SavePostsButton: FC<ISavePostsButton> = ({
     className,
+    onClick,
     ...other
 }) => {
     return (
@@ -18,6 +19,7 @@ export const SavePostsButton: FC<ISavePostsButton> = ({
             className={className}
             onClick={(e) => {
                 e.preventDefault()
+                onClick?.(e)
             }}
         >
             Сохранить
