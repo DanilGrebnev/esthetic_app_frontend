@@ -9,7 +9,6 @@
     --text-palette-main: black;
     --text-palette-2:#767676;
 
-
     --box-bg-1: #e9e9e9;
 
     --inputs-text-color-1: rgb(0 0 0 / 60%);
@@ -34,8 +33,9 @@
     --font-weight-bold: 700;
 
     /* ===== GAP'S ===== */
-    --global-gap: 10px;
+    --global-gap-1: 10px;
     --global-gap-2: 20px;
+    --global-gap-3: 30px;
 
     --maring-l: 50px;
     --global-padding: 10px;

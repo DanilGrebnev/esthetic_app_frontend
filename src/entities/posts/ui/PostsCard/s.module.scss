@@ -1,42 +1,56 @@
 .card {
     position: relative;
     cursor: pointer;
-    border-radius: var(--global-border-radius);
     width: 100%;
-    overflow: hidden;
     user-select: none;
-
-    &:hover {
-        .button-group {
-            opacity: 1;
-            background: rgba(0 0 0 / 30%);
-        }
+    //&:hover {
+    .button-group {
+        opacity: 1;
+        background: rgb(0 0 0 / 20%);
     }
+    //}
+}
+.card,
+.button-group,
+.img {
+    border-radius: var(--global-border-radius);
 }
 
 .img {
     object-fit: cover;
-    user-select: none;
 }
 
 .card-circle-icon {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+    //position: absolute;
+    //right: 10px;
+    //bottom: 10px;
 }
 
 .button-group {
+    display: flex;
     position: absolute;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
     opacity: 0;
     z-index: 1;
     transition: 0.2s;
     background: rgba(0 0 0 / 0%);
+    padding: var(--global-gap-1);
     width: 100%;
     height: 100%;
 }
 
 .save-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+}
+
+.modal {
+    position: relative;
+    flex-grow: 1;
+    align-self: center;
+    z-index: 3;
+    box-shadow: var(--global-box-shadow);
+    border-radius: var(--global-border-radius);
+    background: white;
+    width: 80%;
 }

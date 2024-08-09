@@ -18,7 +18,8 @@ export const DownloadFileBtn: FC<DownloadContentBtnProps> = (props) => {
     return (
         <CircleButton
             className={className}
-            onClick={() => {
+            onClick={(e) => {
+                e.preventDefault()
                 onDownload()
             }}
         />

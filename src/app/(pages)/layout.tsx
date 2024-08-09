@@ -18,6 +18,7 @@ const RootLayout: FC<Layout> = ({ children }) => {
     return (
         <html lang='ru'>
             <body className={clsx(roboto.variable)}>
+                <div id='modal-root'></div>
                 <AppProvider>{children}</AppProvider>
             </body>
         </html>

@@ -1,7 +1,9 @@
 'use client'
 
 import { Button } from '@/shared/ui/Button'
-import { type ComponentPropsWithoutRef, type FC } from 'react'
+import { type ComponentPropsWithoutRef, type FC, useState } from 'react'
+
+import s from './s.module.scss'
 
 interface ISavePostsButton extends ComponentPropsWithoutRef<'button'> {}
 

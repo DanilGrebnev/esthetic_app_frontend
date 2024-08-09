@@ -1,23 +1,25 @@
 .icon-wrapper {
     --size: 48px;
     display: flex;
-    width: var(--size);
-    height: var(--size);
-    overflow: hidden;
-    align-items: center;
     justify-content: center;
-    border-radius: 100%;
-    outline: none;
+    align-items: center;
     transition: 0.3s;
+    outline: none;
+    border-radius: 100%;
+    min-width: var(--size);
+    max-width: var(--size);
+    min-height: var(--size);
+    max-height: var(--size);
+    overflow: hidden;
 
     &:hover,
     &:focus {
-        background: var(--global-btn-hover);
         cursor: pointer;
+        background: var(--global-btn-hover);
     }
 }
 
 .icon {
-    width: 50%;
     aspect-ratio: 1 / 1;
+    width: 50%;
 }

@@ -26,8 +26,17 @@ export const PostsCard: FC<PostCardProps> = (props) => {
             style={{ aspectRatio: aspect }}
             href={href}
         >
+            <div className={s['dashboard-list']}>
+                {Array(20)
+                    .fill('')
+                    .map((_, i) => {
+                        return <div key={i}></div>
+                    })}
+            </div>
+
             <div className={s['button-group']}>
                 <SavePostsButton className={s['save-btn']} />
+                <div className={s.modal}></div>
                 <DownloadFileBtn
                     href={mediaUrl}
                     downloadFileName={'test_file_name'}
