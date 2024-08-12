@@ -9,8 +9,8 @@ import s from './s.module.scss'
 export const RegistrationForm = () => {
     return (
         <Container
-            className={s.page}
             size='s'
+            className={s.page}
         >
             <form className={s['registration-form']}>
                 <Title text='Регистрация' />

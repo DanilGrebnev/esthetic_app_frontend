@@ -1,5 +1,7 @@
 'use client'
 
+import { Button } from '@/shared/ui/Button'
+import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 
 import { Title } from '../Title'
@@ -7,10 +9,12 @@ import s from './s.module.scss'
 
 export const LoginForm = () => {
     return (
-        <div className={s['login-form']}>
-            <Title text='Войти' />
+        <Container
+            size='s'
+            className={s['login-form']}
+        >
             <form className={s.form}>
-                <h2 className={s.title}>Войти</h2>
+                <Title text='Войти' />
                 <Input
                     label='Логин'
                     name='login'
@@ -21,7 +25,8 @@ export const LoginForm = () => {
                     placeholder='Введите пароль'
                     name='password'
                 />
+                <Button variant='silver'>Отправить</Button>
             </form>
-        </div>
+        </Container>
     )
 }

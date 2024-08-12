@@ -7,10 +7,12 @@ import { useRouter } from 'next/navigation'
 import { CSSProperties } from 'react'
 
 export default function UserLayout({ children }: Layout) {
+    const router = useRouter()
+
     const style: CSSProperties = {
         display: 'flex',
     }
-    const router = useRouter()
+
     return (
         <div id='User layout'>
             <div style={style}>
