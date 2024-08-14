@@ -34,9 +34,7 @@ export const Modal = (props: ModalProps) => {
         if (isOpen) {
             document.addEventListener('keydown', closeOnEscapeKeyClick)
         }
-        if (!isOpen) {
-            document.removeEventListener('keydown', closeOnEscapeKeyClick)
-        }
+
         return () => {
             document.removeEventListener('keydown', closeOnEscapeKeyClick)
         }
