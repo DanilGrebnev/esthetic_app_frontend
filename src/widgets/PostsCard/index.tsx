@@ -1,11 +1,11 @@
 'use client'
 
-import { DashboardList, SaveToDashboardButton } from '@/entities/dashboard'
+import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { type FC, useCallback, useState } from 'react'
+import { type FC } from 'react'
 
 import s from './s.module.scss'
 
