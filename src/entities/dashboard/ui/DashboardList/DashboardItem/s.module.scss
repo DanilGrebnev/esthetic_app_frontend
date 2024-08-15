@@ -1,7 +1,6 @@
 .dashboar-item {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    justify-content: space-between;
     cursor: pointer;
     border-radius: var(--global-border-radius);
     padding: 12px;
@@ -11,9 +10,19 @@
     &:hover {
         background: var(--global-btn-hover);
     }
+
+    &__img {
+        border-radius: var(--global-border-radius);
+        object-fit: cover;
+    }
 }
 
-.dashboar-item__img {
-    border-radius: var(--global-border-radius);
-    object-fit: cover;
+.disabled {
+    opacity: 0.3;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

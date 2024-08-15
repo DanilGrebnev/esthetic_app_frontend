@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     line-height: normal;
-
+    user-select: none;
 }
 
 button, input, a {

@@ -1,18 +1,20 @@
-import { DashboardGroupContainer } from '@/entities/dashboard/ui/DashboardList/DashboardGroupContainer'
+import { DashboardListSkeleton } from '@/entities/dashboard/ui/DashboardList/DashboardListSkeleton'
 import { clsx } from 'clsx'
 import { forwardRef } from 'react'
 
+import { DashboardGroupContainer } from './DashboardGroupContainer'
 import { DashboardItem } from './DashboardItem'
 import s from './DashboardList.module.scss'
 
 interface DashboardListProps {
     className?: string
+    isLoading?: boolean
     onClick?: () => void
 }
 
 export const DashboardList = forwardRef<HTMLDivElement, DashboardListProps>(
     (props, ref) => {
-        const { className } = props
+        const { className, isLoading } = props
 
         return (
             <div
@@ -23,20 +25,27 @@ export const DashboardList = forwardRef<HTMLDivElement, DashboardListProps>(
                 <h2 className={s['container-title']}>Сохранение</h2>
                 <div className={s['dashboard-list']}>
                     <DashboardGroupContainer groupName='Быстрое сохранение'>
-                        <DashboardItem name='Профиль' />
+                        <DashboardItem
+                            isLoading={true}
+                            dashboardName='Профиль'
+                        />
                     </DashboardGroupContainer>
 
                     <DashboardGroupContainer groupName='Сохранение на доске'>
-                        {Array(20)
-                            .fill('')
-                            .map((_, i) => {
-                                return (
-                                    <DashboardItem
-                                        key={i}
-                                        name={'Cars'}
-                                    />
-                                )
-                            })}
+                        {!isLoading ? (
+                            Array(20)
+                                .fill('')
+                                .map((_, i) => {
+                                    return (
+                                        <DashboardItem
+                                            key={i}
+                                            dashboardName={'Cars'}
+                                        />
+                                    )
+                                })
+                        ) : (
+                            <DashboardListSkeleton />
+                        )}
                     </DashboardGroupContainer>
                 </div>
             </div>

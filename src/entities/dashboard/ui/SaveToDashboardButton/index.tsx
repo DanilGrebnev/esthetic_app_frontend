@@ -39,7 +39,7 @@ export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
                     isOpen={open}
                     onClose={onClose}
                 >
-                    <DashboardList />
+                    <DashboardList isLoading={true} />
                 </Modal>
             </>
         )
