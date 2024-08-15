@@ -1,4 +1,3 @@
-import { DashboardList } from '@/entities/dashboard'
 import { Button } from '@/shared/ui/Button'
 import { Modal } from '@/shared/ui/modal'
 import {
@@ -8,6 +7,8 @@ import {
     useCallback,
     useState,
 } from 'react'
+
+import { DashboardModalList } from '../DashboardModalList'
 
 interface SaveToDashboardButtonProps
     extends ComponentPropsWithoutRef<'button'> {}
@@ -39,7 +40,7 @@ export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
                     isOpen={open}
                     onClose={onClose}
                 >
-                    <DashboardList isLoading={true} />
+                    <DashboardModalList isLoading={true} />
                 </Modal>
             </>
         )

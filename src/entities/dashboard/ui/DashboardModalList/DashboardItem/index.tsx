@@ -52,7 +52,7 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
                     </>
                 )}
             </div>
-            {isLoading && <CircularProgress sizesVariant='m' />}
+            {isLoading && <CircularProgress sizesVariant='s' />}
         </div>
     )
 }

@@ -1,2 +1,2 @@
-export { DashboardList } from './ui/DashboardList/DashboardList'
+export { DashboardModalList } from './ui/DashboardModalList'
 export { SaveToDashboardButton } from './ui/SaveToDashboardButton'

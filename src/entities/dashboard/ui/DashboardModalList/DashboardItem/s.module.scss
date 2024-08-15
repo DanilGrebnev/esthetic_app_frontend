@@ -1,6 +1,7 @@
 .dashboar-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     cursor: pointer;
     border-radius: var(--global-border-radius);
     padding: 12px;
