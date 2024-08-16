@@ -2,8 +2,8 @@
 
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
-import { InputWithTags } from '@/shared/ui/InputWithTags'
-import { Select } from '@/shared/ui/Select'
+import { InputWithTags, type TagType } from '@/shared/ui/InputWithTags'
+import { Select, type SelectType } from '@/shared/ui/Select'
 import { ChangeEvent, FormEvent, useCallback } from 'react'
 
 import { usePostsSlice } from '../../model/slice'
@@ -32,6 +32,14 @@ export const CreatePostForm = () => {
         },
         [setPosts],
     )
+
+    const onSelect = useCallback(({ name, value }: SelectType) => {
+        console.log('onSelect', name, value)
+    }, [])
+
+    const onChangeTags = useCallback((tags: TagType) => {
+        console.log(tags)
+    }, [])
 
     return (
         <Container size='m'>
@@ -76,16 +84,14 @@ export const CreatePostForm = () => {
                     />
 
                     <Select
-                        onChange={({ name, value }) => {
-                            setPosts(name, value)
-                        }}
+                        onChange={onSelect}
                         label='Доска'
                         placeholder='Выбрать доску'
                         name='dashboard'
                     >
                         {selectOptions}
                     </Select>
-                    <InputWithTags onChange={(values) => console.log(values)} />
+                    <InputWithTags onChange={onChangeTags} />
                 </div>
             </form>
         </Container>

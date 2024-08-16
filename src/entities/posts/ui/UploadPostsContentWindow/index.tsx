@@ -1,7 +1,7 @@
 'use client'
 
 import { UploadFiles } from '@/shared/ui/UploadFile'
-import { type FC } from 'react'
+import { type FC, memo } from 'react'
 
 import { usePostsSliceActions } from '../../model/slice'
 
@@ -9,7 +9,7 @@ interface Props {
     className?: string
 }
 
-export const UploadPostsContentWindow: FC<Props> = ({ className }) => {
+export const UploadPostsContentWindow: FC<Props> = memo(({ className }) => {
     const actions = usePostsSliceActions()
 
     const onChange = (file: string) => {
@@ -23,4 +23,6 @@ export const UploadPostsContentWindow: FC<Props> = ({ className }) => {
             onChange={onChange}
         />
     )
-}
+})
+
+UploadPostsContentWindow.displayName = 'UploadPostsContentWindow'

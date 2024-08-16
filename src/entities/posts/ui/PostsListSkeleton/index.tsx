@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid'
 import { PostsListMasonryContainer } from '../PostsListMasonryContainer'
 import s from './s.module.sass'
 
-export const PostsListLoader = () => {
+export const PostsListSkeleton = () => {
     const asp = ['9/16', '2/3', '3/4', '4/5', '1/1']
 
     return (

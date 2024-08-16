@@ -1,4 +1,3 @@
-import { createSelectorHooks } from 'auto-zustand-selectors-hook'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
@@ -45,6 +44,10 @@ export const usePostsSlice = create<PostsState>()(
 
 export const useGetPostsImageSelector = () => {
     return usePostsSlice((state) => state.postsData.image)
+}
+
+export const useGetPostsDataSelector = () => {
+    return usePostsSlice((state) => state.postsData)
 }
 
 export const usePostsSliceActions = () => {

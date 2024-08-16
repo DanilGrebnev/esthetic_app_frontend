@@ -1,7 +1,7 @@
-import { PostsListLoader } from '@/entities/posts'
+import { PostsListSkeleton } from '@/entities/posts'
 
 const Loading = () => {
-    return <PostsListLoader />
+    return <PostsListSkeleton />
 }
 
 export default Loading

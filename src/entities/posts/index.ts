@@ -1,9 +1,10 @@
+export { PublishPostsBtn } from './ui/PublishPostsBtn/PublishPostsBtn'
 export { DownloadFileBtn } from './ui/DownloadFileBtn'
 export { SearchInput } from '../../widgets/Search'
 export { CreatePostForm } from './ui/CreatePostForm'
 export { UploadPostsContentWindow } from './ui/UploadPostsContentWindow'
 export { usePostsSlice } from './model/slice'
-export { PostsListLoader } from './ui/PostsListLoader'
+export { PostsListSkeleton } from './ui/PostsListSkeleton'
 export { PostsListMasonryContainer } from './ui/PostsListMasonryContainer'
 
 export { mockPosts } from './mock'

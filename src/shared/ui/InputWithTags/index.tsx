@@ -2,7 +2,7 @@
 
 import { useLatest } from '@/shared/hooks/useLatest'
 import { clsx } from 'clsx'
-import { type FC, useCallback, useEffect, useRef, useState } from 'react'
+import { type FC, memo, useCallback, useEffect, useRef, useState } from 'react'
 
 import { Input } from './Input'
 import { TagItem } from './TagItem'
@@ -10,13 +10,15 @@ import s from './s.module.scss'
 import { Tags } from './types'
 import { setInitialTagsState } from './utils'
 
+export type TagType = Tags[]
+
 interface InputWithTagsProps {
     className?: string
     initialValue?: Tags[]
-    onChange?: (value: string[]) => void
+    onChange?: (tags: Tags[]) => void
 }
 
-export const InputWithTags: FC<InputWithTagsProps> = (props) => {
+export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
     const { onChange, initialValue, className } = props
 
     const [tags, setTags] = useState<Tags[]>(() =>
@@ -34,7 +36,7 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
     }, [])
 
     useEffect(() => {
-        onChange?.(tags.map(({ label }) => label))
+        onChange?.(tags.map((tag) => tag))
     }, [tags, onChange])
 
     const deleteTag = useCallback(
@@ -75,4 +77,6 @@ export const InputWithTags: FC<InputWithTagsProps> = (props) => {
             </div>
         </div>
     )
-}
+})
+
+InputWithTags.displayName = 'InputWithTags'

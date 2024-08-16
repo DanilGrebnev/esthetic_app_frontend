@@ -8,11 +8,12 @@ import {
     type SelectChangeEvent,
 } from '@mui/material'
 import { StyledEngineProvider } from '@mui/material/styles'
-import { type FC, useId, useState } from 'react'
+import { type FC, memo, useId, useState } from 'react'
 
 import s from './s.module.scss'
 
-type MenuItem = { name: string; value: string; checked?: boolean }
+export type SelectType = { name: string; value: string }
+type MenuItem = { checked?: boolean } & SelectType
 
 type BasicSelectProps = Omit<
     Parameters<typeof Select>[0],
@@ -23,7 +24,7 @@ type BasicSelectProps = Omit<
     placeholder?: string
 }
 
-const BasicSelect: FC<BasicSelectProps> = (props) => {
+const BasicSelect: FC<BasicSelectProps> = memo((props) => {
     const {
         label,
         children,
@@ -65,7 +66,7 @@ const BasicSelect: FC<BasicSelectProps> = (props) => {
                             <em>{placeholder}</em>
                         </MenuItem>
                     )}
-                    {children?.map(({ name, value }, i) => {
+                    {children?.map(({ name, value }) => {
                         return (
                             <MenuItem
                                 key={name}
@@ -79,6 +80,8 @@ const BasicSelect: FC<BasicSelectProps> = (props) => {
             </FormControl>
         </StyledEngineProvider>
     )
-}
+})
+
+BasicSelect.displayName = 'BasicSelect'
 
 export { BasicSelect as Select }

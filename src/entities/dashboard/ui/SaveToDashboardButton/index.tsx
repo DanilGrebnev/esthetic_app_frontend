@@ -5,6 +5,7 @@ import {
     type FC,
     memo,
     useCallback,
+    useRef,
     useState,
 } from 'react'
 
@@ -15,17 +16,15 @@ interface SaveToDashboardButtonProps
 
 export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
     ({ className }) => {
-        const [open, setIsOpne] = useState(false)
+        const [open, setIsOpen] = useState(false)
 
         const onOpen = useCallback((e: any) => {
             e.preventDefault()
             e.stopPropagation()
-            setIsOpne(true)
+            setIsOpen(true)
         }, [])
 
-        const onClose = useCallback(() => {
-            setIsOpne(false)
-        }, [])
+        const onCloseRef = useRef(() => setIsOpen(false))
 
         return (
             <>
@@ -38,7 +37,7 @@ export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
                 </Button>
                 <Modal
                     isOpen={open}
-                    onClose={onClose}
+                    onClose={onCloseRef.current}
                 >
                     <DashboardModalList isLoading={true} />
                 </Modal>

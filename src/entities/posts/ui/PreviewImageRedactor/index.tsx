@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { type FC, useState } from 'react'
+import { type FC, memo, useState } from 'react'
 
 import {
     useGetPostsImageSelector,
@@ -12,7 +12,7 @@ import s from './s.module.scss'
 
 interface PreviewImageProps {}
 
-export const PreviewImageRedactor: FC<PreviewImageProps> = () => {
+export const PreviewImageRedactor: FC<PreviewImageProps> = memo(() => {
     const image = useGetPostsImageSelector()
     const action = usePostsSliceActions()
 
@@ -47,4 +47,6 @@ export const PreviewImageRedactor: FC<PreviewImageProps> = () => {
             </div>
         </div>
     )
-}
+})
+
+PreviewImageRedactor.displayName = 'PreviewImageRedactor'

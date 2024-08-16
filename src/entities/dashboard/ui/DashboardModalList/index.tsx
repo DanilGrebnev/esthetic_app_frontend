@@ -1,10 +1,10 @@
-import { DashboardListSkeleton } from '@/entities/dashboard/ui/DashboardModalList/DashboardListSkeleton'
 import { clsx } from 'clsx'
-import { forwardRef } from 'react'
+import { type FC } from 'react'
 
 import { DashboardGroupContainer } from './DashboardGroupContainer'
 import { DashboardItem } from './DashboardItem'
 import s from './DashboardList.module.scss'
+import { DashboardListSkeleton } from './DashboardListSkeleton'
 
 interface DashboardListProps {
     className?: string
@@ -12,15 +12,11 @@ interface DashboardListProps {
     onClick?: () => void
 }
 
-export const DashboardModalList = forwardRef<
-    HTMLDivElement,
-    DashboardListProps
->((props, ref) => {
+export const DashboardModalList: FC<DashboardListProps> = (props) => {
     const { className, isLoading } = props
 
     return (
         <div
-            ref={ref}
             onClick={(e) => e.stopPropagation()}
             className={clsx(s['dashboard-container'], className)}
         >
@@ -52,6 +48,6 @@ export const DashboardModalList = forwardRef<
             </div>
         </div>
     )
-})
+}
 
 DashboardModalList.displayName = 'DashboardList'

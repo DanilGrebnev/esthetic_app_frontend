@@ -1,12 +1,10 @@
 'use client'
 
 import {
-    ReactNode,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-} from 'react'
+    useCloseIfClickOnEscapeKey,
+    useToggleBodyOverflow,
+} from '@/shared/ui/modal/hooks'
+import { type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 import s from './modal.module.scss'
@@ -17,59 +15,35 @@ interface ModalProps {
     children?: ReactNode
 }
 
+/*
+ * Модальное окно принимает объект со следующими полями:
+ * @param {boolean} isOpen - состояние открытия / закрытия модального окна
+ * @param {object} children - контент, отображаемый внутри модального окна
+ * @callback onClose - функция, которая будет вызываться при закрытии модального кона
+ * */
 export const Modal = (props: ModalProps) => {
     const { children, isOpen, onClose } = props
 
-    const closeOnEscapeKeyClick = useCallback(
-        (e: any) => {
-            console.log(e.key)
-            if (e.key === 'Escape') {
-                onClose?.()
-            }
-        },
-        [onClose],
+    useCloseIfClickOnEscapeKey(isOpen, onClose)
+    useToggleBodyOverflow(isOpen)
+
+    return (
+        <>
+            {isOpen
+                ? createPortal(
+                      <div
+                          onClick={(e) => {
+                              e.stopPropagation()
+                              e.preventDefault()
+                              onClose?.()
+                          }}
+                          className={s['modal-container']}
+                      >
+                          {children}
+                      </div>,
+                      document.getElementById('modal-root') as HTMLElement,
+                  )
+                : null}
+        </>
     )
-
-    useEffect(() => {
-        if (isOpen) {
-            document.addEventListener('keydown', closeOnEscapeKeyClick)
-        }
-
-        return () => {
-            document.removeEventListener('keydown', closeOnEscapeKeyClick)
-        }
-    }, [isOpen, closeOnEscapeKeyClick])
-
-    const modalRootRef = useRef<HTMLElement | null>(null)
-    const bodyRef = useRef<HTMLElement | null>(null)
-
-    useLayoutEffect(() => {
-        bodyRef.current = document.querySelector('body')
-        modalRootRef.current = document.getElementById('modal-root')
-    }, [])
-
-    useLayoutEffect(() => {
-        if (!bodyRef.current) return
-        if (isOpen) {
-            bodyRef.current.style.overflow = 'hidden'
-        } else {
-            bodyRef.current.style.overflow = 'auto'
-        }
-    }, [isOpen])
-
-    return isOpen
-        ? createPortal(
-              <div
-                  onClick={(e) => {
-                      e.stopPropagation()
-                      e.preventDefault()
-                      onClose?.()
-                  }}
-                  className={s['modal-container']}
-              >
-                  {children}
-              </div>,
-              modalRootRef.current as HTMLElement,
-          )
-        : null
 }

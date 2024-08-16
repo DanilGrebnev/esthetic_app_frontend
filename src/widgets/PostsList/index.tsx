@@ -6,6 +6,7 @@ import { PostsCard } from '../PostsCard'
 
 interface PostsListProps {
     className?: string
+    isLoading?: boolean
 }
 
 export const PostsList: FC<PostsListProps> = ({ className }) => {

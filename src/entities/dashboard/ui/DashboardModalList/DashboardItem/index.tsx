@@ -23,13 +23,13 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
     return (
         <div
             title={title}
-            className={clsx(s['dashboar-item'], { [s.disabled]: disabled })}
+            className={clsx(s['dashboard-item'], { [s.disabled]: disabled })}
         >
             <div className={clsx(s.content)}>
                 {!skeleton ? (
                     <>
                         <Image
-                            className={s['dashboar-item__img']}
+                            className={s['dashboard-item__img']}
                             src={consts.pathToImage + 't1.jpg'}
                             width={40}
                             height={40}
