@@ -1,6 +1,7 @@
 'use client'
 
 import { UploadFiles } from '@/shared/ui/UploadFile'
+import { readFile } from '@/shared/utils/readFile'
 import { type FC, memo } from 'react'
 
 import { usePostsSliceActions } from '../../model/slice'
@@ -12,8 +13,10 @@ interface Props {
 export const UploadPostsContentWindow: FC<Props> = memo(({ className }) => {
     const actions = usePostsSliceActions()
 
-    const onChange = (file: string) => {
-        actions.setFileData(file)
+    const onChange = (files: FileList) => {
+        readFile(files[0]).then((file) => {
+            actions.setFileData(file as string)
+        })
     }
 
     return (

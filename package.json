@@ -7,6 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "stylelint": "npx stylelint \"**/*.scss\"",
         "format": "prettier --write ."
     },
     "dependencies": {
@@ -24,6 +25,7 @@
         "next": "14.2.4",
         "react": "^18",
         "react-dom": "^18",
+        "react-hook-form": "^7.52.2",
         "react-responsive": "^10.0.0",
         "react-responsive-masonry": "^2.2.1",
         "sass": "^1.77.6",
@@ -44,6 +46,9 @@
         "prettier": "^3.3.2",
         "prettier-plugin-css-order": "^2.1.2",
         "prettier-plugin-tailwindcss": "^0.6.5",
+        "stylelint": "^16.8.2",
+        "stylelint-config-standard": "^36.0.1",
+        "stylelint-config-standard-scss": "^13.1.0",
         "typescript": "^5"
     },
     "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"

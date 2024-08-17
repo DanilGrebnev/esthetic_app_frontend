@@ -5,12 +5,17 @@ export const routes = {
     },
 
     createPost: '/create-posts',
+
     postsDetail: {
         getRoute(postId: string) {
             return `/detail-posts/${postId}`
         },
     },
-
+    editUserInfo: {
+        getRoute(userId: string) {
+            return `/user/${userId}/edit-user-info`
+        },
+    },
     userCreatedPosts: {
         getRoute(userId: string) {
             return `/user/${userId}/created-posts`
@@ -19,6 +24,7 @@ export const routes = {
             return /\/user\/.+\/created-posts/.test(route)
         },
     },
+
     userDashboardDetail: {
         getRoute(userId: string, dashboardId: string) {
             return `/user/${userId}/dashboard-detail/${dashboardId}`
@@ -36,5 +42,11 @@ export const routes = {
         getRoute(userId: string) {
             return `/user/${userId}/all-saved-posts`
         },
+    },
+    registration: {
+        getRoute: () => '/registration',
+    },
+    login: {
+        getRoute: () => '/login',
     },
 } as const

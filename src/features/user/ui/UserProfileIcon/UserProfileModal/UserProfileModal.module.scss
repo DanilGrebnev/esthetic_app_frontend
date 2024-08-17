@@ -1,0 +1,23 @@
+.modal{
+  background: var(--theme-bg-color-1);
+  position: absolute;
+  right: 0;
+  box-shadow: var(--global-box-shadow);
+  border-radius: var(--global-border-radius);
+}
+
+.modal-wrapper{
+  padding: var(--global-gap-1);
+  display: flex;
+  flex-direction: column;
+}
+
+.link{
+  padding: var(--global-gap-1);
+  border-radius: var(--global-border-radius);
+  color: var(--text-palette-main);
+
+  &:hover{
+    background: var(--global-btn-hover);
+  }
+}

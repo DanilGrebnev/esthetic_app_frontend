@@ -1,6 +1,5 @@
 'use client'
 
-import { readFile } from '@/shared/utils/readFile'
 import clsx from 'clsx'
 import {
     type ChangeEvent,
@@ -11,13 +10,14 @@ import {
 } from 'react'
 
 import s from './s.module.scss'
+import { stopEventPropAndPrevDef } from './utils'
 
 interface IUploadFiles {
-    onChange: (file: string) => void
+    onChange: (files: FileList) => void
     className?: string
     placeholder?: string
 }
-type TDrag = DragEvent<HTMLDivElement>
+
 export const UploadFiles: FC<IUploadFiles> = (props) => {
     const {
         onChange: onChangeFromProps,
@@ -29,34 +29,23 @@ export const UploadFiles: FC<IUploadFiles> = (props) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-        readFile(e.target.files?.[0]).then((file) => {
-            onChangeFromProps(file as string)
-        })
+        const { files } = e.target
+        onChangeFromProps(files as FileList)
     }
 
-    const onDrop = async (e: TDrag) => {
-        e.preventDefault()
-        e.stopPropagation()
-
-        readFile(e.dataTransfer.files[0]).then((file) => {
-            onChangeFromProps(file as string)
-        })
-
+    const onDrop = stopEventPropAndPrevDef((e: DragEvent<HTMLDivElement>) => {
+        const { files } = e.dataTransfer
+        onChangeFromProps(files)
         setIsOver(false)
-    }
+    })
 
-    const onDragOver = (e: TDrag) => {
-        e.preventDefault()
-        e.stopPropagation()
+    const onDragOver = stopEventPropAndPrevDef(() => {
         setIsOver(true)
-    }
+    })
 
-    const onDragEnter = (e: TDrag) => {
-        e.preventDefault()
-        e.stopPropagation()
-    }
+    const onDragEnter = stopEventPropAndPrevDef(() => {})
 
-    const onDragLeave = (e: TDrag) => {
+    const onDragLeave = () => {
         setIsOver(false)
     }
 

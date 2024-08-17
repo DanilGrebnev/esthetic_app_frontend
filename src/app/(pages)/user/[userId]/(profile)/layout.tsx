@@ -1,3 +1,4 @@
+import { routes } from '@/shared/routes'
 import { type Layout } from '@/shared/types/layout'
 import { Button } from '@/shared/ui/Button'
 import { type FC } from 'react'
@@ -16,7 +17,12 @@ const UserLayout: FC<Layout> = ({ children }) => {
 
                 <div className={s['btn-group']}>
                     <Button variant='silver'>Поделиться</Button>
-                    <Button variant='silver'>Изменить</Button>
+                    <Button
+                        href={routes.editUserInfo.getRoute('123')}
+                        variant='silver'
+                    >
+                        Изменить
+                    </Button>
                 </div>
 
                 <Navigation className={s['navigation-group']} />
