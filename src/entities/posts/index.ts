@@ -1,4 +1,4 @@
-export { PublishPostsBtn } from './ui/PublishPostsBtn/PublishPostsBtn'
+export { PublishPostsBtn } from './ui/PublishPostsBtn'
 export { DownloadFileBtn } from './ui/DownloadFileBtn'
 export { SearchInput } from '../../widgets/Search'
 export { CreatePostForm } from './ui/CreatePostForm'
