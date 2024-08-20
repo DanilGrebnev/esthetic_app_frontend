@@ -1,12 +1,21 @@
 'use client'
 
+import { UserInputWithValidation } from '@/features/user'
+import { type CreateUserDTO } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
+import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form'
 
 import { Title } from '../Title'
 import s from './s.module.scss'
 
 export const RegistrationForm = () => {
+    const {
+        register,
+        formState: { errors },
+    } = useForm<Omit<CreateUserDTO, 'tags'>>({ mode: 'onBlur' })
+    console.log(errors)
+
     return (
         <Container
             size='s'
@@ -14,25 +23,34 @@ export const RegistrationForm = () => {
         >
             <form className={s['registration-form']}>
                 <Title text='Регистрация' />
-                <Input
+                <UserInputWithValidation
+                    register={register}
                     label='Имя'
-                    name='Имя'
-                    placeholder='Введите имя'
+                    name='firstName'
+                    errors={errors}
+                    required
                 />
-                <Input
+                <UserInputWithValidation
+                    register={register}
                     label='Фамилия'
                     name='lastName'
-                    placeholder='Введите фамилию'
+                    errors={errors}
                 />
-                <Input
+                <UserInputWithValidation
+                    register={register}
                     label='Имя пользователя'
-                    name='username'
+                    name='userName'
                     placeholder='Введите имя пользователя'
+                    errors={errors}
+                    required
                 />
-                <Input
+                <UserInputWithValidation
+                    register={register}
                     label='Пароль'
                     name='password'
                     placeholder='Введите пароль'
+                    errors={errors}
+                    required
                 />
                 <Input
                     label='Почта'

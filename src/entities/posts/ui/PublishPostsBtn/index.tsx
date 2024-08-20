@@ -1,13 +1,18 @@
 'use client'
 
-import { useGetPostsSubmitBtnSelector } from '@/entities/posts/model/slice'
 import { Button } from '@/shared/ui/Button'
+import { FC, RefObject } from 'react'
 
-export const PublishPostsBtn = () => {
-    const submitButtonRef = useGetPostsSubmitBtnSelector()
+interface PublishPostsBtnProps {
+    submitRef: RefObject<HTMLButtonElement>
+}
+
+export const PublishPostsBtn: FC<PublishPostsBtnProps> = (props) => {
+    const { submitRef } = props
 
     const onSubmit = () => {
-        submitButtonRef?.current?.click()
+        // submitButtonRef?.current?.click()
+        submitRef.current?.click()
     }
 
     return (

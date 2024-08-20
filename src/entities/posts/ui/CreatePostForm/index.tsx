@@ -11,13 +11,16 @@ import {
 } from '@/shared/ui/InputWithTags'
 import { Select, type SelectType } from '@/shared/ui/Select'
 import { clsx } from 'clsx'
-import { FormEventHandler, useCallback, useEffect, useRef } from 'react'
+import {
+    FormEventHandler,
+    forwardRef,
+    useCallback,
+    useEffect,
+    useRef,
+} from 'react'
 import { useForm } from 'react-hook-form'
 
-import {
-    useGetPostsFileSelector,
-    usePostsSliceActions,
-} from '../../model/slice'
+import { usePostsSliceActions } from '../../model/slice'
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
 
@@ -26,21 +29,13 @@ const selectOptions = [
     { name: 'two', value: 'two' },
 ]
 
-export const CreatePostForm = () => {
+export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
     const {
         register,
         handleSubmit,
         setError,
         formState: { errors, touchedFields },
     } = useForm<Omit<CreatePost, 'fileOptions' | 'tags'>>({ mode: 'onBlur' })
-
-    // Передаём ссылку на кнопку отправки в хранилище
-    const { setSubmitButtonRef } = usePostsSliceActions()
-    const submitBtnRef = useRef<HTMLButtonElement | null>(null)
-    useEffect(() => {
-        if (!submitBtnRef) return
-        setSubmitButtonRef(submitBtnRef)
-    }, [setSubmitButtonRef])
 
     // Создаём конструктор FormData в области видимости компонента
     const formDataRef = useRef<FormData | null>(null)
@@ -118,11 +113,11 @@ export const CreatePostForm = () => {
                 <button
                     hidden={true}
                     type='submit'
-                    ref={submitBtnRef}
+                    ref={ref}
                 />
             </form>
         </Container>
     )
-}
+})
 
 CreatePostForm.displayName = 'CreatePostForm'

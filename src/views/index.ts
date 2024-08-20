@@ -1,5 +1,4 @@
-export { EditUserInfoPage } from './/EditUserInfoPage'
-
+export { EditUserInfoPage } from './EditUserInfoPage'
 export { Home } from './HomePage'
 export { CreatePosts } from './CreatePostsPage/page'
 export { PostsDetailPage } from './PostsDetailPage/page'
