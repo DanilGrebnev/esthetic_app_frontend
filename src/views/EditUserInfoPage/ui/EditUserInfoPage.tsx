@@ -1,53 +1,102 @@
 'use client'
 
+import { type CreateUserDTO } from '@/shared/types/user'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { UploadFiles } from '@/shared/ui/UploadFile'
+import { useCallback, useEffect } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { ValidationInputs } from '../../../shared/ValidationInputs'
 import s from './s.module.scss'
 
+type FormTypes = Omit<CreateUserDTO, 'tags'>
 export const EditUserInfoPage = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormTypes>({ mode: 'onBlur' })
+
+    useEffect(() => {
+        console.log(errors)
+    }, [errors])
+
     return (
-        <Container
-            size='s'
-            className={s.page}
-        >
-            <header>
-                <h1>Изменение профиля пользователя</h1>
-            </header>
-            <UploadFiles
-                onChange={(file) => {
-                    console.log(file)
-                }}
-            />
-            <Input
-                name='firstName'
-                label='Имя пользователя'
-            />
-            <Input
-                name='lastName'
-                label='Фамилия пользователя'
-            />
-            <Input
-                name='userName'
-                label='Псевдоним пользователя'
-            />
-            <Input
-                name='email'
-                label='Почта пользователя'
-            />
-            <Input
-                name='password'
-                label='Пароль пользователя'
-                type='password'
-            />
-            <InputWithTags />
-            <div className={s['btn-group']}>
-                <Button variant='silver'>Изменить</Button>
-                <Button>Отменить</Button>
-            </div>
+        <Container size='s'>
+            <form
+                onSubmit={handleSubmit(console.log)}
+                className={s.page}
+            >
+                <header>
+                    <h1>Изменение профиля пользователя</h1>
+                </header>
+                <UploadFiles
+                    className={s['upload-files']}
+                    onChange={(file) => {
+                        console.log(file)
+                    }}
+                />
+                <Input
+                    label='Имя пользователя'
+                    {...register('firstName', {
+                        required: ValidationInputs.required.message,
+                        pattern: {
+                            value: ValidationInputs.onlyWords.pattern,
+                            message: ValidationInputs.onlyWords.message,
+                        },
+                        minLength: {
+                            value: 3,
+                            message:
+                                'Минимальная длинна не может быть меньше 3-х',
+                        },
+                    })}
+                    error={!!errors.firstName}
+                    helperText={errors.firstName?.message}
+                />
+                <Input
+                    label='Фамилия пользователя'
+                    {...register('lastName', {
+                        required: ValidationInputs.required.message,
+                        pattern: {
+                            value: ValidationInputs.onlyWords.pattern,
+                            message: ValidationInputs.onlyWords.message,
+                        },
+                        minLength: {
+                            value: 3,
+                            message:
+                                'Минимальная длинна не может быть меньше 3-х',
+                        },
+                    })}
+                    error={!!errors.lastName}
+                    helperText={errors.lastName?.message}
+                />
+                <Input
+                    label='Псевдоним пользователя'
+                    {...register('userName')}
+                />
+                <Input
+                    {...register('email')}
+                    label='Почта пользователя'
+                />
+                <Input
+                    label='Пароль пользователя'
+                    type='password'
+                    {...register('password')}
+                />
+                <InputWithTags />
+                <div className={s['btn-group']}>
+                    <Button
+                        type='submit'
+                        variant='silver'
+                    >
+                        Изменить
+                    </Button>
+                    <Button>Отменить</Button>
+                </div>
+            </form>
         </Container>
     )
 }

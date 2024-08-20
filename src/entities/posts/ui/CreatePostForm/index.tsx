@@ -1,13 +1,23 @@
 'use client'
 
+import { ValidationInputs } from '@/shared/ValidationInputs'
+import { useCreateFormData } from '@/shared/hooks/useCreateFormData'
+import { type CreatePost } from '@/shared/types/posts'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
-import { InputWithTags, type TagType } from '@/shared/ui/InputWithTags'
+import {
+    InputWithTags,
+    type TInputWithTagsTagItemList,
+} from '@/shared/ui/InputWithTags'
 import { Select, type SelectType } from '@/shared/ui/Select'
-import { ChangeEvent, FormEvent, useCallback } from 'react'
+import { clsx } from 'clsx'
+import { FormEventHandler, useCallback, useEffect, useRef } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { usePostsSlice } from '../../model/slice'
-import { PreviewImageRedactor } from '../PreviewImageRedactor'
+import {
+    useGetPostsFileSelector,
+    usePostsSliceActions,
+} from '../../model/slice'
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
 
@@ -17,51 +27,68 @@ const selectOptions = [
 ]
 
 export const CreatePostForm = () => {
-    const setPosts = usePostsSlice((state) => state.setPostsData)
-    const data = usePostsSlice((state) => state.postsData)
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors, touchedFields },
+    } = useForm<Omit<CreatePost, 'fileOptions' | 'tags'>>({ mode: 'onBlur' })
 
-    const submit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const formData = new FormData(e.target as HTMLFormElement)
-        console.log('values', formData.values())
-    }
+    // Передаём ссылку на кнопку отправки в хранилище
+    const { setSubmitButtonRef } = usePostsSliceActions()
+    const submitBtnRef = useRef<HTMLButtonElement | null>(null)
+    useEffect(() => {
+        if (!submitBtnRef) return
+        setSubmitButtonRef(submitBtnRef)
+    }, [setSubmitButtonRef])
 
-    const onChange = useCallback(
-        (e: ChangeEvent<HTMLInputElement>) => {
-            setPosts(e.target.name, e.target.value)
+    // Создаём конструктор FormData в области видимости компонента
+    const formDataRef = useRef<FormData | null>(null)
+    const formRef = useRef<HTMLFormElement | null>(null)
+
+    const onChangeTags = useCallback(
+        (tags: TInputWithTagsTagItemList) => {
+            if (formDataRef.current) {
+                formDataRef.current.set('tags', JSON.stringify(tags))
+            }
         },
-        [setPosts],
+        [formDataRef],
     )
 
-    const onSelect = useCallback(({ name, value }: SelectType) => {
-        console.log('onSelect', name, value)
-    }, [])
+    const onSubmit = handleSubmit(() => {
+        console.clear()
+        if (!formRef.current) return
+        formDataRef.current = new FormData(formRef.current)
+        const formData = formDataRef.current
 
-    const onChangeTags = useCallback((tags: TagType) => {
-        console.log(tags)
-    }, [])
+        for (let field of formData) {
+            console.log(field)
+        }
+    })
 
     return (
         <Container size='m'>
             <form
+                ref={formRef}
                 className={s.form}
-                onSubmit={submit}
+                onSubmit={onSubmit}
             >
                 <div className={s['left-col']}>
-                    {!data.image ? (
-                        <UploadPostsContentWindow />
-                    ) : (
-                        <PreviewImageRedactor />
-                    )}
+                    <UploadPostsContentWindow
+                        name='file'
+                        isError={!!errors.file}
+                    />
                 </div>
                 <div className={s['right-col']}>
                     <Input
-                        id='outlined-basic'
                         label='Название'
                         placeholder='Добавить название'
                         variant='outlined'
-                        name='name'
-                        onChange={onChange}
+                        {...register('name', {
+                            required: ValidationInputs.required.message,
+                        })}
+                        error={!!errors.name?.message}
+                        helperText={errors.name?.message}
                     />
                     <Input
                         id='outlined-basic'
@@ -71,20 +98,15 @@ export const CreatePostForm = () => {
                         minRows={5}
                         maxRows={10}
                         variant='outlined'
-                        name='description'
-                        onChange={onChange}
+                        {...register('description')}
                     />
                     <Input
-                        id='outlined-basic'
                         label='Ссылка'
                         placeholder='Добавить ссылку'
                         variant='outlined'
-                        name='link'
-                        onChange={onChange}
+                        {...register('link')}
                     />
-
                     <Select
-                        onChange={onSelect}
                         label='Доска'
                         placeholder='Выбрать доску'
                         name='dashboard'
@@ -93,7 +115,14 @@ export const CreatePostForm = () => {
                     </Select>
                     <InputWithTags onChange={onChangeTags} />
                 </div>
+                <button
+                    hidden={true}
+                    type='submit'
+                    ref={submitBtnRef}
+                />
             </form>
         </Container>
     )
 }
+
+CreatePostForm.displayName = 'CreatePostForm'

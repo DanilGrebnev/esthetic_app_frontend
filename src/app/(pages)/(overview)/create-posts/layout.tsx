@@ -1,5 +1,1 @@
-import { Layout } from '@/shared/ui/Layout'
-
-const CreatePostsLayout = Layout
-
-export default CreatePostsLayout
+export { Layout as default } from '@/shared/ui/Layout'

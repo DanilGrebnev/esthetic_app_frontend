@@ -3,18 +3,16 @@
 import Image from 'next/image'
 import { type FC, memo, useState } from 'react'
 
-import {
-    useGetPostsImageSelector,
-    usePostsSliceActions,
-} from '../../model/slice'
 import { Tabs } from '../Tabs'
 import s from './s.module.scss'
 
-interface PreviewImageProps {}
+interface PreviewImageProps {
+    image: string
+    onDeleteFile: () => void
+}
 
-export const PreviewImageRedactor: FC<PreviewImageProps> = memo(() => {
-    const image = useGetPostsImageSelector()
-    const action = usePostsSliceActions()
+export const PreviewImageRedactor: FC<PreviewImageProps> = memo((props) => {
+    const { image, onDeleteFile } = props
 
     const [aspect, setAspect] = useState<string>('9/16')
 
@@ -22,9 +20,16 @@ export const PreviewImageRedactor: FC<PreviewImageProps> = memo(() => {
         setAspect(aspect)
     }
 
+    const onDeleteImage = () => {
+        onDeleteFile()
+    }
+
     return (
         <div className={s.redactor}>
-            <Tabs onChange={changeAspect} />
+            <Tabs
+                name='aspectRatio'
+                onChange={changeAspect}
+            />
             <div
                 className={s['img-wrapper']}
                 style={{
@@ -39,7 +44,7 @@ export const PreviewImageRedactor: FC<PreviewImageProps> = memo(() => {
                     fill={true}
                 />
                 <div
-                    onClick={action.deleteFileData}
+                    onClick={onDeleteImage}
                     className={s.delete}
                 >
                     Удалить

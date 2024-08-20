@@ -10,7 +10,7 @@ import s from './s.module.scss'
 import { Tags } from './types'
 import { setInitialTagsState } from './utils'
 
-export type TagType = Tags[]
+export type TInputWithTagsTagItemList = Tags[]
 
 interface InputWithTagsProps {
     className?: string

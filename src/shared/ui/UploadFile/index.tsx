@@ -1,80 +1,64 @@
 'use client'
 
+import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import clsx from 'clsx'
-import {
-    type ChangeEvent,
-    type DragEvent,
-    type FC,
-    useRef,
-    useState,
-} from 'react'
+import { forwardRef, memo, useRef, useState } from 'react'
 
 import s from './s.module.scss'
-import { stopEventPropAndPrevDef } from './utils'
+import { type IUploadFiles } from './type'
+import { createOnChange, createOnDrop, stopPropAndPrevDef } from './utils'
 
-interface IUploadFiles {
-    onChange: (files: FileList) => void
-    className?: string
-    placeholder?: string
-}
+export const UploadFiles = memo(
+    forwardRef<HTMLInputElement, IUploadFiles>((props, ref) => {
+        const [isOver, setIsOver] = useState<boolean>(false)
 
-export const UploadFiles: FC<IUploadFiles> = (props) => {
-    const {
-        onChange: onChangeFromProps,
-        placeholder = 'Загрузить изображение',
-        className,
-    } = props
-    const [isOver, setIsOver] = useState<boolean>(false)
+        const inputRef = useRef<HTMLInputElement>(null)
+        const combineRef = useCombinedRef(ref, inputRef)
+        const onChange = createOnChange(props)
+        const onDrop = createOnDrop(props, inputRef, setIsOver)
 
-    const inputRef = useRef<HTMLInputElement>(null)
+        /* Сбрасывает поведение по умолчанию */
+        const onDragOver = stopPropAndPrevDef((e) => {})
 
-    const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-        const { files } = e.target
-        onChangeFromProps(files as FileList)
-    }
+        const onDragEnter = stopPropAndPrevDef((e) => {
+            setIsOver(true)
+        })
 
-    const onDrop = stopEventPropAndPrevDef((e: DragEvent<HTMLDivElement>) => {
-        const { files } = e.dataTransfer
-        onChangeFromProps(files)
-        setIsOver(false)
-    })
+        const onDragLeave = () => {
+            setIsOver(false)
+        }
 
-    const onDragOver = stopEventPropAndPrevDef(() => {
-        setIsOver(true)
-    })
+        return (
+            <div
+                className={clsx(
+                    s.upload,
+                    {
+                        [s['drop-zone-over']]: isOver,
+                        [s.error]: props.isError,
+                        [s.disabled]: props.disabled,
+                    },
+                    props.className,
+                )}
+                onDrop={onDrop}
+                onDragEnter={onDragEnter}
+                onDragLeave={onDragLeave}
+                onDragOver={onDragOver}
+                onClick={() => inputRef.current?.click()}
+            >
+                <p className={s.text}>
+                    {props.placeholder || 'Загрузить изображение'}
+                </p>
+                <input
+                    onChange={onChange}
+                    ref={combineRef}
+                    name={props.name}
+                    accept='image/*'
+                    type='file'
+                    hidden={true}
+                />
+            </div>
+        )
+    }),
+)
 
-    const onDragEnter = stopEventPropAndPrevDef(() => {})
-
-    const onDragLeave = () => {
-        setIsOver(false)
-    }
-
-    const onClick = () => {
-        inputRef.current?.click()
-    }
-
-    return (
-        <div
-            className={clsx(
-                s.upload,
-                { [s['drop-zone-over']]: isOver },
-                className,
-            )}
-            onDrop={onDrop}
-            onDragEnter={onDragEnter}
-            onDragLeave={onDragLeave}
-            onDragOver={onDragOver}
-            onClick={onClick}
-        >
-            <p>{placeholder}</p>
-            <input
-                onChange={onChange}
-                ref={inputRef}
-                name='img'
-                accept='image/*'
-                type='file'
-                hidden={true}
-            />
-        </div>
-    )
-}
+UploadFiles.displayName = 'UploadFiles'

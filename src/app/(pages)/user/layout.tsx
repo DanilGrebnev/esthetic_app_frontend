@@ -4,32 +4,29 @@ import { routes } from '@/shared/routes'
 import { type Layout } from '@/shared/types/layout'
 import { Button } from '@/shared/ui/Button'
 import { useRouter } from 'next/navigation'
-import { CSSProperties } from 'react'
+
+import s from './userLayout.module.scss'
 
 export default function UserLayout({ children }: Layout) {
     const router = useRouter()
 
-    const style: CSSProperties = {
-        display: 'flex',
-    }
-
     return (
         <div id='User layout'>
-            <div style={style}>
+            <div className={s['user-layout']}>
                 <Button
                     href={routes.main.getRoute()}
                     variant='standart'
                 >
                     На главную
                 </Button>
-                <Button
-                    onClick={() => {
-                        router.back()
-                    }}
-                    variant='standart'
-                >
-                    Назад
-                </Button>
+                {/*<Button*/}
+                {/*    onClick={() => {*/}
+                {/*        router.back()*/}
+                {/*    }}*/}
+                {/*    variant='standart'*/}
+                {/*>*/}
+                {/*    Назад*/}
+                {/*</Button>*/}
             </div>
             {children}
         </div>

@@ -6,6 +6,5 @@ export { UploadPostsContentWindow } from './ui/UploadPostsContentWindow'
 export { usePostsSlice } from './model/slice'
 export { PostsListSkeleton } from './ui/PostsListSkeleton'
 export { PostsListMasonryContainer } from './ui/PostsListMasonryContainer'
-
 export { mockPosts } from './mock'
 export * from './ui/Tiles'

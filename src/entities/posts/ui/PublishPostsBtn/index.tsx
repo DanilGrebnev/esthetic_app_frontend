@@ -1,14 +1,13 @@
 'use client'
 
+import { useGetPostsSubmitBtnSelector } from '@/entities/posts/model/slice'
 import { Button } from '@/shared/ui/Button'
 
-import { useGetPostsDataSelector } from '../../model/slice'
-
 export const PublishPostsBtn = () => {
-    const data = useGetPostsDataSelector()
+    const submitButtonRef = useGetPostsSubmitBtnSelector()
 
     const onSubmit = () => {
-        console.log(data)
+        submitButtonRef?.current?.click()
     }
 
     return (

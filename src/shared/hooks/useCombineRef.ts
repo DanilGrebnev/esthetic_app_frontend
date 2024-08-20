@@ -1,7 +1,7 @@
 import { type ForwardedRef, useCallback } from 'react'
 
 export const useCombinedRef = <T extends any>(...refs: ForwardedRef<T>[]) => {
-    const combinedRef = useCallback(
+    return useCallback(
         (element: T) => {
             refs.forEach((ref) => {
                 if (!ref) return
@@ -14,6 +14,4 @@ export const useCombinedRef = <T extends any>(...refs: ForwardedRef<T>[]) => {
         },
         [refs],
     )
-
-    return combinedRef
 }

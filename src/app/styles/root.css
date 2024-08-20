@@ -1,29 +1,44 @@
 :root {
+    /* ===== CONTAINER SIZES ===== */
     --container-width: 1600px;
     --container-width-2: 1000px;
     --container-width-3: 600px;
 
-    /* ===== COLORS ===== */
+    /* ===== THEME COLORS ===== */
     --theme-bg-color-1: white;
+    --theme-bg-color-2: black;
+
+    /* ===== TEXT COLORS ===== */
     --text-palette-main: black;
     --text-palette-2:white;
     --text-palette-3:#767676;
-    --box-bg-1: #e9e9e9;
+
+    /* ===== ONLY INPUTS COLORS ===== */
     --inputs-text-color-1: rgb(0 0 0 / 60%);
     --inputs-bg-1: rgb(0 0 0 / 6%);
     --inputs-bg-hover: rgb(0 0 0 / 9%);
-    --input-text-size: 17px;
+
+    /* ===== ONLY BUTTONS COLORS ===== */
+    --silver-btn-bg-color: rgb(0 0 0 / 5%);
+    --silver-btn-bg-hover-color: rgb(0 0 0 / 10%);
+    --global-btn-hover: rgba(0 0 0 / 5%);
+
+    /* ===== OTHER COLORS ===== */
+    --box-bg-1: #e9e9e9;
     --border-color-1: rgb(0 0 0 / 10%);
 
-    /* ===== TEXT ===== */
+    /* ===== TEXT SIZE ===== */
     --font-100: 12px;
     --font-200: 14px;
     --font-300: 16px;
+    --font-340: 17px;
     --font-350: 18px;
     --font-400: 20px;
     --font-500: 28px;
     --font-600: 36px;
     --font-rem-100: 1rem;
+
+    /* ===== TEXT WEIGHT ===== */
     --font-weight-normal: 400;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
@@ -32,14 +47,14 @@
     --global-gap-1: 10px;
     --global-gap-2: 20px;
     --global-gap-3: 30px;
-    --maring-l: 50px;
     --global-padding: 10px;
+    --maring-l: 50px;
 
     /* ===== ROUNDED ===== */
     --global-border-radius: 10px;
 
     /* ===== EFFECTS ===== */
-    --global-btn-hover: rgba(0 0 0 / 5%);
+
     --global-box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
 
     /* ===== CUBIC-BEZIER ===== */

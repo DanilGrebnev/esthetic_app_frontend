@@ -29,11 +29,7 @@ export const UserProfileIcon = () => {
             onMouseLeave={onMouseLeave}
             className={s['profile-icon']}
         >
-            <CircleIcon
-                href={
-                    isAuth ? routes.userSavedPosts.getRoute('321') : undefined
-                }
-            >
+            <CircleIcon href={routes.userSavedPosts.getRoute('321')}>
                 <UserAvatar size='s' />
             </CircleIcon>
             <UserProfileModal

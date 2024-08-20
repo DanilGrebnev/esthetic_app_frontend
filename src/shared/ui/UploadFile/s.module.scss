@@ -13,8 +13,28 @@
     color: var(--inputs-text-color-1);
     text-align: center;
 
+    & > * {
+        pointer-events: none;
+    }
+
     &:hover,
-    &.drop-zone-over {
+    &.drop-zone-over:not(.error) {
         background: var(--inputs-bg-hover);
     }
+
+    &.drop-zone-over:not(.error) {
+        outline: 1px solid blue;
+    }
+}
+
+.disabled {
+    opacity: 50%;
+    pointer-events: none;
+}
+
+
+
+.error:not(.disabled){
+    outline: 1px solid red;
+    color: red;
 }

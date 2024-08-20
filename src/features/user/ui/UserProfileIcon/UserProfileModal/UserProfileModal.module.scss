@@ -7,13 +7,13 @@
 }
 
 .modal-wrapper{
-  padding: var(--global-gap-1);
+  padding: var(--global-padding);
   display: flex;
   flex-direction: column;
 }
 
 .link{
-  padding: var(--global-gap-1);
+  padding: var(--global-padding);
   border-radius: var(--global-border-radius);
   color: var(--text-palette-main);
 

@@ -14,6 +14,7 @@
     width: 100%;
     max-width: 400px;
 }
+
 .right-col {
     display: flex;
     flex-grow: 1;
@@ -21,6 +22,15 @@
     gap: 20px;
     width: 100%;
 }
+
+.submit-btn{
+    display: none;
+}
+
+.hidden{
+    display: none;
+}
+
 @media screen and (max-width: 800px) {
     .form {
         flex-direction: column;

@@ -14,7 +14,7 @@
         }
     }
 
-    & :global .MuiFormLabel-root.Mui-focused {
+    & :global .MuiFormLabel-root.Mui-focused:not(.Mui-error) {
         color: black;
     }
 }
