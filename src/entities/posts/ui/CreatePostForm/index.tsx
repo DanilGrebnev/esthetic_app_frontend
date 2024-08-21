@@ -11,16 +11,9 @@ import {
 } from '@/shared/ui/InputWithTags'
 import { Select, type SelectType } from '@/shared/ui/Select'
 import { clsx } from 'clsx'
-import {
-    FormEventHandler,
-    forwardRef,
-    useCallback,
-    useEffect,
-    useRef,
-} from 'react'
+import { forwardRef, useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { usePostsSliceActions } from '../../model/slice'
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
 

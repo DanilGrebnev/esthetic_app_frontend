@@ -1,5 +1,6 @@
 'use client'
 
+import { useFixSize } from '@/shared/hooks/useFixSize'
 import { Button } from '@/shared/ui/Button'
 import { FC, RefObject } from 'react'
 

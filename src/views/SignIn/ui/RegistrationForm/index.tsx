@@ -4,7 +4,7 @@ import { UserInputWithValidation } from '@/features/user'
 import { type CreateUserDTO } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
-import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { Title } from '../Title'
 import s from './s.module.scss'
