@@ -8,6 +8,7 @@ import {
     type SelectChangeEvent,
 } from '@mui/material'
 import { StyledEngineProvider } from '@mui/material/styles'
+import { clsx } from 'clsx'
 import { type FC, memo, useId, useState } from 'react'
 
 import s from './s.module.scss'
@@ -31,6 +32,7 @@ const BasicSelect: FC<BasicSelectProps> = memo((props) => {
         placeholder,
         variant,
         onChange: onChangeProps,
+        disabled,
         ...other
     } = props
 
@@ -45,7 +47,7 @@ const BasicSelect: FC<BasicSelectProps> = memo((props) => {
     return (
         <StyledEngineProvider injectFirst>
             <FormControl
-                className={s.select}
+                className={clsx(s.select, { 'input-disabled': disabled })}
                 variant='filled'
                 fullWidth
             >

@@ -17,6 +17,7 @@
     --inputs-text-color-1: rgb(0 0 0 / 60%);
     --inputs-bg-1: rgb(0 0 0 / 6%);
     --inputs-bg-hover: rgb(0 0 0 / 9%);
+    --input-disabled-opacity: 0.3;
 
     /* ===== ONLY BUTTONS COLORS ===== */
     --silver-btn-bg-color: rgb(0 0 0 / 5%);

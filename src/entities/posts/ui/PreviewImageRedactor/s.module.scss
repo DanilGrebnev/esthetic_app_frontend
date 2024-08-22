@@ -39,3 +39,8 @@
     justify-content: center;
     cursor: pointer;
 }
+
+.disabled {
+    opacity: var(--input-disabled-opacity);
+    pointer-events: none;
+}

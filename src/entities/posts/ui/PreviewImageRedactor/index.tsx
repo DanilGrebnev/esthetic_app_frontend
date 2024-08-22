@@ -1,5 +1,6 @@
 'use client'
 
+import { clsx } from 'clsx'
 import Image from 'next/image'
 import { type FC, memo, useState } from 'react'
 
@@ -9,10 +10,11 @@ import s from './s.module.scss'
 interface PreviewImageProps {
     image: string
     onDeleteFile: () => void
+    disabled?: boolean
 }
 
 export const PreviewImageRedactor: FC<PreviewImageProps> = memo((props) => {
-    const { image, onDeleteFile } = props
+    const { image, onDeleteFile, disabled } = props
 
     const [aspect, setAspect] = useState<string>('9/16')
 
@@ -25,7 +27,7 @@ export const PreviewImageRedactor: FC<PreviewImageProps> = memo((props) => {
     }
 
     return (
-        <div className={s.redactor}>
+        <div className={clsx(s.redactor, { [s.disabled]: disabled })}>
             <Tabs
                 name='aspectRatio'
                 onChange={changeAspect}

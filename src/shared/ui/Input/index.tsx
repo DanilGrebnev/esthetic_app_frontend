@@ -9,13 +9,17 @@ type CustomInputProps = Parameters<typeof TextField>[0]
 
 export const Input = memo(
     forwardRef<HTMLInputElement, CustomInputProps>((props, ref) => {
-        const { variant, className, ...other } = props
+        const { variant, className, disabled, ...other } = props
 
         return (
             <StyledEngineProvider injectFirst>
                 <TextField
                     ref={ref}
-                    className={clsx(s.input, className)}
+                    className={clsx(
+                        s.input,
+                        { 'input-disabled': disabled },
+                        className,
+                    )}
                     variant='filled'
                     {...other}
                 />

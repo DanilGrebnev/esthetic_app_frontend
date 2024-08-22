@@ -6,7 +6,6 @@ import { UploadFiles } from '@/shared/ui/UploadFile'
 import { type IUploadFiles } from '@/shared/ui/UploadFile/type'
 import { readFile } from '@/shared/utils/readFile'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { forwardRef, memo, useRef, useState } from 'react'
 
 import { usePostsSliceActions } from '../../model/slice'
@@ -15,12 +14,12 @@ import s from './s.module.scss'
 interface Props extends Omit<IUploadFiles, 'onChange' | 'placeholder'> {
     className?: string
     name?: string
+    isLoading?: boolean
 }
 
 export const UploadPostsContentWindow = memo(
     forwardRef<HTMLInputElement, Props>((props, ref) => {
-        const { className, name, ...other } = props
-
+        const { className, name, isLoading, ...other } = props
         const [file, setFile] = useState<string | null>(null)
 
         const actions = usePostsSliceActions()

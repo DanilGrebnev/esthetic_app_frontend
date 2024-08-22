@@ -1,7 +1,6 @@
 'use client'
 
 import { ValidationInputs } from '@/shared/ValidationInputs'
-import { useCreateFormData } from '@/shared/hooks/useCreateFormData'
 import { type CreatePost } from '@/shared/types/posts'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
@@ -9,8 +8,7 @@ import {
     InputWithTags,
     type TInputWithTagsTagItemList,
 } from '@/shared/ui/InputWithTags'
-import { Select, type SelectType } from '@/shared/ui/Select'
-import { clsx } from 'clsx'
+import { Select } from '@/shared/ui/Select'
 import { forwardRef, useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -29,7 +27,7 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         setError,
         formState: { errors, touchedFields },
     } = useForm<Omit<CreatePost, 'fileOptions' | 'tags'>>({ mode: 'onBlur' })
-
+    const isLoading = true
     // Создаём конструктор FormData в области видимости компонента
     const formDataRef = useRef<FormData | null>(null)
     const formRef = useRef<HTMLFormElement | null>(null)
@@ -72,6 +70,7 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
                         label='Название'
                         placeholder='Добавить название'
                         variant='outlined'
+                        disabled
                         {...register('name', {
                             required: ValidationInputs.required.message,
                         })}

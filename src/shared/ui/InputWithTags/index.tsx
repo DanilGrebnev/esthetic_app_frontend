@@ -16,10 +16,11 @@ interface InputWithTagsProps {
     className?: string
     initialValue?: Tags[]
     onChange?: (tags: Tags[]) => void
+    disabled?: boolean
 }
 
 export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
-    const { onChange, initialValue, className } = props
+    const { onChange, initialValue, className, disabled } = props
 
     const [tags, setTags] = useState<Tags[]>(() =>
         setInitialTagsState(initialValue),
@@ -54,8 +55,12 @@ export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
         <div
             ref={wrapperRef}
             onClick={focusOnInput}
-            style={wrapperWidth ? { maxWidth: `${wrapperWidth}px` } : undefined}
-            className={clsx(s['input-wrapper'], className)}
+            style={wrapperWidth ? { maxWidth: wrapperWidth + 'px' } : undefined}
+            className={clsx(
+                s['input-wrapper'],
+                { 'input-disabled': disabled },
+                className,
+            )}
         >
             <div className={s['tags-list']}>
                 {tags.map(({ tagId, label }) => {

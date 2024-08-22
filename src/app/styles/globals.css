@@ -1,4 +1,4 @@
-*, *:before, *:after, *::placeholder {
+*, *::before, *::after, *::placeholder {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: var(--font-weight-normal);
 }
@@ -17,4 +17,9 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.input-disabled {
+    opacity: var(--input-disabled-opacity);
+    pointer-events: none;
 }
