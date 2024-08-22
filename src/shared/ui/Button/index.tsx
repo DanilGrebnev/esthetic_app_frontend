@@ -1,10 +1,11 @@
 'use client'
 
+import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useFixSize } from '@/shared/hooks/useFixSize'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { type FC, forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 
 import s from './s.module.scss'
 import { ButtonProps } from './types'
@@ -16,7 +17,6 @@ import { ButtonProps } from './types'
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     (props, ref) => {
         const {
-            children,
             className,
             heightSize = 'content',
             active,
@@ -29,10 +29,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         } = props
         const router = useRouter()
 
+        const { nodeRef, styleRef } = useFixSize<HTMLButtonElement>()
+        const combinedRef = useCombinedRef(ref, nodeRef)
+
         return (
             <button
                 type='button'
-                ref={ref}
+                ref={combinedRef}
+                style={styleRef.current}
                 onClick={(e) => {
                     onClick?.(e)
                     if (href) router.push(href)
@@ -50,7 +54,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 )}
                 {...other}
             >
-                {!loading ? children : <CircularProgress sizesVariant='s' />}
+                <>
+                    {!loading ? (
+                        props.children
+                    ) : (
+                        <CircularProgress
+                            className={s.progress}
+                            sizesVariant='s'
+                        />
+                    )}
+                </>
             </button>
         )
     },

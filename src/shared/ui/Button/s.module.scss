@@ -24,6 +24,10 @@
 
 // Стандартный вариант кнопки
 .standart {
+    .progress {
+        color: black;
+    }
+
     &:not([disabled]) {
         &:active:not(.active-underline) {
             @extend %in-touches;
@@ -62,6 +66,10 @@
     background: red;
     color: white;
 
+    .progress {
+        color: white;
+    }
+
     &:not([disabled]) {
         &:active {
             @extend %in-touches;
@@ -73,6 +81,10 @@
 .silver {
     background: var(--silver-btn-bg-color);
     color: var(--text-palette-main);
+
+    .progress {
+        color: black;
+    }
 
     &:hover{
         background: var(--silver-btn-bg-hover-color);
@@ -87,6 +99,8 @@
     height: max-content;
 }
 
-.loading{
+
+
+.loading {
     pointer-events: none;
 }

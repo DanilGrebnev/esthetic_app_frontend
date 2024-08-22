@@ -1,7 +1,7 @@
 'use client'
 
 import { CreatePostForm, PublishPostsBtn } from '@/entities/posts'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import s from './s.module.scss'
 

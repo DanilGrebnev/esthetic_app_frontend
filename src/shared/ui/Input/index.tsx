@@ -15,6 +15,7 @@ export const Input = memo(
             <StyledEngineProvider injectFirst>
                 <TextField
                     ref={ref}
+                    disabled={disabled}
                     className={clsx(
                         s.input,
                         { 'input-disabled': disabled },

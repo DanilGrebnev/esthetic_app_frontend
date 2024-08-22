@@ -70,7 +70,6 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
                         label='Название'
                         placeholder='Добавить название'
                         variant='outlined'
-                        disabled
                         {...register('name', {
                             required: ValidationInputs.required.message,
                         })}

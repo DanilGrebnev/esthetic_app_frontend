@@ -1,18 +1,16 @@
 'use client'
 
-import { useFixSize } from '@/shared/hooks/useFixSize'
 import { Button } from '@/shared/ui/Button'
-import { FC, RefObject } from 'react'
+import type { FC, RefObject } from 'react'
 
 interface PublishPostsBtnProps {
     submitRef: RefObject<HTMLButtonElement>
+    loading?: boolean
 }
 
 export const PublishPostsBtn: FC<PublishPostsBtnProps> = (props) => {
-    const { submitRef } = props
-
+    const { submitRef, loading } = props
     const onSubmit = () => {
-        // submitButtonRef?.current?.click()
         submitRef.current?.click()
     }
 
@@ -20,6 +18,7 @@ export const PublishPostsBtn: FC<PublishPostsBtnProps> = (props) => {
         <Button
             onClick={onSubmit}
             variant='red'
+            loading={loading}
         >
             Опубликовать
         </Button>
