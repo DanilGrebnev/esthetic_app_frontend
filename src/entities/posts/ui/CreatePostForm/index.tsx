@@ -10,7 +10,7 @@ import {
 } from '@/shared/ui/InputWithTags'
 import { Select } from '@/shared/ui/Select'
 import { forwardRef, useCallback, useRef } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
@@ -25,9 +25,11 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         register,
         handleSubmit,
         setError,
+        control,
         formState: { errors, touchedFields },
     } = useForm<Omit<CreatePost, 'fileOptions' | 'tags'>>({ mode: 'onBlur' })
     const isLoading = true
+
     // Создаём конструктор FormData в области видимости компонента
     const formDataRef = useRef<FormData | null>(null)
     const formRef = useRef<HTMLFormElement | null>(null)

@@ -12,12 +12,13 @@ interface UserNameWithValidationProps<T extends FieldValues> {
     required?: boolean
     disabled?: boolean
     errors: any
+    pattern?: string
 }
 
 export const UserInputWithValidation = <T extends FieldValues>(
     props: UserNameWithValidationProps<T>,
 ) => {
-    const { register, name, required, errors, ...other } = props
+    const { register, name, pattern, required, errors, ...other } = props
 
     const requiredOptions = required && {
         value: true,
