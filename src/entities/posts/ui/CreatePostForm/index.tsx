@@ -1,7 +1,7 @@
 'use client'
 
 import { ValidationInputs } from '@/shared/ValidationInputs'
-import { type CreatePost } from '@/shared/types/posts'
+import { type TCreatePostForm } from '@/shared/types/posts'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import {
@@ -10,7 +10,7 @@ import {
 } from '@/shared/ui/InputWithTags'
 import { Select } from '@/shared/ui/Select'
 import { forwardRef, useCallback, useRef } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
@@ -25,10 +25,9 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         register,
         handleSubmit,
         setError,
-        control,
-        formState: { errors, touchedFields },
-    } = useForm<Omit<CreatePost, 'fileOptions' | 'tags'>>({ mode: 'onBlur' })
-    const isLoading = true
+        clearErrors,
+        formState: { errors },
+    } = useForm<TCreatePostForm>({ mode: 'onBlur' })
 
     // Создаём конструктор FormData в области видимости компонента
     const formDataRef = useRef<FormData | null>(null)
@@ -48,11 +47,22 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         if (!formRef.current) return
         formDataRef.current = new FormData(formRef.current)
         const formData = formDataRef.current
+        const file = formData?.get('file') as File
+
+        if (!file.size) {
+            setError('file', {
+                type: 'value',
+                message: 'file field is empty',
+            })
+            return
+        }
 
         for (let field of formData) {
             console.log(field)
         }
     })
+
+    console.log(errors)
 
     return (
         <Container size='m'>
@@ -63,8 +73,9 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
             >
                 <div className={s['left-col']}>
                     <UploadPostsContentWindow
+                        clearErrors={clearErrors}
                         name='file'
-                        isError={!!errors.file}
+                        isError={!!errors.file?.message}
                     />
                 </div>
                 <div className={s['right-col']}>

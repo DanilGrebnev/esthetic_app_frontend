@@ -9,7 +9,7 @@ interface UserDTO {
 
 export interface CreateUserDTO extends UserDTO {
     password: string
-    avatar: string
+    avatar: File
     tags: TInputWithTagsTagItemList
 }
 

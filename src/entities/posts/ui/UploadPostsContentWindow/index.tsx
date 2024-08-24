@@ -2,11 +2,13 @@
 
 import { PreviewImageRedactor } from '@/entities/posts/ui/PreviewImageRedactor'
 import { useCombinedRef } from '@/shared/hooks/useCombineRef'
+import { type TCreatePostForm } from '@/shared/types/posts'
 import { UploadFiles } from '@/shared/ui/UploadFile'
 import { type IUploadFiles } from '@/shared/ui/UploadFile/type'
 import { readFile } from '@/shared/utils/readFile'
 import { clsx } from 'clsx'
 import { forwardRef, memo, useRef, useState } from 'react'
+import { type UseFormClearErrors } from 'react-hook-form'
 
 import { usePostsSliceActions } from '../../model/slice'
 import s from './s.module.scss'
@@ -15,11 +17,14 @@ interface Props extends Omit<IUploadFiles, 'onChange' | 'placeholder'> {
     className?: string
     name?: string
     isLoading?: boolean
+    isError?: boolean
+    clearErrors?: UseFormClearErrors<TCreatePostForm>
 }
 
 export const UploadPostsContentWindow = memo(
     forwardRef<HTMLInputElement, Props>((props, ref) => {
-        const { className, name, isLoading, ...other } = props
+        const { className, name, isLoading, isError, clearErrors, ...other } =
+            props
         const [file, setFile] = useState<string | null>(null)
 
         const actions = usePostsSliceActions()
@@ -30,6 +35,7 @@ export const UploadPostsContentWindow = memo(
             readFile(files[0]).then((file) => {
                 actions.setFileData(file as string)
                 setFile(file as string)
+                clearErrors?.('file')
             })
         }
 
@@ -44,6 +50,7 @@ export const UploadPostsContentWindow = memo(
                 <UploadFiles
                     className={clsx({ [s.hidden]: file }, className)}
                     onChange={onChange}
+                    isError={isError}
                     ref={combinedRef}
                     name={name}
                     {...other}

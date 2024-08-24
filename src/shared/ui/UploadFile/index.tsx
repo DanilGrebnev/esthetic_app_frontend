@@ -17,9 +17,7 @@ export const UploadFiles = memo(
         const onChange = createOnChange(props)
         const onDrop = createOnDrop(props, inputRef, setIsOver)
 
-        /* Сбрасывает поведение по умолчанию */
         const onDragOver = stopPropAndPrevDef(() => {})
-
         const onDragEnter = stopPropAndPrevDef(() => {
             setIsOver(true)
         })

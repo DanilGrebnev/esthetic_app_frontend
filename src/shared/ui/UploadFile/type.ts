@@ -1,7 +1,7 @@
 import type { DragEvent } from 'react'
 
 export interface IUploadFiles {
-    onChange: (files: FileList) => void
+    onChange?: (files: FileList) => void
     onSetObjectURL?: (objectURL: string) => void
     className?: string
     placeholder?: string

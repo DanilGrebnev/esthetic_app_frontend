@@ -1,0 +1,14 @@
+.slider-wrapper{
+  position: relative;
+  overflow: hidden;
+}
+
+.window-container{
+  display: flex;
+  position: relative;
+  transition: 0.3s;
+}
+
+.btn-group{
+  display: flex;
+}

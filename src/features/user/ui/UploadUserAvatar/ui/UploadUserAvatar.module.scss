@@ -1,0 +1,43 @@
+.upload-user-avatar-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.preview-area {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+}
+
+.upload-area {
+  width: 100%;
+  position: relative;
+}
+
+.delete-avatar-area {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-palette-2);
+  transition: .3s;
+  opacity: 0;
+  z-index: 5;
+  background: rgb(0 0 0 / 50%);
+  cursor: pointer;
+
+  &:hover {
+    opacity: 100%;
+  }
+}
+

@@ -27,7 +27,9 @@ export interface CreatePost {
     tags: TInputWithTagsTagItemList
 }
 
-interface Author extends ChangeUserDTO {
+export type TCreatePostForm = Omit<CreatePost, 'fileOptions' | 'tags'>
+
+interface Author extends Omit<ChangeUserDTO, 'avatar'> {
     userId: string
     avatar: string
 }

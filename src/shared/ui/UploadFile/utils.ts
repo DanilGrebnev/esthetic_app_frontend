@@ -30,7 +30,7 @@ export const createOnChange =
     ({ target }: ChangeEvent<HTMLInputElement>) => {
         const { files } = target
         if (!files) return
-        props.onChange(files)
+        props?.onChange?.(files)
         const objectBlobUrl = createObjectBlobUrl(files[0])
         props.onSetObjectURL?.(objectBlobUrl)
     }
@@ -43,7 +43,7 @@ export const createOnDrop = (
 ) =>
     stopPropAndPrevDef(({ dataTransfer }: TDragEvent) => {
         const { files } = dataTransfer
-        props.onChange(files)
+        props.onChange?.(files)
         props.onSetObjectURL?.(createObjectBlobUrl(files[0]))
         if (!inputRef.current) return
         inputRef.current.files = dataTransfer.files

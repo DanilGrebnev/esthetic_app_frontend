@@ -5,7 +5,7 @@ import { useFixSize } from '@/shared/hooks/useFixSize'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { forwardRef, useEffect } from 'react'
+import { forwardRef } from 'react'
 
 import s from './s.module.scss'
 import { ButtonProps } from './types'
