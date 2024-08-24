@@ -8,18 +8,22 @@
 
 .preview-area {
   position: relative;
-  border-radius: 50%;
+  border-radius: var(--global-border-radius);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 50%;
   aspect-ratio: 1 / 1;
 }
 
 .upload-area {
   width: 100%;
   position: relative;
+}
+
+.avatar-preview {
+  object-fit: cover;
 }
 
 .delete-avatar-area {

@@ -53,6 +53,7 @@
 
     /* ===== ROUNDED ===== */
     --global-border-radius: 10px;
+    --global-border-radius-mini: 5px;
 
     /* ===== EFFECTS ===== */
 

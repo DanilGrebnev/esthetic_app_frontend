@@ -19,14 +19,6 @@ export default function UserLayout({ children }: Layout) {
                 >
                     На главную
                 </Button>
-                {/*<Button*/}
-                {/*    onClick={() => {*/}
-                {/*        router.back()*/}
-                {/*    }}*/}
-                {/*    variant='standart'*/}
-                {/*>*/}
-                {/*    Назад*/}
-                {/*</Button>*/}
             </div>
             {children}
         </div>

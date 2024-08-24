@@ -6,7 +6,7 @@
 .window-container{
   display: flex;
   position: relative;
-  transition: 0.3s;
+  transition: all 0.3s ease-in;
 }
 
 .btn-group{

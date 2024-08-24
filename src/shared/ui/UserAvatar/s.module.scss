@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    border-radius: var(--global-border-radius-mini);
     background: rgb(0 0 0 / 40%);
     width: var(--size);
     min-width: var(--size) !important;
