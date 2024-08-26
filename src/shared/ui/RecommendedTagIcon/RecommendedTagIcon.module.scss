@@ -1,0 +1,14 @@
+.tag-wrapper {
+    display: flex;
+    transition: var(--global-transition);
+    cursor: pointer;
+    border: 1px solid var(--border-color-1);
+    border-radius: var(--global-border-radius);
+    padding: 5px;
+    width: max-content;
+
+    &:hover,
+    &.checked {
+        background: var(--global-btn-hover);
+    }
+}

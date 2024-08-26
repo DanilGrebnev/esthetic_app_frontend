@@ -44,8 +44,9 @@ export const UploadUserAvatar: FC<UploadUserAvatar> = (props) => {
                 {objectUrl && (
                     <>
                         <Image
-                            fill
+                            fill={true}
                             src={objectUrl}
+                            priority={false}
                             alt='Предпросмотр аватара'
                             className={s['avatar-preview']}
                         />

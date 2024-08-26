@@ -14,23 +14,24 @@ export type TInputWithTagsTagItemList = Tags[]
 
 interface InputWithTagsProps {
     className?: string
-    initialValue?: Tags[]
+    value?: Tags[]
+    onClick?: (tagId: string) => void
     onChange?: (tags: Tags[]) => void
     disabled?: boolean
 }
 
 export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
-    const { onChange, initialValue, className, disabled } = props
-
-    const [tags, setTags] = useState<Tags[]>(() =>
-        setInitialTagsState(initialValue),
-    )
+    const { onChange, value, className, disabled, onClick } = props
+    const [tags, setTags] = useState<Tags[]>(() => setInitialTagsState(value))
     const latestTags = useLatest(tags)
-
     const [wrapperWidth, setWrapperWidth] = useState<number>(0)
     const wrapperRef = useRef<HTMLDivElement>(null)
-
     const inputRef = useRef<HTMLInputElement>(null)
+
+    // useEffect(() => {
+    //     if (value) return
+    //     setTags(value)
+    // }, [value])
 
     useEffect(() => {
         setWrapperWidth(wrapperRef?.current?.offsetWidth as number)
@@ -70,6 +71,7 @@ export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
                             tagId={tagId}
                             label={label}
                             deleteTag={deleteTag}
+                            onClick={onClick}
                         />
                     )
                 })}

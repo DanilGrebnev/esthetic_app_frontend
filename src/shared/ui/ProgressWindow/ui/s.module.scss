@@ -1,14 +1,15 @@
-.slider-wrapper{
-  position: relative;
-  overflow: hidden;
+.slider-wrapper {
+    position: relative;
+    overflow: hidden;
 }
 
-.window-container{
-  display: flex;
-  position: relative;
-  transition: all 0.3s ease-in;
+.window-container {
+    display: flex;
+    position: relative;
+    transition: all 0.3s ease-in;
+    //transition-timing-function: var(--cubic-bezier-1);
 }
 
-.btn-group{
-  display: flex;
+.btn-group {
+    display: flex;
 }

@@ -18,6 +18,7 @@ import { Title } from '../Title'
 import s from './s.module.scss'
 import { NextBtn } from './ui/NextBtn'
 import { PrevBtn } from './ui/PrevBtn'
+import { SelectRecommendedTags } from './ui/SelectRecommendedTags'
 
 export const RegistrationForm = () => {
     const {
@@ -123,6 +124,10 @@ export const RegistrationForm = () => {
                             >
                                 <PageTitle>Добавьте аватар</PageTitle>
                                 <UploadUserAvatar onChange={onChangeAvatar} />
+                            </ProgressWindowTab>
+                            <ProgressWindowTab>
+                                <PageTitle>Выберите теги</PageTitle>
+                                <SelectRecommendedTags />
                             </ProgressWindowTab>
                         </ProgressWindowContainer>
                         <div className={s['btn-group']}>

@@ -9,10 +9,11 @@ interface TagItemProps {
     deleteTag: (tagId: string) => void
     tagId: string
     label: string
+    onClick?: (tagId: string) => void
 }
 
 export const TagItem: FC<TagItemProps> = memo((props) => {
-    const { deleteTag, tagId, label } = props
+    const { deleteTag, tagId, label, onClick } = props
 
     return (
         <button
@@ -22,6 +23,7 @@ export const TagItem: FC<TagItemProps> = memo((props) => {
             onClick={(e) => {
                 e.stopPropagation()
                 deleteTag(tagId)
+                onClick?.(tagId)
             }}
         >
             <p>{label}</p>
