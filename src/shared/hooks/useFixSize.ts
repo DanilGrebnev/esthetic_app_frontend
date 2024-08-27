@@ -13,9 +13,9 @@ export const useFixSize = <T extends HTMLElement>() => {
         const width = nodeRef.current.offsetWidth
         const height = nodeRef.current.offsetHeight
         const size = { width: width + 'px', height: height + 'px' }
-        // setSize(size)
-        styleRef.current = size || {}
+        setSize(size)
+        styleRef.current = size
     }, [])
 
-    return { nodeRef, size, styleRef }
+    return { nodeRef, size, styleRef, width: size?.width }
 }

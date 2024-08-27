@@ -7,7 +7,7 @@ import { Input } from '@/shared/ui/Input'
 import {
     InputWithTags,
     type TInputWithTagsTagItemList,
-} from '@/shared/ui/InputWithTags'
+} from '@/shared/ui/InputWithTags/ui'
 import { Select } from '@/shared/ui/Select'
 import { forwardRef, useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'

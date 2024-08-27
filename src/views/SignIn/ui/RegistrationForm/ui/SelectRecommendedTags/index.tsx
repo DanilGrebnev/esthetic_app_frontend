@@ -1,6 +1,6 @@
-import { InputWithTags } from '@/shared/ui/InputWithTags'
+import { InputWithTags } from '@/shared/ui/InputWithTags/ui'
 import { RecommendedTagIcon } from '@/shared/ui/RecommendedTagIcon'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import s from './SelectRecommendedTags.module.scss'
 import { recommendedTagsInitState } from './recommendedTagsData'
@@ -22,7 +22,7 @@ export const SelectRecommendedTags = () => {
         )
     }
 
-    const onDeleteTag = (tagId: string) => {
+    const onDeleteTag = useCallback((tagId: string) => {
         setRecommendedTags((prev) =>
             prev.map((tag) => {
                 if (tag.tagId === tagId) {
@@ -31,11 +31,11 @@ export const SelectRecommendedTags = () => {
                 return tag
             }),
         )
-    }
+    }, [])
 
     return (
         <div>
-            <div className={s['reccomended-tag-list']}>
+            <div className={s['recommended-tag-list']}>
                 {recommendedTags.map((tag) => {
                     return (
                         <RecommendedTagIcon
@@ -51,7 +51,6 @@ export const SelectRecommendedTags = () => {
             </div>
             <InputWithTags
                 onClick={onDeleteTag}
-                onChange={(tags) => {}}
                 value={recommendedTags.filter((tag) => tag.isChecked)}
             />
         </div>

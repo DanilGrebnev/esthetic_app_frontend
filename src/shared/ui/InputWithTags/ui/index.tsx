@@ -1,41 +1,58 @@
 'use client'
 
+import { useFixSize } from '@/shared/hooks/useFixSize'
 import { useLatest } from '@/shared/hooks/useLatest'
+import { useSetValue } from '@/shared/ui/InputWithTags/hooks'
 import { clsx } from 'clsx'
 import { type FC, memo, useCallback, useEffect, useRef, useState } from 'react'
 
+import { Tags } from '../types'
+import { setInitialTagsState } from '../utils'
 import { Input } from './Input'
 import { TagItem } from './TagItem'
 import s from './s.module.scss'
-import { Tags } from './types'
-import { setInitialTagsState } from './utils'
 
 export type TInputWithTagsTagItemList = Tags[]
 
 interface InputWithTagsProps {
     className?: string
-    value?: Tags[]
+    defaultValue?: Tags[] | []
     onClick?: (tagId: string) => void
     onChange?: (tags: Tags[]) => void
     disabled?: boolean
+    name?: string
+    value?: Tags[]
 }
 
 export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
-    const { onChange, value, className, disabled, onClick } = props
-    const [tags, setTags] = useState<Tags[]>(() => setInitialTagsState(value))
-    const latestTags = useLatest(tags)
-    const [wrapperWidth, setWrapperWidth] = useState<number>(0)
-    const wrapperRef = useRef<HTMLDivElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
+    const {
+        onChange,
+        defaultValue,
+        name = 'tags',
+        className,
+        value,
+        disabled,
+        onClick,
+    } = props
 
-    // useEffect(() => {
-    //     if (value) return
-    //     setTags(value)
-    // }, [value])
+    const [tags, setTags] = useState<Tags[]>(() =>
+        setInitialTagsState(defaultValue),
+    )
+    const latestTags = useLatest(tags)
+    useSetValue(setTags, value)
+
+    const inputValueRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        setWrapperWidth(wrapperRef?.current?.offsetWidth as number)
-    }, [])
+        if (!inputValueRef.current) return
+        inputValueRef.current.value = JSON.stringify(tags)
+    }, [tags])
+
+    const { nodeRef, width } = useFixSize<HTMLDivElement>()
+    const inputRef = useRef<HTMLInputElement>(null)
+    const focusOnInput = () => {
+        inputRef?.current?.focus()
+    }
 
     useEffect(() => {
         onChange?.(tags.map((tag) => tag))
@@ -48,20 +65,12 @@ export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
         [latestTags],
     )
 
-    const focusOnInput = () => {
-        inputRef?.current?.focus()
-    }
-
     return (
         <div
-            ref={wrapperRef}
+            ref={nodeRef}
             onClick={focusOnInput}
-            style={wrapperWidth ? { maxWidth: wrapperWidth + 'px' } : undefined}
-            className={clsx(
-                s['input-wrapper'],
-                { 'input-disabled': disabled },
-                className,
-            )}
+            style={width ? { maxWidth: width + 'px' } : undefined}
+            className={clsx(s.input, { 'input-disabled': disabled }, className)}
         >
             <div className={s['tags-list']}>
                 {tags.map(({ tagId, label }) => {
@@ -75,6 +84,11 @@ export const InputWithTags: FC<InputWithTagsProps> = memo((props) => {
                         />
                     )
                 })}
+                <input
+                    name={name}
+                    ref={inputValueRef}
+                    hidden
+                />
                 <Input
                     ref={inputRef}
                     tags={latestTags}

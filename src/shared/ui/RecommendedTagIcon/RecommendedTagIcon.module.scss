@@ -7,8 +7,17 @@
     padding: 5px;
     width: max-content;
 
-    &:hover,
-    &.checked {
+    &:hover {
         background: var(--global-btn-hover);
+    }
+
+    &:active{
+        transform: scale(.90);
+        transition-timing-function: var(--cubic-bezier-1);
+    }
+
+    &.checked{
+        background: green;
+        color: white;
     }
 }

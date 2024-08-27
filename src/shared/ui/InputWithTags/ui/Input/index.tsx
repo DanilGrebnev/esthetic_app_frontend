@@ -9,9 +9,9 @@ import {
     useState,
 } from 'react'
 
+import { type Tags } from '../../types'
+import { isValidTag } from '../../utils'
 import { AcceptBtn } from '../AcceptBtn'
-import { type Tags } from '../types'
-import { isValidTag } from '../utils'
 import s from './s.module.scss'
 
 interface InputProps extends ComponentPropsWithRef<'input'> {

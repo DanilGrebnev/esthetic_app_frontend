@@ -1,4 +1,4 @@
-import { TInputWithTagsTagItemList } from '@/shared/ui/InputWithTags'
+import { TInputWithTagsTagItemList } from '@/shared/ui/InputWithTags/ui'
 
 interface UserDTO {
     firstName: string

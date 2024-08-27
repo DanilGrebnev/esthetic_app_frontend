@@ -1,6 +1,6 @@
 import { FileOptions } from '@/shared/types/fileOptions'
 import { type ChangeUserDTO } from '@/shared/types/user'
-import { TInputWithTagsTagItemList } from '@/shared/ui/InputWithTags'
+import { TInputWithTagsTagItemList } from '@/shared/ui/InputWithTags/ui'
 
 export interface Post {
     postId: string
