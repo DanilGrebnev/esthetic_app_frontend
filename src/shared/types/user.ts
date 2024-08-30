@@ -1,4 +1,4 @@
-import { TInputWithTagsTagItemList } from '@/shared/ui/InputWithTags/ui'
+import { type Tag } from '@/shared/ui/InputWithTags/types'
 
 interface UserDTO {
     firstName: string
@@ -10,7 +10,7 @@ interface UserDTO {
 export interface CreateUserDTO extends UserDTO {
     password: string
     avatar: File
-    tags: TInputWithTagsTagItemList
+    tags: Tag[]
 }
 
 export interface ChangeUserDTO extends CreateUserDTO {}

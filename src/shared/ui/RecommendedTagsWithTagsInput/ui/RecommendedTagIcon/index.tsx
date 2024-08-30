@@ -1,25 +1,28 @@
 import { clsx } from 'clsx'
-import type { FC, ReactNode } from 'react'
+import { FC, ReactNode, memo } from 'react'
 
 import s from './RecommendedTagIcon.module.scss'
 
 interface RecommendedTagIconProps {
     children?: ReactNode
     icon?: ReactNode
-    onClick?: () => void
+    onClick: (tagId: string) => void
     checked?: boolean
+    tagId: string
 }
 
-export const RecommendedTagIcon: FC<RecommendedTagIconProps> = (props) => {
-    const { icon, onClick, children, checked } = props
+export const RecommendedTagIcon: FC<RecommendedTagIconProps> = memo((props) => {
+    const { icon, onClick, children, tagId, checked } = props
 
     return (
         <div
-            onClick={onClick}
+            onClick={() => onClick(tagId)}
             className={clsx(s['tag-wrapper'], { [s.checked]: checked })}
         >
             <div>{children}</div>
             <div>{icon}</div>
         </div>
     )
-}
+})
+
+RecommendedTagIcon.displayName = 'RecommendedTagIcon'

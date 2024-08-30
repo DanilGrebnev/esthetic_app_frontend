@@ -4,10 +4,8 @@ import { ValidationInputs } from '@/shared/ValidationInputs'
 import { type TCreatePostForm } from '@/shared/types/posts'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
-import {
-    InputWithTags,
-    type TInputWithTagsTagItemList,
-} from '@/shared/ui/InputWithTags/ui'
+import { InputWithTags } from '@/shared/ui/InputWithTags'
+import { Tag } from '@/shared/ui/InputWithTags/types'
 import { Select } from '@/shared/ui/Select'
 import { forwardRef, useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
@@ -34,7 +32,7 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
     const formRef = useRef<HTMLFormElement | null>(null)
 
     const onChangeTags = useCallback(
-        (tags: TInputWithTagsTagItemList) => {
+        (tags: Tag[]) => {
             if (formDataRef.current) {
                 formDataRef.current.set('tags', JSON.stringify(tags))
             }
@@ -62,7 +60,7 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         }
     })
 
-    console.log(errors)
+    // console.log(errors)
 
     return (
         <Container size='m'>

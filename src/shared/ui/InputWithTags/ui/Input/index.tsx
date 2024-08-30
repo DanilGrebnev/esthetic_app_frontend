@@ -1,65 +1,30 @@
-import { useLatest } from '@/shared/hooks/useLatest'
-import {
-    type ChangeEvent,
-    type ComponentPropsWithRef,
-    type KeyboardEvent,
-    type MutableRefObject,
-    forwardRef,
-    useCallback,
-    useState,
-} from 'react'
+import { forwardRef } from 'react'
 
-import { type Tags } from '../../types'
-import { isValidTag } from '../../utils'
+import { useTagsInput } from '../../hooks/useTagsInput'
+import { type InputProps } from '../../types'
 import { AcceptBtn } from '../AcceptBtn'
 import s from './s.module.scss'
 
-interface InputProps extends ComponentPropsWithRef<'input'> {
-    setTags: (arg: Tags[]) => void
-    tags: MutableRefObject<Tags[]>
-}
-
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-    const { placeholder, tags, setTags } = props
+    const { placeholder, setTags, onChange, tags } = props
 
-    const [value, setValue] = useState('')
-    const latestValue = useLatest(value)
-
-    const onChangeInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
-        const value = target.value
-        if (value.length === 30) return
-        setValue(value)
-    }
-
-    const addTag = useCallback(() => {
-        if (!isValidTag(latestValue.current)) return
-        setTags([
-            {
-                tagId: Date.now().toString(),
-                label: latestValue.current,
-            },
-            ...tags.current,
-        ])
-        setValue('')
-    }, [latestValue, setTags, tags])
-
-    const addTagByClickEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.code === 'Enter') {
-            addTag()
-        }
-    }
+    const { onChangeTags, addTagByEnterKey, addTag, label } = useTagsInput({
+        setTags,
+        onChange,
+        tags,
+    })
 
     return (
         <div className={s['input-container']}>
             <input
                 ref={ref}
-                value={value}
+                value={label}
                 className={s.input}
-                onChange={onChangeInput}
+                onChange={onChangeTags}
                 placeholder={placeholder}
-                onKeyDown={addTagByClickEnter}
+                onKeyDown={addTagByEnterKey}
             />
-            {value && <AcceptBtn onClick={addTag} />}
+            {label && <AcceptBtn onClick={addTag} />}
         </div>
     )
 })

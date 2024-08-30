@@ -5,9 +5,7 @@ import {
     ProgressWindowContext,
 } from './context/ProgressWindowContext'
 
-/* Осуществляет проверку на вызов контекста внутри контекст провайдера.
- * Вызовет ошибку, если контекст будет вызываться вне провайдера
- */
+/* Осуществляет проверку на вызов контекста внутри контекст провайдера. */
 const useErrorBoundaryContext = <T>(contextProps: Context<T>) => {
     const context = useContext<T>(contextProps)
     if (!context) throw new Error('Use context within provider!')
@@ -19,5 +17,6 @@ const useErrorBoundaryContext = <T>(contextProps: Context<T>) => {
 export const usePrivateProgressWindowContext = () =>
     useErrorBoundaryContext(PrivateProgressWindowContext)
 
+/* Хук получения контекста */
 export const useProgressWindow = () =>
     useErrorBoundaryContext(ProgressWindowContext)

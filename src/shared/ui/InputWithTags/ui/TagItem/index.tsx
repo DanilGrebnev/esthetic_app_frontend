@@ -3,17 +3,18 @@
 import CrossIcon from '@/shared/assets/cross.svg'
 import { type FC, memo } from 'react'
 
+import { Tag } from '../../types'
 import s from './s.module.scss'
 
 interface TagItemProps {
     deleteTag: (tagId: string) => void
     tagId: string
     label: string
-    onClick?: (tagId: string) => void
+    onClick?: (tag: Tag) => void
 }
 
 export const TagItem: FC<TagItemProps> = memo((props) => {
-    const { deleteTag, tagId, label, onClick } = props
+    const { tagId, label, deleteTag, onClick } = props
 
     return (
         <button
@@ -23,7 +24,7 @@ export const TagItem: FC<TagItemProps> = memo((props) => {
             onClick={(e) => {
                 e.stopPropagation()
                 deleteTag(tagId)
-                onClick?.(tagId)
+                onClick?.({ tagId, label })
             }}
         >
             <p>{label}</p>

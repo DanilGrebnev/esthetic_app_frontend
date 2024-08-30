@@ -1,6 +1,6 @@
 import { ValidationInputs } from '@/shared/ValidationInputs'
 import { Input } from '@/shared/ui/Input'
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
 
 type RegisterType<T extends FieldValues> = UseFormRegister<T>
 
@@ -13,12 +13,14 @@ interface UserNameWithValidationProps<T extends FieldValues> {
     disabled?: boolean
     errors: any
     pattern?: string
+    validation?: Parameters<RegisterType<T>>[1]
 }
 
 export const UserInputWithValidation = <T extends FieldValues>(
     props: UserNameWithValidationProps<T>,
 ) => {
-    const { register, name, pattern, required, errors, ...other } = props
+    const { register, name, pattern, required, validation, errors, ...other } =
+        props
 
     const requiredOptions = required && {
         value: true,
@@ -29,6 +31,7 @@ export const UserInputWithValidation = <T extends FieldValues>(
         <Input
             {...register(name, {
                 required: requiredOptions,
+                ...validation,
             })}
             {...other}
             error={!!errors[name]}

@@ -1,6 +1,6 @@
 import { FileOptions } from '@/shared/types/fileOptions'
 import { type ChangeUserDTO } from '@/shared/types/user'
-import { TInputWithTagsTagItemList } from '@/shared/ui/InputWithTags/ui'
+import { Tag } from '@/shared/ui/InputWithTags/types'
 
 export interface Post {
     postId: string
@@ -9,7 +9,7 @@ export interface Post {
     link: string
     likeCount: number
     commentCount: number
-    tags: TInputWithTagsTagItemList
+    tags: Tag[]
     author: Author
     media: {
         type: 'img' | 'video'
@@ -24,7 +24,7 @@ export interface CreatePost {
     link: string
     description: string
     fileOptions?: FileOptions
-    tags: TInputWithTagsTagItemList
+    tags: Tag[]
 }
 
 export type TCreatePostForm = Omit<CreatePost, 'fileOptions' | 'tags'>
