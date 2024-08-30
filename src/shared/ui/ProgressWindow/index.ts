@@ -1,4 +1,11 @@
-export { ProgressWindowTab } from './ui/ProgressWindowTabDynamic'
+import { ProgressWindowProvider } from './context/ProgressWindowProvider'
+import { ProgressWindowContainer } from './ui/ProgressWindowContainer'
+import { ProgressWindowTab } from './ui/ProgressWindowTabDynamic'
+
 export { useProgressWindow } from './hooks'
-export { ProgressWindowProvider } from './context/ProgressWindowProvider'
-export { ProgressWindowContainer } from './ui/ProgressWindowContainer'
+
+export const ProgressWindow = {
+    container: ProgressWindowContainer,
+    provider: ProgressWindowProvider,
+    tab: ProgressWindowTab,
+}

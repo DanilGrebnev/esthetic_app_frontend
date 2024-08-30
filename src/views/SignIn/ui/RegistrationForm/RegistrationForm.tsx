@@ -1,21 +1,18 @@
 'use client'
 
-import { UploadUserAvatar, UserInputWithValidation } from '@/features/user'
+import { UploadUserAvatar } from '@/features/user'
 import { ValidationInputs } from '@/shared/ValidationInputs'
 import { type CreateUserDTO } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
-import {
-    ProgressWindowContainer,
-    ProgressWindowProvider,
-    ProgressWindowTab,
-} from '@/shared/ui/ProgressWindow'
+import { InputWithValidation } from '@/shared/ui/InputWithValidation'
+import { ProgressWindow } from '@/shared/ui/ProgressWindow'
 import { RecommendedTags } from '@/shared/ui/RecommendedTagsWithTagsInput'
 import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/SubmitButton'
-import { PageTitle } from '@/views/SignIn/ui/RegistrationForm/ui/PageTitle'
 import { useForm } from 'react-hook-form'
 
+import { SubTitle } from '../SubTitle'
 import { Title } from '../Title'
 import { recommendedTagsInitState } from './recommendedTagsData'
 import s from './s.module.scss'
@@ -31,16 +28,6 @@ export const RegistrationForm = () => {
         formState: { errors, isValid },
     } = useForm<Omit<CreateUserDTO, 'tags'>>({
         mode: 'onBlur',
-        defaultValues: {
-            // email: 'grebnevdanil60@gmail.com',
-            // firstName: 'Dani',
-            // userName: 'nagibator228',
-            // password: 'htczte2101',
-            email: '',
-            firstName: '',
-            userName: '',
-            password: '',
-        },
     })
 
     const onChangeAvatar = (file: File) => {
@@ -84,26 +71,26 @@ export const RegistrationForm = () => {
                     onSubmit={onSubmit}
                     className={s['registration-form']}
                 >
-                    <ProgressWindowProvider>
-                        <ProgressWindowContainer>
-                            <ProgressWindowTab>
+                    <ProgressWindow.provider>
+                        <ProgressWindow.container>
+                            <ProgressWindow.tab>
                                 <div className={s['inputs-wrapper']}>
-                                    <PageTitle>Заполните информацию</PageTitle>
-                                    <UserInputWithValidation
+                                    <SubTitle>Заполните информацию</SubTitle>
+                                    <InputWithValidation
                                         register={register}
                                         label='Имя*'
                                         name='firstName'
                                         errors={errors}
                                         required
                                     />
-                                    <UserInputWithValidation
+                                    <InputWithValidation
                                         register={register}
                                         label='Фамилия'
                                         placeholder='Ведите вашу фамилию'
                                         name='lastName'
                                         errors={errors}
                                     />
-                                    <UserInputWithValidation
+                                    <InputWithValidation
                                         register={register}
                                         label='Псевдоним пользователя*'
                                         name='userName'
@@ -111,7 +98,7 @@ export const RegistrationForm = () => {
                                         errors={errors}
                                         required
                                     />
-                                    <UserInputWithValidation
+                                    <InputWithValidation
                                         register={register}
                                         label='Пароль*'
                                         name='password'
@@ -145,29 +132,29 @@ export const RegistrationForm = () => {
                                         helperText={errors.email?.message}
                                     />
                                 </div>
-                            </ProgressWindowTab>
-                            <ProgressWindowTab
+                            </ProgressWindow.tab>
+                            <ProgressWindow.tab
                                 className={s['upload-avatar-page']}
                             >
-                                <PageTitle>Добавьте аватар</PageTitle>
+                                <SubTitle>Добавьте аватар</SubTitle>
                                 <UploadUserAvatar onChange={onChangeAvatar} />
-                            </ProgressWindowTab>
-                            <ProgressWindowTab className={s['tag-page']}>
-                                <PageTitle>Выберите теги</PageTitle>
+                            </ProgressWindow.tab>
+                            <ProgressWindow.tab className={s['tag-page']}>
+                                <SubTitle>Выберите теги</SubTitle>
                                 <RecommendedTags
                                     name='recommendedTags'
                                     initialTags={recommendedTagsInitState}
                                 />
-                                <PageTitle>Или создайте свои</PageTitle>
+                                <SubTitle>Или создайте свои</SubTitle>
                                 <InputWithTags />
-                            </ProgressWindowTab>
-                        </ProgressWindowContainer>
+                            </ProgressWindow.tab>
+                        </ProgressWindow.container>
                         <div className={s['btn-group']}>
                             <PrevBtn />
                             <NextBtn disabled={!nextResolve} />
                             <SubmitButton />
                         </div>
-                    </ProgressWindowProvider>
+                    </ProgressWindow.provider>
                 </form>
             </div>
         </Container>

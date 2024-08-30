@@ -4,23 +4,22 @@ import { FieldValues, UseFormRegister } from 'react-hook-form'
 
 type RegisterType<T extends FieldValues> = UseFormRegister<T>
 
-interface UserNameWithValidationProps<T extends FieldValues> {
+interface InputWithValidationProps<T extends FieldValues> {
     register: RegisterType<T>
     label: string
     name: ReturnType<RegisterType<T>>['name']
     placeholder?: string
     required?: boolean
     disabled?: boolean
-    errors: any
-    pattern?: string
+    errors?: any
     validation?: Parameters<RegisterType<T>>[1]
+    type?: Parameters<typeof Input>[0]['type']
 }
 
-export const UserInputWithValidation = <T extends FieldValues>(
-    props: UserNameWithValidationProps<T>,
+export const InputWithValidation = <T extends FieldValues>(
+    props: InputWithValidationProps<T>,
 ) => {
-    const { register, name, pattern, required, validation, errors, ...other } =
-        props
+    const { register, name, required, validation, errors, ...other } = props
 
     const requiredOptions = required && {
         value: true,
@@ -34,10 +33,10 @@ export const UserInputWithValidation = <T extends FieldValues>(
                 ...validation,
             })}
             {...other}
-            error={!!errors[name]}
-            helperText={errors[name]?.message}
+            error={!!errors?.[name]}
+            helperText={errors?.[name]?.message}
         />
     )
 }
 
-UserInputWithValidation.displayName = 'UserNameWithValidation'
+InputWithValidation.displayName = 'InputWithValidation'
