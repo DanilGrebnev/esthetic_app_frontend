@@ -1,4 +1,6 @@
+import { TPostsCard } from '@/shared/types/posts'
 import { getRandomElementFromArray as ran } from '@/shared/utils/getRandomElementFromArr'
+import { nanoid } from 'nanoid'
 
 const port = process.env.NEXT_PUBLIC_PORT
 const path = `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_HOSTNAME}${port ? ':' + port : ''}/assets/`
@@ -17,6 +19,18 @@ const t10 = `${path}t10.jpg`
 const asp = ['9/16', '2/3', '3/4', '4/5', '1/1']
 const imgs = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10] as any as string[]
 
-export const mockPosts = Array(150)
+export const mockPosts = Array(250)
     .fill('')
-    .map(() => ({ url: ran(imgs), aspect: ran(asp) }))
+    .map(() => {
+        const aspectRatio = ran(asp) as any
+        const postId = nanoid()
+
+        const o: TPostsCard = {
+            url: ran(imgs),
+            contentType: '',
+            options: { aspectRatio, objectPosition: 'top' },
+            postId,
+        }
+
+        return o
+    })

@@ -1,7 +1,6 @@
 .all-saved-posts {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100vw;
 }
 
@@ -9,8 +8,4 @@
     margin: var(--global-gap-2) 0;
     font-family: var(--font-400), serif;
     font-weight: var(--font-weight-semibold);
-}
-
-.list {
-    width: 100%;
 }

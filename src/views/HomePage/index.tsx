@@ -1,10 +1,10 @@
+import { PostsListWithPagination } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
-import { PostsList } from '@/widgets/PostsList'
 
-export const Home = () => {
+export const Home = async () => {
     return (
         <Container>
-            <PostsList />
+            <PostsListWithPagination />
         </Container>
     )
 }

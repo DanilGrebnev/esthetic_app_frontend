@@ -1,7 +1,7 @@
 'use client'
 
+import { PostsListWithPagination } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
-import { PostsList } from '@/widgets/PostsList'
 import { type FC } from 'react'
 
 import s from './s.module.scss'
@@ -22,7 +22,7 @@ const DashboardDetailPage: FC<DashboardDetailPageProps> = ({ params }) => {
         <Container className={s['dashboard-detail-container']}>
             <h4 className={s['posts-amount']}>1 пост</h4>
             <div className={s['posts-list']}>
-                <PostsList />
+                <PostsListWithPagination />
             </div>
         </Container>
     )
