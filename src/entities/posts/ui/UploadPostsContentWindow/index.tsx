@@ -2,7 +2,7 @@
 
 import { PreviewImageRedactor } from '@/entities/posts/ui/PreviewImageRedactor'
 import { useCombinedRef } from '@/shared/hooks/useCombineRef'
-import { type TCreatePostForm } from '@/shared/types/posts'
+import { type TCreatePosts } from '@/shared/types/posts'
 import { UploadFiles } from '@/shared/ui/UploadFile'
 import { type IUploadFiles } from '@/shared/ui/UploadFile/type'
 import { readFile } from '@/shared/utils/readFile'
@@ -18,7 +18,7 @@ interface Props extends Omit<IUploadFiles, 'onChange' | 'placeholder'> {
     name?: string
     isLoading?: boolean
     isError?: boolean
-    clearErrors?: UseFormClearErrors<TCreatePostForm>
+    clearErrors?: UseFormClearErrors<TCreatePosts>
 }
 
 export const UploadPostsContentWindow = memo(

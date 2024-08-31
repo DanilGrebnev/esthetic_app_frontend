@@ -2,7 +2,7 @@
 
 import { UploadUserAvatar } from '@/features/user'
 import { ValidationInputs } from '@/shared/ValidationInputs'
-import { type CreateUserDTO } from '@/shared/types/user'
+import { type TCreateUser } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
@@ -26,7 +26,7 @@ export const RegistrationForm = () => {
         handleSubmit,
         setValue,
         formState: { errors, isValid },
-    } = useForm<Omit<CreateUserDTO, 'tags'>>({
+    } = useForm<Omit<TCreateUser, 'tags'>>({
         mode: 'onBlur',
     })
 

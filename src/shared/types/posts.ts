@@ -1,8 +1,9 @@
 import { FileOptions } from '@/shared/types/fileOptions'
-import { type ChangeUserDTO } from '@/shared/types/user'
+import { TAuthor } from '@/shared/types/user'
 import { Tag } from '@/shared/ui/InputWithTags/types'
 
-export interface Post {
+/* Базовй тип поста */
+export interface TPosts {
     postId: string
     name: string
     description: string
@@ -10,7 +11,7 @@ export interface Post {
     likeCount: number
     commentCount: number
     tags: Tag[]
-    author: Author
+    author: TAuthor
     media: {
         type: 'img' | 'video'
         url: string
@@ -18,18 +19,29 @@ export interface Post {
     }
 }
 
-export interface CreatePost {
+export interface TPostsDetail extends TPosts {
+    likeCount: number
+    commentsCount: number
+}
+
+/* Тип для карточки поста */
+export interface TPostsCard {
+    postId: string
+    contentType: string
+    url: string
+    options: FileOptions
+}
+
+/* Список постов */
+export interface TPostsList {
+    postsAmount: number
+    posts: TPostsCard[]
+}
+
+/* Создание поста */
+export interface TCreatePosts {
     name: string
     file: File
     link: string
     description: string
-    fileOptions?: FileOptions
-    tags: Tag[]
-}
-
-export type TCreatePostForm = Omit<CreatePost, 'fileOptions' | 'tags'>
-
-interface Author extends Omit<ChangeUserDTO, 'avatar'> {
-    userId: string
-    avatar: string
 }

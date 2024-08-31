@@ -44,11 +44,9 @@ export const useTagsInput = ({ setTags, onChange, tags }: TUseTagsInput) => {
         ) {
             return
         }
-        if (typeof onChange === 'function') {
-            onChange([...tags, createdTag])
-        } else {
-            setTags((tags) => [...tags, createdTag])
-        }
+
+        setTags((tags) => [...tags, createdTag])
+        onChange?.([...tags, createdTag])
 
         clearLabel()
     }, [latestLabel, setTags, onChange, tags])

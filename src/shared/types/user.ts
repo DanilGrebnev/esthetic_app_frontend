@@ -1,16 +1,27 @@
 import { type Tag } from '@/shared/ui/InputWithTags/types'
 
-interface UserDTO {
+interface TUser {
     firstName: string
     lastName: string
     userName: string
     email: string
 }
 
-export interface CreateUserDTO extends UserDTO {
+export interface TCreateUser extends TUser {
     password: string
     avatar: File
     tags: Tag[]
 }
 
-export interface ChangeUserDTO extends CreateUserDTO {}
+export interface TChangeUser extends TCreateUser {}
+
+export interface ProfileDetail extends TUser {
+    userId: string
+    subscribersAmount: number
+    avatar: string
+}
+
+export interface TAuthor extends Omit<TUser, 'email'> {
+    userId: string
+    avatar: string
+}

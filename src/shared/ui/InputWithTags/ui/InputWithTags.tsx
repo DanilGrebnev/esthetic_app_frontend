@@ -4,9 +4,9 @@ import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useFixSize } from '@/shared/hooks/useFixSize'
 import { useLatest } from '@/shared/hooks/useLatest'
 import { clsx } from 'clsx'
-import { type FC, forwardRef, memo, useCallback, useState } from 'react'
+import { forwardRef, memo, useCallback, useState } from 'react'
 
-import { useSetValue, useSetValueInHiddenInput } from '../hooks'
+import { useSetValueInHiddenInput } from '../hooks'
 import { useFocusOnInput } from '../hooks/useFocusOnInput'
 import { InputWithTagsProps, Tag } from '../types'
 import { setInitialTags } from '../utils'
@@ -43,11 +43,9 @@ export const InputWithTags = memo(
                 const updatedTags = latestTags.current.filter(
                     (tag) => tag.tagId !== tagId,
                 )
-                if (onChange) {
-                    onChange(updatedTags)
-                } else {
-                    setTags(updatedTags)
-                }
+
+                setTags(updatedTags)
+                onChange?.(updatedTags)
             },
             [latestTags, onChange],
         )

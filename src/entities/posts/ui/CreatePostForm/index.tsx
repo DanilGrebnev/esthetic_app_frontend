@@ -1,7 +1,7 @@
 'use client'
 
 import { ValidationInputs } from '@/shared/ValidationInputs'
-import { type TCreatePostForm } from '@/shared/types/posts'
+import { type TCreatePosts } from '@/shared/types/posts'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
@@ -25,7 +25,7 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         setError,
         clearErrors,
         formState: { errors },
-    } = useForm<TCreatePostForm>({ mode: 'onBlur' })
+    } = useForm<TCreatePosts>({ mode: 'onBlur' })
 
     // Создаём конструктор FormData в области видимости компонента
     const formDataRef = useRef<FormData | null>(null)
@@ -41,11 +41,14 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
     )
 
     const onSubmit = handleSubmit(() => {
-        console.clear()
+        // console.clear()
         if (!formRef.current) return
         formDataRef.current = new FormData(formRef.current)
         const formData = formDataRef.current
         const file = formData?.get('file') as File
+        const tags = JSON.parse(formData?.get('tags') as string)
+
+        console.log(tags)
 
         if (!file.size) {
             setError('file', {
@@ -56,11 +59,9 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         }
 
         for (let field of formData) {
-            console.log(field)
+            // console.log(field)
         }
     })
-
-    // console.log(errors)
 
     return (
         <Container size='m'>
