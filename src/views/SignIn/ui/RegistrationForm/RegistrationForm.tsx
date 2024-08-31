@@ -8,7 +8,7 @@ import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
 import { ProgressWindow } from '@/shared/ui/ProgressWindow'
-import { RecommendedTags } from '@/shared/ui/RecommendedTagsWithTagsInput'
+import { RecommendedTags } from '@/shared/ui/RecommendedTags'
 import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/SubmitButton'
 import { useForm } from 'react-hook-form'
 
