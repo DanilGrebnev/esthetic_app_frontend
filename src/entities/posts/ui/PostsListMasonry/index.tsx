@@ -10,18 +10,6 @@ interface PostsListMasonryProps {
     posts: TPostsCard[] | []
 }
 
-const SkeletonComponent = () => {
-    return (
-        <>
-            {Array(20)
-                .fill('')
-                .map((_, i) => (
-                    <PostsCardSkeleton key={i} />
-                ))}
-        </>
-    )
-}
-
 export const PostsListMasonry: FC<PostsListMasonryProps> = (props) => {
     const { posts, className, loading } = props
 
@@ -35,7 +23,10 @@ export const PostsListMasonry: FC<PostsListMasonryProps> = (props) => {
                     aspect={options.aspectRatio}
                 />
             ))}
-            {loading && <SkeletonComponent />}
+            {loading &&
+                Array(20)
+                    .fill('')
+                    .map((_, i) => <PostsCardSkeleton key={i} />)}
         </MasonryContainerWithBreakPoints>
     )
 }
