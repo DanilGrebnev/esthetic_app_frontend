@@ -3,7 +3,9 @@
 import { TPostsCard } from '@/shared/types/posts'
 import { getRandomElementFromArray } from '@/shared/utils/getRandomElementFromArr'
 
-const randomTime = [1000, 1500, 1800, 2000, 2300, 2500, 2800, 3000, 3200, 3500]
+const randomTime = [
+    1000, 1500, 1800, 2000, 2300, 2500, 2800, 3000, 3200, 3500,
+] as const
 
 export const getPosts = async (
     offset: number,
@@ -16,5 +18,8 @@ export const getPosts = async (
         setTimeout(() => {
             resolve(mockPosts.slice(offset + 1, limit))
         }, getRandomElementFromArray(randomTime))
+        // setTimeout(() => {
+        //     resolve(mockPosts.slice(offset + 1, limit))
+        // }, 5000)
     })
 }

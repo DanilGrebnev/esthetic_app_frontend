@@ -20,6 +20,7 @@ export const DownloadFileBtn: FC<DownloadContentBtnProps> = memo((props) => {
             className={className}
             onClick={(e) => {
                 e.stopPropagation()
+                e.preventDefault()
                 onDownload()
             }}
         />

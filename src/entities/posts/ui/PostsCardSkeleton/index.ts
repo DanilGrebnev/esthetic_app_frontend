@@ -1,3 +1,3 @@
-// export { PostsCardSkeletonDynamic as PostsCardSkeleton } from './ui/PostsCardSkeletonDynamic'
+export { PostsCardSkeletonDynamic as PostsCardSkeleton } from './ui/PostsCardSkeletonDynamic'
 
-export { PostsCardSkeleton } from './ui/PostsCardSkeleton'
+// export { PostsCardSkeleton } from './ui/PostsCardSkeleton'

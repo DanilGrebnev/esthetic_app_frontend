@@ -9,10 +9,10 @@ interface PostsListSkeletonProps {
 
 export const PostsListSkeleton: FC<PostsListSkeletonProps> = (props) => {
     const { withMasonryContainer = true } = props
-    console.log('PostsListSkeleton')
+
     if (withMasonryContainer) {
         return (
-            <Container>
+            <Container style={{ height: '100%' }}>
                 <MasonryContainerWithBreakPoints className='PostsList-loader'>
                     {Array(25)
                         .fill('')

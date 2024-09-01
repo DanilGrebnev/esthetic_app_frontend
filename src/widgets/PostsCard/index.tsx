@@ -1,10 +1,8 @@
-'use client'
-
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { type FC } from 'react'
 
 import s from './s.module.scss'
@@ -18,15 +16,12 @@ interface PostCardProps {
 
 export const PostsCard: FC<PostCardProps> = (props) => {
     const { mediaUrl, name, aspect = '9/16', className } = props
-    const router = useRouter()
-
-    const href = '/posts-detail/postId'
 
     return (
-        <div
+        <Link
+            href={'/posts-detail/postId'}
             className={clsx(s.card, className)}
             style={{ aspectRatio: aspect }}
-            onClick={() => router.push(href)}
         >
             <div className={s['button-group']}>
                 <SaveToDashboardButton className={s['save-btn']} />
@@ -44,6 +39,6 @@ export const PostsCard: FC<PostCardProps> = (props) => {
                 src={mediaUrl}
                 fill={true}
             />
-        </div>
+        </Link>
     )
 }
