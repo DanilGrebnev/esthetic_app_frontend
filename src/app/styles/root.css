@@ -4,6 +4,9 @@
     --container-width-2: 1000px;
     --container-width-3: 600px;
 
+    /* ===== BUTTON SIZES ===== */
+    --button-l-height: 48px;
+
     /* ===== THEME COLORS ===== */
     --theme-bg-color-1: white;
     --theme-bg-color-2: black;

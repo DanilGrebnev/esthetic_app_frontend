@@ -1,5 +1,5 @@
 import { ResponsiveMasonry } from '@/shared/ui/ResponsiveMasonry'
-import { FC, type ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 
 interface MasonryContainerWithBreakPointsProps {
     children?: ReactNode

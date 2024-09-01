@@ -11,7 +11,8 @@
     border-radius: var(--global-border-radius);
     padding: 10px 20px;
     width: max-content;
-    height: max-content;
+    max-height: var(--button-l-height);
+    min-height: var(--button-l-height);
     color: var(--text-palette-main);
     font-weight: var(--font-weight-semibold);
     font-size: var(--font-300);

@@ -1,5 +1,3 @@
-'use client'
-
 import { getRandomElementFromArray as ran } from '@/shared/utils/getRandomElementFromArr'
 import { Skeleton, StyledEngineProvider } from '@mui/material'
 import { nanoid } from 'nanoid'
