@@ -10,7 +10,8 @@
     outline: none;
     border-radius: var(--global-border-radius);
     padding: 10px 20px;
-    width: max-content;
+    min-width: max-content;
+    max-width: max-content;
     max-height: var(--button-l-height);
     min-height: var(--button-l-height);
     color: var(--text-palette-main);

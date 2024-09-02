@@ -26,7 +26,7 @@ const calculateHeightByAspectRatio = (
     return +width / o[aspect]
 }
 
-export const PostsCardSkeleton: FC<PostsCardSkeletonProps> = (props) => {
+export const PostsCardSkeleton: FC<PostsCardSkeletonProps> = () => {
     const [height, setHeight] = useState('')
 
     const ref = useRef<HTMLSpanElement>(null)
@@ -48,7 +48,7 @@ export const PostsCardSkeleton: FC<PostsCardSkeletonProps> = (props) => {
                 variant='rounded'
                 className={s.skeleton}
                 style={{
-                    height: height,
+                    height,
                 }}
             />
         </StyledEngineProvider>

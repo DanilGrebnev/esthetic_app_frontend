@@ -1,17 +1,18 @@
-import { MasonryContainerWithBreakPoints } from '@/entities/posts/ui/MasonryContainerWithBreakPoints'
 import type { TPostsCard } from '@/shared/types/posts'
 import { PostsCard } from '@/widgets/PostsCard'
-import { type FC, ReactNode } from 'react'
+import { type FC } from 'react'
+
+import { MasonryContainerWithBreakPoints } from '../MasonryContainerWithBreakPoints'
+import { PostsCardSkeleton } from '../PostsCardSkeleton'
 
 interface PostsListMasonryProps {
     className?: string
     loading?: boolean
     posts: TPostsCard[] | []
-    children?: ReactNode
 }
 
 export const PostsListMasonry: FC<PostsListMasonryProps> = (props) => {
-    const { posts, className, loading, children } = props
+    const { posts, className, loading } = props
 
     return (
         <MasonryContainerWithBreakPoints className={className}>
@@ -23,7 +24,10 @@ export const PostsListMasonry: FC<PostsListMasonryProps> = (props) => {
                     aspect={options.aspectRatio}
                 />
             ))}
-            {loading && children}
+            {loading &&
+                Array(20)
+                    .fill('')
+                    .map((_, i) => <PostsCardSkeleton key={i} />)}
         </MasonryContainerWithBreakPoints>
     )
 }

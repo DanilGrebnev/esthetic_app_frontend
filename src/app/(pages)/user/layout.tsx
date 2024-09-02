@@ -8,7 +8,7 @@ import s from './userLayout.module.scss'
 
 export default function UserLayout({ children }: Layout) {
     return (
-        <div id='User layout'>
+        <div>
             <div className={s['user-layout']}>
                 <Button
                     href={routes.main.getRoute()}
