@@ -1,11 +1,11 @@
 'use client'
 
-import { PostsListMasonry } from '@/entities/posts'
 import { getPosts } from '@/shared/api/postsApi'
 import { TPostsCard } from '@/shared/types/posts'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
+import { PostsListMasonry } from './PostsListMasonry'
 import s from './s.module.scss'
 
 /* Список постов со встроенной пагинацией */

@@ -1,9 +1,11 @@
+import {
+    MasonryContainerWithBreakPoints,
+    PostsCardSkeleton,
+} from '@/entities/posts/'
 import type { TPostsCard } from '@/shared/types/posts'
-import { PostsCard } from '@/widgets/PostsCard'
 import { type FC } from 'react'
 
-import { MasonryContainerWithBreakPoints } from '../MasonryContainerWithBreakPoints'
-import { PostsCardSkeleton } from '../PostsCardSkeleton'
+import { PostsCard } from '../../PostsCard'
 
 interface PostsListMasonryProps {
     className?: string

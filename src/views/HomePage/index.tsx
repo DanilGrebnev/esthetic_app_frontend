@@ -1,5 +1,5 @@
-import { PostsListWithPagination } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
+import { PostsListWithPagination } from '@/widgets/PostsList'
 
 export const Home = () => {
     return (
