@@ -1,3 +1,5 @@
+'use client'
+
 import { consts } from '@/shared/consts'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { Skeleton } from '@mui/material'
@@ -9,20 +11,18 @@ import s from './s.module.scss'
 import { getDashboardItemTitle } from './utils'
 
 interface DashboardItemProps {
-    isLoading?: boolean
+    loading?: boolean
     disabled?: boolean
     dashboardName: string
     skeleton?: boolean
 }
 
 export const DashboardItem: FC<DashboardItemProps> = (props) => {
-    const { isLoading, dashboardName, disabled, skeleton } = props
-
-    const title = getDashboardItemTitle(disabled, dashboardName)
+    const { loading, dashboardName, disabled, skeleton } = props
 
     return (
         <div
-            title={title}
+            title={getDashboardItemTitle(disabled, dashboardName)}
             className={clsx(s['dashboard-item'], { [s.disabled]: disabled })}
         >
             <div className={clsx(s.content)}>
@@ -38,21 +38,27 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
                         <p className='text-ellipsis'>{dashboardName}</p>
                     </>
                 ) : (
-                    <>
-                        <Skeleton
-                            width={40}
-                            height={40}
-                            variant='rounded'
-                        />
-                        <Skeleton
-                            width={100}
-                            height={12}
-                            variant='rounded'
-                        />
-                    </>
+                    <Skeletons />
                 )}
             </div>
-            {isLoading && <CircularProgress sizesVariant='s' />}
+            {loading && <CircularProgress sizesVariant='s' />}
         </div>
+    )
+}
+
+function Skeletons() {
+    return (
+        <>
+            <Skeleton
+                width={40}
+                height={40}
+                variant='rounded'
+            />
+            <Skeleton
+                width={100}
+                height={12}
+                variant='rounded'
+            />
+        </>
     )
 }

@@ -23,13 +23,11 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
             <h2 className={s['container-title']}>Сохранение</h2>
             <div className={s['dashboard-list']}>
                 <DashboardGroupContainer groupName='Быстрое сохранение'>
-                    <DashboardItem
-                        isLoading={true}
-                        dashboardName='Профиль'
-                    />
+                    <DashboardItem dashboardName='Избранное' />
                 </DashboardGroupContainer>
 
                 <DashboardGroupContainer groupName='Сохранение на доске'>
+                    <DashboardItem dashboardName={'BMW'} />
                     {!isLoading ? (
                         Array(20)
                             .fill('')

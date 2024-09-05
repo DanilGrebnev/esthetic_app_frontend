@@ -11,7 +11,7 @@ import s from './s.module.scss'
 /* Список постов со встроенной пагинацией */
 export const PostsListWithPagination = () => {
     const [posts, setPosts] = useState<TPostsCard[]>([])
-    const [offset, setOffset] = useState<number>(0)
+    const [offset, setOffset] = useState(0)
     const [loading, setLoading] = useState(true)
 
     const step = 20
@@ -36,6 +36,7 @@ export const PostsListWithPagination = () => {
     /* Запрос на получение постов при монтировании страницы */
     useEffect(() => {
         // console.log('Запрос...')
+        setLoading(true)
         getPosts(offset, limit).then(updatePosts)
     }, [])
 

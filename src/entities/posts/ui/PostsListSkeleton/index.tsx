@@ -1,5 +1,5 @@
 import { PostsCardSkeleton } from '@/entities/posts'
-import { MasonryContainerWithBreakPoints } from '@/entities/posts/ui/MasonryContainerWithBreakPoints'
+import { MasonryContainerWithBreakPoints } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
 import { type FC } from 'react'
 
@@ -12,7 +12,7 @@ export const PostsListSkeleton: FC<PostsListSkeletonProps> = (props) => {
 
     if (withMasonryContainer) {
         return (
-            <Container style={{ height: '100%' }}>
+            <Container id='Posts-lists-skelton'>
                 <MasonryContainerWithBreakPoints className='PostsList-loader'>
                     {Array(25)
                         .fill('')

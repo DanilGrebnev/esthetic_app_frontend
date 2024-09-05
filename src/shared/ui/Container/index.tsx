@@ -8,13 +8,15 @@ interface IContainer {
     className?: string
     size?: 'l' | 'm' | 's'
     style?: CSSProperties
+    id?: string
 }
 
 export const Container: FC<IContainer> = (props) => {
-    const { children, style, className, size = 'l' } = props
+    const { children, id, style, className, size = 'l' } = props
 
     return (
         <section
+            id={id}
             style={style}
             className={clsx(s.container, s[size], className)}
         >

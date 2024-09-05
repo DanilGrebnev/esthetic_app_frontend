@@ -13,7 +13,7 @@ export const MasonryContainerWithBreakPoints: FC<
         <ResponsiveMasonry
             className={className}
             gutter='10px'
-            columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 4, 900: 5 }}
+            columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 5, 900: 6 }}
         >
             {children}
         </ResponsiveMasonry>
