@@ -31,7 +31,6 @@
         color: black;
     }
 
-    &:not([disabled]) {
         &:active:not(.active-underline) {
             @extend %in-touches;
         }
@@ -61,7 +60,6 @@
                 content: '';
             }
         }
-    }
 }
 
 // Красный вариант кнопки

@@ -4,7 +4,7 @@ import { routes } from '@/shared/routes'
 import { Button } from '@/shared/ui/Button'
 import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
-import { FC } from 'react'
+import { type FC } from 'react'
 
 import s from './s.module.sass'
 
