@@ -18,6 +18,7 @@ const meta: Meta<typeof Input> = {
     },
 
     args: {
+        fullWidth: false,
         label: 'Имя',
         placeholder: 'Введите имя',
         disabled: false,

@@ -3,8 +3,7 @@
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
-import { UploadFiles } from '@/shared/ui/UploadFile'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { Title } from '../Title'
 import s from './s.module.scss'
@@ -14,7 +13,7 @@ interface ILogin {
 }
 
 export const LoginForm = () => {
-    const { handleSubmit, control, reset } = useForm<ILogin>()
+    const { handleSubmit } = useForm<ILogin>()
 
     const onSubmit = handleSubmit((data) => console.log(data))
 

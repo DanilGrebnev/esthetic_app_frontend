@@ -27,7 +27,6 @@ $container-width-3: 600px;
 
 .s {
     max-width: $container-width-3;
-
     @media screen and (max-width: $container-width-3) {
         padding-right: var(--global-padding);
         padding-left: var(--global-padding);

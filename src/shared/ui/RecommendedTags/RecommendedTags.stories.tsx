@@ -1,3 +1,4 @@
+import { recommendedTagsInitState } from '@/shared/mock/recommendedTagsData'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { RecommendedTags } from './'
@@ -10,4 +11,17 @@ export default meta
 
 type Story = StoryObj<typeof RecommendedTags>
 
-export const RecommendedTagsStandart: Story = {}
+export const RecommendedTagsStandart: Story = {
+    decorators: [
+        (Story) => {
+            return (
+                <div style={{ maxWidth: '500px' }}>
+                    <Story />
+                </div>
+            )
+        },
+    ],
+    args: {
+        initialTags: recommendedTagsInitState,
+    },
+}

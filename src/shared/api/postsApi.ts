@@ -11,7 +11,7 @@ export const getPosts = async (
     offset: number,
     limit: number,
 ): Promise<TPostsCard[] | []> => {
-    const { mockPosts } = await import('./mock')
+    const { mockPosts } = await import('../mock/mock')
     if (offset >= mockPosts.length) return []
 
     return new Promise((resolve) => {

@@ -1,9 +1,9 @@
-import { getSetting } from '@/shared/ui/ProgressWindow/lib'
+import { getSetting } from '@/shared/ui/ProgressWindow/model/lib'
 import { clsx } from 'clsx'
 import { type FC, useEffect, useState } from 'react'
 
-import { usePrivateProgressWindowContext } from '../hooks'
-import { TProgressWindowContainer } from '../types'
+import { usePrivateProgressWindowContext } from '../model/hooks'
+import { TProgressWindowContainer } from '../model/types'
 import s from './s.module.scss'
 
 export const ProgressWindowContainer: FC<TProgressWindowContainer> = ({

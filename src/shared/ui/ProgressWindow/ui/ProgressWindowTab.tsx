@@ -2,8 +2,8 @@
 
 import { createPortal } from 'react-dom'
 
-import { usePrivateProgressWindowContext } from '../hooks'
-import { ProgressWindowTabProps } from '../types'
+import { usePrivateProgressWindowContext } from '../model/hooks'
+import { ProgressWindowTabProps } from '../model/types'
 
 export const ProgressWindowTab = (props: ProgressWindowTabProps) => {
     const { children, className, style } = props

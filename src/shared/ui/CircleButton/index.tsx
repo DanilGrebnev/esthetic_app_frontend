@@ -1,6 +1,6 @@
 import DownloadIcon from '@/shared/assets/download-icon.svg'
 import clsx from 'clsx'
-import { type ComponentPropsWithRef, type FC, forwardRef } from 'react'
+import { type ComponentPropsWithRef, forwardRef } from 'react'
 
 import s from './s.module.scss'
 

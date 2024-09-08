@@ -16,27 +16,25 @@ export const RecommendedTags = forwardRef<HTMLInputElement, TRecommendedTags>(
         const combinedRef = useCombinedRef(inputRef, ref)
 
         return (
-            <div>
-                <div className={s['recommended-tag-list']}>
-                    <input
-                        hidden
-                        name={name}
-                        ref={combinedRef}
-                    />
-                    {recommendedTags.map((tag) => {
-                        return (
-                            <RecommendedTagIcon
-                                key={tag.tagId}
-                                tagId={tag.tagId}
-                                icon={tag.icon}
-                                checked={tag.isChecked}
-                                onClick={toggleRecommendedTag}
-                            >
-                                {tag.label}
-                            </RecommendedTagIcon>
-                        )
-                    })}
-                </div>
+            <div className={s['recommended-tag-list']}>
+                <input
+                    hidden
+                    name={name}
+                    ref={combinedRef}
+                />
+                {recommendedTags.map((tag) => {
+                    return (
+                        <RecommendedTagIcon
+                            key={tag.tagId}
+                            tagId={tag.tagId}
+                            icon={tag.icon}
+                            checked={tag.isChecked}
+                            onClick={toggleRecommendedTag}
+                        >
+                            {tag.label}
+                        </RecommendedTagIcon>
+                    )
+                })}
             </div>
         )
     },

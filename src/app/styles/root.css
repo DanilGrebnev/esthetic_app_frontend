@@ -26,6 +26,7 @@
     --silver-btn-bg-color: rgb(0 0 0 / 5%);
     --silver-btn-bg-hover-color: rgb(0 0 0 / 10%);
     --global-btn-hover: rgba(0 0 0 / 5%);
+    --global-btn-disabled: 0.5;
 
     /* ===== OTHER COLORS ===== */
     --box-bg-1: #e9e9e9;

@@ -10,10 +10,14 @@
     width: 35px;
     height: 35px;
 
-    &:hover {
+    &:disabled {
+        opacity: var(--global-btn-disabled);
+    }
+
+    &:hover:not(:disabled) {
         scale: 1.05;
     }
-    &:active {
+    &:active:not(:disabled) {
         scale: 0.9;
     }
 }
