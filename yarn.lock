@@ -2278,7 +2278,7 @@
 
 "@storybook/addon-storysource@^8.2.9":
   version "8.2.9"
-  resolved "https://registry.npmjs.org/@storybook/addon-storysource/-/addon-storysource-8.2.9.tgz"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-storysource/-/addon-storysource-8.2.9.tgz#c9e3e169d4b8ca646bdcd43cc5f6250fc21cc710"
   integrity sha512-zSfw4FNjzSGdWvNhrjJgiqabQAklCXR3Xa0Hp5/5omG9Wl/JdiAKw9ysycQXovAv4VuubxS1x0pOTo6Wg40M3A==
   dependencies:
     "@storybook/source-loader" "8.2.9"

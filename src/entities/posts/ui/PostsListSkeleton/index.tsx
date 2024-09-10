@@ -1,3 +1,5 @@
+'use client'
+
 import { PostsCardSkeleton } from '@/entities/posts'
 import { MasonryContainerWithBreakPoints } from '@/entities/posts'
 import { Container } from '@/shared/ui/Container'
