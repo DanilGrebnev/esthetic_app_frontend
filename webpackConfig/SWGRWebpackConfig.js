@@ -1,4 +1,4 @@
-const SWGRWebpackConfig = (config) => {
+export const SWGRWebpackConfig = (config) => {
     const fileLoaderRule = config?.module?.rules?.find((rule) =>
         rule?.test?.test?.('.svg'),
     )
@@ -20,4 +20,4 @@ const SWGRWebpackConfig = (config) => {
     fileLoaderRule.exclude = /\.svg$/i
 }
 
-module.exports = SWGRWebpackConfig
+// module.exports = SWGRWebpackConfig

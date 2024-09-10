@@ -1,23 +1,25 @@
 .modal{
-  background: var(--theme-bg-color-1);
   position: absolute;
   right: 0;
-  box-shadow: var(--global-box-shadow);
+
+  background: var(--theme-bg-color-1);
   border-radius: var(--global-border-radius);
+  box-shadow: var(--global-box-shadow);
 }
 
 .modal-wrapper{
-  padding: var(--global-padding);
   display: flex;
   flex-direction: column;
+  padding: var(--global-padding);
 }
 
-.link{
+.link {
   padding: var(--global-padding);
-  border-radius: var(--global-border-radius);
   color: var(--text-palette-main);
+  text-wrap: nowrap;
+  border-radius: var(--global-border-radius);
 
-  &:hover{
+  &:hover {
     background: var(--global-btn-hover);
   }
 }

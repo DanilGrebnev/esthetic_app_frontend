@@ -1,12 +1,13 @@
 'use client'
 
-import { type Layout } from '@/shared/types/layout'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { type FC } from 'react'
+import type { FC, ReactNode } from 'react'
 
 import { getQueryClient } from './get-query-client'
 
-export const TanStackQueryProvider: FC<Layout> = ({ children }) => {
+export const TanStackQueryProvider: FC<{ children: ReactNode }> = ({
+    children,
+}) => {
     const queryClient = getQueryClient()
 
     return (

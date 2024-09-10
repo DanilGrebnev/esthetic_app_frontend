@@ -1,21 +1,33 @@
 'use client'
 
+import { useMutationLoginQuery } from '@/shared/api/users'
+import { routes } from '@/shared/routes'
+import { UsersLoginBody } from '@/shared/types/user'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Title } from '../Title'
 import s from './s.module.scss'
 
-interface ILogin {
-    file: any
-}
-
 export const LoginForm = () => {
-    const { handleSubmit } = useForm<ILogin>()
+    const { handleSubmit, register } = useForm<UsersLoginBody>()
+    const { mutate, isPending, isSuccess, data } = useMutationLoginQuery()
+    const router = useRouter()
 
-    const onSubmit = handleSubmit((data) => console.log(data))
+    const onSubmit = handleSubmit((body) => {
+        mutate(body, {
+            onSuccess: () => {
+                router.push(routes.main.getRoute())
+            },
+        })
+    })
+    useEffect(() => {
+        console.log('user', data)
+    }, [data])
 
     return (
         <Container
@@ -28,18 +40,21 @@ export const LoginForm = () => {
             >
                 <Title text='Войти' />
                 <Input
-                    label='Логин'
-                    name='login'
-                    placeholder='Введите логин'
+                    {...register('email')}
+                    label='Почта'
+                    placeholder='Введите почту'
                 />
                 <Input
+                    {...register('password')}
                     label='Пароль'
+                    type='password'
                     placeholder='Введите пароль'
-                    name='password'
                 />
                 <Button
                     type='submit'
                     variant='silver'
+                    disabled={isSuccess}
+                    loading={isPending}
                 >
                     Отправить
                 </Button>

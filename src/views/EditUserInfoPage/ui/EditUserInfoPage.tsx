@@ -1,6 +1,6 @@
 'use client'
 
-import { type TCreateUser } from '@/shared/types/user'
+import { type CreateUser } from '@/shared/types/user'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
@@ -16,7 +16,7 @@ export const EditUserInfoPage = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Omit<TCreateUser, 'tags'>>({
+    } = useForm<Omit<CreateUser, 'tags'>>({
         mode: 'onBlur',
     })
 

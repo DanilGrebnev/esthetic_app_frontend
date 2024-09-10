@@ -2,7 +2,8 @@
 
 import { UploadUserAvatar } from '@/features/user'
 import { ValidationInputs } from '@/shared/ValidationInputs'
-import { type TCreateUser } from '@/shared/types/user'
+import { useMutationRegistrationQuery } from '@/shared/api/users'
+import { type CreateUser } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
@@ -10,6 +11,7 @@ import { InputWithValidation } from '@/shared/ui/InputWithValidation'
 import { ProgressWindow } from '@/shared/ui/ProgressWindow'
 import { RecommendedTags } from '@/shared/ui/RecommendedTags'
 import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/SubmitButton'
+import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { recommendedTagsInitState } from '../../../../shared/mock/recommendedTagsData'
@@ -26,39 +28,35 @@ export const RegistrationForm = () => {
         handleSubmit,
         setValue,
         formState: { errors, isValid },
-    } = useForm<Omit<TCreateUser, 'tags'>>({
+    } = useForm<Omit<CreateUser, 'tags'>>({
         mode: 'onBlur',
     })
+    const { mutate } = useMutationRegistrationQuery()
 
-    const onChangeAvatar = (file: File) => {
-        setValue('avatar', file)
-    }
-
-    const onSubmit = handleSubmit((_, e) => {
-        console.clear()
+    const onSubmit = handleSubmit(async (_, e) => {
         const formData = new FormData(e?.target)
-        const recTags = JSON.parse(
-            (formData.get('recommendedTags') as string) || '[]',
-        )
-        const tags = JSON.parse(
-            (formData.get('tags') as string) || '[]',
-        ).concat(recTags)
-
-        formData.delete('recommendedTags')
-        formData.set('tags', JSON.stringify(tags))
-
-        // fetch('http://localhost:3000/register', {
-        //     method: 'POST',
-        //     body: formData,
-        // })
-
-        for (let f of formData) {
-            console.log(f)
+        function getTagsFromFormData(key: 'recommendedTags' | 'tags') {
+            return JSON.parse((formData.get(key) as string) || '[]')
         }
+        formData.set(
+            'tags',
+            JSON.stringify([
+                ...getTagsFromFormData('tags'),
+                ...getTagsFromFormData('recommendedTags'),
+            ]),
+        )
+        formData.delete('recommendedTags')
+
+        mutate(formData)
     })
+
     const { email, firstName, password, userName } = watch()
 
     const nextResolve = firstName && userName && password && email && isValid
+
+    const onChangeAvatar = useCallback((file: File) => {
+        setValue('avatar', file)
+    }, [])
 
     return (
         <Container

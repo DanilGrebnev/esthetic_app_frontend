@@ -1,19 +1,17 @@
+// @ts-check
 /** @type {import('next').NextConfig} */
-const path = require('path')
-const SWGRWebpackConfig = require('./webpackConfig/SWGRWebpackConfig')
+import { SWGRWebpackConfig } from './webpackConfig/SWGRWebpackConfig.js'
 
-module.exports = {
+const nextConfig = {
     reactStrictMode: false,
     experimental: {
-        turbo: {},
-    },
-    sassOptions: {
-        includePaths: [path.join(__dirname, 'styles')],
     },
     images: {
         remotePatterns: [
             {
+                // @ts-ignore
                 protocol: process.env.NEXT_PUBLIC_PROTOCOL,
+                // @ts-ignore
                 hostname: process.env.NEXT_PUBLIC_HOSTNAME,
                 // port: process.env.NEXT_PUBLIC_PORT,
                 pathname: '/**',
@@ -27,3 +25,5 @@ module.exports = {
         return config
     },
 }
+
+export default nextConfig

@@ -23,20 +23,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             variant = 'standart',
             activeVariant = 'active-fill',
             href,
+            style,
             loading,
             onClick,
             ...other
         } = props
         const router = useRouter()
 
-        const { nodeRef, styleRef } = useFixSize<HTMLButtonElement>()
+        const { nodeRef, fixWidthStyle } = useFixSize<HTMLButtonElement>()
         const combinedRef = useCombinedRef(ref, nodeRef)
 
         return (
             <button
                 type='button'
                 ref={combinedRef}
-                style={styleRef.current}
+                style={{
+                    ...style,
+                    ...fixWidthStyle,
+                }}
                 onClick={(e) => {
                     onClick?.(e)
                     if (href) router.push(href)

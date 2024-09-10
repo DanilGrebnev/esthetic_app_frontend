@@ -4,8 +4,9 @@ import { routes } from '@/shared/routes'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { useGetIsAuth } from '../../model/slice'
 import { UserProfileModal } from './UserProfileModal/UserProfileModal'
 import s from './s.module.scss'
 
@@ -13,7 +14,7 @@ import s from './s.module.scss'
 export const UserProfileIcon = () => {
     const [openModal, setOpenModal] = useState(false)
     const router = useRouter()
-    const isAuth = false
+    const auth = useGetIsAuth()
 
     const onOpenModal = () => {
         setOpenModal(true)
@@ -41,6 +42,7 @@ export const UserProfileIcon = () => {
                 <UserAvatar size='s' />
             </div>
             <UserProfileModal
+                auth={auth}
                 className={clsx(s.modal, { [s.open]: openModal })}
             />
         </div>
