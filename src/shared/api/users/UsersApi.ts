@@ -1,5 +1,9 @@
-import type { UserProfile, UsersLoginBody } from '@/shared/types/user'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import type {
+    UserProfile,
+    UserProfileWithAuthor,
+    UsersLoginBody,
+} from '@/shared/types/user'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { apiInstance } from '../Instance'
 
@@ -14,9 +18,22 @@ export class UsersApi {
     registration(body: FormData) {
         return apiInstance.post(`${usersPath}/registration`, { body }).json()
     }
+
+    publicProfile(userId: string) {
+        return apiInstance
+            .get(`${usersPath}/${userId}/`, { credentials: 'include' })
+            .json<UserProfileWithAuthor>()
+    }
 }
 
 export const usersApi = new UsersApi()
+
+export const useGetPublicProfile = ({ userId }: { userId: string }) => {
+    return useQuery({
+        queryKey: ['publicProfile', userId],
+        queryFn: () => usersApi.publicProfile(userId),
+    })
+}
 
 export const useMutationLoginQuery = (options?: {
     onSuccess?: (data: UserProfile) => void

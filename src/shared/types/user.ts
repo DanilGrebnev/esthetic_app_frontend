@@ -28,6 +28,8 @@ export interface TAuthor extends Omit<BaseUser, 'email'> {
     avatar: string
 }
 
+export interface UserProfileWithAuthor extends TAuthor {}
+
 export interface UsersLoginBody {
     email: string
     password: string
