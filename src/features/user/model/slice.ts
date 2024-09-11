@@ -1,29 +1,39 @@
+import { UserProfile } from '@/shared/types/user'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
 interface UserState {
-    auth: boolean
+    profile: UserProfile | null
 }
 
 interface Actions {
-    setAuth: (auth: boolean) => void
+    setUserProfile: (profile: UserProfile) => void
 }
 
 const useUserStore = create<UserState & Actions>()(
     immer((set) => ({
-        auth: false,
-        setAuth: (auth: boolean) => {
+        profile: {
+            userId: '',
+            firstName: '',
+            avatar: null,
+            subscribersAmount: 0,
+            userName: '',
+            lastName: '',
+        },
+
+        setUserProfile: (profile) => {
             set((state) => {
-                state.auth = auth
+                state.profile = profile
             })
         },
     })),
 )
 
-export const useGetIsAuth = () => {
-    return useUserStore((state) => state.auth)
+/* Получение профиля пользователя из хранилища */
+export const useGetProfile = () => {
+    return useUserStore((state) => state.profile)
 }
-
-export const useSetAuth = () => {
-    return useUserStore((state) => state.setAuth)
+/* Установка данных профиля пользователя в хранилище */
+export const useSetProfile = () => {
+    return useUserStore((state) => state.setUserProfile)
 }

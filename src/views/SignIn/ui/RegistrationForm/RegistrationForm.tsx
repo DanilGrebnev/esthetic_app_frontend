@@ -3,6 +3,8 @@
 import { UploadUserAvatar } from '@/features/user'
 import { ValidationInputs } from '@/shared/ValidationInputs'
 import { useMutationRegistrationQuery } from '@/shared/api/users'
+import { recommendedTagsInitState } from '@/shared/mock/recommendedTagsData'
+import { routes } from '@/shared/routes'
 import { type CreateUser } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
@@ -11,10 +13,10 @@ import { InputWithValidation } from '@/shared/ui/InputWithValidation'
 import { ProgressWindow } from '@/shared/ui/ProgressWindow'
 import { RecommendedTags } from '@/shared/ui/RecommendedTags'
 import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/SubmitButton'
+import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { recommendedTagsInitState } from '../../../../shared/mock/recommendedTagsData'
 import { SubTitle } from '../SubTitle'
 import { Title } from '../Title'
 import s from './s.module.scss'
@@ -31,7 +33,8 @@ export const RegistrationForm = () => {
     } = useForm<Omit<CreateUser, 'tags'>>({
         mode: 'onBlur',
     })
-    const { mutate } = useMutationRegistrationQuery()
+    const router = useRouter()
+    const { mutateAsync, isPending, isSuccess } = useMutationRegistrationQuery()
 
     const onSubmit = handleSubmit(async (_, e) => {
         const formData = new FormData(e?.target)
@@ -47,7 +50,7 @@ export const RegistrationForm = () => {
         )
         formData.delete('recommendedTags')
 
-        mutate(formData)
+        mutateAsync(formData).then(() => router.push(routes.login.getRoute()))
     })
 
     const { email, firstName, password, userName } = watch()
@@ -148,9 +151,12 @@ export const RegistrationForm = () => {
                             </ProgressWindow.tab>
                         </ProgressWindow.container>
                         <div className={s['btn-group']}>
-                            <PrevBtn />
-                            <NextBtn disabled={!nextResolve} />
-                            <SubmitButton />
+                            <PrevBtn disabled={isSuccess} />
+                            <NextBtn disabled={!nextResolve || isSuccess} />
+                            <SubmitButton
+                                loading={isPending}
+                                disabled={isSuccess}
+                            />
                         </div>
                     </ProgressWindow.provider>
                 </form>

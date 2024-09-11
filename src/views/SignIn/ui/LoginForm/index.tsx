@@ -1,5 +1,6 @@
 'use client'
 
+import { useSetProfile } from '@/features/user'
 import { useMutationLoginQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { UsersLoginBody } from '@/shared/types/user'
@@ -7,7 +8,6 @@ import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Title } from '../Title'
@@ -15,19 +15,19 @@ import s from './s.module.scss'
 
 export const LoginForm = () => {
     const { handleSubmit, register } = useForm<UsersLoginBody>()
-    const { mutate, isPending, isSuccess, data } = useMutationLoginQuery()
+    const setProfile = useSetProfile()
     const router = useRouter()
 
-    const onSubmit = handleSubmit((body) => {
-        mutate(body, {
-            onSuccess: () => {
-                router.push(routes.main.getRoute())
-            },
-        })
+    const { mutate, isPending, isSuccess } = useMutationLoginQuery({
+        onSuccess: (profile) => {
+            setProfile(profile)
+            router.push(routes.main.getRoute())
+        },
     })
-    useEffect(() => {
-        console.log('user', data)
-    }, [data])
+
+    const onSubmit = handleSubmit((body) => {
+        mutate(body)
+    })
 
     return (
         <Container

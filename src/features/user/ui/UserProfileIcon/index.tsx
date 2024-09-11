@@ -1,12 +1,13 @@
 'use client'
 
+import { useGetIsAuth } from '@/entities/auth'
+import { useGetProfile } from '@/features/user'
 import { routes } from '@/shared/routes'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { useGetIsAuth } from '../../model/slice'
 import { UserProfileModal } from './UserProfileModal/UserProfileModal'
 import s from './s.module.scss'
 
@@ -15,6 +16,7 @@ export const UserProfileIcon = () => {
     const [openModal, setOpenModal] = useState(false)
     const router = useRouter()
     const auth = useGetIsAuth()
+    const userProfile = useGetProfile()
 
     const onOpenModal = () => {
         setOpenModal(true)
@@ -39,7 +41,10 @@ export const UserProfileIcon = () => {
                 onClick={onClick}
                 className={s['user-icon-wrapper']}
             >
-                <UserAvatar size='s' />
+                <UserAvatar
+                    word={userProfile?.firstName[0]}
+                    size='s'
+                />
             </div>
             <UserProfileModal
                 auth={auth}

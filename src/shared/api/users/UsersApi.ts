@@ -1,4 +1,4 @@
-import type { UsersLoginBody } from '@/shared/types/user'
+import type { UserProfile, UsersLoginBody } from '@/shared/types/user'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { apiInstance } from '../Instance'
@@ -9,7 +9,7 @@ export class UsersApi {
     login(body: UsersLoginBody) {
         return apiInstance
             .post(`${usersPath}/login`, { json: body, credentials: 'include' })
-            .json()
+            .json<UserProfile>()
     }
     registration(body: FormData) {
         return apiInstance.post(`${usersPath}/registration`, { body }).json()
@@ -18,12 +18,19 @@ export class UsersApi {
 
 export const usersApi = new UsersApi()
 
-export const useMutationLoginQuery = () => {
+export const useMutationLoginQuery = (options?: {
+    onSuccess?: (data: UserProfile) => void
+    onError?: (error: any) => void
+}) => {
     const queryClient = useQueryClient()
 
     return useMutation({
         mutationFn: (body: UsersLoginBody) => usersApi.login(body),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['auth'] }),
+        onError: options?.onError,
+        onSuccess: (successResponse) => {
+            queryClient.invalidateQueries({ queryKey: ['auth'] })
+            options?.onSuccess?.(successResponse)
+        },
     })
 }
 
