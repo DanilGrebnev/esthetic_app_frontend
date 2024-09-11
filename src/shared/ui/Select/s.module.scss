@@ -1,18 +1,18 @@
 .select {
     & :global .MuiInputBase-root {
-        border-radius: var(--global-border-radius);
         overflow: hidden;
+        border-radius: var(--global-border-radius);
+
+        &::before,
+        &::after {
+            border: none;
+        }
 
         &:hover {
             &::before,
             &::after {
                 border: none;
             }
-        }
-
-        &::before,
-        &::after {
-            border: none;
         }
     }
 

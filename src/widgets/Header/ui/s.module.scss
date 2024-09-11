@@ -1,11 +1,14 @@
 .header {
-    display: flex;
     position: sticky;
-    top: 0;
-    gap: var(--global-gap-1);
     z-index: 2;
-    background: var(--theme-bg-color-1);
+    top: 0;
+
+    display: flex;
+    gap: var(--global-gap-1);
+
     padding: var(--global-padding);
+
+    background: var(--theme-bg-color-1);
 }
 
 .user-bar {
@@ -19,7 +22,7 @@
     max-width: 300px;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (width <= 550px) {
     .header {
         display: grid;
     }

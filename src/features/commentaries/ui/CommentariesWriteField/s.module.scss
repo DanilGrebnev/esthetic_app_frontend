@@ -1,30 +1,37 @@
 .write-comment {
+    --size: 50px;
+
     display: flex;
     gap: var(--global-gap-1);
     height: max-content;
-    --size: 50px;
 
     .avatar {
         display: flex;
-        justify-content: center;
         align-items: center;
-        border-radius: 100%;
-        background: rgb(0 0 0 / 40%);
+        justify-content: center;
+
         aspect-ratio: 1 / 1;
         width: var(--size);
         height: var(--size);
-        color: white;
+
         font-size: var(--font-500);
         line-height: 1;
+        color: white;
+
+        background: rgb(0 0 0 / 40%);
+        border-radius: 100%;
     }
 
     .input {
         flex-grow: 1;
-        border: 2px solid var(--border-color-1);
-        border-radius: var(--global-border-radius);
-        padding: 0 10px;
+
         min-width: 0;
         height: var(--size);
+        padding: 0 10px;
+
         font-size: var(--font-300);
+
+        border: 2px solid var(--border-color-1);
+        border-radius: var(--global-border-radius);
     }
 }

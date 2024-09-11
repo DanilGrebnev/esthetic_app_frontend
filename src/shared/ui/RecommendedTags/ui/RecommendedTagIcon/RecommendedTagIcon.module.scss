@@ -1,11 +1,15 @@
 .tag-wrapper {
-    display: flex;
-    transition: var(--global-transition);
     cursor: pointer;
+
+    display: flex;
+
+    width: max-content;
+    padding: 5px;
+
     border: 1px solid var(--border-color-1);
     border-radius: var(--global-border-radius);
-    padding: 5px;
-    width: max-content;
+
+    transition: var(--global-transition);
 
     &:hover {
         background: var(--global-btn-hover);
@@ -17,7 +21,7 @@
     }
 
     &.checked{
-        background: green;
         color: white;
+        background: green;
     }
 }

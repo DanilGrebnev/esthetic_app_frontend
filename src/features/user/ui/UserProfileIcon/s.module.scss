@@ -4,8 +4,8 @@
 
 .modal {
     overflow: hidden;
-    transition: 1s;
     max-height: 0;
+    transition: 1s;
 
     &.open{
         max-height: 1000px;
@@ -13,14 +13,18 @@
 }
 
 .user-icon-wrapper {
-    height: var(--button-l-height);
-    aspect-ratio: 1 / 1;
+    cursor: pointer;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+
+    aspect-ratio: 1 / 1;
+    height: var(--button-l-height);
+
+    background: rgb(0 0 0 / 0%);
     border-radius: var(--global-border-radius);
-    background: rgb(0 0 0 / 0);
+
     transition: .3s;
 
     &:hover{

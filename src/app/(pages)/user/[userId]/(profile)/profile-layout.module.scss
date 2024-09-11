@@ -3,17 +3,18 @@ $gap: 10px;
 .header {
     display: flex;
     flex-direction: column;
+    gap: $gap;
     align-items: center;
     align-self: center;
-    gap: $gap;
+
+    width: max-content;
     margin: 0 auto;
     margin-bottom: var(--maring-l);
-    width: max-content;
 }
 
 .full-name {
-    font-weight: var(--font-weight-semibold);
     font-size: var(--font-600);
+    font-weight: var(--font-weight-semibold);
 }
 
 .username {
@@ -26,8 +27,8 @@ $gap: 10px;
 
 .btn-group {
     display: flex;
-    align-self: center;
     gap: 10px;
+    align-self: center;
 }
 
 .navigation-group {
@@ -37,13 +38,16 @@ $gap: 10px;
 
 .avatar {
     display: flex;
-    justify-content: center;
     align-items: center;
     align-self: center;
-    border-radius: var(--global-border-radius);
-    background: rgb(0 0 0 / 10%);
+    justify-content: center;
+
     width: 100px;
     height: 100px;
-    color: white;
+
     font-size: 30px;
+    color: white;
+
+    background: rgb(0 0 0 / 10%);
+    border-radius: var(--global-border-radius);
 }

@@ -13,12 +13,14 @@
 }
 
 .progress-window-wrapper{
-    padding: 10px;
-    box-shadow: var(--global-box-shadow);
-    border-radius: var(--global-border-radius);
     display: flex;
     flex-direction: column;
     gap: var(--global-gap-1);
+
+    padding: 10px;
+
+    border-radius: var(--global-border-radius);
+    box-shadow: var(--global-box-shadow);
 
 }
 

@@ -1,27 +1,33 @@
 .avatar {
     display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: var(--global-border-radius-mini);
-    background: rgb(0 0 0 / 40%);
+    justify-content: center;
+
     width: var(--size);
     min-width: var(--size) !important;
     height: var(--size);
-    color: white;
+
     line-height: 1;
+    color: white;
+
+    background: rgb(0 0 0 / 40%);
+    border-radius: var(--global-border-radius-mini);
 
     &.l {
         --size: 50px;
+
         font-size: var(--font-500);
     }
 
     &.m {
         --size: 35px;
+
         font-size: var(--font-350);
     }
 
     &.s {
         --size: 25px;
+
         font-size: var(--font-200);
     }
 }

@@ -1,20 +1,23 @@
 .dashboard-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     cursor: pointer;
-    border-radius: var(--global-border-radius);
-    padding: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     width: 100%;
     min-height: 20px;
+    padding: 12px;
+
+    border-radius: var(--global-border-radius);
 
     &:hover {
         background: var(--global-btn-hover);
     }
 
     &__img {
-        border-radius: var(--global-border-radius);
         object-fit: cover;
+        border-radius: var(--global-border-radius);
     }
 }
 
@@ -24,6 +27,6 @@
 
 .content {
     display: flex;
-    align-items: center;
     gap: 10px;
+    align-items: center;
 }

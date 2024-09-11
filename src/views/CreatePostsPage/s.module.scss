@@ -2,17 +2,20 @@ $border: 1px solid var(--border-color-1);
 
 .page {
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
+    flex-grow: 1;
     gap: var(--global-gap-2);
+
     padding-bottom: var(--global-gap-2);
 }
 
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+
+    padding: var(--global-padding);
+
     border-top: $border;
     border-bottom: $border;
-    padding: var(--global-padding);
 }

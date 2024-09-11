@@ -11,6 +11,7 @@
 .comm {
     &-text {
         word-wrap: break-word;
+
         p {
             display: inline-block;
         }
@@ -19,8 +20,8 @@
 
 .comm-info,
 .comm-res-btn {
-    color: var(--text-palette-3);
     font-size: var(--font-200);
+    color: var(--text-palette-3);
 }
 
 .comm-info {
@@ -33,6 +34,6 @@
 }
 
 .username {
-    font-weight: var(--font-weight-semibold);
     font-size: var(--font-300);
+    font-weight: var(--font-weight-semibold);
 }

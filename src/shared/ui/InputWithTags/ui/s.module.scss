@@ -1,18 +1,22 @@
 .input {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     cursor: text;
-    border-radius: var(--global-border-radius);
-    background: var(--inputs-bg-1);
-    padding: 8px 12px;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
     min-height: 56px;
+    padding: 8px 12px;
+
+    background: var(--inputs-bg-1);
+    border-radius: var(--global-border-radius);
 }
 
 .tags-list {
     display: flex;
-    gap: 10px;
-    width: 100%;
     flex-wrap: wrap;
+    gap: 10px;
+
+    width: 100%;
     max-width: 100%;
 }

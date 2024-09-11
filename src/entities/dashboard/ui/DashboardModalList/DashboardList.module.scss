@@ -1,33 +1,39 @@
 .dashboard-container {
+    overflow: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: 0.3s;
-    border-radius: var(--global-border-radius);
-    background: white;
-    padding: var(--global-padding);
+
     width: 80%;
     height: 80%;
-    overflow: auto;
+    padding: var(--global-padding);
+
+    background: white;
+    border-radius: var(--global-border-radius);
+
+    transition: 0.3s;
 }
 
 .dashboard-list {
+    overflow: auto;
     flex-grow: 1;
     width: 100%;
-    overflow: auto;
 
     // Отключение скролла
     & {
-        /* фф (свойство больше не работает, других способов тоже нет)*/
+        /* фф (свойство больше не работает, других способов тоже нет) */
         overflow: -moz-scrollbars-none;
+
         /* ie 10+ */
         -ms-overflow-style: none;
+
         /* хром, сафари */
         &::-webkit-scrollbar {
             width: 0;
         }
     }
 }
+
 .container-title {
     padding: 10px;
     font-size: var(--font-400);

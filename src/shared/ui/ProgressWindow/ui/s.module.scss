@@ -4,9 +4,10 @@
 }
 
 .window-container {
-    display: flex;
     position: relative;
+    display: flex;
     transition: all 0.3s ease-in;
+
     //transition-timing-function: var(--cubic-bezier-1);
 }
 

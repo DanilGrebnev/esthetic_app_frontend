@@ -1,14 +1,17 @@
 .btn {
     display: flex;
-    justify-content: center;
     align-items: center;
-    transition: 0.3s;
-    outline: none;
-    box-shadow: var(--global-box-shadow);
-    border-radius: 100%;
-    background: white;
+    justify-content: center;
+
     width: 35px;
     height: 35px;
+
+    background: white;
+    border-radius: 100%;
+    outline: none;
+    box-shadow: var(--global-box-shadow);
+
+    transition: 0.3s;
 
     &:disabled {
         opacity: var(--global-btn-disabled);
@@ -17,6 +20,7 @@
     &:hover:not(:disabled) {
         scale: 1.05;
     }
+
     &:active:not(:disabled) {
         scale: 0.9;
     }

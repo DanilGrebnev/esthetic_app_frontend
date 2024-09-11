@@ -7,8 +7,9 @@
 .form {
     display: flex;
     flex-direction: column;
-    align-self: center;
     gap: var(--global-gap-1);
+    align-self: center;
+
     width: 100%;
     max-width: var(--container-width-3);
     height: fit-content;

@@ -4,11 +4,12 @@ $card-width: 116px;
 
 .all-posts-tile,
 .dashboard-tile {
+    cursor: pointer;
+    user-select: none;
+
     display: flex;
     flex-direction: column;
     gap: var(--global-gap-1);
-    cursor: pointer;
-    user-select: none;
 
     img {
         object-fit: cover;
@@ -22,21 +23,23 @@ $card-width: 116px;
 }
 
 .dashboard-tile__images-wrapper {
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    border-radius: var(--global-border-radius);
-    height: $images-wrapper-height;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1px;
+
+    height: $images-wrapper-height;
+
+    border-radius: var(--global-border-radius);
 
     .img {
         position: relative;
 
         &-1 {
             position: relative;
-            grid-row: 1 / 3;
             grid-column: 1 / 3;
+            grid-row: 1 / 3;
         }
 
         &-2,
@@ -44,9 +47,11 @@ $card-width: 116px;
             grid-column: 3 / 4;
             background: var(--box-bg-1);
         }
+
         &-2 {
             grid-row: 1 / 2;
         }
+
         &-3 {
             grid-row: 2 / 3;
         }
@@ -60,17 +65,20 @@ $card-width: 116px;
 }
 
 .all-posts__images-wrapper {
-    display: flex;
     position: relative;
+    display: flex;
     height: $images-wrapper-height;
 }
 
 .all-posts__img {
     position: absolute;
-    border: 1px solid white;
-    border-radius: var(--global-border-radius);
-    background: var(--box-bg-1);
+
+    overflow: hidden;
+
     width: $card-width;
     height: 100%;
-    overflow: hidden;
+
+    background: var(--box-bg-1);
+    border: 1px solid white;
+    border-radius: var(--global-border-radius);
 }
