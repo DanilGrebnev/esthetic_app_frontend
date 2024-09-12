@@ -12,12 +12,12 @@ export const routes = {
         },
     },
     editUserInfo: {
-        getRoute(userId: string) {
+        getRoute(userId?: string) {
             return `/user/${userId}/edit-user-info`
         },
     },
     userCreatedPosts: {
-        getRoute(userId: string) {
+        getRoute(userId?: string) {
             return `/user/${userId}/created-posts`
         },
         math: (route: string) => {
@@ -31,7 +31,7 @@ export const routes = {
         },
     },
     userSavedPosts: {
-        getRoute(userId: string) {
+        getRoute(userId?: string) {
             return `/user/${userId}/saved-posts`
         },
         math(route: string) {

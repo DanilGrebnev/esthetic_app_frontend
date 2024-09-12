@@ -9,7 +9,7 @@ interface Actions {
     setAuth: (auth: boolean) => void
 }
 
-const useAuthStore = create<UserState & Actions>()(
+export const useAuthStore = create<UserState & Actions>()(
     immer((set) => ({
         auth: false,
         setAuth: (auth: boolean) => {
@@ -19,11 +19,3 @@ const useAuthStore = create<UserState & Actions>()(
         },
     })),
 )
-
-export const useGetIsAuth = () => {
-    return useAuthStore((state) => state.auth)
-}
-
-export const useSetAuth = () => {
-    return useAuthStore((state) => state.setAuth)
-}

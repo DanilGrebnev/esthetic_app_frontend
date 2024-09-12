@@ -1,4 +1,4 @@
-.modal{
+.drop-down{
   position: absolute;
   right: 0;
 
@@ -7,19 +7,8 @@
   box-shadow: var(--global-box-shadow);
 }
 
-.modal-wrapper{
+.drop-down-wrapper {
   display: flex;
   flex-direction: column;
   padding: var(--global-padding);
-}
-
-.link {
-  padding: var(--global-padding);
-  color: var(--text-palette-main);
-  text-wrap: nowrap;
-  border-radius: var(--global-border-radius);
-
-  &:hover {
-    background: var(--global-btn-hover);
-  }
 }

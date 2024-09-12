@@ -8,4 +8,5 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'> {
     href?: string
     variant?: 'standart' | 'red' | 'silver'
     loading?: boolean
+    fullWidth?: boolean
 }

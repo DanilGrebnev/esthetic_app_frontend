@@ -1,0 +1,52 @@
+$gap: 10px;
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  align-items: center;
+  align-self: center;
+
+  width: max-content;
+  margin: 0 auto var(--maring-l);
+}
+
+.full-name {
+  font-size: var(--font-600);
+  font-weight: var(--font-weight-semibold);
+}
+
+.username {
+  font-size: var(--font-200);
+}
+
+.subscriptions {
+  font-size: var(--font-300);
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  align-self: center;
+}
+
+.navigation-group {
+  display: flex;
+  margin-top: var(--maring-l);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+
+  width: 100px;
+  height: 100px;
+
+  font-size: 30px;
+  color: white;
+
+  background: rgb(0 0 0 / 10%);
+  border-radius: var(--global-border-radius);
+}

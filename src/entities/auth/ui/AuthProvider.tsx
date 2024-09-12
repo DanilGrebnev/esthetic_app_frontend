@@ -1,9 +1,8 @@
 'use client'
 
-import { useCheckAuth } from '@/shared/api/auth'
-import { type FC, type ReactNode, useEffect } from 'react'
-
-import { useSetAuth } from '../model/slice'
+import { useCheckAuthQuery } from '@/shared/api/auth'
+import { useGetPrivateProfile } from '@/shared/api/users'
+import { type FC, type ReactNode } from 'react'
 
 interface AuthProviderProps {
     children?: ReactNode
@@ -11,13 +10,10 @@ interface AuthProviderProps {
 
 export const AuthProvider: FC<AuthProviderProps> = (props) => {
     const { children } = props
-    const setAuth = useSetAuth()
-    const { data } = useCheckAuth()
 
-    useEffect(() => {
-        if (!data) return
-        setAuth(data.isAuth)
-    }, [data, setAuth])
+    const { data } = useCheckAuthQuery()
+
+    useGetPrivateProfile({ enabled: data?.isAuth })
 
     return children
 }

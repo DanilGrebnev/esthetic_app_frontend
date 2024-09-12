@@ -26,6 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             style,
             loading,
             onClick,
+            fullWidth,
             ...other
         } = props
         const router = useRouter()
@@ -33,14 +34,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         const { nodeRef, fixWidthStyle } = useFixSize<HTMLButtonElement>()
         const combinedRef = useCombinedRef(ref, nodeRef)
 
+        function createStyle() {
+            return fullWidth
+                ? { minWidth: '100%', ...style }
+                : {
+                      ...style,
+                      ...fixWidthStyle,
+                  }
+        }
+
         return (
             <button
                 type='button'
                 ref={combinedRef}
-                style={{
-                    ...style,
-                    ...fixWidthStyle,
-                }}
+                style={createStyle()}
                 onClick={(e) => {
                     onClick?.(e)
                     if (href) router.push(href)

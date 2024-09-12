@@ -1,5 +1,6 @@
 .login-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     height: 100vh;
 }
@@ -13,4 +14,8 @@
     width: 100%;
     max-width: var(--container-width-3);
     height: fit-content;
+}
+
+.dialog {
+    margin-top: var(--global-gap-1);
 }
