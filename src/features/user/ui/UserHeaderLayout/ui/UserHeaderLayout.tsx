@@ -1,6 +1,5 @@
+import { ButtonGroup } from '@/features/user/ui/UserHeaderLayout/ui/ButtonGroup/ButtonGroup'
 import { getUserPublicProfileServerAction } from '@/shared/api/users'
-import { routes } from '@/shared/routes'
-import { Button } from '@/shared/ui/Button'
 import { type FC } from 'react'
 
 import s from './UserHeaderLayout.module.scss'
@@ -13,36 +12,38 @@ interface UserHeaderLayoutProps {
 export const UserHeaderLayout: FC<UserHeaderLayoutProps> = async ({
     userId,
 }) => {
-    const data = await getUserPublicProfileServerAction(userId)
+    try {
+        const data = await getUserPublicProfileServerAction(userId)
 
-    if (!('user' in data)) return <h1>Ошикба получения профиля пользователя</h1>
+        if (!('user' in data))
+            return <h1>Ошикба получения профиля пользователя</h1>
 
-    const user = data?.user
-    return (
-        <header className={s.header}>
-            <div className={s.avatar}>{user?.firstName[0].toUpperCase()}</div>
-            <p className={s['full-name']}>
-                {user?.firstName + ' ' + user?.lastName}
-            </p>
-            <p className={s['username']}>{user?.userName}</p>
-            <p className={s.subscriptions}>{user?.subscribersAmount}</p>
+        const user = data?.user
+        console.log(data)
+        return (
+            <header className={s.header}>
+                <div className={s.avatar}>
+                    {user?.firstName[0].toUpperCase()}
+                </div>
+                <p className={s['full-name']}>
+                    {user?.firstName + ' ' + user?.lastName}
+                </p>
+                <p className={s['username']}>{user?.userName}</p>
+                <p className={s.subscriptions}>{user?.subscribersAmount}</p>
 
-            <div className={s['btn-group']}>
-                <Button variant='silver'>Поделиться</Button>
-                <Button
-                    href={routes.editUserInfo.getRoute(user?.userId)}
-                    variant='silver'
-                >
-                    Изменить
-                </Button>
-            </div>
-
-            <Navigation
-                userId={userId}
-                className={s['navigation-group']}
-            />
-        </header>
-    )
+                <ButtonGroup
+                    isOwner={data?.guest.isOwner}
+                    userId={user?.userId}
+                />
+                <Navigation
+                    userId={userId}
+                    className={s['navigation-group']}
+                />
+            </header>
+        )
+    } catch (err) {
+        return <h1>Ошибка получения пользователя</h1>
+    }
 }
 
 UserHeaderLayout.displayName = 'UserHeaderLayout'

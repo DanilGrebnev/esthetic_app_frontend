@@ -1,7 +1,7 @@
 'use client'
 
 import { useCheckAuthQuery } from '@/shared/api/auth'
-import { useGetPrivateProfile } from '@/shared/api/users'
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
@@ -17,11 +17,9 @@ export const UserProfileIcon = () => {
     const router = useRouter()
 
     const { data: authData } = useCheckAuthQuery()
-    const { data } = useGetPrivateProfile()
+    const { data: userData } = useGetPrivateProfileQuery()
 
-    const user = data?.user
-
-    console.log('private profile', user)
+    const user = userData?.user
 
     const onClick = () => {
         if (authData?.isAuth && user) {
@@ -49,7 +47,7 @@ export const UserProfileIcon = () => {
             </div>
             <DropDownMenu
                 auth={authData?.isAuth}
-                userId={data?.user.userId}
+                userId={userData?.user.userId}
                 className={clsx(s.modal, { [s.open]: openModal })}
             />
         </div>

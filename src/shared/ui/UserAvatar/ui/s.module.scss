@@ -12,22 +12,20 @@
 
     background: rgb(0 0 0 / 40%);
     border-radius: var(--global-border-radius-mini);
+}
 
-    &.l {
-        --size: 50px;
+.s {
+    --size: 25px;
 
-        font-size: var(--font-500);
-    }
+    font-size: var(--font-200);
+}
+.m {
+    --size: 35px;
 
-    &.m {
-        --size: 35px;
+    font-size: var(--font-350);
+}
+.l {
+    --size: 50px;
 
-        font-size: var(--font-350);
-    }
-
-    &.s {
-        --size: 25px;
-
-        font-size: var(--font-200);
-    }
+    font-size: var(--font-500);
 }

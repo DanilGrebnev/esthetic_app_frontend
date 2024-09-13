@@ -1,7 +1,7 @@
 'use client'
 
 import { useCheckAuthQuery } from '@/shared/api/auth'
-import { useGetPrivateProfile } from '@/shared/api/users'
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { type FC, type ReactNode } from 'react'
 
 interface AuthProviderProps {
@@ -13,7 +13,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
 
     const { data } = useCheckAuthQuery()
 
-    useGetPrivateProfile({ enabled: data?.isAuth })
+    useGetPrivateProfileQuery({ enabled: data?.isAuth })
 
     return children
 }

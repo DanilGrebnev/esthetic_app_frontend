@@ -5,7 +5,7 @@ import { useFixSize } from '@/shared/hooks/useFixSize'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { forwardRef } from 'react'
+import { forwardRef, memo } from 'react'
 
 import { ButtonProps } from '../model/types'
 import s from './s.module.scss'
@@ -14,8 +14,8 @@ import s from './s.module.scss'
  * Кнопка, которая так же может быть использована для мягкой навигации
  * @example <Button href="some href to navigate" />
  */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    (props, ref) => {
+export const Button = memo(
+    forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
         const {
             className,
             heightSize = 'content',
@@ -77,7 +77,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 </>
             </button>
         )
-    },
+    }),
 )
 
 Button.displayName = 'Button'

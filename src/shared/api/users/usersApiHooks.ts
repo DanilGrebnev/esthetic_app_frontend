@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { usersApi } from './usersApi'
 
-export const useGetPrivateProfile = (options?: { enabled?: boolean }) => {
+export const useGetPrivateProfileQuery = (options?: { enabled?: boolean }) => {
     return useQuery({
         queryKey: [queryKeys.users.privateProfile],
         retry: false,
@@ -29,14 +29,13 @@ export const useMutationLoginQuery = (options?: {
     return useMutation({
         mutationFn: (body: UsersLoginBody) => usersApi.login(body),
         onError: options?.onError,
-        onSuccess: (successResponse) => {
-            queryClient.invalidateQueries({
-                queryKey: [queryKeys.users.privateProfile],
-            })
+        onSuccess: async (successResponse) => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.auth.checkAuth],
             })
-
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.users.privateProfile],
+            })
             options?.onSuccess?.(successResponse)
         },
     })
@@ -48,9 +47,6 @@ export const useMutationLogout = () => {
     return useMutation({
         mutationFn: usersApi.logout,
         onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: [queryKeys.users.privateProfile],
-            })
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.auth.checkAuth],
             })
