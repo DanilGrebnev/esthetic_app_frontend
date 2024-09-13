@@ -2,30 +2,45 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
+    position: relative;
     width: var(--size);
     min-width: var(--size) !important;
     height: var(--size);
-
+    overflow: hidden;
     line-height: 1;
     color: white;
-
+    cursor: pointer;
     background: rgb(0 0 0 / 40%);
     border-radius: var(--global-border-radius-mini);
 }
 
+.full-height{
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.placeholder {
+    background: transparent;
+}
+
 .s {
     --size: 25px;
-
     font-size: var(--font-200);
 }
+
 .m {
     --size: 35px;
-
     font-size: var(--font-350);
 }
+
 .l {
     --size: 50px;
-
     font-size: var(--font-500);
 }
+
+.xl {
+    --size: 100px;
+    font-size: var(--font-600);
+}
+
+

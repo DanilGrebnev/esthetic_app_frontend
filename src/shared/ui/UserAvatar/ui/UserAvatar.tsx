@@ -1,30 +1,75 @@
 'use client'
 
-import { Skeleton } from '@mui/material'
-import { StyledEngineProvider } from '@mui/material/styles'
+import Avatar from '@/shared/assets/user-avatar.png'
 import { clsx } from 'clsx'
-import { type FC } from 'react'
+import Image from 'next/image'
+import { type FC, useState } from 'react'
 
 import s from './s.module.scss'
 
 interface UserAvatarProps {
     word?: string
-    size?: 'l' | 'm' | 's'
+    size?: 'l' | 'm' | 's' | 'xl'
     className?: string
     avatar?: string
-    loading?: boolean
+    placeholder?: boolean
+    href?: string | null
+    alt?: string
+    onClick?: () => void
+    fullHeight?: boolean
 }
 
 export const UserAvatar: FC<UserAvatarProps> = (props) => {
-    const { loading, size = 'l', word = 'Д', className, avatar } = props
+    const {
+        size = 'l',
+        placeholder,
+        onClick,
+        fullHeight,
+        href,
+        word,
+        className,
+    } = props
+    const [error, setError] = useState(false)
 
-    if (loading) {
-        return (
-            <StyledEngineProvider injectFirst>
-                <Skeleton className={clsx(s.skeleton, s[size])} />{' '}
-            </StyledEngineProvider>
-        )
-    }
+    const showAvatar = !!href && !error
+    const showPlaceholder = placeholder
+    const showWord = word && error
 
-    return <div className={clsx(s.avatar, s[size], className)}>{word}</div>
+    console.log('error', error)
+
+    return (
+        <div
+            onClick={onClick}
+            className={clsx(
+                s.avatar,
+                s[size],
+                {
+                    [s.placeholder]: showPlaceholder,
+                    [s['full-height']]: fullHeight,
+                },
+                className,
+            )}
+        >
+            {showAvatar && (
+                <Image
+                    fill
+                    alt='User avatar'
+                    style={{ objectFit: 'cover' }}
+                    sizes={'100px'}
+                    src={href}
+                    onError={() => setError(true)}
+                />
+            )}
+
+            {showWord && word}
+
+            {showPlaceholder && (
+                <Image
+                    fill
+                    src={Avatar}
+                    alt='Profile avatar placeholder'
+                />
+            )}
+        </div>
+    )
 }

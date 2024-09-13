@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+}
+
+.modal {
+  background: var(--theme-bg-color-1);
+  padding: var(--global-gap-1);
+  border-radius: var(--global-border-radius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--global-gap-1);
+}
+
+.btn-group {
+  display: flex;
+}
+
+.title {
+  font-size: var(--font-350);
+  font-weight: var(--font-weight-semibold);
+}
+
+.dashboard-icon {
+  position: relative;
+
+  height: 30px;
+  width: 30px;
+  border-radius: var(--global-border-radius);
+  transition: .5s;
+  cursor: pointer;
+
+  &:hover{
+    transform: scale(1.1) rotate(360deg);
+  }
+
+  &::before, &::after {
+    content: '';
+    width: 60%;
+    position: absolute;
+    height: 2px;
+    background: black;
+    border-radius: 2px;
+
+  }
+
+  &::before{
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%)
+  }
+
+  &::after{
+    margin: auto;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+  }
+}

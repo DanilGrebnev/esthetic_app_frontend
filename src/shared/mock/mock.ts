@@ -1,3 +1,4 @@
+import { UsersDashboardList } from '@/shared/types/dashboards'
 import { TPostsCard } from '@/shared/types/posts'
 import { getRandomElementFromArray as ran } from '@/shared/utils/getRandomElementFromArr'
 import { nanoid } from 'nanoid'
@@ -34,3 +35,97 @@ export const mockPosts = Array(1050)
 
         return o
     })
+
+export const mockDashboards = () => {
+    return new Promise<UsersDashboardList>((resolve) => {
+        resolve({
+            dashboardsAmount: 100,
+            favorites: {
+                dashboardId: nanoid(),
+                dashboardName: 'Избранное',
+                postsAmount: 5,
+                dateOfCreation: '2016-03-02T15:13:36+02:00',
+                url: [t1, t2, t3],
+            },
+            dashboards: [
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Sport cars',
+                    postsAmount: 15,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t7, t6, t5],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 2',
+                    postsAmount: 9,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t10, t9, t8],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 3',
+                    postsAmount: 5,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t4, t5, t6],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 2',
+                    postsAmount: 9,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t10, t9, t8],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 3',
+                    postsAmount: 5,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t4, t5, t6],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 2',
+                    postsAmount: 9,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t10, t9, t8],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 3',
+                    postsAmount: 5,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t4, t5, t6],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 2',
+                    postsAmount: 9,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t10, t9, t8],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 3',
+                    postsAmount: 5,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t4, t5, t6],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 2',
+                    postsAmount: 9,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t10, t9, t8],
+                },
+                {
+                    dashboardId: nanoid(),
+                    dashboardName: 'Custom dashboard 3',
+                    postsAmount: 5,
+                    dateOfCreation: '2016-03-02T15:13:36+02:00',
+                    url: [t4, t5, t6],
+                },
+            ],
+        })
+    })
+}

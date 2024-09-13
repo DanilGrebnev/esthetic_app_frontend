@@ -17,7 +17,8 @@ export const UserProfileIcon = () => {
     const router = useRouter()
 
     const { data: authData } = useCheckAuthQuery()
-    const { data: userData } = useGetPrivateProfileQuery()
+    const { data: userData, isPending: isPendingUserData } =
+        useGetPrivateProfileQuery()
 
     const user = userData?.user
 
@@ -36,15 +37,12 @@ export const UserProfileIcon = () => {
             onMouseLeave={() => setOpenModal(false)}
             className={s['profile-icon']}
         >
-            <div
+            <UserAvatar
                 onClick={onClick}
-                className={s['user-icon-wrapper']}
-            >
-                <UserAvatar
-                    word={user?.firstName[0]?.toUpperCase()}
-                    size='s'
-                />
-            </div>
+                placeholder={isPendingUserData || !authData?.isAuth}
+                href={userData?.user?.avatar}
+                word={user?.firstName[0]?.toUpperCase()}
+            />
             <DropDownMenu
                 auth={authData?.isAuth}
                 userId={userData?.user.userId}

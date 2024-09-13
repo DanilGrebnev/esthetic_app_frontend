@@ -20,10 +20,6 @@ export const EditUserInfoPage = () => {
         mode: 'onBlur',
     })
 
-    useEffect(() => {
-        console.log(errors)
-    }, [errors])
-
     return (
         <Container size='s'>
             <form

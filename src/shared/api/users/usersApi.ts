@@ -1,3 +1,4 @@
+import { TPostsList } from '@/shared/types/posts'
 import type {
     UserPrivateProfile,
     UserProfile,
@@ -33,7 +34,7 @@ class UsersApi {
             .get(this.basePath + '/public-profile/' + userId, {
                 credentials: 'include',
             })
-            .json<UserPublicProfile | { isAuth: boolean }>()
+            .json<UserPublicProfile>()
     }
     privateProfile = () => {
         return apiInstance
@@ -41,6 +42,14 @@ class UsersApi {
                 credentials: 'include',
             })
             .json<UserPrivateProfile>()
+    }
+
+    getAllCreatedUsersPosts = (userId: string) => {
+        return apiInstance
+            .get(this.basePath + '/' + userId + '/created-posts ', {
+                credentials: 'include',
+            })
+            .json<TPostsList>()
     }
 }
 

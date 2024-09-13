@@ -48,8 +48,6 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         const file = formData?.get('file') as File
         const tags = JSON.parse(formData?.get('tags') as string)
 
-        console.log(tags)
-
         if (!file.size) {
             setError('file', {
                 type: 'value',
@@ -59,7 +57,6 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         }
 
         for (let field of formData) {
-            // console.log(field)
         }
     })
 

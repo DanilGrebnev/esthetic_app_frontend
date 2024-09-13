@@ -1,5 +1,8 @@
+'use client'
+
 import { ButtonGroup } from '@/features/user/ui/UserHeaderLayout/ui/ButtonGroup/ButtonGroup'
-import { getUserPublicProfileServerAction } from '@/shared/api/users'
+import { useGetPublicProfile } from '@/shared/api/users'
+import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { type FC } from 'react'
 
 import s from './UserHeaderLayout.module.scss'
@@ -9,41 +12,39 @@ interface UserHeaderLayoutProps {
     userId: string
 }
 
-export const UserHeaderLayout: FC<UserHeaderLayoutProps> = async ({
-    userId,
-}) => {
-    try {
-        const data = await getUserPublicProfileServerAction(userId)
+export const UserHeaderLayout: FC<UserHeaderLayoutProps> = ({ userId }) => {
+    const { data, isPending } = useGetPublicProfile({ userId })
 
-        if (!('user' in data))
-            return <h1>Ошикба получения профиля пользователя</h1>
+    if (data && !('user' in data))
+        return <h1>Ошикба получения профиля пользователя</h1>
+    const user = data?.user
+    console.log('user', user)
+    return (
+        <header className={s.header}>
+            <UserAvatar
+                size='xl'
+                placeholder={isPending}
+                word={user?.firstName[0].toUpperCase()}
+                href={user?.avatar}
+            />
+            <p className={s['full-name']}>
+                {user?.firstName + ' ' + user?.lastName}
+            </p>
+            <p className={s['username']}>{user?.userName}</p>
+            <p className={s.subscriptions}>
+                подписки: {user?.subscribersAmount}
+            </p>
 
-        const user = data?.user
-        console.log(data)
-        return (
-            <header className={s.header}>
-                <div className={s.avatar}>
-                    {user?.firstName[0].toUpperCase()}
-                </div>
-                <p className={s['full-name']}>
-                    {user?.firstName + ' ' + user?.lastName}
-                </p>
-                <p className={s['username']}>{user?.userName}</p>
-                <p className={s.subscriptions}>{user?.subscribersAmount}</p>
-
-                <ButtonGroup
-                    isOwner={data?.guest.isOwner}
-                    userId={user?.userId}
-                />
-                <Navigation
-                    userId={userId}
-                    className={s['navigation-group']}
-                />
-            </header>
-        )
-    } catch (err) {
-        return <h1>Ошибка получения пользователя</h1>
-    }
+            <ButtonGroup
+                isOwner={data?.guest?.isOwner}
+                userId={user?.userId}
+            />
+            <Navigation
+                userId={userId}
+                className={s['navigation-group']}
+            />
+        </header>
+    )
 }
 
 UserHeaderLayout.displayName = 'UserHeaderLayout'

@@ -34,6 +34,7 @@ export const RegistrationForm = () => {
         mode: 'onBlur',
     })
     const router = useRouter()
+
     const { mutateAsync, isPending, isSuccess } = useMutationRegistrationQuery()
 
     const onSubmit = handleSubmit(async (_, e) => {
@@ -41,6 +42,7 @@ export const RegistrationForm = () => {
         function getTagsFromFormData(key: 'recommendedTags' | 'tags') {
             return JSON.parse((formData.get(key) as string) || '[]')
         }
+
         formData.set(
             'tags',
             JSON.stringify([
@@ -50,7 +52,11 @@ export const RegistrationForm = () => {
         )
         formData.delete('recommendedTags')
 
-        mutateAsync(formData).then(() => router.push(routes.login.getRoute()))
+        mutateAsync(formData).then(() => {
+            setTimeout(() => {
+                router.push(routes.login.getRoute())
+            }, 1000)
+        })
     })
 
     const { email, firstName, password, userName } = watch()

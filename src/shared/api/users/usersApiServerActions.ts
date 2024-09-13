@@ -8,8 +8,9 @@ export const getUserPublicProfileServerAction = async (
 ): Promise<UserPublicProfile> => {
     const res = await fetch(
         consts.baseApiUrl + '/users/public-profile/' + userId,
-        { credentials: 'include', cache: 'no-cache' },
+        { credentials: 'same-origin' },
     )
+
     const response = await res.json()
 
     return response

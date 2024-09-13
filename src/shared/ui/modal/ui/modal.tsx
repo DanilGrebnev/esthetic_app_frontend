@@ -37,9 +37,11 @@ export const Modal = (props: ModalProps) => {
                               e.preventDefault()
                               onClose?.()
                           }}
-                          className={s['modal-container']}
+                          className={s['modal-bg-filter']}
                       >
-                          {children}
+                          <div onClick={(e) => e.stopPropagation()}>
+                              {children}
+                          </div>
                       </div>,
                       document.getElementById('modal-root') as HTMLElement,
                   )

@@ -23,10 +23,6 @@ export const LoginForm = () => {
             router.push(routes.main.getRoute())
         },
     })
-    useEffect(() => {
-        // console.log(error)
-        console.log(isError)
-    }, [isError])
 
     const onSubmit = handleSubmit((body) => {
         mutate(body)

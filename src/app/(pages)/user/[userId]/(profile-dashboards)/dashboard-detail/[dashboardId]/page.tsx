@@ -15,8 +15,6 @@ interface DashboardDetailPageProps {
 
 const DashboardDetailPage: FC<DashboardDetailPageProps> = ({ params }) => {
     const { userId, dashboardId } = params
-    console.log('dashboardId: ', dashboardId)
-    console.log('userId: ', userId)
 
     return (
         <Container className={s['dashboard-detail-container']}>

@@ -2,7 +2,7 @@
     pointer-events: none;
 
     position: fixed;
-    z-index: 3;
+    z-index: 5;
 
     width: 100vw;
     height: 100vh;
@@ -12,7 +12,7 @@
     }
 }
 
-.modal-container {
+.modal-bg-filter{
     display: flex;
     align-items: center;
     justify-content: center;

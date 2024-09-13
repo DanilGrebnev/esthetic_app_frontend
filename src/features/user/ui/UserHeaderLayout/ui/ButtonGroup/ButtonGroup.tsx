@@ -1,6 +1,6 @@
 import { routes } from '@/shared/routes'
 import { Button } from '@/shared/ui/Button'
-import { FC } from 'react'
+import { type FC } from 'react'
 
 import s from './ButtonGroup.module.scss'
 

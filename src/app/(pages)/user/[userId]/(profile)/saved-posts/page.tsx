@@ -1,34 +1,60 @@
-import { AllPostsTile, DashboardTile } from '@/entities/posts'
-import { consts } from '@/shared/consts'
+'use client'
+
+import { DashboardsContainer } from '@/entities/dashboard'
+import { DashboardTile, FavoritesTile } from '@/entities/posts'
+import { useGetProfileDashboardsList } from '@/shared/api/dashboards'
+import { mockDashboards } from '@/shared/mock/mock'
 import { routes } from '@/shared/routes'
-import { Container } from '@/shared/ui/Container'
+import { UsersDashboardList } from '@/shared/types/dashboards'
+import { useEffect, useState } from 'react'
 
-import s from './s.module.scss'
+interface SavedPosts {
+    params: {
+        userId: string
+    }
+}
 
-export default function SavedPosts() {
-    const arr = Array(5)
-        .fill('')
-        .map((_, i) => consts.pathToImage + `t${i + 1}.jpg`)
+export default function SavedPosts(props: SavedPosts) {
+    const [tiles, setTiles] = useState<UsersDashboardList>(
+        {} as UsersDashboardList,
+    )
+
+    const { data } = useGetProfileDashboardsList(props.params.userId)
+
+    useEffect(() => {
+        mockDashboards().then((data) => {
+            setTiles(data)
+        })
+    }, [])
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
 
     return (
-        <Container className={s['saved-dashboard']}>
-            <AllPostsTile
-                href={routes.userAllSavedPosts.getRoute('321')}
-                images={arr}
-                title='Все посты'
-                postsCount='2'
-                date='3'
-            />
-            <DashboardTile
-                href={routes.userDashboardDetail.getRoute(
-                    'future-user-id',
-                    'dashboard-id',
-                )}
-                images={arr}
-                postsCount='1'
-                title='Машины'
-                date='1'
-            />
-        </Container>
+        <DashboardsContainer>
+            {tiles?.favorites && (
+                <FavoritesTile
+                    href={routes.userAllSavedPosts.getRoute('321')}
+                    images={tiles.favorites.url}
+                    title={tiles.favorites.dashboardName}
+                    postsCount={tiles.favorites.postsAmount}
+                    date='3'
+                />
+            )}
+            {tiles?.dashboards?.map((dashboard) => (
+                <DashboardTile
+                    key={dashboard.dashboardId}
+                    href={routes.userDashboardDetail.getRoute(
+                        'future-user-id',
+                        'dashboard-id',
+                    )}
+                    images={dashboard.url}
+                    postsCount={dashboard.postsAmount}
+                    title={dashboard.dashboardName}
+                    date='1'
+                />
+            ))}
+        </DashboardsContainer>
     )
 }

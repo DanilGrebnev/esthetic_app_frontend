@@ -2,7 +2,6 @@
 
 import { TilesInfo } from '@/entities/posts/ui/Tiles/TilesInfo'
 import { type ITilesInfo } from '@/entities/posts/ui/Tiles/tyles-types'
-import { routes } from '@/shared/routes'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -10,18 +9,19 @@ import { type FC, useEffect, useRef, useState } from 'react'
 
 import s from './tiles.module.scss'
 
-interface IAllPostsTile extends ITilesInfo {
+interface FavoritesTile extends ITilesInfo {
     images: string[] | []
     href: string
 }
 
-export const AllPostsTile: FC<IAllPostsTile> = (props) => {
+export const FavoritesTile: FC<FavoritesTile> = (props) => {
     const { className, images, href, ...other } = props
+
     const [cardWidth, setCardWidth] = useState<number>(0)
     const [cardWrapperWidth, setCardWrapperWidth] = useState<number>(0)
     const router = useRouter()
 
-    const cardsAmount = 5 as const
+    const _cardsAmount = 5
     const cardRef = useRef<HTMLDivElement>(null)
     const cardWrapperRef = useRef<HTMLDivElement>(null)
 
@@ -38,7 +38,7 @@ export const AllPostsTile: FC<IAllPostsTile> = (props) => {
         setCardWrapperWidth(cardWrap?.offsetWidth)
     }, [])
 
-    function calculateLeftindentation(cardAmount: number, cardNumber: number) {
+    function calculateLeftIndentation(cardAmount: number, cardNumber: number) {
         // Пустое пространство от левой части до края карты, вплотную прилегающей
         // к правому краю контейнера
         const freeSpaceOnTheLeft = cardWrapperWidth - cardWidth
@@ -57,7 +57,7 @@ export const AllPostsTile: FC<IAllPostsTile> = (props) => {
                 ref={cardWrapperRef}
                 className={s['all-posts__images-wrapper']}
             >
-                {Array(cardsAmount)
+                {Array(_cardsAmount)
                     .fill('')
                     .map((_, i) => {
                         const imgUrl = images[i]
@@ -71,9 +71,9 @@ export const AllPostsTile: FC<IAllPostsTile> = (props) => {
                                     s['all-posts__img'],
                                 )}
                                 style={{
-                                    zIndex: cardsAmount - (i + 1),
-                                    left: calculateLeftindentation(
-                                        cardsAmount,
+                                    zIndex: _cardsAmount - (i + 1),
+                                    left: calculateLeftIndentation(
+                                        _cardsAmount,
                                         i,
                                     ),
                                 }}
