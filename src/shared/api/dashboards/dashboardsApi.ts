@@ -1,6 +1,11 @@
 import { apiInstance } from '@/shared/api/Instance'
-import { SuccessResponse } from '@/shared/types/apiResponses'
+import { BadRequest, SuccessResponse } from '@/shared/types/apiResponses'
 import type { UsersDashboardList } from '@/shared/types/dashboards'
+
+interface CreateDashboard {
+    dashboardName: string
+    signal?: any
+}
 
 class DashboardsApi {
     baseUrl = 'dashboards'
@@ -12,13 +17,15 @@ class DashboardsApi {
             .json<UsersDashboardList>()
     }
 
-    createDashboard = (dashboardName: string) => {
+    createDashboard = (args: CreateDashboard) => {
         return apiInstance
             .post(this.baseUrl, {
                 credentials: 'include',
-                json: { dashboardName },
+                json: { dashboardName: args.dashboardName },
+                signal: args.signal,
+                throwHttpErrors: false,
             })
-            .json<SuccessResponse>()
+            .json<SuccessResponse | BadRequest>()
     }
     addPostsToFavoriteDashboard = (postId: string) => {
         return apiInstance

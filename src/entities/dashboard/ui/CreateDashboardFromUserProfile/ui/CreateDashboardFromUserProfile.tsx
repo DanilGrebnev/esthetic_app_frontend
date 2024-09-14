@@ -1,5 +1,7 @@
 'use client'
 
+import { useCreateDashboardMutation } from '@/shared/api/dashboards'
+import { BaseResponseType } from '@/shared/types/apiResponses'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 import { Modal } from '@/shared/ui/modal'
@@ -12,45 +14,58 @@ interface CreateDashboardFromUserProfileProps {
     userId?: string
 }
 
+interface IForm {
+    dashboardName: string
+}
+
 export const CreateDashboardFromUserProfile: FC<
     CreateDashboardFromUserProfileProps
-> = (props) => {
+> = () => {
     const {
         register,
         handleSubmit,
         reset,
+        setError,
         watch,
         formState: { errors },
-    } = useForm<{ dashboardName: string }>({ mode: 'onBlur' })
-
-    const { userId } = props
+    } = useForm<IForm>({
+        mode: 'onBlur',
+    })
 
     const [openModal, setOpenModal] = useState(false)
 
-    const onOpenModal = () => {
-        setOpenModal(true)
-    }
+    const { mutateAsync, isPending } = useCreateDashboardMutation()
 
     const onCloseModal = useCallback(() => {
         setOpenModal(false)
         reset()
-    }, [])
+    }, [reset])
+
+    function setErrorIfDuplicateBoardName(err: BaseResponseType) {
+        if (err.status === 400) {
+            setError('dashboardName', {
+                message: err.message,
+            })
+        }
+    }
 
     const value = watch('dashboardName')
 
     return (
         <div className={s.wrapper}>
-            <div
+            <button
                 className={s['dashboard-icon']}
-                onClick={onOpenModal}
-            ></div>
+                onClick={() => setOpenModal(true)}
+            ></button>
             <Modal
                 onClose={onCloseModal}
                 isOpen={openModal}
             >
                 <form
                     onSubmit={handleSubmit((data) => {
-                        console.log(data)
+                        mutateAsync(data.dashboardName)
+                            .then(onCloseModal)
+                            .catch(setErrorIfDuplicateBoardName)
                     })}
                     className={s.modal}
                 >
@@ -69,7 +84,10 @@ export const CreateDashboardFromUserProfile: FC<
                     />
                     <div className={s['btn-group']}>
                         <Button
-                            disabled={value?.length < 2 || !value}
+                            loading={isPending}
+                            disabled={
+                                value?.length < 2 || !value || value.length > 30
+                            }
                             type='submit'
                         >
                             Создать

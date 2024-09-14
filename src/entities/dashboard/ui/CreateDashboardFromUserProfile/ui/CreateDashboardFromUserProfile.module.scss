@@ -28,9 +28,11 @@
   border-radius: var(--global-border-radius);
   transition: .5s;
   cursor: pointer;
+  animation-duration: .2s;
+  animation-direction: normal;
 
-  &:hover{
-    transform: scale(1.1) rotate(360deg);
+  &:hover, &:focus-visible {
+    background: var(--global-btn-hover);
   }
 
   &::before, &::after {
@@ -38,9 +40,8 @@
     width: 60%;
     position: absolute;
     height: 2px;
-    background: black;
+    background: var(--theme-bg-color-2);
     border-radius: 2px;
-
   }
 
   &::before{
@@ -55,4 +56,15 @@
     top: 50%;
     transform: translateX(-50%) translateY(-50%) rotate(90deg);
   }
+}
+
+@keyframes rotate-icon {
+  from{
+    transform: rotate(0deg);
+  }
+
+  to{
+    transform: rotate(360deg);
+  }
+
 }

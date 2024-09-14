@@ -33,9 +33,7 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
 
     const showAvatar = !!href && !error
     const showPlaceholder = placeholder
-    const showWord = word && error
-
-    console.log('error', error)
+    const showWord = (word && !error) || !href
 
     return (
         <div

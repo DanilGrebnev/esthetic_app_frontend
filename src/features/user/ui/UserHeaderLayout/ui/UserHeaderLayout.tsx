@@ -18,7 +18,7 @@ export const UserHeaderLayout: FC<UserHeaderLayoutProps> = ({ userId }) => {
     if (data && !('user' in data))
         return <h1>Ошикба получения профиля пользователя</h1>
     const user = data?.user
-    console.log('user', user)
+
     return (
         <header className={s.header}>
             <UserAvatar

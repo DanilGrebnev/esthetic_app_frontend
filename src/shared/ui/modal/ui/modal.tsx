@@ -4,7 +4,7 @@ import {
     useCloseIfClickOnEscapeKey,
     useToggleBodyOverflow,
 } from '@/shared/ui/modal/hooks'
-import { type ReactNode } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import s from './modal.module.scss'
@@ -26,6 +26,12 @@ export const Modal = (props: ModalProps) => {
 
     useCloseIfClickOnEscapeKey(isOpen, onClose)
     useToggleBodyOverflow(isOpen)
+
+    useEffect(() => {
+        return () => {
+            console.log('Unmount')
+        }
+    }, [])
 
     return (
         <>

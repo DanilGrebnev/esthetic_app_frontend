@@ -11,8 +11,11 @@ export const DashboardsContainer: FC<DashboardsContainerProps> = (props) => {
     const { children } = props
 
     return (
-        <Container size='l'>
-            <div className={s.container}>{children}</div>
+        <Container
+            size='l'
+            className={s.container}
+        >
+            {children}
         </Container>
     )
 }

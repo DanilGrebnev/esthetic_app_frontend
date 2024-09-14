@@ -9,8 +9,8 @@ export class QueryKeys {
     } as const
 
     readonly dashboards = {
-        dashboardsList: 'dashboards-list',
-    }
+        profileDashboardsList: 'profile-dashboards-list',
+    } as const
 }
 
 export const queryKeys = new QueryKeys()
