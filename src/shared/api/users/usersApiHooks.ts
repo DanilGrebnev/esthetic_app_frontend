@@ -13,10 +13,10 @@ export const useGetPrivateProfileQuery = (options?: { enabled?: boolean }) => {
     })
 }
 
-export const useGetPublicProfile = ({ userId }: { userId: string }) => {
+export const useGetPublicProfile = (args: { userId: string }) => {
     return useQuery({
         queryKey: [queryKeys.users.publicProfile],
-        queryFn: () => usersApi.publicProfile(userId),
+        queryFn: () => usersApi.publicProfile(args.userId),
     })
 }
 

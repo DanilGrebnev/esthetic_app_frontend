@@ -35,5 +35,11 @@ class DashboardsApi {
             })
             .json<SuccessResponse>()
     }
+
+    deleteDashboard = (dashboardId: string) => {
+        return apiInstance.delete(this.baseUrl + '/' + dashboardId, {
+            credentials: 'include',
+        })
+    }
 }
 export const dashboardsApi = new DashboardsApi()

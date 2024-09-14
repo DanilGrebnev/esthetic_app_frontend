@@ -12,7 +12,7 @@ interface DialogProps {
 }
 
 export const Dialog: FC<DialogProps> = (props) => {
-    const { variant, onClose, className, open, children } = props
+    const { variant, className, open, children } = props
 
     return (
         <div

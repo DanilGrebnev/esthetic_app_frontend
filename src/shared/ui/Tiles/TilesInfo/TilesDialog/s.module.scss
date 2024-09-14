@@ -1,0 +1,35 @@
+.dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--global-gap-1);
+  width: 100%;
+  position: absolute;
+  transition: .5s;
+  left: 0;
+  top: 0;
+  min-height: max-content;
+  background: var(--theme-bg-color-1);
+  border: 1px solid var(--border-color-1);
+  border-radius: var(--global-border-radius);
+  z-index: 5;
+}
+
+.dialog-wrapper {
+  padding: var(--global-gap-1);
+}
+
+.dialog-item {
+  padding: var(--global-gap-1);
+  border-radius: var(--global-border-radius);
+  color: var(--text-palette-main);
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background: var(--global-btn-hover);
+  }
+
+}
+

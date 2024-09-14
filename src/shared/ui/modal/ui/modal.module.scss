@@ -2,7 +2,7 @@
     pointer-events: none;
 
     position: fixed;
-    z-index: 5;
+    z-index: 1000;
 
     width: 100vw;
     height: 100vh;
@@ -21,4 +21,10 @@
     height: 100%;
 
     background: rgb(0 0 0 / 30%);
+}
+
+.modal {
+    background: var(--theme-bg-color-1);
+    padding: var(--global-gap-1);
+    border-radius: var(--global-border-radius);
 }

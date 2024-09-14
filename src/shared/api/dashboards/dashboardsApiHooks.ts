@@ -13,39 +13,52 @@ export const useCreateDashboardMutation = (option?: Option) => {
     const queryClient = useQueryClient()
     const controller = useMemo(() => new AbortController(), [])
 
-    return {
-        ...useMutation({
-            mutationFn: async (dashboardName: string) => {
-                const res = await dashboardsApi.createDashboard({
-                    dashboardName,
-                    signal: controller.signal,
-                })
+    return useMutation({
+        mutationFn: async (dashboardName: string) => {
+            const res = await dashboardsApi.createDashboard({
+                dashboardName,
+                signal: controller.signal,
+            })
 
-                if (res?.status === 400) {
-                    return Promise.reject(
-                        createBaseResponse(
-                            'Доска с таким названием уже существует',
-                            400,
-                        ),
-                    )
-                }
+            if (res?.status === 400) {
+                return Promise.reject(
+                    createBaseResponse(
+                        'Доска с таким названием уже существует',
+                        400,
+                    ),
+                )
+            }
 
-                return res
-            },
+            return res
+        },
 
-            onSuccess: () => {
-                queryClient.invalidateQueries({
-                    queryKey: [queryKeys.dashboards.profileDashboardsList],
-                })
-                option?.onSuccess?.()
-            },
-        }),
-    }
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.profileDashboardsList],
+            })
+            option?.onSuccess?.()
+        },
+    })
 }
 
 export const useGetProfileDashboardsList = (userId?: string) => {
     return useQuery({
         queryKey: [queryKeys.dashboards.profileDashboardsList],
         queryFn: () => dashboardsApi.getProfileDashboardsList(userId || ''),
+    })
+}
+
+export const useDeleteDashboardMutation = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: (dashboardId: string) => {
+            return dashboardsApi.deleteDashboard(dashboardId)
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.profileDashboardsList],
+            })
+        },
     })
 }

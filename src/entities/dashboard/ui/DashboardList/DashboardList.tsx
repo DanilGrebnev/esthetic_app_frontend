@@ -1,9 +1,10 @@
 'use client'
 
-import { DashboardTile, FavoritesTile } from '@/entities/posts'
 import { useGetProfileDashboardsList } from '@/shared/api/dashboards'
+import { useGetPublicProfile } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
-import { type FC } from 'react'
+import { DashboardTile, FavoritesTile } from '@/shared/ui/Tiles'
+import { type FC, createContext } from 'react'
 
 import { DashboardsContainer } from '../DashboardsContainer'
 
@@ -12,9 +13,13 @@ interface DashboardListProps {
 }
 
 export const DashboardList: FC<DashboardListProps> = (props) => {
-    const { userId } = props
+    const { userId = '' } = props
 
     const { data, isPending } = useGetProfileDashboardsList(userId)
+
+    const { data: profileData, isPending: profilePending } =
+        useGetPublicProfile({ userId })
+
     if (isPending) return <h1>Загрузка</h1>
     const favorites = data?.favorites
 
@@ -30,9 +35,11 @@ export const DashboardList: FC<DashboardListProps> = (props) => {
             {data?.dashboards?.map((dashboard) => (
                 <DashboardTile
                     key={dashboard.dashboardId}
+                    dashboardId={dashboard.dashboardId}
+                    dotMenu={!profilePending && profileData?.guest.isOwner}
                     href={routes.userDashboardDetail.getRoute(
-                        'future-user-id',
-                        'dashboard-id',
+                        userId,
+                        dashboard.dashboardId,
                     )}
                     images={dashboard.url}
                     postsCount={dashboard.postsAmount}
