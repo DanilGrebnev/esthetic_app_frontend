@@ -2,6 +2,7 @@
 
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
+import { routes } from '@/shared/routes'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -14,12 +15,13 @@ interface PostCardProps {
     aspect?: string
     className?: string
     name: string
+    postId: string
 }
 
 export const PostsCard: FC<PostCardProps> = (props) => {
-    const { mediaUrl, aspect = '9/16', className } = props
+    const { mediaUrl, aspect = '9/16', postId, className } = props
     const router = useRouter()
-    const href = '/posts-detail/postId'
+    const href = routes.postsDetail.getRoute(postId)
 
     return (
         <div
@@ -28,7 +30,10 @@ export const PostsCard: FC<PostCardProps> = (props) => {
             onClick={() => router.push(href)}
         >
             <div className={s['button-group']}>
-                <SaveToDashboardButton className={s['save-btn']} />
+                <SaveToDashboardButton
+                    postsId={postId}
+                    className={s['save-btn']}
+                />
                 <DownloadFileBtn
                     href={mediaUrl}
                     downloadFileName={'test_file_name'}

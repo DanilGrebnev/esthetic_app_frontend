@@ -40,8 +40,9 @@ export interface TPostsList {
 
 /* Создание поста */
 export interface TCreatePosts {
-    name: string
     file: File
     link: string
+    name: string
     description: string
+    aspectRatio: string
 }

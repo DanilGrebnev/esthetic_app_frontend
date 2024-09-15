@@ -2,16 +2,19 @@ import { apiInstance } from '@/shared/api/Instance'
 
 class PostsApi {
     baseUrl = 'posts'
+
     /* Возврат всех постов на основе тегов пользователя */
     allPosts = () => {
         return apiInstance.get(this.baseUrl + '/posts', {
             credentials: 'include',
         })
     }
+
     /* Создание поста*/
-    createPost = () => {
-        return apiInstance.post(this.baseUrl + '/posts', {
+    createPost = (formData: FormData) => {
+        return apiInstance.post(this.baseUrl, {
             credentials: 'include',
+            body: formData,
         })
     }
     getPostDetail = (postId: string) => {
@@ -22,4 +25,4 @@ class PostsApi {
     }
 }
 
-const postsApi = new PostsApi()
+export const postsApi = new PostsApi()

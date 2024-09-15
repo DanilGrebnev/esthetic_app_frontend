@@ -25,6 +25,10 @@
     opacity: 0.3;
 }
 
+.inactive {
+    pointer-events: none;
+}
+
 .content {
     display: flex;
     gap: 10px;

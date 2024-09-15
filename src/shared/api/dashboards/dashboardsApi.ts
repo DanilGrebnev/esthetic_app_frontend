@@ -1,4 +1,5 @@
 import { apiInstance } from '@/shared/api/Instance'
+import { ArgsWithSignal } from '@/shared/types/apiArgsWithSignal'
 import { BadRequest, SuccessResponse } from '@/shared/types/apiResponses'
 import type { UsersDashboardList } from '@/shared/types/dashboards'
 
@@ -8,12 +9,14 @@ interface CreateDashboard {
 }
 
 class DashboardsApi {
-    baseUrl = 'dashboards'
+    readonly baseUrl = 'dashboards' as const
 
     /* Get users dashboard list by userId */
-    getProfileDashboardsList = (userId: string) => {
+    getProfileDashboardsList = (args: ArgsWithSignal<{ userId: string }>) => {
+        const { userId, signal } = args
+
         return apiInstance
-            .get(this.baseUrl + `/${userId}` + '/list')
+            .get(this.baseUrl + `/${userId}` + '/list', { signal })
             .json<UsersDashboardList>()
     }
 
@@ -27,13 +30,26 @@ class DashboardsApi {
             })
             .json<SuccessResponse | BadRequest>()
     }
-    addPostsToFavoriteDashboard = (postId: string) => {
+    addPostsToFavoritesDashboard = (postsId: string) => {
         return apiInstance
             .post(this.baseUrl + '/favorites', {
                 credentials: 'include',
-                json: { postId },
+                json: { postsId },
             })
             .json<SuccessResponse>()
+    }
+
+    addPostsToCustomDashboard = ({
+        postsId,
+        dashboardId,
+    }: {
+        postsId: string
+        dashboardId: string
+    }) => {
+        return apiInstance.post(this.baseUrl + `/${dashboardId}`, {
+            json: { postsId },
+            credentials: 'include',
+        })
     }
 
     deleteDashboard = (dashboardId: string) => {

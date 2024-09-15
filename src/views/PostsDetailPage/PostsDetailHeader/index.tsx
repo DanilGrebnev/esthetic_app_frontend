@@ -22,11 +22,16 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                     href={pathToImg}
                     downloadFileName={'test'}
                 />
-                <SaveToDashboardButton className={s['save-btn']}>
+                <SaveToDashboardButton
+                    /*
+                     * TODO: СТРАНИЦА ДЕТАЛКИ ПОСТОВ - добавить реальный postsId
+                     *  в кнопку сохранения поста */
+                    postsId={'postsId'}
+                    className={s['save-btn']}
+                >
                     Сохранить
                 </SaveToDashboardButton>
             </div>
-
             <div className={s['posts-info']}>
                 <h2 className={s['posts-info__title']}>BMW M5 Compitition</h2>
                 <p className={s['posts-info__description']}>

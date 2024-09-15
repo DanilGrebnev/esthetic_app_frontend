@@ -1,4 +1,4 @@
-export class QueryKeys {
+class QueryKeys {
     readonly auth = {
         checkAuth: 'auth',
     } as const
@@ -6,6 +6,7 @@ export class QueryKeys {
     readonly users = {
         publicProfile: 'public-profile',
         privateProfile: 'private-profile',
+        createdPosts: 'created-posts',
     } as const
 
     readonly dashboards = {

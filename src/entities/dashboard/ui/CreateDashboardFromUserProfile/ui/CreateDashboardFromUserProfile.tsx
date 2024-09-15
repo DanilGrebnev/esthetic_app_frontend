@@ -4,7 +4,7 @@ import { useCreateDashboardMutation } from '@/shared/api/dashboards'
 import { BaseResponseType } from '@/shared/types/apiResponses'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
-import { Modal } from '@/shared/ui/modal'
+import { BaseModalWindow, Modal } from '@/shared/ui/modal'
 import { type FC, useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -61,40 +61,44 @@ export const CreateDashboardFromUserProfile: FC<
                 onClose={onCloseModal}
                 isOpen={openModal}
             >
-                <form
-                    onSubmit={handleSubmit((data) => {
-                        mutateAsync(data.dashboardName)
-                            .then(onCloseModal)
-                            .catch(setErrorIfDuplicateBoardName)
-                    })}
-                    className={s.modal}
-                >
-                    <h2 className={s.title}>Создание доски</h2>
-                    <Input
-                        {...register('dashboardName', {
-                            maxLength: {
-                                value: 30,
-                                message: 'Макс.длинна: 30 символов',
-                            },
+                <BaseModalWindow>
+                    <form
+                        onSubmit={handleSubmit((data) => {
+                            mutateAsync(data.dashboardName)
+                                .then(onCloseModal)
+                                .catch(setErrorIfDuplicateBoardName)
                         })}
-                        helperText={errors.dashboardName?.message}
-                        error={!!errors.dashboardName}
-                        placeholder='Введите название доски'
-                        label='Название доски'
-                    />
-                    <div className={s['btn-group']}>
-                        <Button
-                            loading={isPending}
-                            disabled={
-                                value?.length < 2 || !value || value.length > 30
-                            }
-                            type='submit'
-                        >
-                            Создать
-                        </Button>
-                        <Button onClick={onCloseModal}>Отменить</Button>
-                    </div>
-                </form>
+                        className={s.modal}
+                    >
+                        <h2 className={s.title}>Создание доски</h2>
+                        <Input
+                            {...register('dashboardName', {
+                                maxLength: {
+                                    value: 30,
+                                    message: 'Макс.длинна: 30 символов',
+                                },
+                            })}
+                            helperText={errors.dashboardName?.message}
+                            error={!!errors.dashboardName}
+                            placeholder='Введите название доски'
+                            label='Название доски'
+                        />
+                        <div className={s['btn-group']}>
+                            <Button
+                                loading={isPending}
+                                disabled={
+                                    value?.length < 2 ||
+                                    !value ||
+                                    value.length > 30
+                                }
+                                type='submit'
+                            >
+                                Создать
+                            </Button>
+                            <Button onClick={onCloseModal}>Отменить</Button>
+                        </div>
+                    </form>
+                </BaseModalWindow>
             </Modal>
         </div>
     )

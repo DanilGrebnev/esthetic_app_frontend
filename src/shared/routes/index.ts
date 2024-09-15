@@ -8,7 +8,7 @@ export const routes = {
 
     postsDetail: {
         getRoute(postId: string) {
-            return `/detail-posts/${postId}`
+            return `/posts-detail/${postId}`
         },
     },
     editUserInfo: {

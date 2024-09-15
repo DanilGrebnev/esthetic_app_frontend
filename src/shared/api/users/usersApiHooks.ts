@@ -1,3 +1,4 @@
+import { apiInstance } from '@/shared/api/Instance'
 import { queryKeys } from '@/shared/api/QueryKeys'
 import type { UserProfile, UsersLoginBody } from '@/shared/types/user'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -29,7 +30,7 @@ export const useMutationLoginQuery = (options?: {
     return useMutation({
         mutationFn: (body: UsersLoginBody) => usersApi.login(body),
         onError: options?.onError,
-        onSuccess: async (successResponse) => {
+        onSuccess: (successResponse) => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.auth.checkAuth],
             })
@@ -57,5 +58,13 @@ export const useMutationLogout = () => {
 export const useMutationRegistrationQuery = () => {
     return useMutation({
         mutationFn: (body: FormData) => usersApi.registration(body),
+    })
+}
+
+export const useGetAllCreatedUsersPosts = (userId: string) => {
+    return useQuery({
+        queryKey: [queryKeys.users.createdPosts],
+        queryFn: ({ signal }) =>
+            usersApi.getAllCreatedUsersPosts({ userId, signal }),
     })
 }

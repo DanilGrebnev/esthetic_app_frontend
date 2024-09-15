@@ -41,10 +41,40 @@ export const useCreateDashboardMutation = (option?: Option) => {
     })
 }
 
-export const useGetProfileDashboardsList = (userId?: string) => {
+export const useGetProfileDashboardsList = (userId: string = '') => {
     return useQuery({
         queryKey: [queryKeys.dashboards.profileDashboardsList],
-        queryFn: () => dashboardsApi.getProfileDashboardsList(userId || ''),
+        queryFn: ({ signal }) =>
+            dashboardsApi.getProfileDashboardsList({ userId, signal }),
+        retry: false,
+        enabled: !!userId,
+    })
+}
+
+export const useAddPostsToFavoritesDashboard = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: dashboardsApi.addPostsToFavoritesDashboard,
+        retry: false,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.profileDashboardsList],
+            })
+        },
+    })
+}
+
+export const useAddPostsToCustomDashboard = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: dashboardsApi.addPostsToCustomDashboard,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.profileDashboardsList],
+            })
+        },
     })
 }
 

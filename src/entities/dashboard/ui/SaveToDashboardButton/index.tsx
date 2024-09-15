@@ -7,17 +7,18 @@ import {
     type FC,
     memo,
     useCallback,
-    useRef,
     useState,
 } from 'react'
 
 import { DashboardModalList } from '../DashboardModalList'
 
 interface SaveToDashboardButtonProps
-    extends ComponentPropsWithoutRef<'button'> {}
+    extends ComponentPropsWithoutRef<'button'> {
+    postsId: string
+}
 
 export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
-    ({ className }) => {
+    ({ className, postsId }) => {
         const [open, setIsOpen] = useState(false)
 
         const onOpen = useCallback((e: any) => {
@@ -26,7 +27,9 @@ export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
             setIsOpen(true)
         }, [])
 
-        const onCloseRef = useRef(() => setIsOpen(false))
+        const onClose = useCallback(() => {
+            setIsOpen(false)
+        }, [])
 
         return (
             <>
@@ -39,9 +42,9 @@ export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
                 </Button>
                 <Modal
                     isOpen={open}
-                    onClose={onCloseRef.current}
+                    onClose={onClose}
                 >
-                    <DashboardModalList isLoading={true} />
+                    <DashboardModalList postsId={postsId} />
                 </Modal>
             </>
         )

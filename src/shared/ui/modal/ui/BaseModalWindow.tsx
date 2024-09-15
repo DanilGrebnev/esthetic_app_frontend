@@ -12,5 +12,12 @@ export const BaseModalWindow: FC<BaseModalWindowProps> = ({
     className,
     children,
 }) => {
-    return <div className={clsx(s.modal, className)}>{children}</div>
+    return (
+        <div
+            onClick={(e) => e.stopPropagation()}
+            className={clsx(s.modal, className)}
+        >
+            {children}
+        </div>
+    )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { ValidationInputs } from '@/shared/ValidationInputs'
+import { useCreatePostsMutation } from '@/shared/api/posts/postsApiHooks'
 import { type TCreatePosts } from '@/shared/types/posts'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
@@ -8,7 +9,7 @@ import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { Tag } from '@/shared/ui/InputWithTags/types'
 import { Select } from '@/shared/ui/Select'
 import { forwardRef, useCallback, useRef } from 'react'
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
@@ -26,46 +27,53 @@ export const CreatePostForm = forwardRef<HTMLButtonElement>((_, ref) => {
         clearErrors,
         formState: { errors },
     } = useForm<TCreatePosts>({ mode: 'onBlur' })
+    const { mutateAsync } = useCreatePostsMutation()
 
     // Создаём конструктор FormData в области видимости компонента
     const formDataRef = useRef<FormData | null>(null)
-    const formRef = useRef<HTMLFormElement | null>(null)
 
-    const onChangeTags = useCallback(
-        (tags: Tag[]) => {
-            if (formDataRef.current) {
-                formDataRef.current.set('tags', JSON.stringify(tags))
-            }
-        },
-        [formDataRef],
-    )
+    const onChangeTags = useCallback((tags: Tag[]) => {
+        if (formDataRef.current) {
+            formDataRef.current.set('tags', JSON.stringify(tags))
+        }
+    }, [])
 
-    const onSubmit = handleSubmit(() => {
-        // console.clear()
-        if (!formRef.current) return
-        formDataRef.current = new FormData(formRef.current)
+    const onSubmit: SubmitHandler<TCreatePosts> = (data, e) => {
+        formDataRef.current = new FormData(e?.target)
         const formData = formDataRef.current
-        const file = formData?.get('file') as File
-        const tags = JSON.parse(formData?.get('tags') as string)
+        const file = formData.get('file') as File
+        const aspectRatio = formData?.get('aspectRatio')
+        formData?.delete('aspectRatio')
+
+        formData?.set(
+            'fileOptions',
+            JSON.stringify({
+                objectPosition: 'center',
+                aspectRatio: aspectRatio,
+            }),
+        )
+
+        // const tags = JSON.parse(formData?.get('tags') as string)
 
         if (!file.size) {
-            setError('file', {
+            return setError('file', {
                 type: 'value',
                 message: 'file field is empty',
             })
-            return
         }
 
-        for (let field of formData) {
-        }
-    })
+        mutateAsync(formData)
+
+        // for (let field of formData) {
+        //     console.log(field)
+        // }
+    }
 
     return (
         <Container size='m'>
             <form
-                ref={formRef}
                 className={s.form}
-                onSubmit={onSubmit}
+                onSubmit={handleSubmit(onSubmit)}
             >
                 <div className={s['left-col']}>
                     <UploadPostsContentWindow

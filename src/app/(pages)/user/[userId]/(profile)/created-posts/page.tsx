@@ -1,13 +1,14 @@
-import { Container } from '@/shared/ui/Container'
-import { PostsListWithPagination } from '@/widgets/PostsList'
+import { CreatedPostsPage } from '@/views/CreatedPostsPage'
+
+interface Props {
+    params: {
+        userId: string
+    }
+}
 
 /* Созданные пользователем посты */
-const CreatedPosts = () => {
-    return (
-        <Container>
-            <PostsListWithPagination />
-        </Container>
-    )
+const CreatedPosts = (props: Props) => {
+    return <CreatedPostsPage userId={props.params.userId} />
 }
 
 export default CreatedPosts

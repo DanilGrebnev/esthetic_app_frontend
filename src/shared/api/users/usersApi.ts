@@ -1,3 +1,4 @@
+import { ArgsWithSignal } from '@/shared/types/apiArgsWithSignal'
 import { TPostsList } from '@/shared/types/posts'
 import type {
     UserPrivateProfile,
@@ -44,10 +45,11 @@ class UsersApi {
             .json<UserPrivateProfile>()
     }
 
-    getAllCreatedUsersPosts = (userId: string) => {
+    getAllCreatedUsersPosts = (args: ArgsWithSignal<{ userId: string }>) => {
+        const { signal, userId } = args
         return apiInstance
             .get(this.basePath + '/' + userId + '/created-posts ', {
-                credentials: 'include',
+                signal,
             })
             .json<TPostsList>()
     }

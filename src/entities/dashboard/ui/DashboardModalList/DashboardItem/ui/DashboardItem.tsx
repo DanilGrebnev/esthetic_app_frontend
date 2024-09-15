@@ -15,22 +15,28 @@ interface DashboardItemProps {
     disabled?: boolean
     dashboardName: string
     skeleton?: boolean
+    image?: string
+    onClick?: () => void
 }
 
 export const DashboardItem: FC<DashboardItemProps> = (props) => {
-    const { loading, dashboardName, disabled, skeleton } = props
+    const { loading, dashboardName, onClick, image, disabled, skeleton } = props
 
     return (
         <div
             title={getDashboardItemTitle(disabled, dashboardName)}
-            className={clsx(s['dashboard-item'], { [s.disabled]: disabled })}
+            onClick={onClick}
+            className={clsx(s['dashboard-item'], {
+                [s.disabled]: disabled,
+                [s.inactive]: loading,
+            })}
         >
             <div className={clsx(s.content)}>
                 {!skeleton ? (
                     <>
                         <Image
                             className={s['dashboard-item__img']}
-                            src={consts.pathToImage + 't1.jpg'}
+                            src={image || consts.pathToImage + 't1.jpg'}
                             width={40}
                             height={40}
                             alt='test'

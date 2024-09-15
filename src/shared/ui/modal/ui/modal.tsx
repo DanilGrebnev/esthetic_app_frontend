@@ -4,7 +4,7 @@ import {
     useCloseIfClickOnEscapeKey,
     useToggleBodyOverflow,
 } from '@/shared/ui/modal/hooks'
-import { type ReactNode } from 'react'
+import { type ReactNode, useLayoutEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 import s from './modal.module.scss'
@@ -31,21 +31,38 @@ export const Modal = (props: ModalProps) => {
         <>
             {isOpen
                 ? createPortal(
-                      <div
-                          onClick={(e) => {
-                              e.stopPropagation()
-                              e.preventDefault()
-                              onClose?.()
-                          }}
-                          className={s['modal-bg-filter']}
-                      >
-                          <div onClick={(e) => e.stopPropagation()}>
-                              {children}
-                          </div>
-                      </div>,
+                      <ModalWrapper onClose={onClose}>{children}</ModalWrapper>,
                       document.getElementById('modal-root') as HTMLElement,
                   )
                 : null}
         </>
+    )
+}
+
+function ModalWrapper({
+    children,
+    onClose,
+}: {
+    children: ReactNode
+    onClose?: () => void
+}) {
+    const ref = useRef<HTMLDivElement>(null)
+
+    useLayoutEffect(() => {
+        if (!ref.current) return
+        const firstChild = ref.current.firstChild
+    }, [])
+
+    return (
+        <div
+            ref={ref}
+            onClick={(e) => {
+                e.stopPropagation()
+                onClose?.()
+            }}
+            className={s['modal-bg-filter']}
+        >
+            {children}
+        </div>
     )
 }
