@@ -18,10 +18,13 @@ export interface TPosts {
         options: FileOptions
     }
 }
-
+/* Детальная информация поста */
 export interface TPostsDetail extends TPosts {
-    likeCount: number
-    commentsCount: number
+    post: TPosts
+    user: {
+        isLike: boolean
+        isOwner: boolean
+    }
 }
 
 /* Тип для карточки поста */

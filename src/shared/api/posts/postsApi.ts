@@ -1,4 +1,6 @@
 import { apiInstance } from '@/shared/api/Instance'
+import { ArgsWithSignal } from '@/shared/types/apiArgsWithSignal'
+import { TPostsDetail } from '@/shared/types/posts'
 
 class PostsApi {
     baseUrl = 'posts'
@@ -17,8 +19,15 @@ class PostsApi {
             body: formData,
         })
     }
-    getPostDetail = (postId: string) => {
-        return apiInstance.get(this.baseUrl + '/posts/' + postId)
+    getPostDetail = ({
+        postId,
+        signal,
+    }: ArgsWithSignal<{ postId: string }>) => {
+        return apiInstance
+            .get(this.baseUrl + `/${postId}`, {
+                signal,
+            })
+            .json<TPostsDetail>()
     }
     editPost = (postId: string) => {
         return apiInstance.get(this.baseUrl + '/posts/' + postId)

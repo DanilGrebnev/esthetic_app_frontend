@@ -35,6 +35,19 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
     const showPlaceholder = placeholder
     const showWord = (word && !error) || !href
 
+    function getImageSize(sizes: typeof size) {
+        switch (sizes) {
+            case 's':
+                return '25px'
+            case 'm':
+                return '35px'
+            case 'l':
+                return '50px'
+            case 'xl':
+                return '100px'
+        }
+    }
+
     return (
         <div
             onClick={onClick}
@@ -51,9 +64,10 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
             {showAvatar && (
                 <Image
                     fill
+                    priority={true}
                     alt='User avatar'
                     style={{ objectFit: 'cover' }}
-                    sizes={'100px'}
+                    sizes={getImageSize(size)}
                     src={href}
                     onError={() => setError(true)}
                 />
@@ -64,6 +78,9 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
             {showPlaceholder && (
                 <Image
                     fill
+                    sizes={getImageSize(size)}
+                    priority={true}
+                    placeholder='blur'
                     src={Avatar}
                     alt='Profile avatar placeholder'
                 />

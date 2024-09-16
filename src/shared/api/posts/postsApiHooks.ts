@@ -1,6 +1,6 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { postsApi } from '@/shared/api/posts/postsApi'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 export const useCreatePostsMutation = () => {
     const queryClient = useQueryClient()
@@ -10,5 +10,13 @@ export const useCreatePostsMutation = () => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList],
             }),
+    })
+}
+
+export const useGetDetailPostsQuery = (postId: string) => {
+    return useQuery({
+        queryKey: [queryKeys.posts.postsDetail],
+        queryFn: ({ signal }) => postsApi.getPostDetail({ signal, postId }),
+        retry: false,
     })
 }

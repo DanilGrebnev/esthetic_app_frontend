@@ -1,20 +1,45 @@
 'use client'
 
-import { CreatePostForm, PublishPostsBtn } from '@/entities/posts'
-import { useRef, useState } from 'react'
+import { CreatePostForm } from '@/entities/posts'
+import { useCreatePostsMutation } from '@/shared/api/posts/postsApiHooks'
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { routes } from '@/shared/routes'
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 
 import s from './s.module.scss'
+import { CreatePostButton } from './ui/CreatePostButton'
 
 export const CreatePosts = () => {
-    const ref = useRef<HTMLButtonElement>(null)
+    const router = useRouter()
+    const submitButtonRef = useRef<HTMLButtonElement>(null)
+    const { mutate, isPending, isSuccess } = useCreatePostsMutation()
+
+    const { data: privateProfile } = useGetPrivateProfileQuery()
+
+    useEffect(() => {
+        if (isSuccess) {
+            router.push(
+                routes.userCreatedPosts.getRoute(privateProfile?.user.userId),
+            )
+        }
+    }, [isSuccess, router, privateProfile])
 
     return (
         <div className={s.page}>
             <header className={s.header}>
                 <p>Создание пина</p>
-                <PublishPostsBtn submitRef={ref} />
+                <CreatePostButton
+                    isSuccess={isSuccess}
+                    loading={isPending}
+                    submitButtonRef={submitButtonRef}
+                />
             </header>
-            <CreatePostForm ref={ref} />
+            <CreatePostForm
+                isPending={isPending}
+                mutate={mutate}
+                ref={submitButtonRef}
+            />
         </div>
     )
 }

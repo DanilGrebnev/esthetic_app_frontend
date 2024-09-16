@@ -44,7 +44,7 @@ export const PostsCard: FC<PostCardProps> = (props) => {
                 className={s.img}
                 loading='lazy'
                 alt='test'
-                sizes='200px'
+                sizes='(max-width: 500px) 50vw'
                 src={mediaUrl}
                 fill={true}
             />

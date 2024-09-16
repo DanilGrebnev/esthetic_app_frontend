@@ -1,6 +1,7 @@
 'use client'
 
 import { CommentariesWriteField } from '@/features/commentaries'
+import { useGetDetailPostsQuery } from '@/shared/api/posts/postsApiHooks'
 import { consts } from '@/shared/consts'
 import { Container } from '@/shared/ui/Container'
 import Image from 'next/image'
@@ -11,12 +12,17 @@ import s from './s.module.scss'
 
 interface DetailPostsParams {
     params: {
-        postId: number
+        postId: string
     }
 }
 
 export const PostsDetailPage = ({ params }: DetailPostsParams) => {
     const pathToImg = consts.pathToImage + 't1.jpg'
+    const { data: post, isPending } = useGetDetailPostsQuery(params.postId)
+
+    if (isPending) {
+        return <h1>Загрузка поста...</h1>
+    }
 
     return (
         <Container
@@ -28,7 +34,7 @@ export const PostsDetailPage = ({ params }: DetailPostsParams) => {
                     <Image
                         alt='test'
                         fill={true}
-                        src={pathToImg}
+                        src={post?.media?.url || pathToImg}
                     />
                 </div>
 

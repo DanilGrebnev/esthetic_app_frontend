@@ -12,6 +12,10 @@ class QueryKeys {
     readonly dashboards = {
         profileDashboardsList: 'profile-dashboards-list',
     } as const
+
+    readonly posts = {
+        postsDetail: 'posts-detail',
+    } as const
 }
 
 export const queryKeys = new QueryKeys()
