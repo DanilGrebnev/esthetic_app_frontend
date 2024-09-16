@@ -2,6 +2,7 @@
 
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
+import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import { routes } from '@/shared/routes'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -12,7 +13,7 @@ import s from './s.module.scss'
 
 interface PostCardProps {
     mediaUrl: string
-    aspect?: string
+    aspect?: (typeof aspectRatioVariants)[number]
     className?: string
     name: string
     postId: string

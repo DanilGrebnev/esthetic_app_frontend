@@ -1,3 +1,4 @@
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
@@ -13,9 +14,11 @@ export const CommentariesWriteField: FC<CommentariesWriteFieldProps> = (
 ) => {
     const { className } = props
 
+    const { data: profileData } = useGetPrivateProfileQuery()
+
     return (
         <div className={clsx(s['write-comment'], className)}>
-            <UserAvatar />
+            <UserAvatar href={profileData?.user.avatar} />
             <input
                 type='text'
                 className={s.input}

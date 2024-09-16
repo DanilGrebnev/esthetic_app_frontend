@@ -1,6 +1,9 @@
 'use client'
 
-import { MasonryContainerWithBreakPoints } from '@/entities/posts'
+import {
+    MasonryContainerWithBreakPoints,
+    PostsListContainerWithBreakpoints,
+} from '@/entities/posts'
 import { useGetAllCreatedUsersPosts } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { PostsCard } from '@/widgets/PostsCard'
@@ -17,17 +20,17 @@ export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
 
     return (
         <Container>
-            <MasonryContainerWithBreakPoints>
+            <PostsListContainerWithBreakpoints>
                 {posts?.map((post) => (
                     <PostsCard
                         key={post.postId}
                         postId={post.postId}
-                        aspect={post.options.aspectRatio}
                         mediaUrl={post.url}
                         name={post.postId}
+                        aspect='9/16'
                     />
                 ))}
-            </MasonryContainerWithBreakPoints>
+            </PostsListContainerWithBreakpoints>
         </Container>
     )
 }

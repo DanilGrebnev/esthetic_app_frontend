@@ -19,7 +19,7 @@ export interface TPosts {
     }
 }
 /* Детальная информация поста */
-export interface TPostsDetail extends TPosts {
+export interface TPostsDetail {
     post: TPosts
     user: {
         isLike: boolean

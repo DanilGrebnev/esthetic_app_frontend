@@ -3,14 +3,25 @@
  * @param url - путь до файла
  * @param name - название файла
  */
-export const downloadFileByURL = (url: string, name: string): void => {
-    const a = document.createElement('a')
-    a.setAttribute('download', name)
-    a.setAttribute('hidden', '')
-    a.setAttribute('href', url)
-    a.setAttribute('id', 'download')
-    document.body.append(a)
-    const downloadLink = document.getElementById('download') as HTMLElement
-    downloadLink?.click()
+export const downloadFileByURL = async (
+    url: string,
+    name: string,
+): Promise<void> => {
+    const downloadLinkId = 'download-link'
+
+    const blob = await fetch(url).then((response) => response.blob())
+
+    const link = document.createElement('a')
+    link.download = name ?? ''
+    link.hidden = true
+    link.href = URL.createObjectURL(blob)
+    link.id = downloadLinkId
+
+    document.body?.append(link)
+
+    link.click()
+
+    const downloadLink = document.getElementById(downloadLinkId) as HTMLElement
+
     downloadLink?.remove()
 }

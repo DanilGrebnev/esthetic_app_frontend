@@ -1,0 +1,21 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--global-gap-1);
+
+    @media screen and (max-width: 1300px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media screen and (max-width: 900px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media screen and (max-width: 650px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: 450px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

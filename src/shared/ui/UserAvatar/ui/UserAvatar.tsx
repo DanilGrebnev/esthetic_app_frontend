@@ -11,7 +11,6 @@ interface UserAvatarProps {
     word?: string
     size?: 'l' | 'm' | 's' | 'xl'
     className?: string
-    avatar?: string
     placeholder?: boolean
     href?: string | null
     alt?: string

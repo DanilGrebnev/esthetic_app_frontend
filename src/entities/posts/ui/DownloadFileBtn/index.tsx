@@ -11,18 +11,16 @@ interface DownloadContentBtnProps {
 export const DownloadFileBtn: FC<DownloadContentBtnProps> = memo((props) => {
     const { className, href, downloadFileName } = props
 
-    const onDownload = () => {
+    const onDownload = (e: any) => {
+        e.stopPropagation()
+        e.preventDefault()
         downloadFileByURL(href, downloadFileName)
     }
 
     return (
         <CircleButton
             className={className}
-            onClick={(e) => {
-                e.stopPropagation()
-                e.preventDefault()
-                onDownload()
-            }}
+            onClick={onDownload}
         />
     )
 })

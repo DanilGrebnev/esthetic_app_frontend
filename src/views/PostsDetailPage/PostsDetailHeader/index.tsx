@@ -9,18 +9,24 @@ import s from './s.module.scss'
 interface PostsDetailHeaderProps {
     className?: string
     pathToImg: string
+    authorAvatar: string
+    description: string
+    title: string
 }
 
 export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
     className,
     pathToImg,
+    authorAvatar,
+    description,
+    title,
 }) => {
     return (
         <header className={clsx(s.header, className)}>
             <div className={s['header__btn-group']}>
                 <DownloadFileBtn
                     href={pathToImg}
-                    downloadFileName={'test'}
+                    downloadFileName={title}
                 />
                 <SaveToDashboardButton
                     /*
@@ -33,12 +39,18 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                 </SaveToDashboardButton>
             </div>
             <div className={s['posts-info']}>
-                <h2 className={s['posts-info__title']}>BMW M5 Compitition</h2>
-                <p className={s['posts-info__description']}>
-                    Описание к BMW M5 Compitition
-                </p>
+                <h2 className={s['posts-info__title']}>{title}</h2>
+                {description && (
+                    <p className={s['posts-info__description']}>
+                        {description}
+                    </p>
+                )}
                 <div className={s['user-info']}>
-                    <UserAvatar size='m' /> <span>Данил Гребнев</span>
+                    <UserAvatar
+                        href={authorAvatar}
+                        size='m'
+                    />
+                    <span>Данил Гребнев</span>
                 </div>
             </div>
         </header>

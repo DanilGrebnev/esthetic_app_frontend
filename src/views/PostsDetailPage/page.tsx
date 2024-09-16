@@ -18,11 +18,13 @@ interface DetailPostsParams {
 
 export const PostsDetailPage = ({ params }: DetailPostsParams) => {
     const pathToImg = consts.pathToImage + 't1.jpg'
-    const { data: post, isPending } = useGetDetailPostsQuery(params.postId)
+    const { data: postData, isPending } = useGetDetailPostsQuery(params.postId)
 
-    if (isPending) {
+    if (isPending || !postData) {
         return <h1>Загрузка поста...</h1>
     }
+
+    const { post, user } = postData
 
     return (
         <Container
@@ -32,16 +34,19 @@ export const PostsDetailPage = ({ params }: DetailPostsParams) => {
             <div className={s['content-container']}>
                 <div className={s['image-container']}>
                     <Image
-                        alt='test'
                         fill={true}
-                        src={post?.media?.url || pathToImg}
+                        alt={post.name}
+                        src={post?.media?.url}
                     />
                 </div>
 
                 <div className={s.content}>
                     <PostsDetailHeader
+                        title={post.name}
+                        description={post?.description}
                         className={s['content__header']}
-                        pathToImg={pathToImg}
+                        authorAvatar={post.author.avatar}
+                        pathToImg={post?.media?.url}
                     />
                     <PostsDetailComments
                         count={1}
