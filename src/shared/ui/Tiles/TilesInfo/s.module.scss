@@ -1,8 +1,8 @@
 .tiles-info {
     display: flex;
+    position: relative;
     flex-direction: column;
     gap: 10px;
-    position: relative;
 }
 
 .header {
@@ -10,33 +10,33 @@
     justify-content: space-between;
 
     h5 {
-        width: 100%;
         flex-grow: 1;
+        width: 100%;
         overflow: hidden;
-        white-space: nowrap;
         text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 
 .dot-menu {
-    min-width: max-content;
-    transition: .5s;
-    &:hover{
+    transition: 0.5s;
+
+    &:hover {
         transform: scale(1.1);
     }
 }
 
 .title {
-    font-size: var(--font-400);
-    font-weight: var(--font-weight-semibold);
     color: var(--text-palette-main);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-400);
 }
 
 .footer {
     display: flex;
     gap: 5px;
-    font-size: var(--font-100);
     font-weight: var(--font-weight-normal);
+    font-size: var(--font-100);
 }
 
 .count {

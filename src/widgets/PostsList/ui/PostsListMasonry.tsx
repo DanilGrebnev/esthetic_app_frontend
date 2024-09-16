@@ -21,6 +21,7 @@ export const PostsListMasonry: FC<PostsListMasonryProps> = (props) => {
             {posts?.map(({ url, postId, options }) => (
                 <PostsCard
                     key={postId}
+                    postId={postId}
                     mediaUrl={url}
                     name={'test_name'}
                     aspect={options.aspectRatio}

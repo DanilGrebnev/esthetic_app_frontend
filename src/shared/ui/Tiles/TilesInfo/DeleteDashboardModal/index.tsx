@@ -2,7 +2,7 @@ import { useDeleteDashboardMutation } from '@/shared/api/dashboards'
 import { Button } from '@/shared/ui/Button'
 import { TileContext } from '@/shared/ui/Tiles/tileContext'
 import { BaseModalWindow } from '@/shared/ui/modal'
-import { FC, useContext } from 'react'
+import { FC, useContext, useEffect } from 'react'
 
 interface DeleteDashboardModalModalProps {
     onClose: () => void
@@ -12,6 +12,11 @@ export const DeleteDashboardModal: FC<DeleteDashboardModalModalProps> = ({
 }) => {
     const { dashboardId } = useContext(TileContext)
     const { mutate, isPending } = useDeleteDashboardMutation()
+
+    useEffect(() => {
+        console.log('modal is mounted')
+        return () => console.log('modal is unmounted')
+    }, [])
 
     const deleteDashboard = (e: any) => {
         mutate(dashboardId)

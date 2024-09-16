@@ -50,7 +50,7 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                 <DashboardGroupContainer groupName='Быстрое сохранение'>
                     <DashboardItem
                         onClick={() => mutate(postsId)}
-                        image={dashboardsData?.favorites.url[0]}
+                        image={dashboardsData?.favorites?.url?.[0]}
                         loading={addToFavoritePending}
                         skeleton={initialDashboardListLoading}
                         dashboardName='Избранное'
@@ -78,7 +78,7 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                                         postsId,
                                     })
                                 }}
-                                image={dashboard.url[0]}
+                                image={dashboard?.url?.[0]}
                                 dashboardName={dashboardName}
                             />
                         )
