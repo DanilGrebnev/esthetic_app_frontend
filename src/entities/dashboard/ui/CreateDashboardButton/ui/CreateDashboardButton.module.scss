@@ -1,0 +1,68 @@
+.wrapper {
+    display: flex;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--global-gap-1);
+}
+
+.btn-group {
+    display: flex;
+}
+
+.title {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-350);
+}
+
+.dashboard-icon {
+    position: relative;
+    animation-duration: 0.2s;
+    animation-direction: normal;
+    transition: 0.5s;
+    cursor: pointer;
+    border-radius: var(--global-border-radius);
+    width: 30px;
+
+    height: 30px;
+
+    &:hover,
+    &:focus-visible {
+        background: var(--global-btn-hover);
+    }
+
+    &::before,
+    &::after {
+        position: absolute;
+        border-radius: 2px;
+        background: var(--theme-bg-color-2);
+        width: 60%;
+        height: 2px;
+        content: '';
+    }
+
+    &::before {
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    &::after {
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(90deg);
+        margin: auto;
+    }
+}
+
+@keyframes rotate-icon {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

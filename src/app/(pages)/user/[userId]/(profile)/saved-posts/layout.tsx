@@ -1,6 +1,6 @@
 'use client'
 
-import { CreateDashboardFromUserProfile } from '@/entities/dashboard/ui/CreateDashboardFromUserProfile'
+import { CreateDashboardButton } from '@/entities/dashboard/ui/CreateDashboardButton'
 import { useGetPublicProfile } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { FC, ReactNode, useEffect } from 'react'
@@ -20,7 +20,7 @@ const Layout: FC<Layout> = (props) => {
 
     return (
         <Container size='l'>
-            {data?.guest?.isOwner && <CreateDashboardFromUserProfile />}
+            {data?.guest?.isOwner && <CreateDashboardButton />}
             {children}
         </Container>
     )

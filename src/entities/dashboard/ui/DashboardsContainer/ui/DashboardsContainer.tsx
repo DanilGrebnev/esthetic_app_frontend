@@ -7,6 +7,7 @@ interface DashboardsContainerProps {
     children: ReactNode
 }
 
+/* Адаптивный контейнер для досок без плитки */
 export const DashboardsContainer: FC<DashboardsContainerProps> = (props) => {
     const { children } = props
 

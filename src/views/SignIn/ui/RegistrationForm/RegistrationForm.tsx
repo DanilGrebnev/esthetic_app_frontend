@@ -63,9 +63,12 @@ export const RegistrationForm = () => {
 
     const nextResolve = firstName && userName && password && email && isValid
 
-    const onChangeAvatar = useCallback((file: File) => {
-        setValue('avatar', file)
-    }, [])
+    const onChangeAvatar = useCallback(
+        (file: File) => {
+            setValue('avatar', file)
+        },
+        [] /* eslint-disable-line */,
+    )
 
     return (
         <Container

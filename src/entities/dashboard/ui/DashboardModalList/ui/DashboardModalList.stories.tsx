@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DashboardModalList } from './index'
+import { DashboardModalList } from './DashboardModalList'
 
 const meta: Meta<typeof DashboardModalList> = {
     title: 'entities/dashboard/DashboardModalList',

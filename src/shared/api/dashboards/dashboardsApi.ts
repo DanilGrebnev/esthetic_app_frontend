@@ -1,7 +1,10 @@
 import { apiInstance } from '@/shared/api/Instance'
-import { ArgsWithSignal } from '@/shared/types/apiArgsWithSignal'
 import { BadRequest, SuccessResponse } from '@/shared/types/apiResponses'
-import type { UsersDashboardList } from '@/shared/types/dashboards'
+import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
+import type {
+    DashboardsByCookie,
+    UsersDashboardList,
+} from '@/shared/types/dashboards'
 
 interface CreateDashboard {
     dashboardName: string
@@ -30,6 +33,7 @@ class DashboardsApi {
             })
             .json<SuccessResponse | BadRequest>()
     }
+
     addPostsToFavoritesDashboard = (postsId: string) => {
         return apiInstance
             .post(this.baseUrl + '/favorites', {
@@ -50,6 +54,16 @@ class DashboardsApi {
             json: { postsId },
             credentials: 'include',
         })
+    }
+
+    getDashboardsByCookie = (args: ArgsWithSignal) => {
+        const { signal } = args
+        return apiInstance
+            .get(this.baseUrl, {
+                credentials: 'include',
+                signal,
+            })
+            .json<DashboardsByCookie>()
     }
 
     deleteDashboard = (dashboardId: string) => {

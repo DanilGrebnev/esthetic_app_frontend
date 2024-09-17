@@ -20,7 +20,7 @@ export const CreatePosts = () => {
     useEffect(() => {
         if (isSuccess) {
             router.push(
-                routes.userCreatedPosts.getRoute(privateProfile?.user.userId),
+                routes.userCreatedPosts.getRoute(privateProfile?.userId),
             )
         }
     }, [isSuccess, router, privateProfile])

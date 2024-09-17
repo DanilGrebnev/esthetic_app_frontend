@@ -1,28 +1,32 @@
 .dashboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    border-radius: var(--global-border-radius);
+    padding: 12px;
 
     width: 100%;
     min-height: 20px;
-    padding: 12px;
-
-    border-radius: var(--global-border-radius);
 
     &:hover {
         background: var(--global-btn-hover);
+
+        & .content > span {
+            background: white;
+        }
     }
 
     &__img {
-        object-fit: cover;
         border-radius: var(--global-border-radius);
+        object-fit: cover;
     }
 }
 
 .disabled {
     opacity: 0.3;
+    pointer-events: none;
 }
 
 .inactive {
@@ -31,6 +35,6 @@
 
 .content {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 10px;
 }

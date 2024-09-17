@@ -11,6 +11,7 @@ class QueryKeys {
 
     readonly dashboards = {
         profileDashboardsList: 'profile-dashboards-list',
+        dashboardsByCookie: 'dashboards-by-cookie',
     } as const
 
     readonly posts = {

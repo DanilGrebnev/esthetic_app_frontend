@@ -1,4 +1,3 @@
-import { apiInstance } from '@/shared/api/Instance'
 import { queryKeys } from '@/shared/api/QueryKeys'
 import type { UserProfile, UsersLoginBody } from '@/shared/types/user'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'

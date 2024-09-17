@@ -1,5 +1,6 @@
 import { type Tag } from '@/shared/ui/InputWithTags/types'
 
+/* Base user type */
 interface BaseUser {
     firstName: string
     lastName: string
@@ -21,9 +22,7 @@ export interface UserPublicProfile {
 }
 
 /* Private users profile*/
-export interface UserPrivateProfile {
-    user: UserProfile
-}
+export type UserPrivateProfile = UserProfile
 
 /* Info about posts author */
 export interface TAuthor extends Omit<BaseUser, 'email'> {

@@ -1,5 +1,5 @@
 import { apiInstance } from '@/shared/api/Instance'
-import { ArgsWithSignal } from '@/shared/types/apiArgsWithSignal'
+import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 import { TPostsDetail } from '@/shared/types/posts'
 
 class PostsApi {

@@ -17,14 +17,13 @@ export const UserProfileIcon = () => {
     const router = useRouter()
 
     const { data: authData } = useCheckAuthQuery()
+
     const { data: userData, isPending: isPendingUserData } =
         useGetPrivateProfileQuery()
 
-    const user = userData?.user
-
-    const onClick = () => {
-        if (authData?.isAuth && user) {
-            router.push(routes.userSavedPosts.getRoute(user.userId))
+    const redirect = () => {
+        if (authData?.isAuth && userData) {
+            router.push(routes.userSavedPosts.getRoute(userData.userId))
             return
         }
         router.push(routes.login.getRoute())
@@ -38,14 +37,14 @@ export const UserProfileIcon = () => {
             className={s['profile-icon']}
         >
             <UserAvatar
-                onClick={onClick}
+                onClick={redirect}
                 placeholder={isPendingUserData || !authData?.isAuth}
-                href={userData?.user?.avatar}
-                word={user?.firstName[0]?.toUpperCase()}
+                href={userData?.avatar}
+                word={userData?.firstName[0]?.toUpperCase()}
             />
             <DropDownMenu
                 auth={authData?.isAuth}
-                userId={userData?.user.userId}
+                userId={userData?.userId}
                 className={clsx(s.modal, { [s.open]: openModal })}
             />
         </div>

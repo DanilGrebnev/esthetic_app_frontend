@@ -8,9 +8,9 @@ import { BaseModalWindow, Modal } from '@/shared/ui/modal'
 import { type FC, useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import s from './CreateDashboardFromUserProfile.module.scss'
+import s from './CreateDashboardButton.module.scss'
 
-interface CreateDashboardFromUserProfileProps {
+interface CreateDashboardButtonProps {
     userId?: string
 }
 
@@ -18,9 +18,7 @@ interface IForm {
     dashboardName: string
 }
 
-export const CreateDashboardFromUserProfile: FC<
-    CreateDashboardFromUserProfileProps
-> = () => {
+export const CreateDashboardButton: FC<CreateDashboardButtonProps> = () => {
     const {
         register,
         handleSubmit,
@@ -104,4 +102,4 @@ export const CreateDashboardFromUserProfile: FC<
     )
 }
 
-CreateDashboardFromUserProfile.displayName = 'CreateDashboardFromUserProfile'
+CreateDashboardButton.displayName = 'CreateDashboardButton'

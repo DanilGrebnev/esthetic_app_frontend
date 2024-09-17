@@ -1,4 +1,4 @@
-import { ArgsWithSignal } from '@/shared/types/apiArgsWithSignal'
+import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 import { TPostsList } from '@/shared/types/posts'
 import type {
     UserPrivateProfile,

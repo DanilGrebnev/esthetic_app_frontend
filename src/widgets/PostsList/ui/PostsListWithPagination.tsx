@@ -34,11 +34,14 @@ export const PostsListWithPagination = () => {
     }, [entry?.isIntersecting, loading])
 
     /* Запрос на получение постов при монтировании страницы */
-    useEffect(() => {
-        // console.log('Запрос...')
-        setLoading(true)
-        getPosts(offset, limit).then(updatePosts)
-    }, [])
+    useEffect(
+        () => {
+            // console.log('Запрос...')
+            setLoading(true)
+            getPosts(offset, limit).then(updatePosts)
+        },
+        [] /* eslint-disable-line */,
+    )
 
     /* Получение данных в зависимости от изменения */
     useEffect(() => {

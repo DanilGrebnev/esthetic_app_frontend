@@ -1,6 +1,5 @@
 'use client'
 
-import { consts } from '@/shared/consts'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
@@ -8,6 +7,7 @@ import Image from 'next/image'
 import { type FC } from 'react'
 
 import { getDashboardItemTitle } from '../model/utils'
+import { Placeholder } from './Placeholder'
 import s from './s.module.scss'
 
 interface DashboardItemProps {
@@ -32,19 +32,21 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
             })}
         >
             <div className={clsx(s.content)}>
-                {!skeleton ? (
+                {skeleton && <Skeletons />}
+                {!skeleton && (
                     <>
-                        <Image
-                            className={s['dashboard-item__img']}
-                            src={image || consts.pathToImage + 't1.jpg'}
-                            width={40}
-                            height={40}
-                            alt='test'
-                        />
+                        {image && (
+                            <Image
+                                className={s['dashboard-item__img']}
+                                src={image}
+                                width={40}
+                                height={40}
+                                alt='test'
+                            />
+                        )}
+                        {!image && <Placeholder />}
                         <p className='text-ellipsis'>{dashboardName}</p>
                     </>
-                ) : (
-                    <Skeletons />
                 )}
             </div>
             {loading && <CircularProgress sizesVariant='s' />}

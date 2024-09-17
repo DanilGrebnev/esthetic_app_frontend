@@ -18,7 +18,7 @@ export const CommentariesWriteField: FC<CommentariesWriteFieldProps> = (
 
     return (
         <div className={clsx(s['write-comment'], className)}>
-            <UserAvatar href={profileData?.user.avatar} />
+            <UserAvatar href={profileData?.avatar} />
             <input
                 type='text'
                 className={s.input}
