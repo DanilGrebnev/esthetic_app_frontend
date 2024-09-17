@@ -1,4 +1,5 @@
 import { useDeleteDashboardMutation } from '@/shared/api/dashboards'
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { TileContext } from '@/shared/ui/Tiles/tileContext'
 import { BaseModalWindow } from '@/shared/ui/modal'
@@ -11,14 +12,19 @@ export const DeleteDashboardModal: FC<DeleteDashboardModalModalProps> = ({
     onClose,
 }) => {
     const { dashboardId } = useContext(TileContext)
-    const { mutate, isPending } = useDeleteDashboardMutation()
+
+    const { data: profileData } = useGetPrivateProfileQuery()
+
+    const { mutate, isPending } = useDeleteDashboardMutation(
+        profileData?.userId || '',
+    )
 
     useEffect(() => {
         console.log('modal is mounted')
         return () => console.log('modal is unmounted')
     }, [])
 
-    const deleteDashboard = (e: any) => {
+    const deleteDashboard = () => {
         mutate(dashboardId)
     }
 

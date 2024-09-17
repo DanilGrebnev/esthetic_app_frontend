@@ -5,10 +5,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { dashboardsApi } from './dashboardsApi'
 
-interface Options {
-    userId: string
-}
-
 // ### GET ###
 export const useGetProfileDashboardListQuery = (userId: string = '') => {
     return useQuery({
@@ -103,7 +99,7 @@ export const useAddPostsToCustomDashboardMutation = (profileId: string) => {
 }
 
 // ### DELETE ###
-export const useDeleteDashboardMutation = () => {
+export const useDeleteDashboardMutation = (userId: string) => {
     const queryClient = useQueryClient()
 
     return useMutation({
@@ -112,7 +108,7 @@ export const useDeleteDashboardMutation = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.profileDashboardsList],
+                queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
             })
 
             queryClient.invalidateQueries({
