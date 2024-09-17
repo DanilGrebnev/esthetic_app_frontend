@@ -1,7 +1,7 @@
 'use client'
 
 import { ButtonGroup } from '@/features/user/ui/UserHeaderLayout/ui/ButtonGroup/ButtonGroup'
-import { useGetPublicProfile } from '@/shared/api/users'
+import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { type FC } from 'react'
 
@@ -13,7 +13,7 @@ interface UserHeaderLayoutProps {
 }
 
 export const UserHeaderLayout: FC<UserHeaderLayoutProps> = ({ userId }) => {
-    const { data, isPending } = useGetPublicProfile({ userId })
+    const { data, isPending } = useGetPublicProfileQuery({ userId })
 
     if (data && !('user' in data))
         return <h1>Ошикба получения профиля пользователя</h1>

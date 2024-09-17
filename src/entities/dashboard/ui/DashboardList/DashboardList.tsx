@@ -1,7 +1,7 @@
 'use client'
 
-import { useGetProfileDashboardsList } from '@/shared/api/dashboards'
-import { useGetPublicProfile } from '@/shared/api/users'
+import { useGetProfileDashboardListQuery } from '@/shared/api/dashboards'
+import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { DashboardTile, FavoritesTile } from '@/shared/ui/Tiles'
 import { type FC, createContext } from 'react'
@@ -15,10 +15,10 @@ interface DashboardListProps {
 export const DashboardList: FC<DashboardListProps> = (props) => {
     const { userId = '' } = props
 
-    const { data, isPending } = useGetProfileDashboardsList(userId)
+    const { data, isPending } = useGetProfileDashboardListQuery(userId)
 
     const { data: profileData, isPending: profilePending } =
-        useGetPublicProfile({ userId })
+        useGetPublicProfileQuery({ userId })
 
     if (isPending) return <h1>Загрузка</h1>
     const favorites = data?.favorites

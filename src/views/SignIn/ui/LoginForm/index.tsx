@@ -1,6 +1,6 @@
 'use client'
 
-import { useMutationLoginQuery } from '@/shared/api/users'
+import { useLoginMutation } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { UsersLoginBody } from '@/shared/types/user'
 import { Button } from '@/shared/ui/Button'
@@ -18,7 +18,7 @@ export const LoginForm = () => {
     const { handleSubmit, register } = useForm<UsersLoginBody>()
     const router = useRouter()
 
-    const { mutate, isPending, isSuccess, isError } = useMutationLoginQuery({
+    const { mutate, isPending, isSuccess, isError } = useLoginMutation({
         onSuccess: () => {
             router.push(routes.main.getRoute())
         },

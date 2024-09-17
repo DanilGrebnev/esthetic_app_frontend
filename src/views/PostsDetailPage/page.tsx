@@ -17,7 +17,8 @@ interface DetailPostsParams {
 }
 
 export const PostsDetailPage = ({ params }: DetailPostsParams) => {
-    const pathToImg = consts.pathToImage + 't1.jpg'
+    // const pathToImg = consts.pathToImage + 't1.jpg'
+
     const { data: postData, isPending } = useGetDetailPostsQuery(params.postId)
 
     if (isPending || !postData) {
@@ -42,11 +43,12 @@ export const PostsDetailPage = ({ params }: DetailPostsParams) => {
 
                 <div className={s.content}>
                     <PostsDetailHeader
+                        postId={post?.postId}
                         title={post.name}
                         description={post?.description}
                         className={s['content__header']}
-                        authorAvatar={post.author.avatar}
                         pathToImg={post?.media?.url}
+                        author={post?.author}
                     />
                     <PostsDetailComments
                         count={1}

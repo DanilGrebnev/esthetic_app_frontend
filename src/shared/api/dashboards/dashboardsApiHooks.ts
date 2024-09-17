@@ -2,20 +2,17 @@ import { queryKeys } from '@/shared/api/QueryKeys'
 import { createBaseResponse } from '@/shared/types/apiResponses'
 import { ArgsWithEnabled } from '@/shared/types/commonApiTypes'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { queryOptions } from '@tanstack/react-query'
-import { Params } from 'express-serve-static-core'
-import { useMemo } from 'react'
 
 import { dashboardsApi } from './dashboardsApi'
 
-interface Option {
-    onSuccess?: () => void
+interface Options {
+    userId: string
 }
 
 // ### GET ###
-export const useGetProfileDashboardsList = (userId: string = '') => {
+export const useGetProfileDashboardListQuery = (userId: string = '') => {
     return useQuery({
-        queryKey: [queryKeys.dashboards.profileDashboardsList],
+        queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
         queryFn: ({ signal }) =>
             dashboardsApi.getProfileDashboardsList({ userId, signal }),
         retry: false,
@@ -23,7 +20,7 @@ export const useGetProfileDashboardsList = (userId: string = '') => {
     })
 }
 
-export const useGetAllDashboardsByCookie = (args?: ArgsWithEnabled) => {
+export const useGetDashboardListByCookieQuery = (args?: ArgsWithEnabled) => {
     return useQuery({
         queryFn: ({ signal }) =>
             dashboardsApi.getDashboardsByCookie({ signal }),
@@ -34,15 +31,13 @@ export const useGetAllDashboardsByCookie = (args?: ArgsWithEnabled) => {
 }
 
 // ### POST ##
-export const useCreateDashboardMutation = (option?: Option) => {
+export const useCreateDashboardMutation = (userId: string) => {
     const queryClient = useQueryClient()
-    const controller = useMemo(() => new AbortController(), [])
 
     return useMutation({
         mutationFn: async (dashboardName: string) => {
             const res = await dashboardsApi.createDashboard({
                 dashboardName,
-                signal: controller.signal,
             })
 
             if (res?.status === 400) {
@@ -59,14 +54,18 @@ export const useCreateDashboardMutation = (option?: Option) => {
 
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.profileDashboardsList],
+                queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
             })
-            option?.onSuccess?.()
+
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.dashboardsByCookie],
+            })
         },
     })
 }
 
-export const useAddPostsToFavoritesDashboard = () => {
+/* Добавление поста в доску избранного */
+export const useAddPostsToFavoritesDashboardMutation = (userId: string) => {
     const queryClient = useQueryClient()
 
     return useMutation({
@@ -74,25 +73,29 @@ export const useAddPostsToFavoritesDashboard = () => {
         retry: false,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: [
-                    queryKeys.dashboards.profileDashboardsList,
-                    queryKeys.dashboards.dashboardsByCookie,
-                ],
+                queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
+            })
+
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.dashboardsByCookie],
             })
         },
     })
 }
 
-export const useAddPostsToCustomDashboard = () => {
+/* Добавление поста в кастомную доску */
+export const useAddPostsToCustomDashboardMutation = (profileId: string) => {
     const queryClient = useQueryClient()
 
     return useMutation({
         mutationFn: dashboardsApi.addPostsToCustomDashboard,
         onSuccess: () => {
             queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.dashboardsByCookie],
+            })
+            queryClient.invalidateQueries({
                 queryKey: [
-                    queryKeys.dashboards.profileDashboardsList,
-                    queryKeys.dashboards.dashboardsByCookie,
+                    queryKeys.dashboards.profileDashboardsList(profileId),
                 ],
             })
         },
@@ -110,6 +113,10 @@ export const useDeleteDashboardMutation = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList],
+            })
+
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.dashboardsByCookie],
             })
         },
     })

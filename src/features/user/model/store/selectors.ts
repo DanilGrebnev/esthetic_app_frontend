@@ -5,7 +5,7 @@ export const useSetPublicProfileSelector = () => {
 }
 
 /* Получение общедоступного профиля пользователя из хранилища */
-export const useGetPublicProfileSelector = () => {
+export const useGetPublicProfileQuerySelector = () => {
     return useUserStore((s) => s.publicProfile)
 }
 

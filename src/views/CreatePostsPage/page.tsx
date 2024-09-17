@@ -13,9 +13,11 @@ import { CreatePostButton } from './ui/CreatePostButton'
 export const CreatePosts = () => {
     const router = useRouter()
     const submitButtonRef = useRef<HTMLButtonElement>(null)
-    const { mutate, isPending, isSuccess } = useCreatePostsMutation()
 
     const { data: privateProfile } = useGetPrivateProfileQuery()
+    const { mutate, isPending, isSuccess } = useCreatePostsMutation(
+        privateProfile?.userId || '',
+    )
 
     useEffect(() => {
         if (isSuccess) {

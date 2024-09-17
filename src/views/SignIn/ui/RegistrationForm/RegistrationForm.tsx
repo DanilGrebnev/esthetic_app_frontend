@@ -2,7 +2,7 @@
 
 import { UploadUserAvatar } from '@/features/user'
 import { ValidationInputs } from '@/shared/ValidationInputs'
-import { useMutationRegistrationQuery } from '@/shared/api/users'
+import { useRegistrationMutation } from '@/shared/api/users'
 import { recommendedTagsInitState } from '@/shared/mock/recommendedTagsData'
 import { routes } from '@/shared/routes'
 import { type CreateUser } from '@/shared/types/user'
@@ -35,7 +35,7 @@ export const RegistrationForm = () => {
     })
     const router = useRouter()
 
-    const { mutateAsync, isPending, isSuccess } = useMutationRegistrationQuery()
+    const { mutateAsync, isPending, isSuccess } = useRegistrationMutation()
 
     const onSubmit = handleSubmit(async (_, e) => {
         const formData = new FormData(e?.target)

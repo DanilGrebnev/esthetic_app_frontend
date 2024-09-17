@@ -13,19 +13,18 @@ export const useGetPrivateProfileQuery = (options?: { enabled?: boolean }) => {
     })
 }
 
-export const useGetPublicProfile = (args: { userId: string }) => {
+export const useGetPublicProfileQuery = (args: { userId: string }) => {
     return useQuery({
         queryKey: [queryKeys.users.publicProfile],
         queryFn: () => usersApi.publicProfile(args.userId),
     })
 }
 
-export const useMutationLoginQuery = (options?: {
+export const useLoginMutation = (options?: {
     onSuccess?: (data: UserProfile) => void
     onError?: (error: any) => void
 }) => {
     const queryClient = useQueryClient()
-
     return useMutation({
         mutationFn: (body: UsersLoginBody) => usersApi.login(body),
         onError: options?.onError,
@@ -41,7 +40,7 @@ export const useMutationLoginQuery = (options?: {
     })
 }
 
-export const useMutationLogout = () => {
+export const useLogoutMutation = () => {
     const queryClient = useQueryClient()
 
     return useMutation({
@@ -54,15 +53,15 @@ export const useMutationLogout = () => {
     })
 }
 
-export const useMutationRegistrationQuery = () => {
+export const useRegistrationMutation = () => {
     return useMutation({
         mutationFn: (body: FormData) => usersApi.registration(body),
     })
 }
 
-export const useGetAllCreatedUsersPosts = (userId: string) => {
+export const useGetCreatedUserPostsQuery = (userId: string) => {
     return useQuery({
-        queryKey: [queryKeys.users.createdPosts],
+        queryKey: [queryKeys.users.createdPosts(userId)],
         queryFn: ({ signal }) =>
             usersApi.getAllCreatedUsersPosts({ userId, signal }),
     })

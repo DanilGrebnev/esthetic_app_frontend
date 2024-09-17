@@ -4,7 +4,7 @@ import {
     MasonryContainerWithBreakPoints,
     PostsListContainerWithBreakpoints,
 } from '@/entities/posts'
-import { useGetAllCreatedUsersPosts } from '@/shared/api/users'
+import { useGetCreatedUserPostsQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { PostsCard } from '@/widgets/PostsCard'
 import { type FC } from 'react'
@@ -14,7 +14,7 @@ interface CreatedPostsPageProps {
 }
 
 export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
-    const { data } = useGetAllCreatedUsersPosts(props.userId)
+    const { data } = useGetCreatedUserPostsQuery(props.userId)
 
     const posts = data?.posts
 

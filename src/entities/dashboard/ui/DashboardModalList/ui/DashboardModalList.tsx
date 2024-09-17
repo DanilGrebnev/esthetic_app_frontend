@@ -2,10 +2,11 @@
 
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import {
-    useAddPostsToCustomDashboard,
-    useAddPostsToFavoritesDashboard,
-    useGetAllDashboardsByCookie,
+    useAddPostsToCustomDashboardMutation,
+    useAddPostsToFavoritesDashboardMutation,
+    useGetDashboardListByCookieQuery,
 } from '@/shared/api/dashboards'
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
 
@@ -29,15 +30,17 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
         data: dashboardsData,
         isPending: initialDashboardListLoading,
         isError: getDashboardsError,
-    } = useGetAllDashboardsByCookie({ enabled: !!authData?.isAuth })
+    } = useGetDashboardListByCookieQuery({ enabled: !!authData?.isAuth })
+
+    const { data: privateProfile } = useGetPrivateProfileQuery()
 
     const { mutate: addToFavorite, isPending: addToFavoritePending } =
-        useAddPostsToFavoritesDashboard()
+        useAddPostsToFavoritesDashboardMutation(privateProfile?.userId || '')
 
     const {
         mutate: addToCustomDashboard,
         isPending: pendingAddPostsToCustomDashboard,
-    } = useAddPostsToCustomDashboard()
+    } = useAddPostsToCustomDashboardMutation(privateProfile?.userId || '')
 
     return (
         <div
@@ -51,7 +54,7 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                     <DashboardGroupContainer groupName='Быстрое сохранение'>
                         <DashboardItem
                             onClick={() => addToFavorite(postsId)}
-                            image={dashboardsData?.favorites?.url?.[0]}
+                            image={dashboardsData?.favorites?.url}
                             loading={addToFavoritePending}
                             skeleton={initialDashboardListLoading}
                             dashboardName='Избранное'
@@ -75,7 +78,7 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                                             postsId,
                                         })
                                     }}
-                                    image={dashboard?.url?.[0]}
+                                    image={dashboard?.url}
                                     dashboardName={dashboardName}
                                 />
                             )

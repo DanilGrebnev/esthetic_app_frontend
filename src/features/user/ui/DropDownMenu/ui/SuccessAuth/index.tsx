@@ -1,12 +1,12 @@
 'use client'
 
-import { useMutationLogout } from '@/shared/api/users'
+import { useLogoutMutation } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 
 import { DropDownItem } from '../DropDownItem/DropDownItem'
 
 export const SuccessAuth = (props?: { userId?: string }) => {
-    const { mutate } = useMutationLogout()
+    const { mutate } = useLogoutMutation()
 
     return (
         <>

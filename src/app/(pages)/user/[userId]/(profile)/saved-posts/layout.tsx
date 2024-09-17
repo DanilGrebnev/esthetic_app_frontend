@@ -1,7 +1,7 @@
 'use client'
 
 import { CreateDashboardButton } from '@/entities/dashboard/ui/CreateDashboardButton'
-import { useGetPublicProfile } from '@/shared/api/users'
+import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { FC, ReactNode, useEffect } from 'react'
 
@@ -16,7 +16,7 @@ interface Layout {
 const Layout: FC<Layout> = (props) => {
     const { children, params } = props
 
-    const { data } = useGetPublicProfile({ userId: params?.userId })
+    const { data } = useGetPublicProfileQuery({ userId: params?.userId })
 
     return (
         <Container size='l'>

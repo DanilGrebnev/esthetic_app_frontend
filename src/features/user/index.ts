@@ -4,7 +4,7 @@ export { UserProfileIcon } from './ui/UserProfileIcon/UserProfileIcon'
 export {
     useGetPrivateProfileSelector,
     useSetPublicProfileSelector,
-    useGetPublicProfileSelector,
+    useGetPublicProfileQuerySelector,
     useSetPrivateProfileSelector,
 } from './model/store/selectors'
 

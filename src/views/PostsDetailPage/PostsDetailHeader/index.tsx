@@ -1,5 +1,6 @@
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
+import { TAuthor } from '@/shared/types/user'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
@@ -9,17 +10,19 @@ import s from './s.module.scss'
 interface PostsDetailHeaderProps {
     className?: string
     pathToImg: string
-    authorAvatar: string
     description: string
     title: string
+    author: TAuthor
+    postId: string
 }
 
 export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
     className,
     pathToImg,
-    authorAvatar,
     description,
     title,
+    author,
+    postId,
 }) => {
     return (
         <header className={clsx(s.header, className)}>
@@ -32,7 +35,7 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                     /*
                      * TODO: СТРАНИЦА ДЕТАЛКИ ПОСТОВ - добавить реальный postsId
                      *  в кнопку сохранения поста */
-                    postsId={'postsId'}
+                    postsId={postId}
                     className={s['save-btn']}
                 >
                     Сохранить
@@ -47,10 +50,12 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                 )}
                 <div className={s['user-info']}>
                     <UserAvatar
-                        href={authorAvatar}
+                        href={author?.avatar}
                         size='m'
                     />
-                    <span>Данил Гребнев</span>
+                    <span>
+                        {author?.firstName} {author?.lastName}
+                    </span>
                 </div>
             </div>
         </header>

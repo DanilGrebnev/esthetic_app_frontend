@@ -1,6 +1,7 @@
 'use client'
 
 import { useCreateDashboardMutation } from '@/shared/api/dashboards'
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { BaseResponseType } from '@/shared/types/apiResponses'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
@@ -32,7 +33,11 @@ export const CreateDashboardButton: FC<CreateDashboardButtonProps> = () => {
 
     const [openModal, setOpenModal] = useState(false)
 
-    const { mutateAsync, isPending } = useCreateDashboardMutation()
+    const { data: privateProfile } = useGetPrivateProfileQuery()
+
+    const { mutateAsync, isPending } = useCreateDashboardMutation(
+        privateProfile?.userId || '',
+    )
 
     const onCloseModal = useCallback(() => {
         setOpenModal(false)
