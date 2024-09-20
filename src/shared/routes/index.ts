@@ -30,12 +30,13 @@ export const routes = {
             return `/user/${userId}/dashboard-detail/${dashboardId}`
         },
     },
-    userSavedPosts: {
+
+    userDashboards: {
         getRoute(userId?: string) {
-            return `/user/${userId}/saved-posts`
+            return `/user/${userId}/dashboards`
         },
         math(route: string) {
-            return /\/user\/.+\/saved-posts/.test(route)
+            return /\/user\/.+\/dashboards/.test(route)
         },
     },
     userAllSavedPosts: {

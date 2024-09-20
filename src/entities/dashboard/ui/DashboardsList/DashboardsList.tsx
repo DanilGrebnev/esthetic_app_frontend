@@ -4,15 +4,16 @@ import { useGetProfileDashboardListQuery } from '@/shared/api/dashboards'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { DashboardTile, FavoritesTile } from '@/shared/ui/Tiles'
-import { type FC, createContext } from 'react'
+import { type FC } from 'react'
 
 import { DashboardsContainer } from '../DashboardsContainer'
+import { DashboardsListSkeleton } from '../DashboardsListSkeleton'
 
 interface DashboardListProps {
     userId?: string
 }
 
-export const DashboardList: FC<DashboardListProps> = (props) => {
+export const DashboardsList: FC<DashboardListProps> = (props) => {
     const { userId = '' } = props
 
     const { data, isPending } = useGetProfileDashboardListQuery(userId)
@@ -20,7 +21,7 @@ export const DashboardList: FC<DashboardListProps> = (props) => {
     const { data: profileData, isPending: profilePending } =
         useGetPublicProfileQuery({ userId })
 
-    if (isPending) return <h1>Загрузка</h1>
+    if (isPending) return <DashboardsListSkeleton />
     const favorites = data?.favorites
 
     return (
@@ -51,4 +52,4 @@ export const DashboardList: FC<DashboardListProps> = (props) => {
     )
 }
 
-DashboardList.displayName = 'DashboardList'
+DashboardsList.displayName = 'DashboardsList'

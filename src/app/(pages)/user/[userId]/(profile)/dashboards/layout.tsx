@@ -2,10 +2,7 @@
 
 import { CreateDashboardButton } from '@/entities/dashboard/ui/CreateDashboardButton'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
-import { Container } from '@/shared/ui/Container'
-import { FC, ReactNode, useEffect } from 'react'
-
-import s from './layout.module.scss'
+import type { FC, ReactNode } from 'react'
 
 interface Layout {
     children?: ReactNode
@@ -13,16 +10,17 @@ interface Layout {
         userId: string
     }
 }
+
 const Layout: FC<Layout> = (props) => {
     const { children, params } = props
 
     const { data } = useGetPublicProfileQuery({ userId: params?.userId })
 
     return (
-        <Container size='l'>
+        <div id='Users dashboards'>
             {data?.guest?.isOwner && <CreateDashboardButton />}
             {children}
-        </Container>
+        </div>
     )
 }
 

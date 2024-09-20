@@ -7,7 +7,7 @@ import { stopPropAndPrevDef } from '@/shared/utils/stopPropAndPrevDef'
 import clsx from 'clsx'
 import { type FC, useRef, useState } from 'react'
 
-import { ITilesInfo } from '../tyles-types'
+import { ITilesInfo } from '../../model/tyles-types'
 import { DeleteDashboardModal } from './DeleteDashboardModal'
 import { TilesDialog } from './TilesDialog'
 import s from './s.module.scss'

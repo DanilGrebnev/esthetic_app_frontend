@@ -15,7 +15,7 @@ interface CreatedPostsPageProps {
 
 export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
     const { data } = useGetCreatedUserPostsQuery(props.userId)
-
+    // TODO: Сделать удаление постов если пользователь авторизован
     const posts = data?.posts
 
     return (

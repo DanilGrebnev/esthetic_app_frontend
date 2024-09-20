@@ -32,9 +32,6 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                     downloadFileName={title}
                 />
                 <SaveToDashboardButton
-                    /*
-                     * TODO: СТРАНИЦА ДЕТАЛКИ ПОСТОВ - добавить реальный postsId
-                     *  в кнопку сохранения поста */
                     postsId={postId}
                     className={s['save-btn']}
                 >

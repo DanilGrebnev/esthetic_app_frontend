@@ -6,7 +6,6 @@ import { Container } from '@/shared/ui/Container'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
 import { UploadFiles } from '@/shared/ui/UploadFile'
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import s from './s.module.scss'

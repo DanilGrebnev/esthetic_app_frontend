@@ -5,17 +5,19 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { type FC, useEffect, useRef, useState } from 'react'
 
+import { type ITilesInfo } from '../model/tyles-types'
+import { Component } from './Component'
 import { TilesInfo } from './TilesInfo'
 import s from './tiles.module.scss'
-import { type ITilesInfo } from './tyles-types'
 
 interface FavoritesTile extends ITilesInfo {
     images: string[] | []
     href: string
+    skeleton?: boolean
 }
 
 export const FavoritesTile: FC<FavoritesTile> = (props) => {
-    const { className, images, href, ...other } = props
+    const { className, images, href, skeleton = false, ...other } = props
 
     const [cardWidth, setCardWidth] = useState<number>(0)
     const [cardWrapperWidth, setCardWrapperWidth] = useState<number>(0)
@@ -63,8 +65,9 @@ export const FavoritesTile: FC<FavoritesTile> = (props) => {
                         const imgUrl = images[i]
 
                         return (
-                            <div
+                            <Component
                                 key={i}
+                                skeleton={skeleton}
                                 ref={i === 0 ? cardRef : undefined}
                                 className={clsx(
                                     s['all-posts__img-' + i],
@@ -85,7 +88,7 @@ export const FavoritesTile: FC<FavoritesTile> = (props) => {
                                         alt='preview'
                                     />
                                 )}
-                            </div>
+                            </Component>
                         )
                     })}
             </div>

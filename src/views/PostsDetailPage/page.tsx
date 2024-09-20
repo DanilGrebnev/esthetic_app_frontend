@@ -1,8 +1,8 @@
 'use client'
 
+// TODO: Сделать страницу поста серверной
 import { CommentariesWriteField } from '@/features/commentaries'
 import { useGetDetailPostsQuery } from '@/shared/api/posts/postsApiHooks'
-import { consts } from '@/shared/consts'
 import { Container } from '@/shared/ui/Container'
 import Image from 'next/image'
 

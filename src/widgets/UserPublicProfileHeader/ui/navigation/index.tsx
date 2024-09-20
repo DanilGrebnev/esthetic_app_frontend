@@ -7,7 +7,7 @@ import { type FC } from 'react'
 
 interface NavigationProps {
     className?: string
-    userId?: string
+    userId: string
 }
 
 export const Navigation: FC<NavigationProps> = ({ className, userId }) => {
@@ -23,8 +23,8 @@ export const Navigation: FC<NavigationProps> = ({ className, userId }) => {
                 Созданные
             </Button>
             <Button
-                href={routes.userSavedPosts.getRoute(userId)}
-                active={routes.userSavedPosts.math(pathname)}
+                href={routes.userDashboards.getRoute(userId)}
+                active={routes.userDashboards.math(pathname)}
                 activeVariant='active-underline'
             >
                 Сохранённые

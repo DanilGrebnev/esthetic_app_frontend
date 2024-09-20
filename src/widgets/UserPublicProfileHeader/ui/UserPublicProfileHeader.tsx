@@ -1,29 +1,34 @@
-'use client'
-
-import { ButtonGroup } from '@/features/user/ui/UserHeaderLayout/ui/ButtonGroup/ButtonGroup'
-import { useGetPublicProfileQuery } from '@/shared/api/users'
+import { getUserPublicProfileServerAction } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { type FC } from 'react'
 
-import s from './UserHeaderLayout.module.scss'
+import { ButtonGroup } from './ButtonGroup/ButtonGroup'
+import s from './UserPublicProfileHeader.module.scss'
 import { Navigation } from './navigation'
 
 interface UserHeaderLayoutProps {
     userId: string
 }
 
-export const UserHeaderLayout: FC<UserHeaderLayoutProps> = ({ userId }) => {
-    const { data, isPending } = useGetPublicProfileQuery({ userId })
+export const UserPublicProfileHeader: FC<UserHeaderLayoutProps> = async ({
+    userId,
+}) => {
+    // await new Promise((resolve) => {
+    //     setTimeout(() => {
+    //         resolve(<h1></h1>)
+    //     }, 3000)
+    // })
+    const data = await getUserPublicProfileServerAction(userId)
 
     if (data && !('user' in data))
         return <h1>Ошикба получения профиля пользователя</h1>
+
     const user = data?.user
 
     return (
         <header className={s.header}>
             <UserAvatar
                 size='xl'
-                placeholder={isPending}
                 word={user?.firstName[0].toUpperCase()}
                 href={user?.avatar}
             />
@@ -35,10 +40,7 @@ export const UserHeaderLayout: FC<UserHeaderLayoutProps> = ({ userId }) => {
                 подписки: {user?.subscribersAmount}
             </p>
 
-            <ButtonGroup
-                isOwner={data?.guest?.isOwner}
-                userId={user?.userId}
-            />
+            <ButtonGroup userId={user?.userId} />
             <Navigation
                 userId={userId}
                 className={s['navigation-group']}
@@ -47,4 +49,4 @@ export const UserHeaderLayout: FC<UserHeaderLayoutProps> = ({ userId }) => {
     )
 }
 
-UserHeaderLayout.displayName = 'UserHeaderLayout'
+UserPublicProfileHeader.displayName = 'UserHeaderLayout'

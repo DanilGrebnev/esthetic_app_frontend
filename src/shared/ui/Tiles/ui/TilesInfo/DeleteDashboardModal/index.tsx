@@ -1,9 +1,10 @@
 import { useDeleteDashboardMutation } from '@/shared/api/dashboards'
 import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
-import { TileContext } from '@/shared/ui/Tiles/tileContext'
 import { BaseModalWindow } from '@/shared/ui/modal'
 import { FC, useContext, useEffect } from 'react'
+
+import { TileContext } from '../../../model/tileContext'
 
 interface DeleteDashboardModalModalProps {
     onClose: () => void

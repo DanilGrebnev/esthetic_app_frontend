@@ -23,7 +23,7 @@ export const UserProfileIcon = () => {
 
     const redirect = () => {
         if (authData?.isAuth && userData) {
-            router.push(routes.userSavedPosts.getRoute(userData.userId))
+            router.push(routes.userDashboards.getRoute(userData.userId))
             return
         }
         router.push(routes.login.getRoute())

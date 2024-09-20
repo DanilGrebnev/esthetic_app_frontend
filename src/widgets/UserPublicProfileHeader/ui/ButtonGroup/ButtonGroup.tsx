@@ -1,18 +1,25 @@
+'use client'
+
+import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { Button } from '@/shared/ui/Button'
 import { type FC } from 'react'
 
 import s from './ButtonGroup.module.scss'
+import { ButtonGroupSkeleton } from './ButtonGroupSkeleton'
 
 interface ButtonGroupProps {
-    isOwner?: boolean
-    userId?: string
+    userId: string
 }
 
-export const ButtonGroup: FC<ButtonGroupProps> = ({ isOwner, userId }) => {
+export const ButtonGroup: FC<ButtonGroupProps> = ({ userId }) => {
+    const { data, isPending } = useGetPublicProfileQuery({ userId })
+
+    if (isPending) return <ButtonGroupSkeleton />
+
     return (
         <div className={s['btn-group']}>
-            {isOwner ? (
+            {data?.guest?.isOwner ? (
                 <Button variant='silver'>Поделиться</Button>
             ) : (
                 <Button variant='silver'>Подписаться</Button>

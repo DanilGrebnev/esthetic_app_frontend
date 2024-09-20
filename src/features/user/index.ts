@@ -7,5 +7,3 @@ export {
     useGetPublicProfileQuerySelector,
     useSetPrivateProfileSelector,
 } from './model/store/selectors'
-
-export { UserHeaderLayout } from './ui/UserHeaderLayout'

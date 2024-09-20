@@ -90,4 +90,4 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
     )
 }
 
-DashboardModalList.displayName = 'DashboardList'
+DashboardModalList.displayName = 'DashboardsList'

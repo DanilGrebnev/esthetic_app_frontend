@@ -1,5 +1,9 @@
-import { UserHeaderLayout } from '@/features/user'
-import type { FC, ReactNode } from 'react'
+import { Container } from '@/shared/ui/Container'
+import {
+    UserPublicProfileHeader,
+    UserPublicProfileHeaderSkeleton,
+} from '@/widgets/UserPublicProfileHeader'
+import { type FC, type ReactNode, Suspense } from 'react'
 
 interface UserLayout {
     children: ReactNode
@@ -10,10 +14,15 @@ interface UserLayout {
 
 const UserLayout: FC<UserLayout> = ({ children, params }) => {
     return (
-        <div id='User layout'>
-            <UserHeaderLayout userId={params.userId} />
+        <Container
+            size='l'
+            id='User layout'
+        >
+            <Suspense fallback={<UserPublicProfileHeaderSkeleton />}>
+                <UserPublicProfileHeader userId={params.userId} />
+            </Suspense>
             {children}
-        </div>
+        </Container>
     )
 }
 
