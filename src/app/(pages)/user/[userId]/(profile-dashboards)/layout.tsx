@@ -1,22 +1,34 @@
 import { UserProfileIcon } from '@/features/user'
-import { Layout } from '@/shared/types/layout'
+import { getUserPublicProfileServerAction } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import s from './s.module.scss'
 
-const ProfileDashboardsLayout: FC<Layout> = ({ children }) => {
+interface ProfileDashboardsLayoutProps {
+    children?: ReactNode
+    params: {
+        userId: string
+    }
+}
+
+const ProfileDashboardsLayout: FC<ProfileDashboardsLayoutProps> = async ({
+    children,
+    params,
+}) => {
+    const userProfile = await getUserPublicProfileServerAction(params.userId)
+
     return (
-        <div>
-            <Container className={s.layout}>
-                <h1 className={s.title}>Cars</h1>
-                <div className={s['author-info']}>
-                    <UserProfileIcon />
-                    <div className={s['author-name']}>Jora Ichanov</div>
+        <Container className={s.layout}>
+            <h1 className={s.title}>Cars</h1>
+            <div className={s['author-info']}>
+                <UserProfileIcon />
+                <div className={s['author-name']}>
+                    {userProfile.user.firstName} {userProfile.user.lastName}
                 </div>
-            </Container>
+            </div>
             {children}
-        </div>
+        </Container>
     )
 }
 

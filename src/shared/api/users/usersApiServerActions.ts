@@ -10,6 +10,7 @@ export const getUserPublicProfileServerAction = async (
         consts.baseApiUrl + '/users/public-profile/' + userId,
         { cache: 'no-cache' },
     )
+
     const response = await res.json()
 
     return response

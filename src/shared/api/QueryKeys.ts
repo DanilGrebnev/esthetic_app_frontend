@@ -10,9 +10,11 @@ class QueryKeys {
     } as const
 
     readonly dashboards = {
-        profileDashboardsList: (userId: string) =>
-            'profile-dashboards-list-userid=' + userId,
-        dashboardsByCookie: 'dashboards-by-cookie',
+        // Список досок пользователя
+        profileDashboardsList: 'profile-dashboards-list',
+        getDashboardsListByCookie: 'dashboards-by-cookie',
+        checkPostInDashboard: 'check-post-in-dashboard',
+        dashboardsDetail: 'dashboards-detail',
     } as const
 
     readonly posts = {

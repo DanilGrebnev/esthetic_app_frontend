@@ -1,14 +1,16 @@
 'use client'
 
+import { queryKeys } from '@/shared/api/QueryKeys'
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import {
     useAddPostsToCustomDashboardMutation,
     useAddPostsToFavoritesDashboardMutation,
+    useCheckPostInDashboard,
     useGetDashboardListByCookieQuery,
 } from '@/shared/api/dashboards'
 import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { clsx } from 'clsx'
-import { type FC } from 'react'
+import { type FC, useEffect } from 'react'
 
 import { DashboardGroupContainer } from './DashboardGroupContainer'
 import { DashboardItem } from './DashboardItem'
@@ -28,18 +30,29 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
 
     const {
         data: dashboardsData,
-        isPending: initialDashboardListLoading,
+        isPending: pendingInitialDashboardList,
         isError: getDashboardsError,
     } = useGetDashboardListByCookieQuery({ enabled: !!authData?.isAuth })
 
+    const {
+        data: postsCheck,
+        isPending: pendingPostCheck,
+        isFetching: fetchingPostsCheck,
+    } = useCheckPostInDashboard({ postsId, enabled: !!dashboardsData })
+
+    useEffect(() => {
+        console.log('pendingPostCheck', pendingPostCheck)
+        console.log('fetchingPostsCheck', fetchingPostsCheck)
+    }, [pendingPostCheck, fetchingPostsCheck])
+
     const { data: privateProfile } = useGetPrivateProfileQuery()
 
-    const { mutate: addToFavorite, isPending: addToFavoritePending } =
+    const { mutate: addToFavorite, isPending: pendingAddToFavorite } =
         useAddPostsToFavoritesDashboardMutation(privateProfile?.userId || '')
 
     const {
-        mutate: addToCustomDashboard,
-        isPending: pendingAddPostsToCustomDashboard,
+        mutateAsync: addToCustomDashboard,
+        isPending: pendingAddToCustomDashboard,
     } = useAddPostsToCustomDashboardMutation(privateProfile?.userId || '')
 
     return (
@@ -54,15 +67,18 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                     <DashboardGroupContainer groupName='Быстрое сохранение'>
                         <DashboardItem
                             onClick={() => addToFavorite(postsId)}
+                            dashboardId={''}
+                            postsId={postsId}
                             image={dashboardsData?.favorites?.url}
-                            loading={addToFavoritePending}
-                            skeleton={initialDashboardListLoading}
+                            loading={pendingAddToFavorite || fetchingPostsCheck}
+                            skeleton={pendingInitialDashboardList}
                             dashboardName='Избранное'
+                            deleteBtn={postsCheck?.inFavorites}
                         />
                     </DashboardGroupContainer>
 
                     <DashboardGroupContainer groupName='Сохранение на доске'>
-                        {initialDashboardListLoading && (
+                        {pendingInitialDashboardList && (
                             <DashboardListSkeleton amount={5} />
                         )}
                         {dashboardsData?.dashboards?.map((dashboard) => {
@@ -71,15 +87,23 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                             return (
                                 <DashboardItem
                                     key={dashboardId}
-                                    loading={pendingAddPostsToCustomDashboard}
+                                    loading={
+                                        pendingAddToCustomDashboard ||
+                                        fetchingPostsCheck
+                                    }
+                                    dashboardId={dashboardId}
+                                    postsId={postsId}
                                     onClick={() => {
                                         addToCustomDashboard({
                                             dashboardId,
                                             postsId,
                                         })
                                     }}
-                                    image={dashboard?.url}
+                                    deleteBtn={postsCheck?.inDashboards.includes(
+                                        dashboardId,
+                                    )}
                                     dashboardName={dashboardName}
+                                    image={dashboard?.url}
                                 />
                             )
                         })}

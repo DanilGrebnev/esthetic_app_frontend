@@ -3,6 +3,7 @@ import {
     UserPublicProfileHeader,
     UserPublicProfileHeaderSkeleton,
 } from '@/widgets/UserPublicProfileHeader'
+import type { Metadata } from 'next'
 import { type FC, type ReactNode, Suspense } from 'react'
 
 interface UserLayout {

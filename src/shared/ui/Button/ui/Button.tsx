@@ -27,6 +27,7 @@ export const Button = memo(
             loading,
             onClick,
             fullWidth,
+            size = 'l',
             ...other
         } = props
         const router = useRouter()
@@ -59,6 +60,8 @@ export const Button = memo(
                         [s['h-full']]: heightSize === 'full',
                         [s['h-content']]: heightSize === 'content',
                         [s[activeVariant]]: active,
+                        [s['size-l']]: size === 'l',
+                        [s['size-m']]: size === 'm',
                         [s.loading]: loading,
                     },
                     className,

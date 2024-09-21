@@ -2,9 +2,11 @@ import { apiInstance } from '@/shared/api/Instance'
 import { BadRequest, SuccessResponse } from '@/shared/types/apiResponses'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 import type {
+    CheckPostInDashboardResponse,
     DashboardsByCookie,
     UsersDashboardList,
 } from '@/shared/types/dashboards'
+import { Arg } from 'citty'
 
 interface CreateDashboard {
     dashboardName: string
@@ -21,6 +23,18 @@ class DashboardsApi {
         return apiInstance
             .get(this.baseUrl + `/${userId}` + '/list', { signal })
             .json<UsersDashboardList>()
+    }
+
+    // Получение списка постов по dashboardId
+    getDashboardDetail = ({
+        dashboardsId,
+        signal,
+    }: ArgsWithSignal<{ dashboardsId: string }>) => {
+        return apiInstance
+            .get(this.baseUrl + `/${dashboardsId}`, {
+                signal,
+            })
+            .json()
     }
 
     createDashboard = (args: CreateDashboard) => {
@@ -56,7 +70,7 @@ class DashboardsApi {
         })
     }
 
-    getDashboardsByCookie = (args: ArgsWithSignal) => {
+    getDashboardsListByCookie = (args: ArgsWithSignal) => {
         const { signal } = args
         return apiInstance
             .get(this.baseUrl, {
@@ -70,6 +84,30 @@ class DashboardsApi {
         return apiInstance.delete(this.baseUrl + '/' + dashboardId, {
             credentials: 'include',
         })
+    }
+
+    deletePostsFromDashboard = ({
+        dashboardId,
+        postsId,
+    }: {
+        dashboardId: string
+        postsId: string
+    }) => {
+        return apiInstance.delete(
+            this.baseUrl + `/${dashboardId}/delete-posts`,
+            {
+                credentials: 'include',
+                json: { postsId },
+            },
+        )
+    }
+
+    checkPostInDashboard = (postId: string) => {
+        return apiInstance
+            .get(this.baseUrl + `/check-posts?postid=${postId}`, {
+                credentials: 'include',
+            })
+            .json<CheckPostInDashboardResponse>()
     }
 }
 export const dashboardsApi = new DashboardsApi()

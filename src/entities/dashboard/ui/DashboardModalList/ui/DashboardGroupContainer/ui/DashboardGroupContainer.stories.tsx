@@ -12,6 +12,8 @@ const meta: Meta<typeof DashboardGroupContainer> = {
             .fill('')
             .map((el, i) => (
                 <DashboardItem
+                    dashboardId={''}
+                    postsId={''}
                     key={i}
                     dashboardName='asd'
                     loading={i % 2 !== 1}

@@ -20,3 +20,8 @@ export interface DashboardsByCookie {
 
     dashboards: [{ dashboardId: string; dashboardName: string; url: string }]
 }
+
+export interface CheckPostInDashboardResponse {
+    inFavorites: boolean
+    inDashboards: string[]
+}

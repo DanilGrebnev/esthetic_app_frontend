@@ -9,4 +9,5 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'> {
     variant?: 'standart' | 'red' | 'silver'
     loading?: boolean
     fullWidth?: boolean
+    size?: 'm' | 'l'
 }

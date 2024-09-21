@@ -14,6 +14,8 @@ export const DashboardListSkeleton: FC<DashboardListSkeletonProps> = ({
         .fill('')
         .map((_, i) => (
             <DashboardItem
+                dashboardId={''}
+                postsId={''}
                 key={i}
                 skeleton={true}
                 dashboardName='Загрузка dashboard'

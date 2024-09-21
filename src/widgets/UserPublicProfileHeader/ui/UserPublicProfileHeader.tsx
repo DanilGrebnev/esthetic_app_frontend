@@ -13,11 +13,6 @@ interface UserHeaderLayoutProps {
 export const UserPublicProfileHeader: FC<UserHeaderLayoutProps> = async ({
     userId,
 }) => {
-    // await new Promise((resolve) => {
-    //     setTimeout(() => {
-    //         resolve(<h1></h1>)
-    //     }, 3000)
-    // })
     const data = await getUserPublicProfileServerAction(userId)
 
     if (data && !('user' in data))

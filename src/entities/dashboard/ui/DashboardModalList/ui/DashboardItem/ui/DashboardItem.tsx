@@ -1,10 +1,12 @@
 'use client'
 
+import { useDeletePostsFromDashboardMutation } from '@/shared/api/dashboards'
+import { Button } from '@/shared/ui/Button'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC } from 'react'
+import { type FC, useEffect } from 'react'
 
 import { getDashboardItemTitle } from '../model/utils'
 import { Placeholder } from './Placeholder'
@@ -17,18 +19,40 @@ interface DashboardItemProps {
     skeleton?: boolean
     image?: string
     onClick?: () => void
+    deleteBtn?: boolean
+    dashboardId: string
+    postsId: string
 }
 
 export const DashboardItem: FC<DashboardItemProps> = (props) => {
-    const { loading, dashboardName, onClick, image, disabled, skeleton } = props
+    const {
+        loading,
+        dashboardName,
+        onClick,
+        deleteBtn,
+        image,
+        disabled,
+        skeleton,
+        dashboardId,
+        postsId,
+    } = props
+
+    const {
+        mutate: deletePostFromDashboard,
+        isPending: pendingDeletePostFromDashboard,
+    } = useDeletePostsFromDashboardMutation()
+
+    const isLoadingStatus = pendingDeletePostFromDashboard || loading
 
     return (
         <div
             title={getDashboardItemTitle(disabled, dashboardName)}
-            onClick={onClick}
+            onClick={() => {
+                !deleteBtn && onClick?.()
+            }}
             className={clsx(s['dashboard-item'], {
                 [s.disabled]: disabled,
-                [s.inactive]: loading,
+                [s.inactive]: isLoadingStatus,
             })}
         >
             <div className={clsx(s.content)}>
@@ -49,7 +73,18 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
                     </>
                 )}
             </div>
-            {loading && <CircularProgress sizesVariant='s' />}
+            {isLoadingStatus && <CircularProgress sizesVariant='s' />}
+            {deleteBtn && !isLoadingStatus && (
+                <Button
+                    size='m'
+                    variant='red'
+                    onClick={() => {
+                        deletePostFromDashboard({ dashboardId, postsId })
+                    }}
+                >
+                    Удалить
+                </Button>
+            )}
         </div>
     )
 }

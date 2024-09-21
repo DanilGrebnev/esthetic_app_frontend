@@ -3,32 +3,41 @@
 }
 
 .btn {
-    user-select: none;
-
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
+    transition: 0.3s var(--cubic-bezier-1);
+    outline: none;
+
+    border-radius: var(--global-border-radius);
+
+    padding: 0 20px;
 
     min-width: max-content;
     max-width: max-content;
-    min-height: var(--button-l-height);
-    max-height: var(--button-l-height);
-    padding: 10px 20px;
-    text-wrap: nowrap;
+    color: var(--text-palette-main);
+    font-weight: var(--font-weight-semibold);
 
     font-size: var(--font-300);
-    font-weight: var(--font-weight-semibold);
-    color: var(--text-palette-main);
-
-    border-radius: var(--global-border-radius);
-    outline: none;
-
-    transition: 0.3s var(--cubic-bezier-1);
+    user-select: none;
+    text-wrap: nowrap;
 
     &:disabled {
-        pointer-events: none;
         opacity: 0.5;
+        pointer-events: none;
     }
+}
+
+// Размеры кнопки
+.size-l {
+    min-height: var(--button-l-height);
+    max-height: var(--button-l-height);
+}
+
+.size-m {
+    min-height: var(--button-m-height);
+    max-height: var(--button-m-height);
 }
 
 // Стандартный вариант кнопки
@@ -48,8 +57,8 @@
     // АКТИВНАЯ КНОПКА
     // Вариант с заполнением
     &.active-fill {
-        color: var(--text-palette-2);
         background: var(--theme-bg-color-2);
+        color: var(--text-palette-2);
     }
 
     // Вариант с подчеркиванием
@@ -58,23 +67,22 @@
         border-radius: 0;
 
         &::before {
-            content: '';
-
             position: absolute;
             bottom: 0;
 
+            background: var(--theme-bg-color-2);
+
             width: 100%;
             height: 2px;
-
-            background: var(--theme-bg-color-2);
+            content: '';
         }
     }
 }
 
 // Красный вариант кнопки
 .red {
-    color: white;
     background: red;
+    color: white;
 
     .progress {
         color: white;
@@ -89,8 +97,8 @@
 
 // Серебренный вариант кнопки
 .silver {
-    color: var(--text-palette-main);
     background: var(--silver-btn-bg-color);
+    color: var(--text-palette-main);
 
     .progress {
         color: black;
