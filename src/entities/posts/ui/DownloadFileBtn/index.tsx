@@ -1,3 +1,5 @@
+'use client'
+
 import { CircleButton } from '@/shared/ui/CircleButton'
 import { downloadFileByURL } from '@/shared/utils/downloadFileByURL'
 import { type FC, memo } from 'react'

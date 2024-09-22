@@ -1,11 +1,11 @@
 import { SaveToDashboardButton } from '@/entities/dashboard'
-import { DownloadFileBtn } from '@/entities/posts'
+import { DownloadFileBtn, MenuPostBtn } from '@/entities/posts'
 import { TAuthor } from '@/shared/types/user'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
 
-import s from './s.module.scss'
+import s from './PostsDetailHeader.module.scss'
 
 interface PostsDetailHeaderProps {
     className?: string
@@ -13,7 +13,7 @@ interface PostsDetailHeaderProps {
     description: string
     title: string
     author: TAuthor
-    postId: string
+    postsId: string
 }
 
 export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
@@ -22,21 +22,27 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
     description,
     title,
     author,
-    postId,
+    postsId,
 }) => {
     return (
         <header className={clsx(s.header, className)}>
             <div className={s['header__btn-group']}>
-                <DownloadFileBtn
-                    href={pathToImg}
-                    downloadFileName={title}
-                />
-                <SaveToDashboardButton
-                    postsId={postId}
-                    className={s['save-btn']}
-                >
-                    Сохранить
-                </SaveToDashboardButton>
+                <div className={s['left-btn-group']}>
+                    <DownloadFileBtn
+                        href={pathToImg}
+                        downloadFileName={title}
+                    />
+                    <MenuPostBtn postsId={postsId} />
+                </div>
+
+                <div className={s['right-btn-group']}>
+                    <SaveToDashboardButton
+                        postsId={postsId}
+                        className={s['save-btn']}
+                    >
+                        Сохранить
+                    </SaveToDashboardButton>
+                </div>
             </div>
             <div className={s['posts-info']}>
                 <h2 className={s['posts-info__title']}>{title}</h2>

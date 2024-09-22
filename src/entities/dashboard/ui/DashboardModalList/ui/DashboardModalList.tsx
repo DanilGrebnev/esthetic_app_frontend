@@ -1,6 +1,5 @@
 'use client'
 
-import { queryKeys } from '@/shared/api/QueryKeys'
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import {
     useAddPostsToCustomDashboardMutation,
@@ -10,7 +9,7 @@ import {
 } from '@/shared/api/dashboards'
 import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { clsx } from 'clsx'
-import { type FC, useEffect } from 'react'
+import { type FC } from 'react'
 
 import { DashboardGroupContainer } from './DashboardGroupContainer'
 import { DashboardItem } from './DashboardItem'
@@ -39,11 +38,6 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
         isPending: pendingPostCheck,
         isFetching: fetchingPostsCheck,
     } = useCheckPostInDashboard({ postsId, enabled: !!dashboardsData })
-
-    useEffect(() => {
-        console.log('pendingPostCheck', pendingPostCheck)
-        console.log('fetchingPostsCheck', fetchingPostsCheck)
-    }, [pendingPostCheck, fetchingPostsCheck])
 
     const { data: privateProfile } = useGetPrivateProfileQuery()
 

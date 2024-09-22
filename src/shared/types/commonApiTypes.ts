@@ -1,5 +1,5 @@
 export type ArgsWithSignal<T extends Record<string, any> = {}> = {
-    signal: AbortSignal
+    signal?: AbortSignal
 } & T
 
 export type ArgsWithEnabled<T extends Record<string, any> = {}> = {

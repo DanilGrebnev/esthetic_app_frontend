@@ -8,7 +8,7 @@ interface ModalProviderProps {
     children?: React.ReactNode
 }
 
-export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
+export const _ModalProvider: FC<ModalProviderProps> = ({ children }) => {
     return (
         <div
             id='modal-root'

@@ -1,17 +1,17 @@
 .btn {
+    --size: 35px;
     display: flex;
-    align-items: center;
     justify-content: center;
-
-    width: 35px;
-    height: 35px;
-
-    background: white;
-    border-radius: 100%;
-    outline: none;
-    box-shadow: var(--global-box-shadow);
+    align-items: center;
 
     transition: 0.3s;
+    outline: none;
+    border-radius: 100%;
+
+    background: white;
+
+    width: var(--size);
+    height: var(--size);
 
     &:disabled {
         opacity: var(--global-btn-disabled);
@@ -26,8 +26,27 @@
     }
 }
 
-.download-icon {
-    width: 20px;
-    height: 20px;
+.box-shadow {
+    box-shadow: var(--global-box-shadow);
+}
+
+.stroke {
+    border: 1px solid var(--border-color-1);
+}
+
+.download {
+    width: 55%;
     stroke-width: 2px;
+}
+
+.dot {
+    width: 60%;
+}
+
+.delete {
+    width: 55%;
+}
+
+.edit {
+    width: 55%;
 }

@@ -1,8 +1,5 @@
-'use client'
-
-// TODO: Сделать страницу поста серверной
 import { CommentariesWriteField } from '@/features/commentaries'
-import { useGetDetailPostsQuery } from '@/shared/api/posts/postsApiHooks'
+import { postsApi } from '@/shared/api/posts/postsApi'
 import { Container } from '@/shared/ui/Container'
 import Image from 'next/image'
 
@@ -16,16 +13,12 @@ interface DetailPostsParams {
     }
 }
 
-export const PostsDetailPage = ({ params }: DetailPostsParams) => {
-    // const pathToImg = consts.pathToImage + 't1.jpg'
+export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
+    const postData = await postsApi.getPostDetail({ postId: params.postId })
 
-    const { data: postData, isPending } = useGetDetailPostsQuery(params.postId)
+    if (!postData) return <h1>Ошибка загрузки поста</h1>
 
-    if (isPending || !postData) {
-        return <h1>Загрузка поста...</h1>
-    }
-
-    const { post, user } = postData
+    const { post } = postData
 
     return (
         <Container
@@ -33,9 +26,14 @@ export const PostsDetailPage = ({ params }: DetailPostsParams) => {
             className={s.page}
         >
             <div className={s['content-container']}>
-                <div className={s['image-container']}>
+                <div
+                    style={{ aspectRatio: post?.media?.options?.aspectRatio }}
+                    className={s['image-container']}
+                >
                     <Image
                         fill={true}
+                        sizes='400px'
+                        quality={100}
                         alt={post.name}
                         src={post?.media?.url}
                     />
@@ -43,7 +41,7 @@ export const PostsDetailPage = ({ params }: DetailPostsParams) => {
 
                 <div className={s.content}>
                     <PostsDetailHeader
-                        postId={post?.postId}
+                        postsId={post?.postId}
                         title={post.name}
                         description={post?.description}
                         className={s['content__header']}

@@ -1,3 +1,5 @@
+'use client'
+
 import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
