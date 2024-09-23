@@ -1,10 +1,28 @@
+'use client'
+
+import { MasonryContainerWithBreakPoints } from '@/entities/posts'
+import { useGetRecommendedPosts } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
-import { PostsListWithPagination } from '@/widgets/PostsList'
+import { PostsCard } from '@/widgets/PostsCard'
 
 export const Home = () => {
+    const { data: recommendedPosts, isPending } = useGetRecommendedPosts()
+
     return (
         <Container>
-            <PostsListWithPagination />
+            <MasonryContainerWithBreakPoints>
+                {recommendedPosts?.posts?.map((post) => {
+                    return (
+                        <PostsCard
+                            key={post.postId}
+                            mediaUrl={post.url}
+                            name={''}
+                            aspect={post.options.aspectRatio}
+                            postId={post.postId}
+                        />
+                    )
+                })}
+            </MasonryContainerWithBreakPoints>
         </Container>
     )
 }

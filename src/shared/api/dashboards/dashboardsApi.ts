@@ -1,12 +1,12 @@
 import { apiInstance } from '@/shared/api/Instance'
 import { BadRequest, SuccessResponse } from '@/shared/types/apiResponses'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
-import type {
+import {
     CheckPostInDashboardResponse,
     DashboardsByCookie,
+    DashboardsDetail,
     UsersDashboardList,
 } from '@/shared/types/dashboards'
-import { Arg } from 'citty'
 
 interface CreateDashboard {
     dashboardName: string
@@ -34,7 +34,7 @@ class DashboardsApi {
             .get(this.baseUrl + `/${dashboardsId}`, {
                 signal,
             })
-            .json()
+            .json<DashboardsDetail>()
     }
 
     createDashboard = (args: CreateDashboard) => {
@@ -48,16 +48,7 @@ class DashboardsApi {
             .json<SuccessResponse | BadRequest>()
     }
 
-    addPostsToFavoritesDashboard = (postsId: string) => {
-        return apiInstance
-            .post(this.baseUrl + '/favorites', {
-                credentials: 'include',
-                json: { postsId },
-            })
-            .json<SuccessResponse>()
-    }
-
-    addPostsToCustomDashboard = ({
+    addPostsToDashboard = ({
         postsId,
         dashboardId,
     }: {

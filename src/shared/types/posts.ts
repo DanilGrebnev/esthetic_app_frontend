@@ -49,3 +49,11 @@ export interface TCreatePosts {
     description: string
     aspectRatio: string
 }
+
+// Прневью поста
+export interface TPostsPreview {
+    contentType: 'img' | 'video'
+    options: FileOptions
+    postId: string
+    url: string
+}

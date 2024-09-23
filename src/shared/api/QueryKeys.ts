@@ -17,14 +17,16 @@ class QueryKeys {
          * Используется для модального окна с досками */
         getDashboardsListByCookie: 'dashboards-by-cookie',
         /* Проверка наличия поста в доске */
-        checkPostInDashboard: (dashboardId: string) =>
-            'check-post-in-dashboard-dashboardId=' + dashboardId,
+        checkPostInDashboard: (postsId: string) =>
+            'check-post-in-dashboard-postId=' + postsId,
         /* Получение детальной информации о доске */
-        dashboardsDetail: 'dashboards-detail',
+        dashboardsDetail: (dashboardId: string) =>
+            'dashboards-detail-dashboardsId=' + dashboardId,
     } as const
 
     readonly posts = {
-        postsDetail: 'posts-detail',
+        postsDetail: (postsId: string) => 'posts-detail-postsId=' + postsId,
+        recommendedPosts: 'recommended-posts',
     } as const
 }
 

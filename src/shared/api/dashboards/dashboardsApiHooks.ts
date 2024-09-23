@@ -46,11 +46,15 @@ export const useGetDashboardListByCookieQuery = (args?: ArgsWithEnabled) => {
 }
 
 // Получение списка постов по dashboardId
-export const useGetDashboardsDetail = (dashboardsId: string) => {
+export const useGetDashboardsDetail = ({
+    dashboardsId,
+}: {
+    dashboardsId: string
+}) => {
     return useQuery({
         queryFn: ({ signal }) =>
             dashboardsApi.getDashboardDetail({ signal, dashboardsId }),
-        queryKey: [queryKeys.dashboards.dashboardsDetail, dashboardsId],
+        queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardsId)],
         retry: false,
     })
 }
@@ -119,10 +123,13 @@ export const useCreateFavoritesDashboardMutation = ({
     })
 }
 
+/* УДАЛЕНИЕ ПОСТА ИЗ ДОСКИ */
 export const useDeletePostsFromDashboardMutation = ({
     usersId,
+    postsId,
 }: {
     usersId: string
+    postsId: string
 }) => {
     const queryClient = useQueryClient()
 
@@ -130,7 +137,10 @@ export const useDeletePostsFromDashboardMutation = ({
         mutationFn: dashboardsApi.deletePostsFromDashboard,
         onSuccess: () => {
             queryClient.refetchQueries({
-                queryKey: [queryKeys.dashboards.checkPostInDashboard],
+                queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
+            })
+            queryClient.refetchQueries({
+                queryKey: [queryKeys.dashboards.checkPostInDashboard(postsId)],
             })
 
             queryClient.refetchQueries({
@@ -139,49 +149,29 @@ export const useDeletePostsFromDashboardMutation = ({
         },
     })
 }
-/* Добавление поста в доску избранного */
-export const useAddPostsToFavoritesDashboardMutation = (userId: string) => {
-    const queryClient = useQueryClient()
 
-    return useMutation({
-        mutationFn: dashboardsApi.addPostsToFavoritesDashboard,
-        retry: false,
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
-            })
-
-            queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.checkPostInDashboard],
-            })
-
-            queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
-            })
-        },
-    })
-}
-
-/* Добавление поста в кастомную доску */
+/* ДОБАВЛЕНИЕ ПОСТА В ДОСКУ */
 export const useAddPostsToDashboardMutation = ({
     usersId,
+    postsId,
 }: {
     usersId: string
+    postsId: string
 }) => {
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationFn: dashboardsApi.addPostsToCustomDashboard,
-        onSuccess: () => {
-            queryClient.invalidateQueries({
+        mutationFn: dashboardsApi.addPostsToDashboard,
+        onSuccess: async () => {
+            queryClient.refetchQueries({
                 queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
             })
             queryClient.refetchQueries({
-                queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
+                queryKey: [queryKeys.dashboards.checkPostInDashboard(postsId)],
             })
 
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.checkPostInDashboard],
+                queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
             })
         },
     })

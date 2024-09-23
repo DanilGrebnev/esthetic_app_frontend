@@ -1,3 +1,6 @@
+import { type TPostsPreview } from '@/shared/types/posts'
+import { type UserProfile } from '@/shared/types/user'
+
 interface Dashboard {
     dashboardId: string
     dashboardName: string
@@ -25,4 +28,16 @@ export interface DashboardsByCookie {
 export interface CheckPostInDashboardResponse {
     inFavorites: boolean
     inDashboards: string[]
+}
+
+export interface DashboardsDetail {
+    author: UserProfile
+    dashboardInfo: {
+        dashboardId: string
+        dashboardName: string
+        dateOfCreation: string
+        postsAmount: number
+    }
+    postsAmount: number
+    posts: TPostsPreview[]
 }

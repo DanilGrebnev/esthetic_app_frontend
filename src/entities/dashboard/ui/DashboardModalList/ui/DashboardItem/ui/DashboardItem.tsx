@@ -45,9 +45,11 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
     const usersId = privateProfile?.userId || ''
 
     const { data: dashboardsListByCookie } = useGetDashboardListByCookieQuery()
+
     const { mutate: addToDashboard, isPending: pendingAddToDashboard } =
         useAddPostsToDashboardMutation({
             usersId,
+            postsId,
         })
     const { mutateAsync: createFavoritesDashboard } =
         useCreateFavoritesDashboardMutation({ usersId })

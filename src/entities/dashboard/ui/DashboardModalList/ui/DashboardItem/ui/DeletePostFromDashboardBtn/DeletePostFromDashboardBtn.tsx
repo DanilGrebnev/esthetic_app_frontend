@@ -17,6 +17,7 @@ export const DeletePostFromDashboardBtn: FC<DeletePostFromDashboardBtnProps> = (
         mutate: deletePostFromDashboard,
         isPending: pendingDeletePostFromDashboard,
     } = useDeletePostsFromDashboardMutation({
+        postsId,
         usersId,
     })
 

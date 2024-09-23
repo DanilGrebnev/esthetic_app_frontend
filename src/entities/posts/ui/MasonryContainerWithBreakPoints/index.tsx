@@ -17,8 +17,8 @@ export const MasonryContainerWithBreakPoints: FC<
                 200: 1,
                 320: 2,
                 500: 3,
-                700: 4,
-                1000: 5,
+                700: 5,
+                1000: 6,
             }}
         >
             {children}

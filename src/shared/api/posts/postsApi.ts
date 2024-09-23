@@ -1,16 +1,18 @@
 import { apiInstance } from '@/shared/api/Instance'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
-import { TPostsDetail } from '@/shared/types/posts'
+import type { TPostsDetail, TPostsPreview } from '@/shared/types/posts'
 
 class PostsApi {
     baseUrl = 'posts'
 
     // GET
     /* Возврат всех постов на основе тегов пользователя */
-    allPosts = () => {
-        return apiInstance.get(this.baseUrl + '/posts', {
-            credentials: 'include',
-        })
+    recommendedPosts = () => {
+        return apiInstance
+            .get(this.baseUrl, {
+                credentials: 'include',
+            })
+            .json<{ postsAmount: number; posts: TPostsPreview[] }>()
     }
 
     /* Получение детальной информации о посте */

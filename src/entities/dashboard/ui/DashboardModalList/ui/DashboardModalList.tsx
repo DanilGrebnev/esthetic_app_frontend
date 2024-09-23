@@ -34,6 +34,8 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
     const { data: postsCheck, isFetching: fetchingPostsCheck } =
         useCheckPostInDashboard({ postsId, enabled: !!dashboardsByCookieData })
 
+    console.log(postsCheck?.inDashboards)
+
     return (
         <div
             onClick={(e) => e.stopPropagation()}
