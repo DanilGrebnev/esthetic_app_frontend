@@ -16,6 +16,7 @@ export interface DashboardsByCookie {
     dashboardsAmount: number
     favorites: {
         url: string
+        dashboardId: string
     } | null
 
     dashboards: [{ dashboardId: string; dashboardName: string; url: string }]

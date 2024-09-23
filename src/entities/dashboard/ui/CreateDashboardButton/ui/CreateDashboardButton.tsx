@@ -6,7 +6,7 @@ import { BaseResponseType } from '@/shared/types/apiResponses'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 import { BaseModalWindow, Modal } from '@/shared/ui/modal'
-import { type FC, useCallback, useEffect, useState } from 'react'
+import { type FC, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import s from './CreateDashboardButton.module.scss'
@@ -35,9 +35,9 @@ export const CreateDashboardButton: FC<CreateDashboardButtonProps> = () => {
 
     const { data: privateProfile } = useGetPrivateProfileQuery()
 
-    const { mutateAsync, isPending } = useCreateDashboardMutation(
-        privateProfile?.userId || '',
-    )
+    const { mutateAsync, isPending } = useCreateDashboardMutation({
+        usersId: privateProfile?.userId || '',
+    })
 
     const onCloseModal = useCallback(() => {
         setOpenModal(false)

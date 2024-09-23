@@ -1,4 +1,5 @@
 import { useDeletePostsMutation } from '@/shared/api/posts/postsApiHooks'
+import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { BaseModalWindow } from '@/shared/ui/modal'
 import { useRouter } from 'next/navigation'
@@ -15,11 +16,13 @@ export const DeletePostsModal: FC<DeleteModalProps> = (props) => {
     const { onClose, postsId } = props
     const router = useRouter()
 
+    const { data: privateProfile } = useGetPrivateProfileQuery()
+
     const {
         mutateAsync: deletePost,
         isSuccess,
         isPending,
-    } = useDeletePostsMutation()
+    } = useDeletePostsMutation({ usersId: privateProfile?.userId || '' })
 
     return (
         <BaseModalWindow className={s.modal}>

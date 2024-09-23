@@ -15,7 +15,7 @@ export const useGetPrivateProfileQuery = (options?: { enabled?: boolean }) => {
 
 export const useGetPublicProfileQuery = (args: { userId: string }) => {
     return useQuery({
-        queryKey: [queryKeys.users.publicProfile],
+        queryKey: [queryKeys.users.publicProfile(args.userId)],
         queryFn: () => usersApi.publicProfile(args.userId),
     })
 }
@@ -25,6 +25,7 @@ export const useLoginMutation = (options?: {
     onError?: (error: any) => void
 }) => {
     const queryClient = useQueryClient()
+
     return useMutation({
         mutationFn: (body: UsersLoginBody) => usersApi.login(body),
         onError: options?.onError,
@@ -32,6 +33,7 @@ export const useLoginMutation = (options?: {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.auth.checkAuth],
             })
+
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.users.privateProfile],
             })

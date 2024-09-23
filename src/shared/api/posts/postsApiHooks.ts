@@ -1,6 +1,5 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { postsApi } from '@/shared/api/posts/postsApi'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 export const useCreatePostsMutation = (userId: string) => {
@@ -25,26 +24,19 @@ export const useGetDetailPostsQuery = (postId: string) => {
     })
 }
 
-export const useDeletePostsMutation = () => {
+export const useDeletePostsMutation = ({ usersId }: { usersId: string }) => {
     const queryClient = useQueryClient()
-
-    const { data: privateProfile } = useGetPrivateProfileQuery()
 
     return useMutation({
         mutationFn: postsApi.deletePosts,
 
         onSuccess: () => {
             queryClient.resetQueries({
-                queryKey: [
-                    queryKeys.users.createdPosts(privateProfile?.userId || ''),
-                ],
+                queryKey: [queryKeys.users.createdPosts(usersId)],
             })
 
             queryClient.resetQueries({
-                queryKey: [
-                    queryKeys.dashboards.profileDashboardsList,
-                    privateProfile?.userId,
-                ],
+                queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
             })
         },
 

@@ -1,13 +1,11 @@
 'use client'
 
+import { DashboardItemSkeleton } from '@/entities/dashboard/ui/DashboardModalList/ui/DashboardItemSkeleton'
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import {
-    useAddPostsToCustomDashboardMutation,
-    useAddPostsToFavoritesDashboardMutation,
     useCheckPostInDashboard,
     useGetDashboardListByCookieQuery,
 } from '@/shared/api/dashboards'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
 
@@ -28,26 +26,13 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
     const { data: authData } = useCheckAuthQuery()
 
     const {
-        data: dashboardsData,
+        data: dashboardsByCookieData,
         isPending: pendingInitialDashboardList,
         isError: getDashboardsError,
     } = useGetDashboardListByCookieQuery({ enabled: !!authData?.isAuth })
 
-    const {
-        data: postsCheck,
-        isPending: pendingPostCheck,
-        isFetching: fetchingPostsCheck,
-    } = useCheckPostInDashboard({ postsId, enabled: !!dashboardsData })
-
-    const { data: privateProfile } = useGetPrivateProfileQuery()
-
-    const { mutate: addToFavorite, isPending: pendingAddToFavorite } =
-        useAddPostsToFavoritesDashboardMutation(privateProfile?.userId || '')
-
-    const {
-        mutateAsync: addToCustomDashboard,
-        isPending: pendingAddToCustomDashboard,
-    } = useAddPostsToCustomDashboardMutation(privateProfile?.userId || '')
+    const { data: postsCheck, isFetching: fetchingPostsCheck } =
+        useCheckPostInDashboard({ postsId, enabled: !!dashboardsByCookieData })
 
     return (
         <div
@@ -59,48 +44,48 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
             {!getDashboardsError && (
                 <div className={s['dashboard-list']}>
                     <DashboardGroupContainer groupName='Быстрое сохранение'>
-                        <DashboardItem
-                            onClick={() => addToFavorite(postsId)}
-                            dashboardId={''}
-                            postsId={postsId}
-                            image={dashboardsData?.favorites?.url}
-                            loading={pendingAddToFavorite || fetchingPostsCheck}
-                            skeleton={pendingInitialDashboardList}
-                            dashboardName='Избранное'
-                            deleteBtn={postsCheck?.inFavorites}
-                        />
+                        {pendingInitialDashboardList && (
+                            <DashboardItemSkeleton />
+                        )}
+                        {!pendingInitialDashboardList && (
+                            <DashboardItem
+                                dashboardId={
+                                    dashboardsByCookieData?.favorites
+                                        ?.dashboardId || ''
+                                }
+                                postsId={postsId}
+                                image={dashboardsByCookieData?.favorites?.url}
+                                loading={fetchingPostsCheck}
+                                skeleton={pendingInitialDashboardList}
+                                dashboardName='Избранное'
+                                deleteBtn={postsCheck?.inFavorites}
+                            />
+                        )}
                     </DashboardGroupContainer>
 
                     <DashboardGroupContainer groupName='Сохранение на доске'>
                         {pendingInitialDashboardList && (
                             <DashboardListSkeleton amount={5} />
                         )}
-                        {dashboardsData?.dashboards?.map((dashboard) => {
-                            const { dashboardId, dashboardName } = dashboard
+                        {dashboardsByCookieData?.dashboards?.map(
+                            (dashboard) => {
+                                const { dashboardId, dashboardName } = dashboard
 
-                            return (
-                                <DashboardItem
-                                    key={dashboardId}
-                                    loading={
-                                        pendingAddToCustomDashboard ||
-                                        fetchingPostsCheck
-                                    }
-                                    dashboardId={dashboardId}
-                                    postsId={postsId}
-                                    onClick={() => {
-                                        addToCustomDashboard({
+                                return (
+                                    <DashboardItem
+                                        key={dashboardId}
+                                        loading={fetchingPostsCheck}
+                                        dashboardId={dashboardId}
+                                        postsId={postsId}
+                                        deleteBtn={postsCheck?.inDashboards.includes(
                                             dashboardId,
-                                            postsId,
-                                        })
-                                    }}
-                                    deleteBtn={postsCheck?.inDashboards.includes(
-                                        dashboardId,
-                                    )}
-                                    dashboardName={dashboardName}
-                                    image={dashboard?.url}
-                                />
-                            )
-                        })}
+                                        )}
+                                        dashboardName={dashboardName}
+                                        image={dashboard?.url}
+                                    />
+                                )
+                            },
+                        )}
                     </DashboardGroupContainer>
                 </div>
             )}

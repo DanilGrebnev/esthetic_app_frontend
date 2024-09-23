@@ -1,13 +1,16 @@
-'use client'
+'use client';
 
-import { useGetProfileDashboardListQuery } from '@/shared/api/dashboards'
-import { useGetPublicProfileQuery } from '@/shared/api/users'
-import { routes } from '@/shared/routes'
-import { DashboardTile, FavoritesTile } from '@/shared/ui/Tiles'
-import { type FC } from 'react'
+import { useGetProfileDashboardListQuery } from '@/shared/api/dashboards';
+import { useGetPublicProfileQuery } from '@/shared/api/users';
+import { routes } from '@/shared/routes';
+import { DashboardTile, FavoritesTile } from '@/shared/ui/Tiles';
+import { type FC } from 'react';
 
-import { DashboardsContainer } from '../DashboardsContainer'
-import { DashboardsListSkeleton } from '../DashboardsListSkeleton'
+
+
+import { DashboardsContainer } from '../DashboardsContainer';
+import { DashboardsListSkeleton } from '../DashboardsListSkeleton';
+
 
 interface DashboardListProps {
     userId?: string
@@ -16,7 +19,7 @@ interface DashboardListProps {
 export const DashboardsList: FC<DashboardListProps> = (props) => {
     const { userId = '' } = props
 
-    const { data, isPending } = useGetProfileDashboardListQuery(userId)
+    const { data, isPending } = useGetProfileDashboardListQuery({ userId })
 
     const { data: profileData, isPending: profilePending } =
         useGetPublicProfileQuery({ userId })

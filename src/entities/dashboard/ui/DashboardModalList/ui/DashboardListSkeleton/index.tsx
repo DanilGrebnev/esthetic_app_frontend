@@ -1,6 +1,6 @@
 import { type FC } from 'react'
 
-import { DashboardItem } from '../DashboardItem'
+import { DashboardItemSkeleton } from '../DashboardItemSkeleton'
 
 interface DashboardListSkeletonProps {
     /* Количество скелетонов (опционально) */
@@ -12,13 +12,5 @@ export const DashboardListSkeleton: FC<DashboardListSkeletonProps> = ({
 }) => {
     return Array(amount)
         .fill('')
-        .map((_, i) => (
-            <DashboardItem
-                dashboardId={''}
-                postsId={''}
-                key={i}
-                skeleton={true}
-                dashboardName='Загрузка dashboard'
-            />
-        ))
+        .map((_, i) => <DashboardItemSkeleton key={i} />)
 }

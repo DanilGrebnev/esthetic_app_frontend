@@ -4,21 +4,21 @@ class QueryKeys {
     } as const
 
     readonly users = {
-        publicProfile: 'public-profile',
+        publicProfile: (userId: string) => 'public-profile-userId=' + userId,
         privateProfile: 'private-profile',
-        createdPosts: (userId: string) => 'created-posts-userid=' + userId,
+        createdPosts: (userId: string) => 'created-posts-userId=' + userId,
     } as const
 
     readonly dashboards = {
-        // Список досок пользователя
-        profileDashboardsList: 'profile-dashboards-list',
-        /*
-         * Получение досок по кукам пользователя.
-         * Используется для модального окна с досками
-         * */
+        // Список досок пользователя по id
+        profileDashboardsList: (userId: string) =>
+            'profile-dashboards-list-userid=' + userId,
+        /* Получение досок по кукам пользователя.
+         * Используется для модального окна с досками */
         getDashboardsListByCookie: 'dashboards-by-cookie',
         /* Проверка наличия поста в доске */
-        checkPostInDashboard: 'check-post-in-dashboard',
+        checkPostInDashboard: (dashboardId: string) =>
+            'check-post-in-dashboard-dashboardId=' + dashboardId,
         /* Получение детальной информации о доске */
         dashboardsDetail: 'dashboards-detail',
     } as const
