@@ -14,21 +14,21 @@ import { type FC, memo, useId, useState } from 'react'
 import s from './s.module.scss'
 
 export type SelectType = { name: string; value: string }
-type MenuItem = { checked?: boolean } & SelectType
+type MenuItem = SelectType
 
 type BasicSelectProps = Omit<
     Parameters<typeof Select>[0],
     'children' | 'onChange'
 > & {
     onChange?: ({ name, value }: { name: string; value: string }) => void
-    children?: MenuItem[]
+    children: MenuItem[] | []
     placeholder?: string
 }
 
 const BasicSelect: FC<BasicSelectProps> = memo((props) => {
     const {
         label,
-        children,
+        children = [],
         placeholder,
         variant,
         onChange: onChangeProps,
@@ -41,7 +41,7 @@ const BasicSelect: FC<BasicSelectProps> = memo((props) => {
 
     const handleChange = (e: SelectChangeEvent<unknown>) => {
         setValue(e.target.value as string)
-        onChangeProps?.({ name: e.target.name, value: e.target.value + '' })
+        onChangeProps?.({ name: e.target.name, value: String(e.target.value) })
     }
 
     return (

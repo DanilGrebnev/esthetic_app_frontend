@@ -1,6 +1,10 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { createBaseResponse } from '@/shared/types/apiResponses'
 import { ArgsWithEnabled } from '@/shared/types/commonApiTypes'
+import {
+    DashboardsByCookie,
+    DashboardsByCookieItem,
+} from '@/shared/types/dashboards'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { dashboardsApi } from './dashboardsApi'
@@ -35,15 +39,33 @@ export const useCheckPostInDashboard = ({
     })
 }
 
-export const useGetDashboardListByCookieQuery = (args?: ArgsWithEnabled) => {
+export const useGetDashboardsByCookieQuery = (args?: ArgsWithEnabled) => {
     return useQuery({
         queryFn: ({ signal }) =>
             dashboardsApi.getDashboardsListByCookie({ signal }),
         queryKey: [queryKeys.dashboards.getDashboardsListByCookie] as const,
         retry: false,
-        enabled: args?.enabled,
+        ...args,
     })
 }
+
+/* Возвращает массив досок пользователя */
+// export const useGetDashboardsListByCookieQuery = (args?: ArgsWithEnabled) => {
+//     return useQuery({
+//         queryFn: ({ signal }) =>
+//             dashboardsApi.getDashboardsListByCookie({ signal }),
+//         queryKey: [queryKeys.dashboards.getDashboardsListByCookie] as const,
+//         retry: false,
+//         select: (dashboardsData) => {
+//             const dashboards: DashboardsByCookieItem[] = []
+//
+//             if (dashboardsData?.favorites) {
+//                 dashboards.push(dashboardsData?.favorites)
+//             }
+//         },
+//         ...args,
+//     })
+// }
 
 // Получение списка постов по dashboardId
 export const useGetDashboardsDetail = ({
@@ -150,7 +172,9 @@ export const useDeletePostsFromDashboardMutation = ({
     })
 }
 
-/* ДОБАВЛЕНИЕ ПОСТА В ДОСКУ */
+/* Добавление поста в доску
+ * @params usersId - id профиля пользователя
+ * @params postsId - id добавляемого поста */
 export const useAddPostsToDashboardMutation = ({
     usersId,
     postsId,

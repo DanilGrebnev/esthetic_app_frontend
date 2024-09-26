@@ -3,7 +3,7 @@
 import {
     useAddPostsToDashboardMutation,
     useCreateFavoritesDashboardMutation,
-    useGetDashboardListByCookieQuery,
+    useGetDashboardsByCookieQuery,
 } from '@/shared/api/dashboards'
 import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
@@ -44,7 +44,7 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
     const { data: privateProfile } = useGetPrivateProfileQuery()
     const usersId = privateProfile?.userId || ''
 
-    const { data: dashboardsListByCookie } = useGetDashboardListByCookieQuery()
+    const { data: dashboardsListByCookie } = useGetDashboardsByCookieQuery()
 
     const { mutate: addToDashboard, isPending: pendingAddToDashboard } =
         useAddPostsToDashboardMutation({

@@ -38,8 +38,10 @@ class PostsApi {
     }
 
     // PUT
-    editPost = (postsId: string) => {
-        return apiInstance.get(this.baseUrl + '/' + postsId)
+    editPost = ({ postsId, body }: { postsId: string; body: FormData }) => {
+        return apiInstance
+            .put(this.baseUrl + '/' + postsId, { body, credentials: 'include' })
+            .json()
     }
 
     // DELETE

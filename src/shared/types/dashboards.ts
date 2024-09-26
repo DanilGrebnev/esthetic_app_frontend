@@ -15,14 +15,16 @@ export interface UsersDashboardList {
     dashboards: Dashboard[]
 }
 
+export interface DashboardsByCookieItem {
+    dashboardId: string
+    dashboardName: string
+    url: string
+}
+
 export interface DashboardsByCookie {
     dashboardsAmount: number
-    favorites: {
-        url: string
-        dashboardId: string
-    } | null
-
-    dashboards: [{ dashboardId: string; dashboardName: string; url: string }]
+    favorites: Omit<DashboardsByCookieItem, 'dashboardName'> | null
+    dashboards: DashboardsByCookieItem[]
 }
 
 export interface CheckPostInDashboardResponse {

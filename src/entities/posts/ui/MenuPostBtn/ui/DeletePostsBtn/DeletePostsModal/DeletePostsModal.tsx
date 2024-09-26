@@ -1,21 +1,28 @@
+'use client'
+
+import {
+    MenuPostBtnContext,
+    useMenuPostBtnContext,
+} from '@/entities/posts/ui/MenuPostBtn/ui/MenuPostBtnContext'
 import { useCheckPostInDashboard } from '@/shared/api/dashboards'
 import { useDeletePostsMutation } from '@/shared/api/posts/postsApiHooks'
 import { useGetPrivateProfileQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { BaseModalWindow } from '@/shared/ui/modal'
 import { useRouter } from 'next/navigation'
-import { type FC, useEffect } from 'react'
+import { type FC, useContext, useEffect } from 'react'
 
 import s from './DeleteModal.module.scss'
 
 interface DeleteModalProps {
     onClose: () => void
-    postsId: string
 }
 
 export const DeletePostsModal: FC<DeleteModalProps> = (props) => {
-    const { onClose, postsId } = props
+    const { onClose } = props
     const router = useRouter()
+
+    const { postsId } = useMenuPostBtnContext()
 
     const { data: privateProfile } = useGetPrivateProfileQuery()
 

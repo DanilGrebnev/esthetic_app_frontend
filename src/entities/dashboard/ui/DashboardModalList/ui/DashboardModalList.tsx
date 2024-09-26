@@ -4,7 +4,7 @@ import { DashboardItemSkeleton } from '@/entities/dashboard/ui/DashboardModalLis
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import {
     useCheckPostInDashboard,
-    useGetDashboardListByCookieQuery,
+    useGetDashboardsByCookieQuery,
 } from '@/shared/api/dashboards'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
@@ -29,7 +29,7 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
         data: dashboardsByCookieData,
         isPending: pendingInitialDashboardList,
         isError: getDashboardsError,
-    } = useGetDashboardListByCookieQuery({ enabled: !!authData?.isAuth })
+    } = useGetDashboardsByCookieQuery({ enabled: !!authData?.isAuth })
 
     const { data: postsCheck, isFetching: fetchingPostsCheck } =
         useCheckPostInDashboard({ postsId, enabled: !!dashboardsByCookieData })

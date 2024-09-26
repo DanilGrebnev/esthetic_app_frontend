@@ -76,3 +76,18 @@ export const useDeletePostsMutation = ({
         retry: false,
     })
 }
+
+// ### PUT ###
+export const useUpdatePostsMutation = ({ userId }: { userId: string }) => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: postsApi.editPost,
+        onSuccess: () => {
+            // инвалидируем список созданных пользователем постов
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.users.createdPosts(userId)],
+            })
+        },
+    })
+}

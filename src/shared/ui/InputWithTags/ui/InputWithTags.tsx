@@ -14,6 +14,11 @@ import { Input } from './Input'
 import { TagItem } from './TagItem'
 import s from './s.module.scss'
 
+/* Инпут с тегами.
+ *
+ * @param defaultValues
+ * @example <InputWithTags defaultValues={[{ tagId:'123', label: 'Автомобили' }]} />
+ *  */
 export const InputWithTags = memo(
     forwardRef<HTMLInputElement, InputWithTagsProps>((props, ref) => {
         const {
