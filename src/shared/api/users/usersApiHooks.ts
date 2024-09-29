@@ -4,12 +4,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { usersApi } from './usersApi'
 
-export const useGetPrivateProfileQuery = (options?: { enabled?: boolean }) => {
+export const useGetProfileByCookieQuery = (options?: { enabled?: boolean }) => {
     return useQuery({
-        queryKey: [queryKeys.users.privateProfile],
+        queryKey: [queryKeys.users.profileByCookie],
         retry: false,
         enabled: options?.enabled,
-        queryFn: usersApi.privateProfile,
+        queryFn: usersApi.profileByCookie,
     })
 }
 
@@ -35,7 +35,7 @@ export const useLoginMutation = (options?: {
             })
 
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.users.privateProfile],
+                queryKey: [queryKeys.users.profileByCookie],
             })
             options?.onSuccess?.(successResponse)
         },
@@ -50,6 +50,9 @@ export const useLogoutMutation = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.auth.checkAuth],
+            })
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.users.profileByCookie],
             })
         },
     })

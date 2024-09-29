@@ -7,8 +7,8 @@ import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { Dialog } from '@/shared/ui/Dialog'
 import { Input } from '@/shared/ui/Input'
+import { Signature } from '@/views/SignIn/ui/Signature'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Title } from '../Title'
@@ -53,11 +53,15 @@ export const LoginForm = () => {
                     <Button
                         type='submit'
                         variant='silver'
-                        // disabled={isSuccess}
                         loading={isPending}
                     >
                         Отправить
                     </Button>
+                    <Signature
+                        text='Ещё нет аккаунта?'
+                        href={routes.registration.getRoute()}
+                        linkText='Зарегистрироваться'
+                    />
                 </form>
                 <Dialog
                     className={s.dialog}

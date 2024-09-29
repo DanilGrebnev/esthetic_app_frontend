@@ -1,8 +1,9 @@
 'use client'
 
 import { CreatePostForm } from '@/entities/posts'
+import { useCheckAuthQuery } from '@/shared/api/auth'
 import { useCreatePostsMutation } from '@/shared/api/posts/postsApiHooks'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { Container } from '@/shared/ui/Container'
 import { useRouter } from 'next/navigation'
@@ -15,10 +16,16 @@ export const CreatePosts = () => {
     const router = useRouter()
     const submitButtonRef = useRef<HTMLButtonElement | null>(null)
 
-    const { data: privateProfile } = useGetPrivateProfileQuery()
+    const { data: authData } = useCheckAuthQuery()
+
+    const { data: profileByCookie } = useGetProfileByCookieQuery()
     const { mutateAsync, isPending, isSuccess } = useCreatePostsMutation(
-        privateProfile?.userId || '',
+        profileByCookie?.userId || '',
     )
+    // TODO: отображать сообщение для того, чтобы пользователь зарегистрировался или авторизовался
+    if (!authData?.isAuth) {
+        return router.push(routes.login.getRoute())
+    }
 
     return (
         <div className={s.page}>
@@ -38,7 +45,7 @@ export const CreatePosts = () => {
                         mutateAsync(formData).then(() => {
                             router.push(
                                 routes.userCreatedPosts.getRoute(
-                                    privateProfile?.userId,
+                                    profileByCookie?.userId,
                                 ),
                             )
                         })

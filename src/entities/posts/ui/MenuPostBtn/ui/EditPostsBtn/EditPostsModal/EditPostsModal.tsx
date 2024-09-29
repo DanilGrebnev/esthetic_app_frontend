@@ -1,31 +1,32 @@
 'use client'
 
 import { CreatePostForm } from '@/entities/posts'
-import { useMenuPostBtnContext } from '@/entities/posts/ui/MenuPostBtn/ui/MenuPostBtnContext'
 import {
     useGetDetailPostsQuery,
     useUpdatePostsMutation,
 } from '@/shared/api/posts'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
-import { BaseModalWindow } from '@/shared/ui/modal'
+import { BaseModalWindow, useModalContext } from '@/shared/ui/modal'
 import { type FC, useRef } from 'react'
 
+import { useMenuPostBtnContext } from '../../MenuPostBtnContext'
 import s from './EditPostsModal.module.scss'
 
-interface EditPostsModalProps {}
-
-export const EditPostsModal: FC<EditPostsModalProps> = () => {
+export const EditPostsModal: FC = () => {
     const { postsId } = useMenuPostBtnContext()
     const submitRef = useRef<HTMLButtonElement | null>(null)
 
-    const { data: privateProfile } = useGetPrivateProfileQuery()
+    const { onClose } = useModalContext()
+
+    const { data: profileByCookie } = useGetProfileByCookieQuery()
 
     const { data: postData } = useGetDetailPostsQuery(postsId)
 
-    const { mutate: editPost, isPending } = useUpdatePostsMutation({
-        userId: privateProfile?.userId ?? '',
+    const { mutateAsync: editPost, isPending } = useUpdatePostsMutation({
+        userId: profileByCookie?.userId ?? '',
+        postsId,
     })
 
     return (
@@ -42,7 +43,7 @@ export const EditPostsModal: FC<EditPostsModalProps> = () => {
                         tags: postData?.post?.tags ?? [],
                     }}
                     mutate={(formData) => {
-                        editPost({ body: formData, postsId })
+                        editPost({ body: formData, postsId }).then(onClose)
                     }}
                     submitBtnRef={submitRef}
                 />
@@ -56,7 +57,7 @@ export const EditPostsModal: FC<EditPostsModalProps> = () => {
                     >
                         Подтвердить
                     </Button>
-                    <Button>Отмена</Button>
+                    <Button onClick={onClose}>Отмена</Button>
                 </div>
             </BaseModalWindow>
         </Container>

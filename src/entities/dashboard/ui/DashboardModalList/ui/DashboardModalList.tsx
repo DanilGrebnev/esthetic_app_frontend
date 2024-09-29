@@ -22,19 +22,19 @@ interface DashboardListProps {
 
 export const DashboardModalList: FC<DashboardListProps> = (props) => {
     const { className, postsId } = props
-
     const { data: authData } = useCheckAuthQuery()
 
     const {
-        data: dashboardsByCookieData,
+        data: dashboardsByCookie,
         isPending: pendingInitialDashboardList,
-        isError: getDashboardsError,
+        isError: dashboardsError,
     } = useGetDashboardsByCookieQuery({ enabled: !!authData?.isAuth })
 
     const { data: postsCheck, isFetching: fetchingPostsCheck } =
-        useCheckPostInDashboard({ postsId, enabled: !!dashboardsByCookieData })
+        useCheckPostInDashboard({ postsId, enabled: !!dashboardsByCookie })
 
-    console.log(postsCheck?.inDashboards)
+    console.log('postsCheck?.inDashboards', postsCheck?.inDashboards)
+    console.log('dashboardsByCookie', dashboardsByCookie)
 
     return (
         <div
@@ -42,52 +42,36 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
             className={clsx(s['dashboard-container'], className)}
         >
             <h2 className={s['container-title']}>Сохранение</h2>
-            {getDashboardsError && <h2>Ошибка получения досок</h2>}
-            {!getDashboardsError && (
+            {dashboardsError && <h2>Ошибка получения досок</h2>}
+            {!dashboardsError && (
                 <div className={s['dashboard-list']}>
-                    <DashboardGroupContainer groupName='Быстрое сохранение'>
-                        {pendingInitialDashboardList && (
-                            <DashboardItemSkeleton />
-                        )}
-                        {!pendingInitialDashboardList && (
-                            <DashboardItem
-                                dashboardId={
-                                    dashboardsByCookieData?.favorites
-                                        ?.dashboardId || ''
-                                }
-                                postsId={postsId}
-                                image={dashboardsByCookieData?.favorites?.url}
-                                loading={fetchingPostsCheck}
-                                skeleton={pendingInitialDashboardList}
-                                dashboardName='Избранное'
-                                deleteBtn={postsCheck?.inFavorites}
-                            />
-                        )}
-                    </DashboardGroupContainer>
-
                     <DashboardGroupContainer groupName='Сохранение на доске'>
                         {pendingInitialDashboardList && (
                             <DashboardListSkeleton amount={5} />
                         )}
-                        {dashboardsByCookieData?.dashboards?.map(
-                            (dashboard) => {
-                                const { dashboardId, dashboardName } = dashboard
-
-                                return (
-                                    <DashboardItem
-                                        key={dashboardId}
-                                        loading={fetchingPostsCheck}
-                                        dashboardId={dashboardId}
-                                        postsId={postsId}
-                                        deleteBtn={postsCheck?.inDashboards.includes(
-                                            dashboardId,
-                                        )}
-                                        dashboardName={dashboardName}
-                                        image={dashboard?.url}
-                                    />
-                                )
-                            },
+                        {dashboardsByCookie?.favorites && (
+                            <DashboardItem
+                                postsId={postsId}
+                                loading={fetchingPostsCheck}
+                                skeleton={pendingInitialDashboardList}
+                                deleteBtn={postsCheck?.inFavorites}
+                                dashboardName='Избранное'
+                                {...dashboardsByCookie?.favorites}
+                            />
                         )}
+                        {dashboardsByCookie?.dashboards?.map((dashboard) => {
+                            return (
+                                <DashboardItem
+                                    key={dashboard.dashboardId}
+                                    loading={fetchingPostsCheck}
+                                    postsId={postsId}
+                                    deleteBtn={postsCheck?.inDashboards.includes(
+                                        dashboard.dashboardId,
+                                    )}
+                                    {...dashboard}
+                                />
+                            )
+                        })}
                     </DashboardGroupContainer>
                 </div>
             )}

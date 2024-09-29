@@ -39,9 +39,7 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                     <SaveToDashboardButton
                         postsId={postsId}
                         className={s['save-btn']}
-                    >
-                        Сохранить
-                    </SaveToDashboardButton>
+                    />
                 </div>
             </div>
             <div className={s['posts-info']}>

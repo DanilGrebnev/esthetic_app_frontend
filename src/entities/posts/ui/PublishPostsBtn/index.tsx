@@ -1,7 +1,7 @@
 'use client'
 
 import { useCreatePostsMutation } from '@/shared/api/posts/postsApiHooks'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { FC, RefObject, useEffect } from 'react'
 
@@ -12,10 +12,10 @@ interface PublishPostsBtnProps {
 export const PublishPostsBtn: FC<PublishPostsBtnProps> = (props) => {
     const { submitRef } = props
 
-    const { data: privateProfile } = useGetPrivateProfileQuery()
+    const { data: profileByCookie } = useGetProfileByCookieQuery()
 
     const { isPending, status } = useCreatePostsMutation(
-        privateProfile?.userId || '',
+        profileByCookie?.userId || '',
     )
 
     useEffect(() => {

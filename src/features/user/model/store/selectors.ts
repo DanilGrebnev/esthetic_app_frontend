@@ -11,7 +11,7 @@ export const useGetPublicProfileQuerySelector = () => {
 
 /* Получение профиля пользователя из хранилища */
 export const useGetPrivateProfileSelector = () => {
-    return useUserStore((s) => s.privateProfile)
+    return useUserStore((s) => s.profileByCookie)
 }
 
 /* Установка данных профиля пользователя в хранилище */

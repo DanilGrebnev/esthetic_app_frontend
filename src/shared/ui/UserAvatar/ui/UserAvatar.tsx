@@ -35,16 +35,12 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
     const showWord = (word && !error) || !href
 
     function getImageSize(sizes: typeof size) {
-        switch (sizes) {
-            case 's':
-                return '25px'
-            case 'm':
-                return '35px'
-            case 'l':
-                return '50px'
-            case 'xl':
-                return '100px'
-        }
+        return {
+            s: '25px',
+            m: '35px',
+            l: '50px',
+            xl: '100px',
+        }[sizes]
     }
 
     return (

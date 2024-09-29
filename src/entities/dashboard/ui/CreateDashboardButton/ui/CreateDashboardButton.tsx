@@ -1,7 +1,7 @@
 'use client'
 
 import { useCreateDashboardMutation } from '@/shared/api/dashboards'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { BaseResponseType } from '@/shared/types/apiResponses'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
@@ -33,10 +33,10 @@ export const CreateDashboardButton: FC<CreateDashboardButtonProps> = () => {
 
     const [openModal, setOpenModal] = useState(false)
 
-    const { data: privateProfile } = useGetPrivateProfileQuery()
+    const { data: profileByCookie } = useGetProfileByCookieQuery()
 
     const { mutateAsync, isPending } = useCreateDashboardMutation({
-        usersId: privateProfile?.userId || '',
+        usersId: profileByCookie?.userId || '',
     })
 
     const onCloseModal = useCallback(() => {

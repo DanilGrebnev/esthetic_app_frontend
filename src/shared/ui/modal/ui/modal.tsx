@@ -4,6 +4,7 @@ import {
     useCloseIfClickOnEscapeKey,
     useToggleBodyOverflow,
 } from '@/shared/ui/modal/hooks'
+import { ModalProvider } from '@/shared/ui/modal/modalContext'
 import { type ReactNode, useLayoutEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -31,7 +32,11 @@ export const Modal = (props: ModalProps) => {
         <>
             {isOpen
                 ? createPortal(
-                      <ModalWrapper onClose={onClose}>{children}</ModalWrapper>,
+                      <ModalProvider value={{ isOpen, onClose }}>
+                          <ModalWrapper onClose={onClose}>
+                              {children}
+                          </ModalWrapper>
+                      </ModalProvider>,
                       document.getElementById('modal-root') as HTMLElement,
                   )
                 : null}

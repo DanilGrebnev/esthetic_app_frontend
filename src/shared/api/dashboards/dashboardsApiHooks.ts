@@ -128,11 +128,10 @@ export const useCreateFavoritesDashboardMutation = ({
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationFn: async () => {
-            await dashboardsApi.createDashboard({
+        mutationFn: () =>
+            dashboardsApi.createDashboard({
                 dashboardName: 'Избранное',
-            })
-        },
+            }),
         onSuccess: () => {
             queryClient.refetchQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],

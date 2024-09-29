@@ -1,5 +1,7 @@
+'use client'
+
 import { CommentariesWriteField } from '@/features/commentaries'
-import { postsApi } from '@/shared/api/posts/postsApi'
+import { useGetDetailPostsQuery } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import Image from 'next/image'
 
@@ -13,10 +15,11 @@ interface DetailPostsParams {
     }
 }
 
-export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
-    const postData = await postsApi.getPostDetail({ postId: params.postId })
+export const PostsDetailPage = ({ params }: DetailPostsParams) => {
+    const { data: postData, isPending } = useGetDetailPostsQuery(params.postId)
 
-    if (!postData) return <h1>Ошибка загрузки поста</h1>
+    if (isPending) return <h1>Загрузка</h1>
+    if (!postData && !isPending) return
 
     const { post } = postData
 

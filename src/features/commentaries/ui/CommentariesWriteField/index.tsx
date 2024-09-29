@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import { type FC } from 'react'
@@ -16,7 +16,7 @@ export const CommentariesWriteField: FC<CommentariesWriteFieldProps> = (
 ) => {
     const { className } = props
 
-    const { data: profileData } = useGetPrivateProfileQuery()
+    const { data: profileData } = useGetProfileByCookieQuery()
 
     return (
         <div className={clsx(s['write-comment'], className)}>

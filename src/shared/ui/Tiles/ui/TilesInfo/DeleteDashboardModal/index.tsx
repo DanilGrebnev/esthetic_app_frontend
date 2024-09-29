@@ -1,5 +1,5 @@
 import { useDeleteDashboardMutation } from '@/shared/api/dashboards'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { BaseModalWindow } from '@/shared/ui/modal'
 import { FC, useContext, useEffect } from 'react'
@@ -14,7 +14,7 @@ export const DeleteDashboardModal: FC<DeleteDashboardModalModalProps> = ({
 }) => {
     const { dashboardId } = useContext(TileContext)
 
-    const { data: profileData } = useGetPrivateProfileQuery()
+    const { data: profileData } = useGetProfileByCookieQuery()
 
     const { mutate, isPending } = useDeleteDashboardMutation(
         profileData?.userId || '',

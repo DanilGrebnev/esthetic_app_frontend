@@ -79,7 +79,13 @@ export const useDeletePostsMutation = ({
 }
 
 // ### PUT ###
-export const useUpdatePostsMutation = ({ userId }: { userId: string }) => {
+export const useUpdatePostsMutation = ({
+    userId,
+    postsId,
+}: {
+    userId: string
+    postsId: string
+}) => {
     const queryClient = useQueryClient()
 
     return useMutation({
@@ -88,6 +94,10 @@ export const useUpdatePostsMutation = ({ userId }: { userId: string }) => {
             // инвалидируем список созданных пользователем постов
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.users.createdPosts(userId)],
+            })
+
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.posts.postsDetail(postsId)],
             })
         },
     })

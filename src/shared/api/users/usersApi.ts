@@ -37,7 +37,7 @@ class UsersApi {
             })
             .json<UserPublicProfile>()
     }
-    privateProfile = () => {
+    profileByCookie = () => {
         return apiInstance
             .get(this.basePath + '/private-profile', {
                 credentials: 'include',

@@ -6,11 +6,11 @@ import {
 } from '@/entities/posts/ui/MenuPostBtn/ui/MenuPostBtnContext'
 import { useCheckPostInDashboard } from '@/shared/api/dashboards'
 import { useDeletePostsMutation } from '@/shared/api/posts/postsApiHooks'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { BaseModalWindow } from '@/shared/ui/modal'
 import { useRouter } from 'next/navigation'
-import { type FC, useContext, useEffect } from 'react'
+import { type FC } from 'react'
 
 import s from './DeleteModal.module.scss'
 
@@ -24,22 +24,18 @@ export const DeletePostsModal: FC<DeleteModalProps> = (props) => {
 
     const { postsId } = useMenuPostBtnContext()
 
-    const { data: privateProfile } = useGetPrivateProfileQuery()
+    const { data: profileByCookie } = useGetProfileByCookieQuery()
 
     const { data: postsInDashboardResponse } = useCheckPostInDashboard({
         postsId,
     })
-
-    useEffect(() => {
-        console.log('postsInDashboardResponse', postsInDashboardResponse)
-    }, [postsInDashboardResponse])
 
     const {
         mutateAsync: deletePost,
         isSuccess,
         isPending,
     } = useDeletePostsMutation({
-        usersId: privateProfile?.userId || '',
+        usersId: profileByCookie?.userId || '',
         dashboardsId: postsInDashboardResponse?.inDashboards ?? [],
     })
 

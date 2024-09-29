@@ -1,7 +1,7 @@
 'use client'
 
 import { useCheckAuthQuery } from '@/shared/api/auth'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
@@ -19,7 +19,7 @@ export const UserProfileIcon = () => {
     const { data: authData } = useCheckAuthQuery()
 
     const { data: userData, isPending: isPendingUserData } =
-        useGetPrivateProfileQuery()
+        useGetProfileByCookieQuery()
 
     const redirect = () => {
         if (authData?.isAuth && userData) {
@@ -39,7 +39,7 @@ export const UserProfileIcon = () => {
             <UserAvatar
                 onClick={redirect}
                 placeholder={isPendingUserData || !authData?.isAuth}
-                href={userData?.avatar}
+                href={authData?.isAuth ? userData?.avatar : null}
                 word={userData?.firstName[0]?.toUpperCase()}
             />
             <DropDownMenu

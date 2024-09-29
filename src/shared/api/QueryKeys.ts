@@ -5,7 +5,7 @@ class QueryKeys {
 
     readonly users = {
         publicProfile: (userId: string) => 'public-profile-userId=' + userId,
-        privateProfile: 'private-profile',
+        profileByCookie: 'profile-by-cookie',
         createdPosts: (userId: string) => 'created-posts-userId=' + userId,
     } as const
 

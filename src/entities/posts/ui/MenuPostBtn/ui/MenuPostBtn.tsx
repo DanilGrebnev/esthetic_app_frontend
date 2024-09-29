@@ -1,12 +1,13 @@
 'use client'
 
-import { DeletePostsBtn } from '@/entities/posts/ui/MenuPostBtn/ui/DeletePostsBtn'
-import { EditPostsBtn } from '@/entities/posts/ui/MenuPostBtn/ui/EditPostsBtn'
-import { MenuPostBtnContext } from '@/entities/posts/ui/MenuPostBtn/ui/MenuPostBtnContext'
 import { useGetDetailPostsQuery } from '@/shared/api/posts'
 import { CircleButton } from '@/shared/ui/CircleButton'
 import { SlidingMenu } from '@/shared/ui/SlidingMenu'
-import { type FC, createContext } from 'react'
+import { type FC } from 'react'
+
+import { DeletePostsBtn } from './DeletePostsBtn'
+import { EditPostsBtn } from './EditPostsBtn'
+import { MenuPostBtnContext } from './MenuPostBtnContext'
 
 interface MenuPostBtnProps {
     postsId: string

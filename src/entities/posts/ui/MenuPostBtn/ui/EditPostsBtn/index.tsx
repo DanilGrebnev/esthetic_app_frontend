@@ -1,6 +1,6 @@
 import { CircleButton } from '@/shared/ui/CircleButton'
 import { Modal } from '@/shared/ui/modal'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { EditPostsModal } from './EditPostsModal/EditPostsModal'
 

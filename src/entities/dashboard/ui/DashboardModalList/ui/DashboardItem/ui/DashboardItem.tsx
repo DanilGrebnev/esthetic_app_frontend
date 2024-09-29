@@ -5,7 +5,7 @@ import {
     useCreateFavoritesDashboardMutation,
     useGetDashboardsByCookieQuery,
 } from '@/shared/api/dashboards'
-import { useGetPrivateProfileQuery } from '@/shared/api/users'
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
@@ -22,7 +22,7 @@ interface DashboardItemProps {
     disabled?: boolean
     dashboardName: string
     skeleton?: boolean
-    image?: string
+    url?: string
     onClick?: () => void
     deleteBtn?: boolean
     dashboardId: string
@@ -34,17 +34,17 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
         loading,
         dashboardName,
         deleteBtn,
-        image,
+        url,
         disabled,
         skeleton,
         dashboardId,
         postsId,
     } = props
 
-    const { data: privateProfile } = useGetPrivateProfileQuery()
-    const usersId = privateProfile?.userId || ''
+    const { data: profileByCookie } = useGetProfileByCookieQuery()
+    const usersId = profileByCookie?.userId || ''
 
-    const { data: dashboardsListByCookie } = useGetDashboardsByCookieQuery()
+    const { data: dashboardsByCookie } = useGetDashboardsByCookieQuery()
 
     const { mutate: addToDashboard, isPending: pendingAddToDashboard } =
         useAddPostsToDashboardMutation({
@@ -54,16 +54,11 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
     const { mutateAsync: createFavoritesDashboard } =
         useCreateFavoritesDashboardMutation({ usersId })
 
-    const addPostToDashboard = () => {
+    const addPostToDashboard = async () => {
         if (dashboardName === 'Избранное') {
-            if (dashboardsListByCookie?.favorites) {
-                addToDashboard({ postsId, dashboardId })
-            } else {
-                createFavoritesDashboard().then(() =>
-                    addToDashboard({ postsId, dashboardId }),
-                )
+            if (!dashboardsByCookie?.favorites) {
+                await createFavoritesDashboard()
             }
-            return
         }
 
         addToDashboard({ postsId, dashboardId })
@@ -86,16 +81,17 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
                 {skeleton && <Skeletons />}
                 {!skeleton && (
                     <>
-                        {image && (
+                        {url ? (
                             <Image
                                 className={s['dashboard-item__img']}
-                                src={image}
+                                src={url}
                                 width={40}
                                 height={40}
                                 alt='test'
                             />
+                        ) : (
+                            <Placeholder />
                         )}
-                        {!image && <Placeholder />}
                         <p className='text-ellipsis'>{dashboardName}</p>
                     </>
                 )}

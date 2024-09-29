@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 interface UserState {
-    privateProfile: UserProfile
+    profileByCookie: UserProfile
     publicProfile: UserPublicProfile
 }
 
@@ -16,7 +16,7 @@ interface Actions {
 export const useUserStore = create<UserState & Actions>()(
     immer(
         devtools((set) => ({
-            privateProfile: {
+            profileByCookie: {
                 userId: '',
                 firstName: '',
                 avatar: null,
@@ -39,9 +39,9 @@ export const useUserStore = create<UserState & Actions>()(
                     isSubscribe: false,
                 },
             },
-            setPrivateProfile: (privateProfile) => {
+            setPrivateProfile: (profileByCookie) => {
                 set((state) => {
-                    state.privateProfile = privateProfile
+                    state.profileByCookie = profileByCookie
                 })
             },
             setPublicProfile: (publicProfile) => {
