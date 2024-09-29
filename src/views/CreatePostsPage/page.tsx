@@ -32,6 +32,7 @@ export const CreatePosts = () => {
             </header>
             <Container size='m'>
                 <CreatePostForm
+                    postsEdit={false}
                     isPending={isPending}
                     mutate={(formData) => {
                         mutateAsync(formData).then(() => {

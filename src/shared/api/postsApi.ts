@@ -18,8 +18,5 @@ export const getPosts = async (
         setTimeout(() => {
             resolve(mockPosts.slice(offset + 1, limit))
         }, getRandomElementFromArray(randomTime))
-        // setTimeout(() => {
-        //     resolve(mockPosts.slice(offset + 1, limit))
-        // }, 5000)
     })
 }

@@ -27,7 +27,7 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
         >
             <div className={s['content-container']}>
                 <div
-                    style={{ aspectRatio: post?.media?.options?.aspectRatio }}
+                    style={{ aspectRatio: post?.media?.aspectRatio }}
                     className={s['image-container']}
                 >
                     <Image

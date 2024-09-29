@@ -1,6 +1,7 @@
-import { FileOptions } from '@/shared/types/fileOptions'
-import { TAuthor } from '@/shared/types/user'
-import { Tag } from '@/shared/ui/InputWithTags/types'
+import type { FileOptions } from '@/shared/types/fileOptions'
+import type { AspectRatio } from '@/shared/types/media'
+import type { TAuthor } from '@/shared/types/user'
+import type { Tag } from '@/shared/ui/InputWithTags/types'
 
 /* Базовй тип поста */
 export interface TPosts {
@@ -15,7 +16,7 @@ export interface TPosts {
     media: {
         type: 'img' | 'video'
         url: string
-        options: FileOptions
+        aspectRatio: AspectRatio
     }
 }
 /* Детальная информация поста */
@@ -47,13 +48,13 @@ export interface TCreatePosts {
     link: string
     name: string
     description: string
-    aspectRatio: string
+    aspectRatio: AspectRatio
 }
 
 // Прневью поста
 export interface TPostsPreview {
     contentType: 'img' | 'video'
-    options: FileOptions
+    aspectRatio: AspectRatio
     postId: string
     url: string
 }

@@ -32,6 +32,7 @@ export const useCreatePostsMutation = (userId: string) => {
                 queryKey: [queryKeys.users.createdPosts(userId)],
             })
         },
+        retry: false,
     })
 }
 

@@ -16,7 +16,7 @@ import s from './EditPostsModal.module.scss'
 
 interface EditPostsModalProps {}
 
-export const EditPostsModal: FC<EditPostsModalProps> = (props) => {
+export const EditPostsModal: FC<EditPostsModalProps> = () => {
     const { postsId } = useMenuPostBtnContext()
     const submitRef = useRef<HTMLButtonElement | null>(null)
 
@@ -33,22 +33,17 @@ export const EditPostsModal: FC<EditPostsModalProps> = (props) => {
             <BaseModalWindow className={s.modal}>
                 <h3>Изменение поста</h3>
                 <CreatePostForm
+                    postsEdit={true}
                     isPending={isPending}
                     defaultValues={{
                         name: postData?.post?.name ?? '',
                         link: postData?.post?.link ?? '',
                         description: postData?.post?.description ?? '',
-                        // TODO: ИСПРАВИТЬ ВРЕМЕННОЕ ПРЕОБРАЗОВАНИЕ!
-                        tags:
-                            postData?.post?.tags.map((tag) => ({
-                                tagId: (tag as any).id,
-                                label: tag.label,
-                            })) ?? [],
+                        tags: postData?.post?.tags ?? [],
                     }}
                     mutate={(formData) => {
                         editPost({ body: formData, postsId })
                     }}
-                    fileUpload={false}
                     submitBtnRef={submitRef}
                 />
 

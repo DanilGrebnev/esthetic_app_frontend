@@ -33,6 +33,7 @@ export const RegistrationForm = () => {
     } = useForm<Omit<CreateUser, 'tags'>>({
         mode: 'onBlur',
     })
+
     const router = useRouter()
 
     const { mutateAsync, isPending, isSuccess } = useRegistrationMutation()
@@ -51,6 +52,10 @@ export const RegistrationForm = () => {
             ]),
         )
         formData.delete('recommendedTags')
+
+        for (let f of formData) {
+            console.log(f)
+        }
 
         mutateAsync(formData).then(() => {
             setTimeout(() => {

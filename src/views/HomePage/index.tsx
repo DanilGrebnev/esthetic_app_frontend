@@ -7,7 +7,7 @@ import { PostsCard } from '@/widgets/PostsCard'
 
 export const Home = () => {
     const { data: recommendedPosts, isPending } = useGetRecommendedPosts()
-
+    console.log(recommendedPosts)
     return (
         <Container>
             <MasonryContainerWithBreakPoints>
@@ -17,7 +17,7 @@ export const Home = () => {
                             key={post.postId}
                             mediaUrl={post.url}
                             name={''}
-                            aspect={post.options.aspectRatio}
+                            aspect={post.aspectRatio}
                             postId={post.postId}
                         />
                     )

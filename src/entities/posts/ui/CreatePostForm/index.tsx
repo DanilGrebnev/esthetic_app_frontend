@@ -20,7 +20,7 @@ const selectOptions = [
 interface CreatePostFormProps {
     mutate: (formData: FormData) => void
     isPending?: boolean
-    fileUpload?: boolean
+    postsEdit?: boolean
     submitBtnRef?: MutableRefObject<HTMLButtonElement | null>
     defaultValues?: Omit<TCreatePosts, 'file' | 'aspectRatio'> & {
         tags: Tag[] | []
@@ -32,7 +32,7 @@ export const CreatePostForm = memo(
         const {
             mutate,
             isPending,
-            fileUpload = true,
+            postsEdit = false,
             submitBtnRef,
             defaultValues,
         } = props
@@ -67,18 +67,7 @@ export const CreatePostForm = memo(
 
             const file = formData.get('file') as File
 
-            fileUpload &&
-                formData?.set(
-                    'fileOptions',
-                    JSON.stringify({
-                        objectPosition: 'center',
-                        aspectRatio: formData?.get('aspectRatio'),
-                    }),
-                )
-
-            formData?.delete('aspectRatio')
-
-            if (fileUpload && !file.size) {
+            if (!postsEdit && !file.size) {
                 return setError('file', {
                     type: 'value',
                     message: 'file field is empty',
@@ -94,7 +83,7 @@ export const CreatePostForm = memo(
                 className={s.form}
                 onSubmit={handleSubmit(onSubmit)}
             >
-                {fileUpload && (
+                {!postsEdit && (
                     <div className={s['left-col']}>
                         <UploadPostsContentWindow
                             clearErrors={clearErrors}
