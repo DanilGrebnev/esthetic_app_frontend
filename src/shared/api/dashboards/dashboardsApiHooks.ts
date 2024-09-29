@@ -49,24 +49,6 @@ export const useGetDashboardsByCookieQuery = (args?: ArgsWithEnabled) => {
     })
 }
 
-/* Возвращает массив досок пользователя */
-// export const useGetDashboardsListByCookieQuery = (args?: ArgsWithEnabled) => {
-//     return useQuery({
-//         queryFn: ({ signal }) =>
-//             dashboardsApi.getDashboardsListByCookie({ signal }),
-//         queryKey: [queryKeys.dashboards.getDashboardsListByCookie] as const,
-//         retry: false,
-//         select: (dashboardsData) => {
-//             const dashboards: DashboardsByCookieItem[] = []
-//
-//             if (dashboardsData?.favorites) {
-//                 dashboards.push(dashboardsData?.favorites)
-//             }
-//         },
-//         ...args,
-//     })
-// }
-
 // Получение списка постов по dashboardId
 export const useGetDashboardsDetail = ({
     dashboardsId,
@@ -148,9 +130,11 @@ export const useCreateFavoritesDashboardMutation = ({
 export const useDeletePostsFromDashboardMutation = ({
     usersId,
     postsId,
+    dashboardId,
 }: {
     usersId: string
     postsId: string
+    dashboardId: string
 }) => {
     const queryClient = useQueryClient()
 
@@ -167,19 +151,27 @@ export const useDeletePostsFromDashboardMutation = ({
             queryClient.refetchQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
             })
+
+            queryClient.refetchQueries({
+                queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardId)],
+            })
         },
     })
 }
 
 /* Добавление поста в доску
  * @params usersId - id профиля пользователя
- * @params postsId - id добавляемого поста */
+ * @params postsId - id добавляемого поста
+ * @params dashboardId- id доски, в которую добавляется пост
+ * */
 export const useAddPostsToDashboardMutation = ({
     usersId,
     postsId,
+    dashboardId,
 }: {
     usersId: string
     postsId: string
+    dashboardId: string
 }) => {
     const queryClient = useQueryClient()
 
@@ -196,12 +188,16 @@ export const useAddPostsToDashboardMutation = ({
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
             })
+
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardId)],
+            })
         },
     })
 }
 
 // ### DELETE ###
-export const useDeleteDashboardMutation = (userId: string) => {
+export const useDeleteDashboardMutation = ({ userId }: { userId: string }) => {
     const queryClient = useQueryClient()
 
     return useMutation({

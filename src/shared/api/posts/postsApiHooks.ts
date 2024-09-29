@@ -2,6 +2,8 @@ import { queryKeys } from '@/shared/api/QueryKeys'
 import { postsApi } from '@/shared/api/posts/postsApi'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { revalidatePostsDetailPage } from './postsApiServerActions'
+
 // ### GET ###
 export const useGetDetailPostsQuery = (postId: string) => {
     return useQuery({
@@ -79,26 +81,17 @@ export const useDeletePostsMutation = ({
 }
 
 // ### PUT ###
-export const useUpdatePostsMutation = ({
-    userId,
-    postsId,
-}: {
-    userId: string
-    postsId: string
-}) => {
+export const useUpdatePostsMutation = ({ postsId }: { postsId: string }) => {
     const queryClient = useQueryClient()
 
     return useMutation({
         mutationFn: postsApi.editPost,
         onSuccess: () => {
-            // инвалидируем список созданных пользователем постов
-            queryClient.invalidateQueries({
-                queryKey: [queryKeys.users.createdPosts(userId)],
-            })
-
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.posts.postsDetail(postsId)],
             })
+
+            revalidatePostsDetailPage(postsId)
         },
     })
 }

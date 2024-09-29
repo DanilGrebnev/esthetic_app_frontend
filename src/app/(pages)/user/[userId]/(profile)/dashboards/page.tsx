@@ -1,14 +1,18 @@
-import { getUserPublicProfileServerAction } from '@/shared/api/users'
+import { usersApi } from '@/shared/api/users'
 
-export async function generateMetadata({
+export { UserDashboardsPage as default } from '@/views/UserDashboardsPage'
+
+export const generateMetadata = async ({
     params,
 }: {
     params: { userId: string }
-}) {
-    const userProfile = await getUserPublicProfileServerAction(params.userId)
+}) => {
+    const userProfile = await usersApi.publicProfile(params.userId)
+    const {
+        user: { firstName, lastName },
+    } = userProfile
 
     return {
-        title: `Доски пользователя ${userProfile.user.firstName} ${userProfile.user.lastName}`,
+        title: `Доски пользователя ${firstName} ${lastName}`,
     }
 }
-export { UserDashboardsPage as default } from '@/views/UserDashboardsPage'

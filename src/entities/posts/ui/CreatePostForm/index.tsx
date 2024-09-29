@@ -12,11 +12,6 @@ import { type SubmitHandler, useForm } from 'react-hook-form'
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
 
-const selectOptions = [
-    { name: 'one', value: 'one' },
-    { name: 'two', value: 'two' },
-]
-
 interface CreatePostFormProps {
     mutate: (formData: FormData) => void
     isPending?: boolean

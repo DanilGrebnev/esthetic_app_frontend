@@ -1,6 +1,5 @@
 'use client'
 
-import { DashboardItemSkeleton } from '@/entities/dashboard/ui/DashboardModalList/ui/DashboardItemSkeleton'
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import {
     useCheckPostInDashboard,
@@ -32,9 +31,6 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
 
     const { data: postsCheck, isFetching: fetchingPostsCheck } =
         useCheckPostInDashboard({ postsId, enabled: !!dashboardsByCookie })
-
-    console.log('postsCheck?.inDashboards', postsCheck?.inDashboards)
-    console.log('dashboardsByCookie', dashboardsByCookie)
 
     return (
         <div

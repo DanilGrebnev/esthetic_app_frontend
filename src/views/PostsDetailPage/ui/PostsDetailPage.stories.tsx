@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { PostsDetailPage } from './page'
+import { PostsDetailPage } from './PostsDetailPage'
 
 const meta: Meta<typeof PostsDetailPage> = {
     title: 'views/PostsDetailPage',

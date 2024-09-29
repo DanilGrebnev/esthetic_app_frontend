@@ -19,6 +19,7 @@ export const DeletePostFromDashboardBtn: FC<DeletePostFromDashboardBtnProps> = (
     } = useDeletePostsFromDashboardMutation({
         postsId,
         usersId,
+        dashboardId,
     })
 
     return (

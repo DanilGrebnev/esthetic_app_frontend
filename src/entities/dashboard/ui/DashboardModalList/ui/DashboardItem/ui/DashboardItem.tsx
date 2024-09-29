@@ -50,7 +50,9 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
         useAddPostsToDashboardMutation({
             usersId,
             postsId,
+            dashboardId,
         })
+
     const { mutateAsync: createFavoritesDashboard } =
         useCreateFavoritesDashboardMutation({ usersId })
 

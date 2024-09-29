@@ -1,6 +1,6 @@
 'use client'
 
-import { CreateDashboardButton } from '@/entities/dashboard/ui/CreateDashboardButton'
+import { CreateDashboardButton } from '@/entities/dashboard'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import type { FC, ReactNode } from 'react'
 

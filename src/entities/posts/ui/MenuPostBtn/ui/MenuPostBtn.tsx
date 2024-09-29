@@ -18,7 +18,7 @@ export const MenuPostBtn: FC<MenuPostBtnProps> = (props) => {
     const { data: posts, isPending } = useGetDetailPostsQuery(postsId)
 
     if (isPending) return
-    if (!posts?.user.isOwner) return
+    if (!posts?.user?.isOwner) return
 
     return (
         <MenuPostBtnContext.Provider value={{ postsId }}>

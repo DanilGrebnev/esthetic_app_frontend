@@ -2,7 +2,7 @@ import { useDeleteDashboardMutation } from '@/shared/api/dashboards'
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { BaseModalWindow } from '@/shared/ui/modal'
-import { FC, useContext, useEffect } from 'react'
+import { FC, useContext } from 'react'
 
 import { TileContext } from '../../../model/tileContext'
 
@@ -16,14 +16,9 @@ export const DeleteDashboardModal: FC<DeleteDashboardModalModalProps> = ({
 
     const { data: profileData } = useGetProfileByCookieQuery()
 
-    const { mutate, isPending } = useDeleteDashboardMutation(
-        profileData?.userId || '',
-    )
-
-    useEffect(() => {
-        console.log('modal is mounted')
-        return () => console.log('modal is unmounted')
-    }, [])
+    const { mutate, isPending } = useDeleteDashboardMutation({
+        userId: profileData?.userId || '',
+    })
 
     const deleteDashboard = () => {
         mutate(dashboardId)

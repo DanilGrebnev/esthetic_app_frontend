@@ -7,7 +7,7 @@ import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { Container } from '@/shared/ui/Container'
 import { useRouter } from 'next/navigation'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import s from './s.module.scss'
 import { CreatePostButton } from './ui/CreatePostButton'
@@ -16,14 +16,17 @@ export const CreatePosts = () => {
     const router = useRouter()
     const submitButtonRef = useRef<HTMLButtonElement | null>(null)
 
-    const { data: authData } = useCheckAuthQuery()
+    const { data: authData, isPending: isPendingAuth } = useCheckAuthQuery()
 
     const { data: profileByCookie } = useGetProfileByCookieQuery()
     const { mutateAsync, isPending, isSuccess } = useCreatePostsMutation(
         profileByCookie?.userId || '',
     )
+
+    useEffect(() => {}, [])
+
     // TODO: отображать сообщение для того, чтобы пользователь зарегистрировался или авторизовался
-    if (!authData?.isAuth) {
+    if (!authData?.isAuth && !isPendingAuth) {
         return router.push(routes.login.getRoute())
     }
 

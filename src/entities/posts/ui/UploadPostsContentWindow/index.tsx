@@ -13,7 +13,8 @@ import { type UseFormClearErrors } from 'react-hook-form'
 import { usePostsSliceActions } from '../../model/slice'
 import s from './s.module.scss'
 
-interface Props extends Omit<IUploadFiles, 'onChange' | 'placeholder'> {
+interface UploadPostsContentWindowProps
+    extends Omit<IUploadFiles, 'onChange' | 'placeholder'> {
     className?: string
     name?: string
     isLoading?: boolean
@@ -22,51 +23,60 @@ interface Props extends Omit<IUploadFiles, 'onChange' | 'placeholder'> {
 }
 
 export const UploadPostsContentWindow = memo(
-    forwardRef<HTMLInputElement, Props>((props, ref) => {
-        const { className, name, isLoading, isError, clearErrors, ...other } =
-            props
-        const [file, setFile] = useState<string | null>(null)
+    forwardRef<HTMLInputElement, UploadPostsContentWindowProps>(
+        (props, ref) => {
+            const {
+                className,
+                name,
+                isLoading,
+                isError,
+                clearErrors,
+                ...other
+            } = props
 
-        const actions = usePostsSliceActions()
-        const inputRef = useRef<HTMLInputElement | null>(null)
-        const combinedRef = useCombinedRef(inputRef, ref)
+            const [file, setFile] = useState<string | null>(null)
 
-        const onChange = (files: FileList) => {
-            readFile(files[0]).then((file) => {
-                actions.setFileData(file as string)
-                setFile(file as string)
-                clearErrors?.('file')
-            })
-        }
+            const actions = usePostsSliceActions()
+            const inputRef = useRef<HTMLInputElement | null>(null)
+            const combinedRef = useCombinedRef(inputRef, ref)
 
-        const onDelete = () => {
-            setFile(null)
-            if (!inputRef.current) return
-            inputRef.current.value = ''
-        }
+            const onChange = (files: FileList) => {
+                readFile(files[0]).then((file) => {
+                    actions.setFileData(file as string)
+                    setFile(file as string)
+                    clearErrors?.('file')
+                })
+            }
 
-        return (
-            <>
-                <UploadFiles
-                    className={clsx({ [s.hidden]: file }, className)}
-                    onChange={onChange}
-                    isError={isError}
-                    ref={combinedRef}
-                    name={name}
-                    {...other}
-                    placeholder={
-                        'Нажмите для выбора или перетащите нужный файл'
-                    }
-                />
-                {file && (
-                    <PreviewImageRedactor
-                        image={file}
-                        onDeleteFile={onDelete}
+            const onDelete = () => {
+                setFile(null)
+                if (!inputRef.current) return
+                inputRef.current.value = ''
+            }
+
+            return (
+                <>
+                    <UploadFiles
+                        className={clsx({ [s.hidden]: file }, className)}
+                        onChange={onChange}
+                        isError={isError}
+                        ref={combinedRef}
+                        name={name}
+                        {...other}
+                        placeholder={
+                            'Нажмите для выбора или перетащите нужный файл'
+                        }
                     />
-                )}
-            </>
-        )
-    }),
+                    {file && (
+                        <PreviewImageRedactor
+                            image={file}
+                            onDeleteFile={onDelete}
+                        />
+                    )}
+                </>
+            )
+        },
+    ),
 )
 
 UploadPostsContentWindow.displayName = 'UploadPostsContentWindow'

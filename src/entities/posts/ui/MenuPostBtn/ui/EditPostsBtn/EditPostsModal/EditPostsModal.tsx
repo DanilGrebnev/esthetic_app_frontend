@@ -5,7 +5,6 @@ import {
     useGetDetailPostsQuery,
     useUpdatePostsMutation,
 } from '@/shared/api/posts'
-import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { BaseModalWindow, useModalContext } from '@/shared/ui/modal'
@@ -20,12 +19,9 @@ export const EditPostsModal: FC = () => {
 
     const { onClose } = useModalContext()
 
-    const { data: profileByCookie } = useGetProfileByCookieQuery()
-
     const { data: postData } = useGetDetailPostsQuery(postsId)
 
     const { mutateAsync: editPost, isPending } = useUpdatePostsMutation({
-        userId: profileByCookie?.userId ?? '',
         postsId,
     })
 
