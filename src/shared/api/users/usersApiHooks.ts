@@ -71,3 +71,16 @@ export const useGetCreatedUserPostsQuery = (userId: string) => {
             usersApi.getAllCreatedUsersPosts({ userId, signal }),
     })
 }
+
+export const useChangeUserProfileData = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: usersApi.changeProfileData,
+        onSuccess: () => {
+            queryClient.resetQueries({
+                queryKey: [queryKeys.users.profileByCookie],
+            })
+        },
+    })
+}

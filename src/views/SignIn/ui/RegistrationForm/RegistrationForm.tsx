@@ -152,7 +152,12 @@ export const RegistrationForm = () => {
                                 className={s['upload-avatar-page']}
                             >
                                 <SubTitle>Добавьте аватар</SubTitle>
-                                <UploadUserAvatar onChange={onChangeAvatar} />
+                                <div className={s['upload-avatar-wrapper']}>
+                                    <UploadUserAvatar
+                                        className={s['upload-avatar']}
+                                        onChange={onChangeAvatar}
+                                    />
+                                </div>
                             </ProgressWindow.tab>
                             <ProgressWindow.tab className={s['tag-page']}>
                                 <SubTitle>Выберите теги</SubTitle>

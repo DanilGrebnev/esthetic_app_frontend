@@ -24,12 +24,16 @@ export const ButtonGroup: FC<ButtonGroupProps> = ({ userId }) => {
             ) : (
                 <Button variant='silver'>Подписаться</Button>
             )}
-            <Button
-                href={routes.editUserInfo.getRoute(userId)}
-                variant='silver'
-            >
-                Изменить
-            </Button>
+            {data?.guest?.isOwner ? (
+                <Button
+                    href={routes.editUserInfo.getRoute(userId)}
+                    variant='silver'
+                >
+                    Изменить
+                </Button>
+            ) : (
+                <Button variant='silver'>Написать</Button>
+            )}
         </div>
     )
 }

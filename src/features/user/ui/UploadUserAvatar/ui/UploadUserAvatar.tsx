@@ -3,28 +3,36 @@
 import { UploadFiles } from '@/shared/ui/UploadFile'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { FC, useCallback, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 
 import s from './UploadUserAvatar.module.scss'
 
 interface UploadUserAvatar {
     onChange?: (file: File) => void
+    className?: string
+    defaultValue?: string | null
 }
 
 export const UploadUserAvatar: FC<UploadUserAvatar> = (props) => {
-    const { onChange } = props
+    const { onChange, defaultValue, className } = props
 
     const [objectUrl, setObjectUrl] = useState<string | null>(null)
     const fileRef = useRef<HTMLInputElement>(null)
 
+    useEffect(() => {
+        if (defaultValue) {
+            setObjectUrl(defaultValue)
+        }
+    }, [defaultValue])
+
     const deleteAvatar = useCallback(() => {
-        setObjectUrl('')
         if (!fileRef.current) return
+        setObjectUrl('')
         fileRef.current.value = ''
     }, [])
 
     return (
-        <div className={s['upload-user-avatar-container']}>
+        <div className={clsx(s['upload-user-avatar-container'], className)}>
             <div className={s['preview-area']}>
                 <UploadFiles
                     ref={fileRef}

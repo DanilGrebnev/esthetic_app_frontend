@@ -45,16 +45,17 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                         {pendingInitialDashboardList && (
                             <DashboardListSkeleton amount={5} />
                         )}
-                        {dashboardsByCookie?.favorites && (
-                            <DashboardItem
-                                postsId={postsId}
-                                loading={fetchingPostsCheck}
-                                skeleton={pendingInitialDashboardList}
-                                deleteBtn={postsCheck?.inFavorites}
-                                dashboardName='Избранное'
-                                {...dashboardsByCookie?.favorites}
-                            />
-                        )}
+                        <DashboardItem
+                            postsId={postsId}
+                            loading={fetchingPostsCheck}
+                            skeleton={pendingInitialDashboardList}
+                            deleteBtn={postsCheck?.inFavorites}
+                            dashboardName='Избранное'
+                            dashboardId={
+                                dashboardsByCookie?.favorites?.dashboardId || ''
+                            }
+                            url={dashboardsByCookie?.favorites?.url}
+                        />
                         {dashboardsByCookie?.dashboards?.map((dashboard) => {
                             return (
                                 <DashboardItem

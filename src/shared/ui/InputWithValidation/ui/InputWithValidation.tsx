@@ -14,12 +14,21 @@ interface InputWithValidationProps<T extends FieldValues> {
     errors?: any
     validation?: Parameters<RegisterType<T>>[1]
     type?: Parameters<typeof Input>[0]['type']
+    defaultValue?: string
 }
 
 export const InputWithValidation = <T extends FieldValues>(
     props: InputWithValidationProps<T>,
 ) => {
-    const { register, name, required, validation, errors, ...other } = props
+    const {
+        register,
+        name,
+        defaultValue,
+        required,
+        validation,
+        errors,
+        ...other
+    } = props
 
     const requiredOptions = required && {
         value: true,
@@ -28,6 +37,7 @@ export const InputWithValidation = <T extends FieldValues>(
 
     return (
         <Input
+            defaultValue={defaultValue}
             {...register(name, {
                 required: requiredOptions,
                 ...validation,

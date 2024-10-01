@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    dashboardsApi,
     useAddPostsToDashboardMutation,
     useCreateFavoritesDashboardMutation,
     useGetDashboardsByCookieQuery,
@@ -22,7 +23,7 @@ interface DashboardItemProps {
     disabled?: boolean
     dashboardName: string
     skeleton?: boolean
-    url?: string
+    url?: string | null
     onClick?: () => void
     deleteBtn?: boolean
     dashboardId: string
@@ -44,8 +45,6 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
     const { data: profileByCookie } = useGetProfileByCookieQuery()
     const usersId = profileByCookie?.userId || ''
 
-    const { data: dashboardsByCookie } = useGetDashboardsByCookieQuery()
-
     const { mutate: addToDashboard, isPending: pendingAddToDashboard } =
         useAddPostsToDashboardMutation({
             usersId,
@@ -53,13 +52,22 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
             dashboardId,
         })
 
-    const { mutateAsync: createFavoritesDashboard } =
+    const { mutateAsync: createFavoritesDashboard, isSuccess } =
         useCreateFavoritesDashboardMutation({ usersId })
 
     const addPostToDashboard = async () => {
         if (dashboardName === 'Избранное') {
-            if (!dashboardsByCookie?.favorites) {
+            if (!dashboardId) {
                 await createFavoritesDashboard()
+                const data = await dashboardsApi.getDashboardsListByCookie()
+
+                if (data?.favorites?.dashboardId) {
+                    addToDashboard({
+                        postsId,
+                        dashboardId: data?.favorites?.dashboardId,
+                    })
+                }
+                return
             }
         }
 

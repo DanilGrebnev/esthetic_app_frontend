@@ -1,5 +1,5 @@
 import { Container } from '@/shared/ui/Container'
-import { FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 
 interface ProfileDashboardsLayoutProps {
     children?: ReactNode

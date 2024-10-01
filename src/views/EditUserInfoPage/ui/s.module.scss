@@ -1,20 +1,20 @@
-.page{
-  display: flex;
-  flex-direction: column;
-  gap: var(--global-gap-1)
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--global-gap-1);
 }
 
-.btn-group{
-  display: flex;
-  gap: var(--global-gap-1);
+.btn-group {
+    display: flex;
+    gap: var(--global-gap-1);
 }
 
-.upload-files {
-  width: 100%;
-  max-width: 200px;
-  height: 200px;
+.avatar {
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
 }
 
-.title{
-  font-size: var(--font-300);
+.title {
+    font-size: var(--font-400);
 }

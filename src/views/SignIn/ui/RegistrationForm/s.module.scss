@@ -12,16 +12,15 @@
     height: max-content;
 }
 
-.progress-window-wrapper{
+.progress-window-wrapper {
     display: flex;
     flex-direction: column;
     gap: var(--global-gap-1);
-
-    padding: 10px;
-
-    border-radius: var(--global-border-radius);
     box-shadow: var(--global-box-shadow);
 
+    border-radius: var(--global-border-radius);
+
+    padding: 10px;
 }
 
 .inputs-wrapper {
@@ -34,12 +33,25 @@
     display: flex;
 }
 
-.upload-avatar-page{
+.upload-avatar-page {
     display: flex;
     flex-direction: column;
 }
 
-.tag-page{
+.upload-avatar-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.upload-avatar {
+    width: 200px;
+    max-height: 200px;
+}
+
+.tag-page {
     display: flex;
     flex-direction: column;
     gap: var(--global-gap-1);

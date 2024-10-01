@@ -61,12 +61,11 @@ class DashboardsApi {
         })
     }
 
-    getDashboardsListByCookie = (args: ArgsWithSignal) => {
-        const { signal } = args
+    getDashboardsListByCookie = (args?: ArgsWithSignal) => {
         return apiInstance
             .get(this.baseUrl, {
                 credentials: 'include',
-                signal,
+                signal: args?.signal,
             })
             .json<DashboardsByCookie>()
     }

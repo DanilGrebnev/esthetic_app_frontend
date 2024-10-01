@@ -1,8 +1,10 @@
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn, MenuPostBtn } from '@/entities/posts'
+import { routes } from '@/shared/routes'
 import { TAuthor } from '@/shared/types/user'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
+import Link from 'next/link'
 import { type FC } from 'react'
 
 import s from './PostsDetailHeader.module.scss'
@@ -50,10 +52,14 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                     </p>
                 )}
                 <div className={s['user-info']}>
-                    <UserAvatar
-                        href={author?.avatar}
-                        size='m'
-                    />
+                    <Link
+                        href={routes.userCreatedPosts.getRoute(author?.userId)}
+                    >
+                        <UserAvatar
+                            href={author?.avatar}
+                            size='m'
+                        />
+                    </Link>
                     <span>
                         {author?.firstName} {author?.lastName}
                     </span>

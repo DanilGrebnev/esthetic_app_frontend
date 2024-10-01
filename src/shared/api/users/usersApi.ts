@@ -10,7 +10,7 @@ import type {
 import { apiInstance } from '../Instance'
 
 class UsersApi {
-    basePath = 'users' as const
+    private basePath = 'users' as const
 
     login = (body: UsersLoginBody) => {
         return apiInstance
@@ -43,6 +43,13 @@ class UsersApi {
                 credentials: 'include',
             })
             .json<UserPrivateProfile>()
+    }
+
+    changeProfileData = (formData: FormData) => {
+        return apiInstance.put(this.basePath, {
+            credentials: 'include',
+            body: formData,
+        })
     }
 
     getAllCreatedUsersPosts = (args: ArgsWithSignal<{ userId: string }>) => {

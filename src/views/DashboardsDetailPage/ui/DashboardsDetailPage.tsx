@@ -5,6 +5,7 @@ import { UserProfileIcon } from '@/features/user'
 import { useGetDashboardsDetail } from '@/shared/api/dashboards'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
+import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { PostsCard } from '@/widgets/PostsCard'
 import { type FC } from 'react'
 
@@ -34,7 +35,10 @@ export const DashboardDetailPage: FC<DashboardDetailPageProps> = ({
                 {dashboardsDetail?.dashboardInfo?.dashboardName}
             </h1>
             <div className={s['author-info']}>
-                <UserProfileIcon />
+                <UserAvatar
+                    word={publicProfile?.user?.firstName[0].toUpperCase()}
+                    href={publicProfile?.user?.avatar}
+                />
                 <div className={s['author-name']}>
                     {publicProfile?.user.firstName}
                     {publicProfile?.user.lastName}
