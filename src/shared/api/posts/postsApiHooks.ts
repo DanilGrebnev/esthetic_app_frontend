@@ -13,12 +13,13 @@ export const useGetDetailPostsQuery = (postId: string) => {
     })
 }
 
+// TODO: Исправить на бесшовную пагинацию
 // Получение постов по тэгам пользователя
 export const useGetRecommendedPosts = () => {
-    return useQuery({
-        queryFn: postsApi.recommendedPosts,
-        queryKey: [queryKeys.posts.recommendedPosts],
-    })
+    // return useQuery({
+    //     queryFn: postsApi.recommendedPosts,
+    //     queryKey: [queryKeys.posts.recommendedPosts],
+    // })
 }
 
 // ### POST ###

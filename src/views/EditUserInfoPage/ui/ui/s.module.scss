@@ -1,0 +1,17 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: var(--global-gap-1);
+}
+
+.text {
+  min-height: 56px;
+  display: block;
+  border-radius: var(--global-border-radius);
+
+}
+.avatar{
+  min-height: 200px;
+  width: 200px;
+  border-radius: var(--global-border-radius);
+}

@@ -4,18 +4,16 @@ import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useFixSize } from '@/shared/hooks/useFixSize'
 import { useLatest } from '@/shared/hooks/useLatest'
 import { clsx } from 'clsx'
-import { forwardRef, memo, useCallback, useState } from 'react'
+import { forwardRef, memo, useCallback, useEffect, useState } from 'react'
 
 import { useSetValueInHiddenInput } from '../hooks'
 import { useFocusOnInput } from '../hooks/useFocusOnInput'
 import { InputWithTagsProps, Tag } from '../types'
-import { setInitialTags } from '../utils'
 import { Input } from './Input'
 import { TagItem } from './TagItem'
 import s from './s.module.scss'
 
 /* Инпут с тегами.
- *
  * @param defaultValues
  * @example <InputWithTags defaultValues={[{ tagId:'123', label: 'Автомобили' }]} />
  *  */
@@ -31,9 +29,14 @@ export const InputWithTags = memo(
             onClick,
         } = props
 
-        const [tags, setTags] = useState<Tag[]>(() =>
-            setInitialTags(defaultValue),
-        )
+        const [tags, setTags] = useState<Tag[]>([])
+
+        useEffect(() => {
+            if (defaultValue) {
+                setTags(defaultValue)
+            }
+        }, [defaultValue])
+
         const tagsValue = value ?? tags
         const latestTags = useLatest(tagsValue)
 

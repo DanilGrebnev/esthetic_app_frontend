@@ -1,4 +1,4 @@
-import { type Tag } from '@/shared/ui/InputWithTags/types'
+import { type Tag } from '@/shared/ui/InputWithTags'
 
 /* Base user type */
 interface BaseUser {
@@ -22,7 +22,9 @@ export interface UserPublicProfile {
 }
 
 /* Private users profile*/
-export type UserPrivateProfile = UserProfile
+export type UserPrivateProfile = UserProfile & {
+    tags: Tag[] | []
+}
 
 /* Info about posts author */
 export interface TAuthor extends Omit<BaseUser, 'email'> {

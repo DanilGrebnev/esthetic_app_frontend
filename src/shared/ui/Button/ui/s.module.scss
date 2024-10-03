@@ -107,6 +107,10 @@
     &:hover {
         background: var(--silver-btn-bg-hover-color);
     }
+
+    &:active:not(.active-underline) {
+        @extend %in-touches;
+    }
 }
 
 .h-full {

@@ -11,14 +11,15 @@ import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
+import { EditUserInfoSkeleton } from '@/views/EditUserInfoPage/ui/ui/EditUserInfoSkeleton'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import s from './s.module.scss'
 
 export const EditUserInfoPage = () => {
-    const { data: profile } = useGetProfileByCookieQuery()
-    const { mutate } = useChangeUserProfileData()
+    const { data: profile, isFetching } = useGetProfileByCookieQuery()
+    const { mutate, isPending } = useChangeUserProfileData()
 
     const {
         register,
@@ -34,14 +35,28 @@ export const EditUserInfoPage = () => {
             userName: profile?.userName ?? ' ',
         },
     })
+    useEffect(() => {
+        console.log('isFetching', isFetching)
+    }, [isFetching])
 
-    // TODO: Доделать: не отправлять поля, которые не изменились
+    useEffect(() => {
+        console.log('Profile update')
+    }, [profile])
+
     const onSubmit = handleSubmit((data, e) => {
         const formData = new FormData(e?.target)
 
-        Object.entries(defaultValues as any).forEach(([dK, dV]) => {})
+        Object.entries(defaultValues as any).forEach(([defaultK, defaultV]) => {
+            if (data[defaultK as keyof typeof data] === defaultV) {
+                formData.delete(defaultK)
+            }
+        })
 
-        // mutate(formData)
+        if (!(formData.get('avatar') as File).size) {
+            formData.delete('avatar')
+        }
+
+        mutate(formData)
     })
 
     return (
@@ -53,34 +68,45 @@ export const EditUserInfoPage = () => {
                 <header>
                     <h1 className={s.title}>Изменение профиля пользователя</h1>
                 </header>
-                <UploadUserAvatar
-                    defaultValue={profile?.avatar}
-                    className={s.avatar}
-                />
+                {isFetching || isPending ? (
+                    <EditUserInfoSkeleton />
+                ) : (
+                    <>
+                        <UploadUserAvatar
+                            defaultValue={
+                                profile?.avatar &&
+                                `${profile?.avatar}?${'id=' + Date.now()}`
+                            }
+                            className={s.avatar}
+                        />
 
-                <InputWithValidation
-                    register={register}
-                    label='Имя*'
-                    name='firstName'
-                    errors={errors}
-                    required
-                />
-                <InputWithValidation
-                    register={register}
-                    label='Фамилия'
-                    name='lastName'
-                />
-                <InputWithValidation
-                    register={register}
-                    label='Username'
-                    name='userName'
-                />
-                <InputWithValidation
-                    register={register}
-                    label='Почта пользователя*'
-                    name='email'
-                />
-                <InputWithTags />
+                        <InputWithValidation
+                            register={register}
+                            label='Имя*'
+                            name='firstName'
+                            errors={errors}
+                            required
+                        />
+                        <InputWithValidation
+                            register={register}
+                            label='Фамилия'
+                            name='lastName'
+                        />
+                        <InputWithValidation
+                            register={register}
+                            label='Username'
+                            name='userName'
+                        />
+                        <InputWithValidation
+                            register={register}
+                            label='Почта пользователя*'
+                            name='email'
+                        />
+
+                        <InputWithTags defaultValue={profile?.tags} />
+                    </>
+                )}
+
                 <div className={s['btn-group']}>
                     <Button
                         type='submit'

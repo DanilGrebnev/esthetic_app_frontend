@@ -78,7 +78,7 @@ export const useChangeUserProfileData = () => {
     return useMutation({
         mutationFn: usersApi.changeProfileData,
         onSuccess: () => {
-            queryClient.resetQueries({
+            queryClient.refetchQueries({
                 queryKey: [queryKeys.users.profileByCookie],
             })
         },
