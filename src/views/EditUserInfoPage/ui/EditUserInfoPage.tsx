@@ -4,17 +4,16 @@ import { UploadUserAvatar } from '@/features/user'
 import {
     useChangeUserProfileData,
     useGetProfileByCookieQuery,
-    usersApi,
 } from '@/shared/api/users'
 import { type CreateUser } from '@/shared/types/user'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
-import { EditUserInfoSkeleton } from '@/views/EditUserInfoPage/ui/ui/EditUserInfoSkeleton'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { EditUserInfoSkeleton } from './components/EditUserInfoSkeleton'
 import s from './s.module.scss'
 
 export const EditUserInfoPage = () => {

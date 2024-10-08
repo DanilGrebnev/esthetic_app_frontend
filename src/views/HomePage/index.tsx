@@ -2,58 +2,69 @@
 
 import { MasonryContainerWithBreakPoints } from '@/entities/posts'
 import { postsApi, useGetRecommendedPosts } from '@/shared/api/posts'
+import { getMockData } from '@/shared/mock/getMockData'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { PostsCard } from '@/widgets/PostsCard'
-import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query'
+import {
+    keepPreviousData,
+    useInfiniteQuery,
+    useQuery,
+} from '@tanstack/react-query'
 import ky from 'ky'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useIntersectionObserver } from 'usehooks-ts'
 
-const array = [
-    { id: 1, name: 'Danil' },
-    { id: 2, name: 'Ivan' },
-    { id: 3, name: 'Yura' },
-    { id: 4, name: 'Dima' },
-]
-
-function getPosts({ offset, limit }: { offset: number; limit: number }) {
-    return Promise.resolve({
-        postsAmount: array.length,
-        posts: array.slice(offset, limit),
-    })
-}
+import { Item } from './Item'
 
 export const Home = () => {
-    // const { data: recommendedPosts, isPending } = useGetRecommendedPosts()
+    const { data, fetchNextPage, isFetching, isPending, isLoading } =
+        useInfiniteQuery({
+            queryKey: ['projects'],
+            queryFn: ({ pageParam }) => {
+                return getMockData(pageParam)
+            },
+            getNextPageParam: (lastPage, allPages, lastPageParam) => ({
+                offset: lastPageParam.offset + 20,
+                limit: lastPageParam.limit + 20,
+            }),
+            maxPages: 200,
+            initialPageParam: { offset: 0, limit: 20 },
+            refetchOnWindowFocus: false,
+        })
 
-    const { data: recommendedPosts, fetchNextPage } = useInfiniteQuery({
-        queryKey: ['projects'],
-        queryFn: ({ pageParam }) => {
-            // return postsApi.recommendedPosts(pageParam)
-            return getPosts(pageParam)
-        },
-        getNextPageParam: (lastPage, allPages, lastPageParam) => {
-            return {
-                offset: lastPageParam.offset + 1,
-                limit: lastPageParam.limit + 1,
-            }
-        },
-        getPreviousPageParam: (firstPage, allPages, firstPageParam) => {
-            return undefined
-        },
-        placeholderData: keepPreviousData,
-        // maxPages: 3,
-        initialPageParam: { offset: 0, limit: 1 },
+    const { isIntersecting, ref } = useIntersectionObserver({
+        threshold: 0.1,
     })
 
+    // useEffect(() => {
+    //     console.log('isLoading', isLoading)
+    // }, [isLoading])
+
     useEffect(() => {
-        console.log(recommendedPosts)
-    }, [recommendedPosts])
+        if (isLoading) return
+        if (isIntersecting) {
+            fetchNextPage()
+        }
+        console.log('isLoading', isLoading)
+    }, [isIntersecting, fetchNextPage])
 
     return (
         <Container>
-            <Button onClick={() => fetchNextPage()}>Next</Button>
-
+            {/*<Button onClick={() => fetchNextPage()}>Next</Button>*/}
+            {data?.pages.map((page) => {
+                return page.posts.map((post) => (
+                    <Item
+                        id={post.id}
+                        key={post.id}
+                        name={post.name}
+                    />
+                ))
+            })}
+            <div
+                ref={ref}
+                style={{ height: '100px', border: '1px solid black' }}
+            ></div>
             <MasonryContainerWithBreakPoints>
                 {/*{recommendedPosts?.posts?.map((post) => {*/}
                 {/*    return (*/}

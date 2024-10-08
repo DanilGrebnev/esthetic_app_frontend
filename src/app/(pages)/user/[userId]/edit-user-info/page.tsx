@@ -1,1 +1,1 @@
-export { EditUserInfoPage as default } from '@/views'
+export { EditUserInfoPage as default } from '@/views/EditUserInfoPage'

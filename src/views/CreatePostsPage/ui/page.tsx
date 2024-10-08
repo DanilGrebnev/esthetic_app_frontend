@@ -9,10 +9,10 @@ import { Container } from '@/shared/ui/Container'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
+import { CreatePostButton } from './components/CreatePostButton'
 import s from './s.module.scss'
-import { CreatePostButton } from './ui/CreatePostButton'
 
-export const CreatePosts = () => {
+export const CreatePostsPage = () => {
     const router = useRouter()
     const submitButtonRef = useRef<HTMLButtonElement | null>(null)
 

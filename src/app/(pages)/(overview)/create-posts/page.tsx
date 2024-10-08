@@ -1,1 +1,1 @@
-export { CreatePosts as default } from '@/views'
+export { CreatedPostsPage as default } from '@/views/CreatedPostsPage'
