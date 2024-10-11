@@ -7,7 +7,17 @@ interface Item {
 
 export const Item: FC<Item> = memo(({ id, name }) => {
     return (
-        <div style={{ padding: '20px', border: '1px solid black' }}>{name}</div>
+        <div
+            style={{
+                display: 'flex',
+                padding: '20px',
+                border: '1px solid black',
+                justifyContent: 'space-between',
+            }}
+        >
+            <p style={{ fontWeight: 'bold' }}>{id}</p>
+            <p>{name}</p>
+        </div>
     )
 })
 

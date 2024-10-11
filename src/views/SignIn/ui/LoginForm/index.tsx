@@ -66,16 +66,17 @@ export const LoginForm = () => {
                 <Dialog
                     className={s.dialog}
                     open={isError}
-                    variant={'warning'}
+                    variant='warning'
+                    closeTimeout={5000}
                 >
-                    {'Ошибка авторизации'}
+                    Ошибка авторизации
                 </Dialog>
                 <Dialog
                     className={s.dialog}
                     open={isSuccess}
-                    variant={'success'}
+                    variant='success'
                 >
-                    {'Авторизация успешна'}
+                    Авторизация успешна
                 </Dialog>
             </Container>
         </>

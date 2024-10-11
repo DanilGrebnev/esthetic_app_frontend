@@ -5,15 +5,14 @@ export const getMockData = async (args: {
     limit: number
 }): Promise<TData> => {
     const data = await import('./MOCK_DATA.json')
-    console.log('Данные загружаются')
+    const updatedData = data.default.map((el, i) => ({ ...el, id: i + 1 }))
 
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 postsAmount: data.default.length,
-                posts: data.default.slice(args?.offset, args?.limit),
+                posts: updatedData.slice(args?.offset, args?.limit),
             })
-            console.log('Данные загружены')
         }, 2000)
     })
 }

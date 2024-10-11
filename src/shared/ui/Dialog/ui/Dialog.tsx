@@ -1,25 +1,43 @@
 import { clsx } from 'clsx'
-import { type FC, ReactNode } from 'react'
+import { type FC, ReactNode, useEffect, useRef, useState } from 'react'
 
 import s from './Dialog.module.scss'
 
-interface DialogProps {
+interface BaseDialog {
     variant: 'info' | 'success' | 'warning'
     children?: ReactNode
     open?: boolean
-    onClose?: () => void
     className?: string
+    closeTimeout?: number
 }
 
-export const Dialog: FC<DialogProps> = (props) => {
-    const { variant, className, open, children } = props
+export const Dialog = (props: BaseDialog) => {
+    const { variant, className, open, children, closeTimeout } = props
+    const [isOpen, setOpen] = useState(false)
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+    useEffect(() => {
+        if (open) setOpen(true)
+
+        if (!open) {
+            setOpen(false)
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+            return
+        }
+
+        if (closeTimeout) {
+            timeoutRef.current = setTimeout(setOpen, closeTimeout, false)
+        }
+    }, [open])
 
     return (
         <div
             className={clsx(
                 s.dialog,
                 s[variant],
-                { [s.open]: open },
+                { [s.open]: isOpen },
                 className,
             )}
         >

@@ -1,6 +1,12 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { postsApi } from '@/shared/api/posts/postsApi'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getMockData } from '@/shared/mock/getMockData'
+import {
+    useInfiniteQuery,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from '@tanstack/react-query'
 
 import { revalidatePostsDetailPage } from './postsApiServerActions'
 
@@ -13,12 +19,33 @@ export const useGetDetailPostsQuery = (postId: string) => {
     })
 }
 
-// TODO: Исправить на бесшовную пагинацию
 // Получение постов по тэгам пользователя
 export const useGetRecommendedPosts = () => {
-    // return useQuery({
-    //     queryFn: postsApi.recommendedPosts,
-    //     queryKey: [queryKeys.posts.recommendedPosts],
+    return useInfiniteQuery({
+        queryKey: [queryKeys.posts.recommendedPosts],
+        queryFn: ({ pageParam }) => {
+            return getMockData(pageParam)
+        },
+        getNextPageParam: (_, __, lastPageParam) => ({
+            offset: lastPageParam.offset + 20,
+            limit: lastPageParam.limit + 20,
+        }),
+        initialPageParam: { offset: 0, limit: 20 },
+        refetchOnWindowFocus: false,
+    })
+
+    // return useInfiniteQuery({
+    //     queryKey: ['projects'],
+    //     queryFn: ({ pageParam }) => {
+    //         return postsApi.recommendedPosts(pageParam)
+    //     },
+    //     getNextPageParam: (_, __, lastPageParam) => ({
+    //         offset: lastPageParam.offset + 20,
+    //         limit: lastPageParam.limit + 20,
+    //     }),
+    //     maxPages: 200,
+    //     initialPageParam: { offset: 0, limit: 20 },
+    //     refetchOnWindowFocus: false,
     // })
 }
 

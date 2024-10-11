@@ -1,9 +1,6 @@
 'use client'
 
-import {
-    MasonryContainerWithBreakPoints,
-    PostsListContainerWithBreakpoints,
-} from '@/entities/posts'
+import { PostsListContainerWithBreakpoints } from '@/entities/posts'
 import { useGetCreatedUserPostsQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { PostsCard } from '@/widgets/PostsCard'
@@ -15,7 +12,6 @@ interface CreatedPostsPageProps {
 
 export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
     const { data } = useGetCreatedUserPostsQuery(props.userId)
-    // TODO: Сделать удаление постов если пользователь авторизован
     const posts = data?.posts
 
     return (
