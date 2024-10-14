@@ -10,3 +10,7 @@ export const consts = {
     pathToImage: baseUrl + 'assets/',
     baseApiUrl,
 } as const
+
+export const paginationAmount = Number(
+    process.env.NEXT_PUBLIC_PAGINATION_AMOUNT,
+)

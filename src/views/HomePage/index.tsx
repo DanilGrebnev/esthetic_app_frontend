@@ -1,21 +1,20 @@
 'use client'
 
-import { MasonryContainerWithBreakPoints } from '@/entities/posts'
+import {
+    MasonryContainerWithBreakPoints,
+    PostsCardSkeleton,
+} from '@/entities/posts'
 import { postsApi, useGetRecommendedPosts } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
 import { PostsCard } from '@/widgets/PostsCard'
 import { useMemo } from 'react'
 
-import { Item } from './Item'
-
 export const Home = () => {
-    const { data, fetchNextPage, isFetching } = useGetRecommendedPosts()
+    const { data, fetchNextPage, isFetching, isLoading } =
+        useGetRecommendedPosts()
 
-    const postsAmount = useMemo(
-        () => data?.pages[0].postsAmount,
-        [data?.pages[0].postsAmount],
-    )
+    const postsAmount = useMemo(() => data?.pages[0].postsAmount, [])
 
     return (
         <Container>
@@ -30,33 +29,27 @@ export const Home = () => {
                     skip={isFetching}
                     action={fetchNextPage}
                 >
-                    {data?.pages.map((page) => {
-                        return page.posts.map((post) => (
-                            <Item
-                                id={post.id}
-                                key={post.id}
-                                name={post.name}
-                            />
-                        ))
-                    })}
+                    <MasonryContainerWithBreakPoints isLoading={isFetching}>
+                        {data?.pages?.map((page) =>
+                            page.posts.map((post) => (
+                                <PostsCard
+                                    key={post.postId}
+                                    mediaUrl={post.url}
+                                    name={''}
+                                    aspect={post.aspectRatio}
+                                    postId={post.postId}
+                                />
+                            )),
+                        )}
+                        {isLoading &&
+                            Array(15)
+                                .fill('')
+                                .map((_, i) => {
+                                    return <PostsCardSkeleton key={i} />
+                                })}
+                    </MasonryContainerWithBreakPoints>
                 </InfiniteScrollContainer>
             </div>
-
-            {isFetching && <div>Loading...</div>}
-
-            <MasonryContainerWithBreakPoints>
-                {/*{recommendedPosts?.posts?.map((post) => {*/}
-                {/*    return (*/}
-                {/*        <PostsCard*/}
-                {/*            key={post.postId}*/}
-                {/*            mediaUrl={post.url}*/}
-                {/*            name={''}*/}
-                {/*            aspect={post.aspectRatio}*/}
-                {/*            postId={post.postId}*/}
-                {/*        />*/}
-                {/*    )*/}
-                {/*})}*/}
-            </MasonryContainerWithBreakPoints>
         </Container>
     )
 }

@@ -40,6 +40,5 @@ export interface DashboardsDetail {
         dateOfCreation: string
         postsAmount: number
     }
-    postsAmount: number
     posts: TPostsPreview[]
 }

@@ -1,27 +1,26 @@
 .tag-wrapper {
-    cursor: pointer;
-
     display: flex;
 
-    width: max-content;
-    padding: 5px;
+    transition: var(--global-transition-1);
+    cursor: pointer;
 
     border: 1px solid var(--border-color-1);
     border-radius: var(--global-border-radius);
+    padding: 5px;
 
-    transition: var(--global-transition);
+    width: max-content;
 
     &:hover {
         background: var(--global-btn-hover);
     }
 
-    &:active{
-        transform: scale(.90);
+    &:active {
+        transform: scale(0.9);
         transition-timing-function: var(--cubic-bezier-1);
     }
 
-    &.checked{
-        color: white;
+    &.checked {
         background: green;
+        color: white;
     }
 }

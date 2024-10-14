@@ -1,6 +1,6 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { postsApi } from '@/shared/api/posts/postsApi'
-import { getMockData } from '@/shared/mock/getMockData'
+import { paginationAmount } from '@/shared/consts'
 import {
     useInfiniteQuery,
     useMutation,
@@ -22,31 +22,22 @@ export const useGetDetailPostsQuery = (postId: string) => {
 // Получение постов по тэгам пользователя
 export const useGetRecommendedPosts = () => {
     return useInfiniteQuery({
-        queryKey: [queryKeys.posts.recommendedPosts],
+        queryKey: ['all-posts'],
         queryFn: ({ pageParam }) => {
-            return getMockData(pageParam)
+            return postsApi.recommendedPosts(pageParam)
         },
-        getNextPageParam: (_, __, lastPageParam) => ({
-            offset: lastPageParam.offset + 20,
-            limit: lastPageParam.limit + 20,
-        }),
-        initialPageParam: { offset: 0, limit: 20 },
+        getNextPageParam: (lastPage, allPages, lastPageParam) => {
+            if (lastPage.posts.length < paginationAmount) return
+
+            return {
+                offset: lastPageParam.offset + paginationAmount,
+                limit: lastPageParam.limit + paginationAmount,
+            }
+        },
+        maxPages: 5,
+        initialPageParam: { offset: 0, limit: paginationAmount },
         refetchOnWindowFocus: false,
     })
-
-    // return useInfiniteQuery({
-    //     queryKey: ['projects'],
-    //     queryFn: ({ pageParam }) => {
-    //         return postsApi.recommendedPosts(pageParam)
-    //     },
-    //     getNextPageParam: (_, __, lastPageParam) => ({
-    //         offset: lastPageParam.offset + 20,
-    //         limit: lastPageParam.limit + 20,
-    //     }),
-    //     maxPages: 200,
-    //     initialPageParam: { offset: 0, limit: 20 },
-    //     refetchOnWindowFocus: false,
-    // })
 }
 
 // ### POST ###

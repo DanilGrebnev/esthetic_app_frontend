@@ -62,7 +62,8 @@
 
     /* ===== EFFECTS ===== */
     --global-box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
-    --global-transition: 0.3s;
+    --global-transition-1: 0.1s;
+    --global-transition-2: 0.3s;
 
     /* ===== CUBIC-BEZIER ===== */
     --cubic-bezier-1: cubic-bezier(0.22, 0.68, 0, 1.71);

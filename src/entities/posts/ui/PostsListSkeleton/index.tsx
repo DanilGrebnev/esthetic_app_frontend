@@ -26,7 +26,7 @@ export const PostsListSkeleton: FC<PostsListSkeletonProps> = (props) => {
         )
     }
 
-    return Array(25)
+    return Array(15)
         .fill('')
         .map((_, i) => {
             return <PostsCardSkeleton key={i} />

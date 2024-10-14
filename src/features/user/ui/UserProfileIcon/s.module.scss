@@ -3,31 +3,30 @@
 }
 
 .modal {
+    transform: scale(0);
+    transition: var(--global-transition-1);
     overflow: hidden;
-    max-height: 0;
-    transition: 1s;
 
-    &.open{
-        max-height: 1000px;
+    &.open {
+        transform: scale(1);
     }
 }
 
 .user-icon-wrapper {
-    cursor: pointer;
-
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
+    transition: var(--global-transition-2);
+    cursor: pointer;
+    border-radius: var(--global-border-radius);
+
+    background: rgb(0 0 0 / 0%);
 
     aspect-ratio: 1 / 1;
     height: var(--button-l-height);
 
-    background: rgb(0 0 0 / 0%);
-    border-radius: var(--global-border-radius);
-
-    transition: .3s;
-
-    &:hover{
+    &:hover {
         background: var(--global-btn-hover);
     }
 }

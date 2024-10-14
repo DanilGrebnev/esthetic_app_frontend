@@ -7,7 +7,7 @@ import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { PostsCard } from '@/widgets/PostsCard'
-import { type FC } from 'react'
+import { type FC, useEffect } from 'react'
 
 import s from './DashboardDetailPage.module.scss'
 
@@ -45,7 +45,7 @@ export const DashboardDetailPage: FC<DashboardDetailPageProps> = ({
                 </div>
             </div>
             <h4 className={s['posts-amount']}>
-                Количество постов: {dashboardsDetail?.postsAmount}
+                Количество постов: {dashboardsDetail?.dashboardInfo.postsAmount}
             </h4>
             <div className={s['posts-list']}>
                 <DashboardsContainer>

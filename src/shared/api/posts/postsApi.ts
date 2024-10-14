@@ -7,20 +7,11 @@ class PostsApi {
 
     // GET
     /* Возврат всех постов на основе тегов пользователя */
-    recommendedPosts = ({
-        offset = 0,
-        limit = 1,
-    }: {
-        offset: number
-        limit: number
-    }) => {
+    recommendedPosts = (searchParams: { offset: number; limit: number }) => {
         return apiInstance
             .get(this.baseUrl, {
                 credentials: 'include',
-                searchParams: {
-                    offset,
-                    limit,
-                },
+                searchParams,
             })
             .json<{ postsAmount: number; posts: TPostsPreview[] }>()
     }
