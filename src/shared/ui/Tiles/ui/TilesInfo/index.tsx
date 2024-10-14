@@ -20,7 +20,6 @@ interface TilesInfo extends ITilesInfo {
 export const TilesInfo: FC<TilesInfo> = (props) => {
     const { className, date, title, postsCount, dotMenu = false } = props
     const [openDialog, setOpenDialog] = useState(false)
-
     const [openModal, setOpenModal] = useState(false)
 
     const closeDialogRef = useRef(() => setOpenDialog(false))

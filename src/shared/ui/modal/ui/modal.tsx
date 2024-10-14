@@ -5,7 +5,7 @@ import {
     useToggleBodyOverflow,
 } from '@/shared/ui/modal/hooks'
 import { ModalProvider } from '@/shared/ui/modal/modalContext'
-import { type ReactNode, useLayoutEffect, useRef } from 'react'
+import { type ReactNode, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 import s from './modal.module.scss'
@@ -52,11 +52,6 @@ function ModalWrapper({
     onClose?: () => void
 }) {
     const ref = useRef<HTMLDivElement>(null)
-
-    useLayoutEffect(() => {
-        if (!ref.current) return
-        const firstChild = ref.current.firstChild
-    }, [])
 
     return (
         <div

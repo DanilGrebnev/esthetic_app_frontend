@@ -7,7 +7,6 @@ import { type FC, memo } from 'react'
 
 import { TileContext } from '../model/tileContext'
 import { type ITilesInfo } from '../model/tyles-types'
-import { Component } from './Component'
 import { TilesInfo } from './TilesInfo'
 import s from './tiles.module.scss'
 
@@ -17,7 +16,6 @@ interface IDashboardTile extends ITilesInfo {
     href: string
     dotMenu?: boolean
     dashboardId: string
-    skeleton?: boolean
 }
 
 export const DashboardTile: FC<IDashboardTile> = memo((props) => {
@@ -29,8 +27,8 @@ export const DashboardTile: FC<IDashboardTile> = memo((props) => {
         date,
         images,
         dashboardId,
-        skeleton = false,
     } = props
+
     const router = useRouter()
     const a = Array(3).fill(null)
 

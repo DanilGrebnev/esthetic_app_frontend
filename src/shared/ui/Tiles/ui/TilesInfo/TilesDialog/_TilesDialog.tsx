@@ -1,4 +1,14 @@
-import { Children, ReactNode, forwardRef, memo } from 'react'
+'use client'
+
+import { clsx } from 'clsx'
+import {
+    Children,
+    ReactNode,
+    forwardRef,
+    memo,
+    useEffect,
+    useState,
+} from 'react'
 
 import s from './s.module.scss'
 
@@ -11,10 +21,17 @@ export const _TilesDialogContainer = memo(
         const { children } = props
         const arrayChildren = Children.toArray(children)
 
+        const [open, setOpen] = useState(false)
+
+        useEffect(() => {
+            setOpen(true)
+            return () => setOpen(false)
+        }, [])
+
         return (
             <div
                 ref={ref}
-                className={s.dialog}
+                className={clsx(s.dialog, { [s.open]: open })}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className={s['dialog-wrapper']}>{arrayChildren}</div>
