@@ -57,6 +57,7 @@ export const DashboardTile: FC<IDashboardTile> = memo((props) => {
                                         fill={true}
                                         src={url}
                                         className={s.image}
+                                        sizes={'20vw'}
                                     />
                                 )}
                             </div>

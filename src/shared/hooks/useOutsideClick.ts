@@ -27,8 +27,8 @@ export const useOutsideClick = ({
         if (!attached) return
 
         const handleClick = (e: any) => {
-            if (!elementRef.current) return
-            if (!elementRef.current.contains(e.target)) {
+            if (!elementRef?.current) return
+            if (!elementRef?.current.contains(e.target)) {
                 handlerRef.current?.()
             }
         }

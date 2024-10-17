@@ -28,7 +28,7 @@ export const SlidingMenu = memo(
 
         useEffect(() => {
             onOpen?.(open)
-        }, [open])
+        }, [open, onOpen])
 
         const { elementRef } = useOutsideClick({
             attached: open,

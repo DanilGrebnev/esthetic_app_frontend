@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { ReactNode, useRef } from 'react'
 
 import s from './modal.module.scss'
@@ -20,7 +21,14 @@ export default function ModalWrapper({
             }}
             className={s['modal-bg-filter']}
         >
-            {children}
+            <m.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.1 }}
+                className={s['animate-wrapper']}
+            >
+                {children}
+            </m.div>
         </div>
     )
 }

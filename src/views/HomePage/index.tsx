@@ -31,7 +31,7 @@ export const Home = () => {
                 >
                     <MasonryContainerWithBreakPoints isLoading={isFetching}>
                         {data?.pages?.map((page) =>
-                            page.posts.map((post) => (
+                            page.posts.map((post, i) => (
                                 <PostsCard
                                     key={post.postId}
                                     mediaUrl={post.url}

@@ -1,15 +1,18 @@
 'use client'
 
-import { ModalProvider } from '@/shared/ui/modal/modalContext'
 import dynamic from 'next/dynamic'
 import { type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 import { useCloseIfClickOnEscapeKey, useToggleBodyOverflow } from '../hooks'
+import { ModalProvider } from '../modalContext'
 
-const ModalWrapper = dynamic(() => import('./ModalWrapper'), {
-    ssr: false,
-})
+const ModalWrapper = dynamic(
+    () => import(/* webpackChunkName: "ModalWrapper" */ './ModalWrapper'),
+    {
+        ssr: false,
+    },
+)
 
 interface ModalProps {
     isOpen: boolean

@@ -11,7 +11,7 @@ interface BaseDialog {
     closeTimeout?: number
 }
 
-export const Dialog = (props: BaseDialog) => {
+export const Dialog: FC<BaseDialog> = (props) => {
     const { variant, className, open, children, closeTimeout } = props
     const [isOpen, setOpen] = useState(false)
     const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -30,7 +30,7 @@ export const Dialog = (props: BaseDialog) => {
         if (closeTimeout) {
             timeoutRef.current = setTimeout(setOpen, closeTimeout, false)
         }
-    }, [open])
+    }, [open, closeTimeout])
 
     return (
         <div

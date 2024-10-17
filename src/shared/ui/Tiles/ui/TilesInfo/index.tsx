@@ -1,23 +1,15 @@
 'use client'
 
-import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { DotMenu } from '@/shared/ui/DotMenu'
 import { Modal } from '@/shared/ui/modal'
 import { stopPropAndPrevDef } from '@/shared/utils/stopPropAndPrevDef'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import { type FC, useRef, useState } from 'react'
 
 import { ITilesInfo } from '../../model/tyles-types'
 import { DeleteDashboardModal } from './DeleteDashboardModal'
 import { TilesDialog } from './TilesDialog'
 import s from './s.module.scss'
-
-// TODO: Доделать ленивый импорт диалога
-
-// const TilesDialog = dynamic(() => import('./TilesDialog').then((d) => d.TilesDialog),
-//     { ssr: false },
-// )
 
 interface TilesInfo extends ITilesInfo {
     className?: string
@@ -35,11 +27,6 @@ export const TilesInfo: FC<TilesInfo> = (props) => {
     const openDeleteDashboardModalRef = useRef(() => setOpenModal(true))
     const closeDeleteDashboardModalRef = useRef(() => setOpenModal(false))
 
-    const { elementRef } = useOutsideClick({
-        handler: () => setOpenDialog(false),
-        attached: openDialog,
-    })
-
     return (
         <>
             <div className={clsx(s['tiles-info'], className)}>
@@ -52,6 +39,7 @@ export const TilesInfo: FC<TilesInfo> = (props) => {
                     </h5>
                     {dotMenu && (
                         <DotMenu
+                            onMouseEnter={() => setHoverOnIcon(true)}
                             onClick={stopPropAndPrevDef(() => {
                                 setOpenDialog((p) => !p)
                             })}
@@ -65,8 +53,8 @@ export const TilesInfo: FC<TilesInfo> = (props) => {
                 </div>
                 {hoverOnIcon && (
                     <TilesDialog.Container
+                        onClose={() => setOpenDialog(false)}
                         open={openDialog}
-                        ref={elementRef}
                     >
                         <TilesDialog.Item
                             onClick={() => {

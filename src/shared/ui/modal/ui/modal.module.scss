@@ -28,6 +28,10 @@
     padding: var(--global-gap-1);
 }
 
-.open {
-    transform: scale(1);
+.animate-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }

@@ -86,6 +86,7 @@ export const FavoritesTile: FC<FavoritesTile> = (props) => {
                                         fill={true}
                                         src={imgUrl}
                                         alt='preview'
+                                        sizes={'20vw'}
                                     />
                                 )}
                             </Component>
