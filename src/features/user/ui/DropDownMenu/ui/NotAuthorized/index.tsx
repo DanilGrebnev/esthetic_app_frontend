@@ -2,7 +2,7 @@ import { routes } from '@/shared/routes'
 
 import { DropDownItem } from '../DropDownItem/DropDownItem'
 
-export const NotAuthorized = () => {
+const NotAuthorized = () => {
     return (
         <>
             <DropDownItem href={routes.registration.getRoute()}>
@@ -12,3 +12,5 @@ export const NotAuthorized = () => {
         </>
     )
 }
+
+export default NotAuthorized

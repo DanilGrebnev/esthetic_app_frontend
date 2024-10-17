@@ -3,13 +3,13 @@
 }
 
 .modal {
-    transform: scale(0);
-    transition: var(--global-transition-1);
+    //transform: scale(0);
+    //transition: var(--global-transition-1);
     overflow: hidden;
 
-    &.open {
-        transform: scale(1);
-    }
+    //&.open {
+    //    transform: scale(1);
+    //}
 }
 
 .user-icon-wrapper {

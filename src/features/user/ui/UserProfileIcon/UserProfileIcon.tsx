@@ -1,16 +1,24 @@
 'use client'
 
+import { DropDownMenu } from '@/features/user/ui/DropDownMenu'
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import { DropDownMenu } from '../DropDownMenu'
 import s from './s.module.scss'
 
+// const DropDownMenu = dynamic(
+//     () =>
+//         import(
+//             /* webpackChunkName: "Header-DropDown-menu" */ '../DropDownMenu'
+//         ).then((d) => d.DropDownMenu),
+//     { ssr: false },
+// )
 /* Иконка пользователя используемая в главном хедере */
 export const UserProfileIcon = () => {
     const [openModal, setOpenModal] = useState(false)
@@ -45,7 +53,9 @@ export const UserProfileIcon = () => {
             <DropDownMenu
                 auth={authData?.isAuth}
                 userId={userData?.userId}
-                className={clsx(s.modal, { [s.open]: openModal })}
+                open={openModal}
+                // className={clsx(s.modal, { [s.open]: openModal })}
+                className={s.modal}
             />
         </div>
     )

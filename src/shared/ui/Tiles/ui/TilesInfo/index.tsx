@@ -5,12 +5,19 @@ import { DotMenu } from '@/shared/ui/DotMenu'
 import { Modal } from '@/shared/ui/modal'
 import { stopPropAndPrevDef } from '@/shared/utils/stopPropAndPrevDef'
 import clsx from 'clsx'
+import dynamic from 'next/dynamic'
 import { type FC, useRef, useState } from 'react'
 
 import { ITilesInfo } from '../../model/tyles-types'
 import { DeleteDashboardModal } from './DeleteDashboardModal'
 import { TilesDialog } from './TilesDialog'
 import s from './s.module.scss'
+
+// TODO: Доделать ленивый импорт диалога
+
+// const TilesDialog = dynamic(() => import('./TilesDialog').then((d) => d.TilesDialog),
+//     { ssr: false },
+// )
 
 interface TilesInfo extends ITilesInfo {
     className?: string
@@ -21,6 +28,7 @@ export const TilesInfo: FC<TilesInfo> = (props) => {
     const { className, date, title, postsCount, dotMenu = false } = props
     const [openDialog, setOpenDialog] = useState(false)
     const [openModal, setOpenModal] = useState(false)
+    const [hoverOnIcon, setHoverOnIcon] = useState(false)
 
     const closeDialogRef = useRef(() => setOpenDialog(false))
 
@@ -55,8 +63,11 @@ export const TilesInfo: FC<TilesInfo> = (props) => {
                     <p className={s.count}>{postsCount} пин</p>
                     <p className={s.date}>{date} нед.</p>
                 </div>
-                {openDialog && (
-                    <TilesDialog.Container ref={elementRef}>
+                {hoverOnIcon && (
+                    <TilesDialog.Container
+                        open={openDialog}
+                        ref={elementRef}
+                    >
                         <TilesDialog.Item
                             onClick={() => {
                                 openDeleteDashboardModalRef.current()

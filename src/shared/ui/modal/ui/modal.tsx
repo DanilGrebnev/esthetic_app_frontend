@@ -1,14 +1,15 @@
 'use client'
 
-import {
-    useCloseIfClickOnEscapeKey,
-    useToggleBodyOverflow,
-} from '@/shared/ui/modal/hooks'
 import { ModalProvider } from '@/shared/ui/modal/modalContext'
-import { type ReactNode, useRef } from 'react'
+import dynamic from 'next/dynamic'
+import { type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
-import s from './modal.module.scss'
+import { useCloseIfClickOnEscapeKey, useToggleBodyOverflow } from '../hooks'
+
+const ModalWrapper = dynamic(() => import('./ModalWrapper'), {
+    ssr: false,
+})
 
 interface ModalProps {
     isOpen: boolean
@@ -41,28 +42,5 @@ export const Modal = (props: ModalProps) => {
                   )
                 : null}
         </>
-    )
-}
-
-function ModalWrapper({
-    children,
-    onClose,
-}: {
-    children: ReactNode
-    onClose?: () => void
-}) {
-    const ref = useRef<HTMLDivElement>(null)
-
-    return (
-        <div
-            ref={ref}
-            onClick={(e) => {
-                e.stopPropagation()
-                onClose?.()
-            }}
-            className={s['modal-bg-filter']}
-        >
-            {children}
-        </div>
     )
 }

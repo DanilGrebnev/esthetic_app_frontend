@@ -1,4 +1,3 @@
-import { PostsListSkeleton } from '@/entities/posts'
 import { ResponsiveMasonry } from '@/shared/ui/ResponsiveMasonry'
 import type { FC, ReactNode } from 'react'
 
@@ -10,7 +9,7 @@ interface MasonryContainerWithBreakPointsProps {
 
 export const MasonryContainerWithBreakPoints: FC<
     MasonryContainerWithBreakPointsProps
-> = ({ children, className, isLoading }) => {
+> = ({ children, className }) => {
     return (
         <ResponsiveMasonry
             className={className}

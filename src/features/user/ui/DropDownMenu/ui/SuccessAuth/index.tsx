@@ -5,7 +5,7 @@ import { routes } from '@/shared/routes'
 
 import { DropDownItem } from '../DropDownItem/DropDownItem'
 
-export const SuccessAuth = (props?: { userId?: string }) => {
+const SuccessAuth = (props?: { userId?: string }) => {
     const { mutate } = useLogoutMutation()
 
     return (
@@ -19,3 +19,5 @@ export const SuccessAuth = (props?: { userId?: string }) => {
         </>
     )
 }
+
+export default SuccessAuth

@@ -4,7 +4,7 @@ import {
     MasonryContainerWithBreakPoints,
     PostsCardSkeleton,
 } from '@/entities/posts'
-import { postsApi, useGetRecommendedPosts } from '@/shared/api/posts'
+import { useGetRecommendedPosts } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
 import { PostsCard } from '@/widgets/PostsCard'
