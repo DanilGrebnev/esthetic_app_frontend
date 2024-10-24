@@ -1,10 +1,6 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { createBaseResponse } from '@/shared/types/apiResponses'
 import { ArgsWithEnabled } from '@/shared/types/commonApiTypes'
-import {
-    DashboardsByCookie,
-    DashboardsByCookieItem,
-} from '@/shared/types/dashboards'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { dashboardsApi } from './dashboardsApi'
@@ -140,19 +136,21 @@ export const useDeletePostsFromDashboardMutation = ({
 
     return useMutation({
         mutationFn: dashboardsApi.deletePostsFromDashboard,
-        onSuccess: () => {
-            queryClient.refetchQueries({
+        onSuccess: async () => {
+            const p1 = queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
             })
-            queryClient.refetchQueries({
+            const p2 = queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.checkPostInDashboard(postsId)],
             })
 
-            queryClient.refetchQueries({
+            await Promise.allSettled([p1, p2])
+
+            queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
             })
 
-            queryClient.refetchQueries({
+            queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardId)],
             })
         },
@@ -175,13 +173,14 @@ export const useAddPostsToDashboardMutation = ({
 }) => {
     const queryClient = useQueryClient()
 
-    return useMutation({
+    const mutation = useMutation({
         mutationFn: dashboardsApi.addPostsToDashboard,
+
         onSuccess: async () => {
-            queryClient.refetchQueries({
+            const p1 = queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
             })
-            queryClient.refetchQueries({
+            const p2 = queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.checkPostInDashboard(postsId)],
             })
 
@@ -192,8 +191,17 @@ export const useAddPostsToDashboardMutation = ({
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardId)],
             })
+
+            await Promise.allSettled([p1, p2])
         },
     })
+
+    return {
+        mutate: mutation.mutate,
+        getIsPending: (dashboardId: string) =>
+            mutation.isPending &&
+            mutation.variables.dashboardId === dashboardId,
+    }
 }
 
 // ### DELETE ###

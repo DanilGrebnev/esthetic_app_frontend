@@ -1,6 +1,6 @@
 import { roboto } from '@/shared/fonts'
 import { Layout } from '@/shared/types/layout'
-import { _ModalProvider } from '@/shared/ui/modal'
+import { _ModalRoot } from '@/shared/ui/modal'
 import { clsx } from 'clsx'
 import type { Metadata } from 'next'
 import { type FC } from 'react'
@@ -19,7 +19,7 @@ const RootLayout: FC<Layout> = ({ children }) => {
     return (
         <html lang='ru'>
             <body className={clsx(roboto.variable)}>
-                <_ModalProvider />
+                <_ModalRoot />
                 <AppProvider>{children}</AppProvider>
             </body>
         </html>

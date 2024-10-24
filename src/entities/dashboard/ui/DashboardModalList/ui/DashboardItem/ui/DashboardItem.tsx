@@ -1,11 +1,5 @@
 'use client'
 
-import {
-    dashboardsApi,
-    useAddPostsToDashboardMutation,
-    useCreateFavoritesDashboardMutation,
-    useGetDashboardsByCookieQuery,
-} from '@/shared/api/dashboards'
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { Skeleton } from '@mui/material'
@@ -13,6 +7,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { type FC } from 'react'
 
+import { useAddPostsToDashboard } from '../model/hooks'
 import { getDashboardItemTitle } from '../model/utils'
 import { DeletePostFromDashboardBtn } from './DeletePostFromDashboardBtn/DeletePostFromDashboardBtn'
 import { Placeholder } from './Placeholder'
@@ -32,7 +27,6 @@ interface DashboardItemProps {
 
 export const DashboardItem: FC<DashboardItemProps> = (props) => {
     const {
-        loading,
         dashboardName,
         deleteBtn,
         url,
@@ -45,36 +39,14 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
     const { data: profileByCookie } = useGetProfileByCookieQuery()
     const usersId = profileByCookie?.userId || ''
 
-    const { mutate: addToDashboard, isPending: pendingAddToDashboard } =
-        useAddPostsToDashboardMutation({
-            usersId,
-            postsId,
-            dashboardId,
-        })
+    const { addPostToDashboard, getIsPending } = useAddPostsToDashboard({
+        postsId,
+        usersId,
+        dashboardId,
+        dashboardName,
+    })
 
-    const { mutateAsync: createFavoritesDashboard, isSuccess } =
-        useCreateFavoritesDashboardMutation({ usersId })
-
-    const addPostToDashboard = async () => {
-        if (dashboardName === 'Избранное') {
-            if (!dashboardId) {
-                await createFavoritesDashboard()
-                const data = await dashboardsApi.getDashboardsListByCookie()
-
-                if (data?.favorites?.dashboardId) {
-                    addToDashboard({
-                        postsId,
-                        dashboardId: data?.favorites?.dashboardId,
-                    })
-                }
-                return
-            }
-        }
-
-        addToDashboard({ postsId, dashboardId })
-    }
-
-    const isLoading = pendingAddToDashboard || loading
+    const isAddToDashboardPending = getIsPending(dashboardId)
 
     return (
         <div
@@ -84,7 +56,7 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
             }}
             className={clsx(s['dashboard-item'], {
                 [s.disabled]: disabled,
-                [s.inactive]: isLoading,
+                // [s.inactive]: isPending,
             })}
         >
             <div className={clsx(s.content)}>
@@ -106,8 +78,8 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
                     </>
                 )}
             </div>
-            {isLoading && <CircularProgress sizesVariant='s' />}
-            {deleteBtn && !isLoading && (
+            {isAddToDashboardPending && <CircularProgress sizesVariant='s' />}
+            {deleteBtn && !isAddToDashboardPending && (
                 <DeletePostFromDashboardBtn
                     usersId={usersId}
                     dashboardId={dashboardId}

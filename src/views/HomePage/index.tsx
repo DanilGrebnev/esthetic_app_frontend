@@ -8,13 +8,10 @@ import { useGetRecommendedPosts } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
 import { PostsCard } from '@/widgets/PostsCard'
-import { useMemo } from 'react'
 
 export const Home = () => {
     const { data, fetchNextPage, isFetching, isLoading } =
         useGetRecommendedPosts()
-
-    const postsAmount = useMemo(() => data?.pages[0].postsAmount, [])
 
     return (
         <Container>

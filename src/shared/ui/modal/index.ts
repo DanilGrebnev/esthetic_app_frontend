@@ -1,4 +1,4 @@
-export { _ModalProvider } from './ui/_ModalProvider'
+export { _ModalRoot } from './ui/_ModalRoot'
 export { Modal } from './ui/modal'
 export { BaseModalWindow } from './ui/BaseModalWindow'
-export { useModalContext } from './modalContext'
+export { useModalContext } from './ui/ModalProvider/modalContext'
