@@ -57,11 +57,13 @@ export const RegistrationForm = () => {
             console.log(f)
         }
 
-        mutateAsync(formData).then(() => {
-            setTimeout(() => {
-                router.push(routes.login.getRoute())
-            }, 1000)
-        })
+        mutateAsync(formData)
+            .then(() => {
+                setTimeout(() => {
+                    router.push(routes.login.getRoute())
+                }, 1000)
+            })
+            .catch((err) => console.log(err))
     })
 
     const { email, firstName, password, userName } = watch()

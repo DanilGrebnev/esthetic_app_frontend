@@ -1,13 +1,10 @@
-'use client'
-
 import { AuthProvider } from '@/entities/auth'
-import { type Layout } from '@/shared/types/layout'
 import { LazyMotion, domAnimation } from 'framer-motion'
-import { type FC } from 'react'
+import { ReactNode } from 'react'
 
 import { TanStackQueryProvider } from './TanStackQueryProvider'
 
-export const AppProvider: FC<Layout> = ({ children }) => {
+export const MainProvider = ({ children }: { children: ReactNode }) => {
     return (
         <TanStackQueryProvider>
             <LazyMotion features={domAnimation}>

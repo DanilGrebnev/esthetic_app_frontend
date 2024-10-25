@@ -13,13 +13,16 @@ export const InfiniteScrollContainer: FC<
 > = (props) => {
     const { children, action, ...other } = props
 
-    const { ref, inView } = useInView({ threshold: 0.1, ...other })
+    const { ref, inView } = useInView({
+        threshold: 0.1,
+        ...other,
+    })
 
     useEffect(() => {
         if (inView) {
             action?.()
         }
-    }, [inView])
+    }, [inView, action])
 
     return (
         <>

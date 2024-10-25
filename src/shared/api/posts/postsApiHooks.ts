@@ -20,23 +20,22 @@ export const useGetDetailPostsQuery = (postId: string) => {
 }
 
 // Получение постов по тэгам пользователя
-export const useGetRecommendedPosts = () => {
+export const useGetRecommendedPosts = (options?: { enabled: boolean }) => {
     return useInfiniteQuery({
-        queryKey: ['all-posts'],
+        queryKey: [queryKeys.posts.recommendedPosts],
+        enabled: options?.enabled,
         queryFn: ({ pageParam }) => {
             return postsApi.recommendedPosts(pageParam)
         },
-        getNextPageParam: (lastPage, allPages, lastPageParam) => {
+        getNextPageParam: (lastPage, _, lastPageParam) => {
             if (lastPage.posts.length < paginationAmount) return
 
             return {
                 offset: lastPageParam.offset + paginationAmount,
-                limit: lastPageParam.limit + paginationAmount,
+                limit: lastPageParam.limit,
             }
         },
-        maxPages: 5,
         initialPageParam: { offset: 0, limit: paginationAmount },
-        refetchOnWindowFocus: false,
     })
 }
 

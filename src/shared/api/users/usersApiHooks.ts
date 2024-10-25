@@ -7,7 +7,6 @@ import { usersApi } from './usersApi'
 export const useGetProfileByCookieQuery = (options?: { enabled?: boolean }) => {
     return useQuery({
         queryKey: [queryKeys.users.profileByCookie],
-        retry: false,
         enabled: options?.enabled,
         queryFn: usersApi.profileByCookie,
     })
@@ -58,9 +57,12 @@ export const useLogoutMutation = () => {
     })
 }
 
-export const useRegistrationMutation = () => {
+export const useRegistrationMutation = (options?: {
+    onSuccess?: () => void
+}) => {
     return useMutation({
         mutationFn: (body: FormData) => usersApi.registration(body),
+        onSuccess: options?.onSuccess,
     })
 }
 

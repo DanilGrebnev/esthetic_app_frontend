@@ -12,7 +12,7 @@ import { apiInstance } from '../Instance'
 class UsersApi {
     private basePath = 'users' as const
 
-    login = (body: UsersLoginBody) => {
+    login = async (body: UsersLoginBody) => {
         return apiInstance
             .post(`${this.basePath}/login`, {
                 json: body,
