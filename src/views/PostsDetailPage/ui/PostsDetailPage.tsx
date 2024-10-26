@@ -34,7 +34,9 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                         sizes='400px'
                         quality={100}
                         alt={post.name}
+                        placeholder='blur'
                         src={post?.media?.url}
+                        blurDataURL={post?.media?.urlBlur}
                     />
                 </div>
 

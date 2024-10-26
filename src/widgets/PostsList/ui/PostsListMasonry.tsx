@@ -18,13 +18,14 @@ export const PostsListMasonry: FC<PostsListMasonryProps> = (props) => {
 
     return (
         <MasonryContainerWithBreakPoints className={className}>
-            {posts?.map(({ url, postId, options }) => (
+            {posts?.map(({ url, postId, urlBlur, aspectRatio }) => (
                 <PostsCard
                     key={postId}
                     postId={postId}
-                    mediaUrl={url}
+                    url={url}
+                    urlBlur={urlBlur}
                     name={'test_name'}
-                    aspect={options.aspectRatio}
+                    aspectRatio={aspectRatio}
                 />
             ))}
             {loading &&

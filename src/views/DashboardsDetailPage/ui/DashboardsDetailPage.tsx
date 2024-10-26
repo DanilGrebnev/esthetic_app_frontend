@@ -1,13 +1,12 @@
 'use client'
 
 import { DashboardsContainer } from '@/entities/dashboard'
-import { UserProfileIcon } from '@/features/user'
 import { useGetDashboardsDetail } from '@/shared/api/dashboards'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { PostsCard } from '@/widgets/PostsCard'
-import { type FC, useEffect } from 'react'
+import { type FC } from 'react'
 
 import s from './DashboardDetailPage.module.scss'
 
@@ -53,7 +52,8 @@ export const DashboardDetailPage: FC<DashboardDetailPageProps> = ({
                         return (
                             <PostsCard
                                 key={post.postId}
-                                mediaUrl={post.url}
+                                url={post.url}
+                                urlBlur={post.url}
                                 name={''}
                                 postId={post.postId}
                             />

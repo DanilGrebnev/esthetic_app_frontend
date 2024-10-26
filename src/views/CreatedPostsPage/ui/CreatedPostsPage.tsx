@@ -21,9 +21,10 @@ export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
                     <PostsCard
                         key={post.postId}
                         postId={post.postId}
-                        mediaUrl={post.url}
+                        url={post.url}
+                        urlBlur={post.urlBlur}
                         name={post.postId}
-                        aspect='9/16'
+                        aspectRatio='9/16'
                     />
                 ))}
             </PostsListContainerWithBreakpoints>

@@ -27,6 +27,7 @@ export const useGetRecommendedPosts = (options?: { enabled: boolean }) => {
         queryFn: ({ pageParam }) => {
             return postsApi.recommendedPosts(pageParam)
         },
+        select: ({ pages }) => pages.map(({ posts }) => posts).flat(),
         getNextPageParam: (lastPage, _, lastPageParam) => {
             if (lastPage.posts.length < paginationAmount) return
 

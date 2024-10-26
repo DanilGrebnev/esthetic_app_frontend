@@ -28,8 +28,9 @@ export const mockPosts = Array(1050)
 
         const o: TPostsCard = {
             url: ran(imgs),
+            urlBlur: '',
             contentType: '',
-            options: { aspectRatio, objectPosition: 'top' },
+            aspectRatio,
             postId,
         }
 

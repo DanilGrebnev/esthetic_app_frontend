@@ -16,6 +16,7 @@ export interface TPosts {
     media: {
         type: 'img' | 'video'
         url: string
+        urlBlur: string
         aspectRatio: AspectRatio
     }
 }
@@ -33,7 +34,8 @@ export interface TPostsCard {
     postId: string
     contentType: string
     url: string
-    options: FileOptions
+    urlBlur: string
+    aspectRatio: AspectRatio
 }
 
 /* Список постов */
