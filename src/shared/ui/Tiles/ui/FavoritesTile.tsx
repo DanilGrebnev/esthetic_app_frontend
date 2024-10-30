@@ -7,7 +7,7 @@ import { type FC, useEffect, useRef, useState } from 'react'
 
 import { type ITilesInfo } from '../model/tyles-types'
 import { Component } from './Component'
-import { TilesInfo } from './TilesInfo'
+import { TilesInfo } from './TilesInfo/TilesInfo'
 import s from './tiles.module.scss'
 
 interface FavoritesTile extends ITilesInfo {

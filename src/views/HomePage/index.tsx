@@ -8,6 +8,7 @@ import { useGetRecommendedPosts } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
 import { PostsCard } from '@/widgets/PostsCard'
+import { m } from 'framer-motion'
 import { useEffect } from 'react'
 
 export const Home = () => {
@@ -32,18 +33,27 @@ export const Home = () => {
                     action={fetchNextPage}
                 >
                     <MasonryContainerWithBreakPoints isLoading={isFetching}>
-                        {data?.map((post, i) => (
-                            <PostsCard
-                                key={post.postId}
-                                i={i}
-                                url={post.url}
-                                urlBlur={post.url}
-                                name={''}
-                                aspectRatio={post.aspectRatio}
-                                postId={post.postId}
-                            />
-                        ))}
-                        {isLoading &&
+                        {data?.pages.map((page) =>
+                            page.posts.map((post) => (
+                                <m.div
+                                    key={post.postId}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{
+                                        duration: 0.3,
+                                    }}
+                                >
+                                    <PostsCard
+                                        url={post.url}
+                                        urlBlur={post.urlBlur}
+                                        name={''}
+                                        aspectRatio={post.aspectRatio}
+                                        postId={post.postId}
+                                    />
+                                </m.div>
+                            )),
+                        )}
+                        {isFetching &&
                             Array(15)
                                 .fill('')
                                 .map((_, i) => {

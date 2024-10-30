@@ -59,4 +59,5 @@ export interface TPostsPreview {
     aspectRatio: AspectRatio
     postId: string
     url: string
+    urlBlur: string
 }

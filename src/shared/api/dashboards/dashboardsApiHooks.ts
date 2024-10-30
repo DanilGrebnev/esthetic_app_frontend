@@ -1,7 +1,13 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
+import { paginationPostsAmount } from '@/shared/consts'
 import { createBaseResponse } from '@/shared/types/apiResponses'
 import { ArgsWithEnabled } from '@/shared/types/commonApiTypes'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+    useInfiniteQuery,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from '@tanstack/react-query'
 
 import { dashboardsApi } from './dashboardsApi'
 
@@ -11,13 +17,32 @@ export const useGetProfileDashboardListQuery = ({
 }: {
     userId: string
 }) => {
-    return useQuery({
+    return useInfiniteQuery({
         queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
-        queryFn: ({ signal }) =>
-            dashboardsApi.getProfileDashboardsList({ userId, signal }),
+        queryFn: ({ signal, pageParam }) =>
+            dashboardsApi.getProfileDashboardsList({
+                userId,
+                pageParam,
+                signal,
+            }),
         retry: false,
         enabled: !!userId,
+        getNextPageParam: (lastPage, _, lastPageParam) => {
+            if (lastPage.dashboards.length < 10) return
+            return {
+                ...lastPageParam,
+                offset: lastPageParam.offset + lastPageParam.limit,
+            }
+        },
+        initialPageParam: { offset: 0, limit: 10 },
     })
+    // return useQuery({
+    //     queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
+    //     queryFn: ({ signal }) =>
+    //         dashboardsApi.getProfileDashboardsList({ userId, signal }),
+    //     retry: false,
+    //     enabled: !!userId,
+    // })
 }
 
 export const useCheckPostInDashboard = ({
@@ -48,14 +73,29 @@ export const useGetDashboardsByCookieQuery = (args?: ArgsWithEnabled) => {
 // Получение списка постов по dashboardId
 export const useGetDashboardsDetail = ({
     dashboardsId,
+    enabled,
 }: {
     dashboardsId: string
+    enabled?: boolean
 }) => {
-    return useQuery({
-        queryFn: ({ signal }) =>
-            dashboardsApi.getDashboardDetail({ signal, dashboardsId }),
+    return useInfiniteQuery({
+        enabled,
+        queryFn: ({ signal, pageParam }) =>
+            dashboardsApi.getDashboardDetail({
+                signal,
+                dashboardsId,
+                searchParams: pageParam,
+            }),
+        getNextPageParam: (lastPage, _, lastPageParam) => {
+            if (lastPage.posts.length < paginationPostsAmount) return
+            return {
+                limit: lastPageParam.limit,
+                offset: lastPageParam.offset + paginationPostsAmount,
+            }
+        },
         queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardsId)],
         retry: false,
+        initialPageParam: { offset: 0, limit: paginationPostsAmount },
     })
 }
 

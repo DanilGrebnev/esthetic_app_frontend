@@ -11,6 +11,8 @@ export const consts = {
     baseApiUrl,
 } as const
 
-export const paginationAmount = Number(
+export const paginationPostsAmount = Number(
     process.env.NEXT_PUBLIC_PAGINATION_AMOUNT,
 )
+
+export const paginationDashboardsAmount = 10

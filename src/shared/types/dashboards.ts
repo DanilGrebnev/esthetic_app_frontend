@@ -6,7 +6,8 @@ interface Dashboard {
     dashboardName: string
     postsAmount: number
     dateOfCreation: string
-    url: string[]
+    urls: string[]
+    urlsBlur: string[]
 }
 
 export interface UsersDashboardList {

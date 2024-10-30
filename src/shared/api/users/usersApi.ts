@@ -52,11 +52,17 @@ class UsersApi {
         })
     }
 
-    getAllCreatedUsersPosts = (args: ArgsWithSignal<{ userId: string }>) => {
-        const { signal, userId } = args
+    getAllCreatedUsersPosts = (
+        args: ArgsWithSignal<{
+            userId: string
+            searchParams: { offset: number; limit: number }
+        }>,
+    ) => {
+        const { signal, userId, searchParams } = args
         return apiInstance
             .get(this.basePath + '/' + userId + '/created-posts ', {
                 signal,
+                searchParams,
             })
             .json<TPostsList>()
     }

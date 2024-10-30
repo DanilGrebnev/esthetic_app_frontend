@@ -8,14 +8,6 @@
 .header {
     display: flex;
     justify-content: space-between;
-
-    h5 {
-        flex-grow: 1;
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
 }
 
 .dot-menu {
@@ -27,9 +19,13 @@
 }
 
 .title {
+    flex-grow: 1;
+    overflow: hidden;
     color: var(--text-palette-main);
     font-weight: var(--font-weight-semibold);
     font-size: var(--font-400);
+    //text-overflow: ellipsis;
+    //white-space: nowrap;
 }
 
 .footer {

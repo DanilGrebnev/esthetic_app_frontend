@@ -10,7 +10,8 @@ const nextConfig = {
         remotePatterns: [
             {
                 // @ts-ignore
-                protocol: process.env.NEXT_PUBLIC_PROTOCOL,
+                // protocol: process.env.NEXT_PUBLIC_PROTOCOL,
+                // protocol: '',
                 // @ts-ignore
                 // hostname: process.env.NEXT_PUBLIC_HOSTNAME,
                 hostname: '*',

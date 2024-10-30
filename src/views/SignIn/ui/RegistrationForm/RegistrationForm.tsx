@@ -3,7 +3,7 @@
 import { UploadUserAvatar } from '@/features/user'
 import { ValidationInputs } from '@/shared/ValidationInputs'
 import { useRegistrationMutation } from '@/shared/api/users'
-import { recommendedTagsInitState } from '@/shared/mock/recommendedTagsData'
+import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
 import { routes } from '@/shared/routes'
 import { type CreateUser } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
@@ -165,7 +165,7 @@ export const RegistrationForm = () => {
                                 <SubTitle>Выберите теги</SubTitle>
                                 <RecommendedTags
                                     name='recommendedTags'
-                                    initialTags={recommendedTagsInitState}
+                                    initialTags={recommendedTagsInitial}
                                 />
                                 <SubTitle>Или создайте свои</SubTitle>
                                 <InputWithTags />

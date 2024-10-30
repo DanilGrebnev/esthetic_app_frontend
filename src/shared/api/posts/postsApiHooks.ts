@@ -1,6 +1,6 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { postsApi } from '@/shared/api/posts/postsApi'
-import { paginationAmount } from '@/shared/consts'
+import { paginationPostsAmount } from '@/shared/consts'
 import {
     useInfiniteQuery,
     useMutation,
@@ -21,22 +21,36 @@ export const useGetDetailPostsQuery = (postId: string) => {
 
 // Получение постов по тэгам пользователя
 export const useGetRecommendedPosts = (options?: { enabled: boolean }) => {
+    const queryClient = useQueryClient()
+
+    const prefetchQuery = (options: {
+        pageParam: { offset: number; limit: number }
+    }) => {
+        const { pageParam } = options
+        return queryClient.prefetchInfiniteQuery({
+            queryKey: [queryKeys.posts.recommendedPosts, pageParam.offset],
+            queryFn: postsApi.recommendedPosts.bind(null, pageParam),
+            initialPageParam: pageParam,
+            getNextPageParam: () => pageParam,
+        })
+    }
     return useInfiniteQuery({
         queryKey: [queryKeys.posts.recommendedPosts],
         enabled: options?.enabled,
         queryFn: ({ pageParam }) => {
             return postsApi.recommendedPosts(pageParam)
         },
-        select: ({ pages }) => pages.map(({ posts }) => posts).flat(),
         getNextPageParam: (lastPage, _, lastPageParam) => {
-            if (lastPage.posts.length < paginationAmount) return
+            if (lastPage.posts.length < paginationPostsAmount) return
 
-            return {
-                offset: lastPageParam.offset + paginationAmount,
+            const pageParam = {
+                offset: lastPageParam.offset + paginationPostsAmount,
                 limit: lastPageParam.limit,
             }
+
+            return pageParam
         },
-        initialPageParam: { offset: 0, limit: paginationAmount },
+        initialPageParam: { offset: 0, limit: paginationPostsAmount },
     })
 }
 

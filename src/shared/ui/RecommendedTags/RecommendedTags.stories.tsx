@@ -1,4 +1,4 @@
-import { recommendedTagsInitState } from '@/shared/mock/recommendedTagsData'
+import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { RecommendedTags } from './'
@@ -22,6 +22,6 @@ export const RecommendedTagsStandart: Story = {
         },
     ],
     args: {
-        initialTags: recommendedTagsInitState,
+        initialTags: recommendedTagsInitial,
     },
 }

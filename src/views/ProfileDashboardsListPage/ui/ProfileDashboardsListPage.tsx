@@ -7,6 +7,8 @@ interface UserDashboardsPageProps {
     }
 }
 
-export const UserDashboardsPage: FC<UserDashboardsPageProps> = (props) => {
+export const ProfileDashboardsListPage: FC<UserDashboardsPageProps> = (
+    props,
+) => {
     return <DashboardsList userId={props.params.userId} />
 }

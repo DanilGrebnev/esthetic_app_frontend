@@ -1,1 +1,1 @@
-export { RegistrationForm as default } from '@/views'
+export { RegistrationForm as default } from '@/views/SignIn'

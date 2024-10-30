@@ -1,6 +1,6 @@
 import { usersApi } from '@/shared/api/users'
 
-export { UserDashboardsPage as default } from '@/views/UserDashboardsPage'
+export { ProfileDashboardsListPage as default } from '@/views/ProfileDashboardsListPage'
 
 export const generateMetadata = async ({
     params,

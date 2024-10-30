@@ -1,6 +1,6 @@
 import { createMarkup } from '@/shared/utils/createMarkup'
 
-export const recommendedTagsInitState = [
+export const recommendedTagsInitial = [
     {
         tagId: '1',
         label: 'Еда',

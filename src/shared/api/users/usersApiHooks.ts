@@ -1,6 +1,12 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
+import { paginationPostsAmount } from '@/shared/consts'
 import type { UserProfile, UsersLoginBody } from '@/shared/types/user'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+    useInfiniteQuery,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from '@tanstack/react-query'
 
 import { usersApi } from './usersApi'
 
@@ -67,10 +73,22 @@ export const useRegistrationMutation = (options?: {
 }
 
 export const useGetCreatedUserPostsQuery = (userId: string) => {
-    return useQuery({
+    return useInfiniteQuery({
         queryKey: [queryKeys.users.createdPosts(userId)],
-        queryFn: ({ signal }) =>
-            usersApi.getAllCreatedUsersPosts({ userId, signal }),
+        queryFn: ({ signal, pageParam }) =>
+            usersApi.getAllCreatedUsersPosts({
+                userId,
+                signal,
+                searchParams: pageParam,
+            }),
+        getNextPageParam: (lastPage, _, lastPageParam) => {
+            if (lastPage.posts.length < paginationPostsAmount) return
+            return {
+                offset: lastPageParam.offset + paginationPostsAmount,
+                limit: paginationPostsAmount,
+            }
+        },
+        initialPageParam: { offset: 0, limit: paginationPostsAmount },
     })
 }
 

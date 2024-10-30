@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { type FC } from 'react'
+import { type FC, useEffect } from 'react'
 
 import s from './s.module.scss'
 
@@ -19,19 +19,15 @@ interface PostCardProps {
     className?: string
     name: string
     postId: string
-    i?: number
 }
 
 export const PostsCard: FC<PostCardProps> = (props) => {
-    const { url, urlBlur, i, aspectRatio = '9/16', postId, className } = props
+    const { url, urlBlur, aspectRatio = '9/16', postId, className } = props
     const router = useRouter()
     const href = routes.postsDetail.getRoute(postId)
 
     return (
-        <m.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.1, delay: i ? 0.1 * i : 0 }}
+        <div
             className={clsx(s.card, className)}
             style={{ aspectRatio }}
             onClick={() => router.push(href)}
@@ -50,13 +46,14 @@ export const PostsCard: FC<PostCardProps> = (props) => {
             <Image
                 className={s.img}
                 loading='lazy'
-                // placeholder='blur'
+                placeholder='blur'
                 blurDataURL={urlBlur}
                 alt='test'
+                quality={75}
                 sizes='(max-width: 250px)'
                 src={url}
                 fill={true}
             />
-        </m.div>
+        </div>
     )
 }

@@ -7,6 +7,7 @@ import {
     DashboardsDetail,
     UsersDashboardList,
 } from '@/shared/types/dashboards'
+import { Pagination } from '@/shared/types/pagination'
 
 interface CreateDashboard {
     dashboardName: string
@@ -17,11 +18,19 @@ class DashboardsApi {
     readonly baseUrl = 'dashboards' as const
 
     /* Get users dashboard list by userId */
-    getProfileDashboardsList = (args: ArgsWithSignal<{ userId: string }>) => {
-        const { userId, signal } = args
+    getProfileDashboardsList = (
+        args: ArgsWithSignal<{
+            userId: string
+            pageParam: { offset: number; limit: number }
+        }>,
+    ) => {
+        const { userId, signal, pageParam } = args
 
         return apiInstance
-            .get(this.baseUrl + `/${userId}` + '/list', { signal })
+            .get(this.baseUrl + `/${userId}/list`, {
+                signal,
+                searchParams: pageParam,
+            })
             .json<UsersDashboardList>()
     }
 
@@ -29,10 +38,12 @@ class DashboardsApi {
     getDashboardDetail = ({
         dashboardsId,
         signal,
-    }: ArgsWithSignal<{ dashboardsId: string }>) => {
+        searchParams,
+    }: ArgsWithSignal<{ dashboardsId: string; searchParams: Pagination }>) => {
         return apiInstance
             .get(this.baseUrl + `/${dashboardsId}`, {
                 signal,
+                searchParams,
             })
             .json<DashboardsDetail>()
     }
