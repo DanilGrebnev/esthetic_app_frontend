@@ -33,8 +33,6 @@ export const DashboardDetailPage: FC<DashboardDetailPageProps> = ({
         enabled: dashboardsId !== 'empty-dashboard',
     })
 
-    console.log(dashboardsDetail)
-
     return (
         <Container className={s.container}>
             <h1 className={s.title}>

@@ -29,7 +29,7 @@ export const InfiniteScrollContainer: FC<
             {children}
             <div
                 ref={ref}
-                style={{ height: '50px' }}
+                style={{ height: '50px', border: '1px solid black' }}
             ></div>
         </>
     )

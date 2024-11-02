@@ -1,7 +1,7 @@
 import { CommentariesWriteField } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
-import Image from 'next/image'
+import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 
 import { PostsDetailComments } from './PostsDetailComments'
 import { PostsDetailHeader } from './PostsDetailHeader'
@@ -29,10 +29,11 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                     style={{ aspectRatio: post?.media?.aspectRatio }}
                     className={s['image-container']}
                 >
-                    <Image
+                    <ImageWithBlure
                         fill={true}
                         sizes='400px'
                         quality={100}
+                        loading='lazy'
                         alt={post.name}
                         placeholder='blur'
                         src={post?.media?.url}

@@ -21,19 +21,6 @@ export const useGetDetailPostsQuery = (postId: string) => {
 
 // Получение постов по тэгам пользователя
 export const useGetRecommendedPosts = (options?: { enabled: boolean }) => {
-    const queryClient = useQueryClient()
-
-    const prefetchQuery = (options: {
-        pageParam: { offset: number; limit: number }
-    }) => {
-        const { pageParam } = options
-        return queryClient.prefetchInfiniteQuery({
-            queryKey: [queryKeys.posts.recommendedPosts, pageParam.offset],
-            queryFn: postsApi.recommendedPosts.bind(null, pageParam),
-            initialPageParam: pageParam,
-            getNextPageParam: () => pageParam,
-        })
-    }
     return useInfiniteQuery({
         queryKey: [queryKeys.posts.recommendedPosts],
         enabled: options?.enabled,
@@ -45,6 +32,14 @@ export const useGetRecommendedPosts = (options?: { enabled: boolean }) => {
 
             const pageParam = {
                 offset: lastPageParam.offset + paginationPostsAmount,
+                limit: lastPageParam.limit,
+            }
+
+            return pageParam
+        },
+        getPreviousPageParam: (lastPage, _, lastPageParam) => {
+            const pageParam = {
+                offset: lastPageParam.offset - paginationPostsAmount,
                 limit: lastPageParam.limit,
             }
 
