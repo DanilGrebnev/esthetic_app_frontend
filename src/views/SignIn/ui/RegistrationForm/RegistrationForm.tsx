@@ -7,6 +7,7 @@ import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
 import { routes } from '@/shared/routes'
 import { type CreateUser } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
+import { Dialog } from '@/shared/ui/Dialog'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
@@ -14,7 +15,7 @@ import { ProgressWindow } from '@/shared/ui/ProgressWindow'
 import { RecommendedTags } from '@/shared/ui/RecommendedTags'
 import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/SubmitButton'
 import { useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { SubTitle } from '../SubTitle'
@@ -36,7 +37,8 @@ export const RegistrationForm = () => {
 
     const router = useRouter()
 
-    const { mutateAsync, isPending, isSuccess } = useRegistrationMutation()
+    const { mutate, isPending, isError, error, data, isSuccess } =
+        useRegistrationMutation()
 
     const onSubmit = handleSubmit(async (_, e) => {
         const formData = new FormData(e?.target)
@@ -53,17 +55,10 @@ export const RegistrationForm = () => {
         )
         formData.delete('recommendedTags')
 
-        for (let f of formData) {
-            console.log(f)
-        }
-
-        mutateAsync(formData)
-            .then(() => {
-                setTimeout(() => {
-                    router.push(routes.login.getRoute())
-                }, 1000)
-            })
-            .catch((err) => console.log(err))
+        mutate(formData)
+        // setTimeout(() => {
+        //     router.push(routes.login.getRoute())
+        // }, 1000)
     })
 
     const { email, firstName, password, userName } = watch()
@@ -169,6 +164,19 @@ export const RegistrationForm = () => {
                                 />
                                 <SubTitle>Или создайте свои</SubTitle>
                                 <InputWithTags />
+                                <Dialog
+                                    variant='warning'
+                                    open={isError}
+                                    closeTimeout={3000}
+                                >
+                                    {error?.message ?? 'Ошибка регистрации'}
+                                </Dialog>
+                                <Dialog
+                                    open={isSuccess}
+                                    variant='success'
+                                >
+                                    Регистрация успешна
+                                </Dialog>
                             </ProgressWindow.tab>
                         </ProgressWindow.container>
                         <div className={s['btn-group']}>

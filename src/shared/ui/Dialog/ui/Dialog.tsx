@@ -1,48 +1,67 @@
-import { clsx } from 'clsx'
+import { useDialog } from '@/shared/ui/Dialog/lib/hooks'
+import { VariantProps, cva } from 'class-variance-authority'
+import { AnimatePresence, m } from 'framer-motion'
 import { type FC, ReactNode, useEffect, useRef, useState } from 'react'
 
 import s from './Dialog.module.scss'
 
+type DialogProps = VariantProps<typeof dialog>
+
 interface BaseDialog {
-    variant: 'info' | 'success' | 'warning'
+    variant: DialogProps['variant']
     children?: ReactNode
     open?: boolean
     className?: string
     closeTimeout?: number
 }
 
+const dialog = cva(s.dialog, {
+    variants: {
+        state: {
+            open: s.open,
+        },
+        variant: {
+            warning: s.warning,
+            info: s.info,
+            success: s.success,
+        },
+    },
+    defaultVariants: {
+        variant: 'success',
+        state: null,
+    },
+})
+
 export const Dialog: FC<BaseDialog> = (props) => {
     const { variant, className, open, children, closeTimeout } = props
-    const [isOpen, setOpen] = useState(false)
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+    const { isOpen } = useDialog({ open, closeTimeout })
 
-    useEffect(() => {
-        if (open) setOpen(true)
-
-        if (!open) {
-            setOpen(false)
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current)
-            }
-            return
-        }
-
-        if (closeTimeout) {
-            timeoutRef.current = setTimeout(setOpen, closeTimeout, false)
-        }
-    }, [open, closeTimeout])
+    const variants = {
+        open: { scale: 1 },
+        closed: { scale: 0 },
+    }
 
     return (
-        <div
-            className={clsx(
-                s.dialog,
-                s[variant],
-                { [s.open]: isOpen },
-                className,
+        <AnimatePresence>
+            {isOpen && (
+                <m.div
+                    key='dialog'
+                    initial={{
+                        ...variants.closed,
+                    }}
+                    animate={isOpen ? 'open' : 'closed'}
+                    variants={variants}
+                    exit={{ ...variants.closed }}
+                    className={dialog({
+                        variant,
+                        state: isOpen ? 'open' : null,
+                        className,
+                    })}
+                >
+                    <div className={s.wrapper}>{children}</div>
+                </m.div>
             )}
-        >
-            <div className={s.wrapper}>{children}</div>
-        </div>
+        </AnimatePresence>
     )
 }
 

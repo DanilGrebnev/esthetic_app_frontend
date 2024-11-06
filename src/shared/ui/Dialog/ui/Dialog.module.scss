@@ -1,14 +1,10 @@
 .dialog {
   color: var(--text-palette-2);
-  max-height: 0;
   border-radius: var(--global-border-radius);
-  transition: max-height .5s;
   font-size: var(--font-350);
-
 }
 
 .open {
-  max-height: 500px;
   height: max-content;
 }
 

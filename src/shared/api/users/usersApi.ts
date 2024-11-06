@@ -6,13 +6,14 @@ import type {
     UserPublicProfile,
     UsersLoginBody,
 } from '@/shared/types/user'
+import { HTTPError } from 'ky'
 
 import { apiInstance } from '../Instance'
 
 class UsersApi {
     private basePath = 'users' as const
 
-    login = async (body: UsersLoginBody) => {
+    login = (body: UsersLoginBody) => {
         return apiInstance
             .post(`${this.basePath}/login`, {
                 json: body,
@@ -25,10 +26,18 @@ class UsersApi {
             credentials: 'include',
         })
     }
-    registration = (body: FormData) => {
-        return apiInstance
-            .post(`${this.basePath}/registration`, { body })
-            .json()
+    registration = async (body: FormData) => {
+        try {
+            return await apiInstance
+                .post(this.basePath + '/registration', {
+                    body,
+                })
+                .json()
+        } catch (err: any) {
+            if (err.name === 'HTTPError') {
+                throw await (err as HTTPError).response.json()
+            }
+        }
     }
     publicProfile = (userId: string) => {
         return apiInstance
@@ -44,14 +53,12 @@ class UsersApi {
             })
             .json<UserPrivateProfile>()
     }
-
     changeProfileData = (formData: FormData) => {
         return apiInstance.put(this.basePath, {
             credentials: 'include',
             body: formData,
         })
     }
-
     getAllCreatedUsersPosts = (
         args: ArgsWithSignal<{
             userId: string

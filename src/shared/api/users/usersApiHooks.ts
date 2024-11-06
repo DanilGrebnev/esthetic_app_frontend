@@ -67,7 +67,7 @@ export const useRegistrationMutation = (options?: {
     onSuccess?: () => void
 }) => {
     return useMutation({
-        mutationFn: (body: FormData) => usersApi.registration(body),
+        mutationFn: usersApi.registration,
         onSuccess: options?.onSuccess,
     })
 }
