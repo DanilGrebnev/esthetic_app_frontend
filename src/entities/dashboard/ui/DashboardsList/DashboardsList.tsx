@@ -55,7 +55,7 @@ export const DashboardsList: FC<DashboardListProps> = (props) => {
                                 dashboardId={dashboard.dashboardId}
                                 dotMenu={
                                     !profilePending &&
-                                    profileData?.guest.isOwner
+                                    profileData?.guest?.isOwner
                                 }
                                 href={routes.userDashboardDetail.getRoute(
                                     userId,

@@ -1,6 +1,6 @@
 'use client'
 
-import { m } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { ReactNode, useRef } from 'react'
 
 import { useModalContext } from './ModalProvider/modalContext'
@@ -24,6 +24,7 @@ export default function ModalWrapper({ children }: { children: ReactNode }) {
                 initial={{ scale: 0 }}
                 animate={isOpen ? { scale: 1 } : { scale: 0 }}
                 transition={{ duration: 0.1 }}
+                exit={{ scale: 0 }}
                 className={s['animate-wrapper']}
             >
                 {children}

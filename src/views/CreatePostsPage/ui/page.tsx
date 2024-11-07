@@ -19,11 +19,10 @@ export const CreatePostsPage = () => {
     const { data: authData, isPending: isPendingAuth } = useCheckAuthQuery()
 
     const { data: profileByCookie } = useGetProfileByCookieQuery()
+
     const { mutateAsync, isPending, isSuccess } = useCreatePostsMutation(
         profileByCookie?.userId || '',
     )
-
-    useEffect(() => {}, [])
 
     // TODO: отображать сообщение для того, чтобы пользователь зарегистрировался или авторизовался
     if (!authData?.isAuth && !isPendingAuth) {

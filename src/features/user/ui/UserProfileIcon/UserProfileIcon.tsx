@@ -1,22 +1,19 @@
 'use client'
 
-// import { DropDownMenu } from '@/features/user/ui/DropDownMenu'
 import { useCheckAuthQuery } from '@/shared/api/auth'
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
-import { useMounted } from '@/shared/hooks/useMounted'
 import { routes } from '@/shared/routes'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
-import { clsx } from 'clsx'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import s from './s.module.scss'
 
 const DropDownMenu = dynamic(
     () =>
         import(
-            /* webpackChunkName: "Header-DropDown-menu" */ '../DropDownMenu'
+            /* webpackChunkName: "Header-User-DropDown-Menu" */ '../DropDownMenu'
         ).then((d) => d.DropDownMenu),
     { ssr: false },
 )
@@ -24,7 +21,6 @@ const DropDownMenu = dynamic(
 /* Иконка пользователя используемая в главном хедере */
 export const UserProfileIcon = () => {
     const [openModal, setOpenModal] = useState(false)
-    const mounted = useMounted()
 
     const router = useRouter()
 
@@ -56,15 +52,12 @@ export const UserProfileIcon = () => {
                 href={authData?.isAuth ? userData?.avatar : null}
                 word={userData?.firstName[0]?.toUpperCase()}
             />
-            {mounted && (
-                <DropDownMenu
-                    auth={authData?.isAuth}
-                    userId={userData?.userId}
-                    open={openModal}
-                    // className={clsx(s.modal, { [s.open]: openModal })}
-                    className={s.modal}
-                />
-            )}
+            <DropDownMenu
+                auth={authData?.isAuth}
+                userId={userData?.userId}
+                open={openModal}
+                className={s.modal}
+            />
         </div>
     )
 }

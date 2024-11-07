@@ -1,5 +1,6 @@
 'use client'
 
+import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { clsx } from 'clsx'
 import { m } from 'framer-motion'
 import Image from 'next/image'
@@ -57,7 +58,7 @@ export const DashboardTile: FC<IDashboardTile> = memo((props) => {
                                 className={clsx(s[`img-${i + 1}`], s.img)}
                             >
                                 {url && (
-                                    <Image
+                                    <ImageWithBlure
                                         alt='preview'
                                         fill={true}
                                         src={url}

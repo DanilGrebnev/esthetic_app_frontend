@@ -1,6 +1,6 @@
 'use client'
 
-import { m } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { Children, FC, ReactNode, memo, useEffect, useRef } from 'react'
 
 import s from './s.module.scss'
@@ -18,7 +18,6 @@ export const _TilesDialogContainer: FC<DialogProps> = memo((props) => {
     const ref = useRef<HTMLDivElement | null>(null)
 
     const close = (e: any) => {
-        console.log(ref.current?.contains(e.target))
         if (!ref.current?.contains(e.target)) {
             onClose?.()
         }
@@ -35,17 +34,22 @@ export const _TilesDialogContainer: FC<DialogProps> = memo((props) => {
     })
 
     return (
-        <m.div
-            ref={ref}
-            initial={variantsRef.current.closed}
-            animate={open ? 'open' : 'closed'}
-            variants={variantsRef.current}
-            transition={{ duration: 0.1 }}
-            className={s.dialog}
-            onClick={(e) => e.stopPropagation()}
-        >
-            <div className={s['dialog-wrapper']}>{arrayChildren}</div>
-        </m.div>
+        <AnimatePresence>
+            {open && (
+                <m.div
+                    ref={ref}
+                    initial={variantsRef.current.closed}
+                    animate={open ? 'open' : 'closed'}
+                    variants={variantsRef.current}
+                    transition={{ duration: 0.1 }}
+                    exit={variantsRef.current.closed}
+                    className={s.dialog}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className={s['dialog-wrapper']}>{arrayChildren}</div>
+                </m.div>
+            )}
+        </AnimatePresence>
     )
 })
 

@@ -16,6 +16,14 @@ export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
         props.userId,
     )
 
+    if (!data?.pages[0].posts.length && !isPending) {
+        return (
+            <p style={{ fontSize: 'var(--font-350)' }}>
+                У пользователя нет созданных постов.
+            </p>
+        )
+    }
+
     return (
         <Container>
             <InfiniteScrollContainer

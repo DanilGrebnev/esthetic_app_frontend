@@ -1,4 +1,4 @@
-import { type FC, ReactNode, useEffect } from 'react'
+import { CSSProperties, type FC, ReactNode, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
 type InViewOptions = Parameters<typeof useInView>[0]
@@ -29,7 +29,7 @@ export const InfiniteScrollContainer: FC<
             {children}
             <div
                 ref={ref}
-                style={{ height: '50px', border: '1px solid black' }}
+                style={{ height: '50px' }}
             ></div>
         </>
     )
