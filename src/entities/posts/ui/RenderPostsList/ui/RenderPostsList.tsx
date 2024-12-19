@@ -1,13 +1,8 @@
 import { clsx } from 'clsx'
-import { CSSProperties, ReactNode, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
+import { RenderPostsListProps } from '../type'
 import s from './s.module.scss'
-
-interface RenderPostsListProps {
-    children?: ReactNode
-    className?: string
-    style?: CSSProperties
-}
 
 export const RenderPostsList = forwardRef<HTMLDivElement, RenderPostsListProps>(
     (props, ref) => {
@@ -21,6 +16,16 @@ export const RenderPostsList = forwardRef<HTMLDivElement, RenderPostsListProps>(
             >
                 {children}
             </div>
+            // <Grid
+            //     columnCount={5}
+            //     columnWidth={100}
+            //     height={150}
+            //     rowCount={1000}
+            //     rowHeight={35}
+            //     width={300}
+            // >
+            //     {children}
+            // </Grid>
         )
     },
 )

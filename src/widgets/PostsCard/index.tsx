@@ -6,10 +6,8 @@ import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import { routes } from '@/shared/routes'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import clsx from 'clsx'
-import { m } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { CSSProperties, type FC, useEffect, useRef, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
 
 import s from './s.module.scss'
 
@@ -36,14 +34,6 @@ export const PostsCard: FC<PostCardProps> = (props) => {
     } = props
     const router = useRouter()
     const href = routes.postsDetail.getRoute(postId)
-
-    const { ref, inView } = useInView({ threshold: 0.1 })
-    const cardRef = useRef()
-    const [height, setHeight] = useState(0)
-
-    useEffect(() => {
-        setHeight((cardRef.current as any as HTMLElement)?.offsetHeight)
-    }, [])
 
     return (
         <div

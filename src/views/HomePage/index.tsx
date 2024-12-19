@@ -1,18 +1,12 @@
 import { Container } from '@/shared/ui/Container'
-import { RecommendedPostsList } from '@/widgets/RecommendedPostsList'
+import { PostsList } from '@/widgets/PostsList'
 
 export const Home = () => {
     return (
-        <Container>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px',
-                }}
-            >
-                <RecommendedPostsList />
-            </div>
+        <Container
+            style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
+        >
+            <PostsList />
         </Container>
     )
 }

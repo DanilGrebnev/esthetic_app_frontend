@@ -28,22 +28,17 @@ export const useGetRecommendedPosts = (options?: { enabled: boolean }) => {
             return postsApi.recommendedPosts(pageParam)
         },
         getNextPageParam: (lastPage, _, lastPageParam) => {
-            if (lastPage.posts.length < paginationPostsAmount) return
-
-            const pageParam = {
+            return {
                 offset: lastPageParam.offset + paginationPostsAmount,
                 limit: lastPageParam.limit,
             }
-
-            return pageParam
         },
-        getPreviousPageParam: (lastPage, _, lastPageParam) => {
-            const pageParam = {
+        getPreviousPageParam: (_, __, lastPageParam) => {
+            if (!lastPageParam.offset) return
+            return {
                 offset: lastPageParam.offset - paginationPostsAmount,
                 limit: lastPageParam.limit,
             }
-
-            return pageParam
         },
         initialPageParam: { offset: 0, limit: paginationPostsAmount },
     })
