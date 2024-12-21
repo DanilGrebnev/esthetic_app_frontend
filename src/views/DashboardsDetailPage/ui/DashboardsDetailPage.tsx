@@ -1,15 +1,16 @@
 'use client'
 
-import { DashboardsContainer } from '@/entities/dashboard'
+import { PostsListSkeleton } from '@/entities/posts'
 import { useGetDashboardsDetail } from '@/shared/api/dashboards'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
-import { Container } from '@/shared/ui/Container'
-import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
-import { UserAvatar } from '@/shared/ui/UserAvatar'
+import { VirtualGrid } from '@/shared/ui/VirtualGrid'
 import { PostsCard } from '@/widgets/PostsCard'
-import { type FC } from 'react'
+import { useMemo } from 'react'
 
 import s from './DashboardDetailPage.module.scss'
+import { PostsAmount } from './PostsAmount'
+import { Title } from './Title'
+import { AuthorInfo } from './UserInfo'
 
 interface DashboardDetailPageProps {
     params: {
@@ -18,9 +19,7 @@ interface DashboardDetailPageProps {
     }
 }
 
-export const DashboardDetailPage: FC<DashboardDetailPageProps> = ({
-    params,
-}) => {
+export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
     const { userId, dashboardsId } = params
 
     const { data: publicProfile } = useGetPublicProfileQuery({ userId })
@@ -33,45 +32,54 @@ export const DashboardDetailPage: FC<DashboardDetailPageProps> = ({
         enabled: dashboardsId !== 'empty-dashboard',
     })
 
+    const dashoardList = useMemo(
+        () => dashboardsDetail?.pages.map((page) => page.posts).flat(1),
+        [dashboardsDetail?.pages],
+    )
+
+    const postsAmount = dashboardsDetail?.pages[0].dashboardInfo.postsAmount
+
     return (
-        <Container className={s.container}>
-            <h1 className={s.title}>
+        <div className={s.container}>
+            <Title>
                 {dashboardsDetail?.pages[0].dashboardInfo.dashboardName}
-            </h1>
-            <div className={s['author-info']}>
-                <UserAvatar
-                    word={publicProfile?.user?.firstName[0].toUpperCase()}
-                    href={publicProfile?.user?.avatar}
-                />
-                <div className={s['author-name']}>
-                    {publicProfile?.user.firstName}
-                    {publicProfile?.user.lastName}
-                </div>
-            </div>
-            <h4 className={s['posts-amount']}>
-                {dashboardsDetail ? 'Количество постов:' : 'В доске нет постов'}
-                {' ' + dashboardsDetail?.pages[0].dashboardInfo.postsAmount}
-            </h4>
-            <div className={s['posts-list']}>
-                <InfiniteScrollContainer
-                    skip={isPending}
-                    action={fetchNextPage}
-                >
-                    <DashboardsContainer>
-                        {dashboardsDetail?.pages.map((page) =>
-                            page.posts.map((post) => (
+            </Title>
+
+            <AuthorInfo
+                firstName={publicProfile?.user.firstName}
+                lastName={publicProfile?.user.lastName}
+                word={publicProfile?.user?.firstName[0].toUpperCase()}
+                awatarSrc={publicProfile?.user?.avatar}
+            />
+            <PostsAmount postsAmount={postsAmount} />
+            <div className='grow'>
+                {(!dashboardsDetail || isPending) && <PostsListSkeleton />}
+                {dashboardsDetail && (
+                    <VirtualGrid
+                        totalCount={dashoardList?.length}
+                        itemHeight='400px'
+                        columnAmount={7}
+                        endReached={fetchNextPage}
+                        enabled={isPending}
+                        useWindowScroll
+                        gap='10px'
+                    >
+                        {(index) => {
+                            const post = dashoardList?.[index]
+
+                            return (
                                 <PostsCard
-                                    key={post.postId}
-                                    url={post.url}
-                                    urlBlur={post.url}
+                                    key={post?.postId}
+                                    url={post?.url as string}
+                                    urlBlur={post?.url as string}
+                                    postId={post?.postId as string}
                                     name={''}
-                                    postId={post.postId}
                                 />
-                            )),
-                        )}
-                    </DashboardsContainer>
-                </InfiniteScrollContainer>
+                            )
+                        }}
+                    </VirtualGrid>
+                )}
             </div>
-        </Container>
+        </div>
     )
 }

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import type { CSSProperties, FC, ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 
 import s from './s.module.scss'
 
@@ -11,13 +11,12 @@ interface IContainer {
     id?: string
 }
 
-export const Container: FC<IContainer> = (props) => {
-    const { children, id, style, className, size = 'l' } = props
+export const Container = (props: IContainer) => {
+    const { children, className, size = 'l', ...otherProps } = props
 
     return (
         <section
-            id={id}
-            style={style}
+            {...otherProps}
             className={clsx(s.container, s[size], className)}
         >
             {children}

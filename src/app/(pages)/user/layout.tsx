@@ -8,16 +8,23 @@ import s from './userLayout.module.scss'
 
 export default function UserLayout({ children }: Layout) {
     return (
-        <div>
-            <div className={s['user-layout']}>
+        <section
+            id='Users layout'
+            className='flex flex-col grow'
+            style={{ height: '100%' }}
+        >
+            <header
+                id='User layout header'
+                className={s['user-layout-header']}
+            >
                 <Button
                     href={routes.main.getRoute()}
                     variant='standart'
                 >
                     На главную
                 </Button>
-            </div>
+            </header>
             {children}
-        </div>
+        </section>
     )
 }

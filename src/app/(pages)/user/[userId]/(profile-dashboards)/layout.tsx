@@ -11,7 +11,14 @@ interface ProfileDashboardsLayoutProps {
 const ProfileDashboardsLayout: FC<ProfileDashboardsLayoutProps> = ({
     children,
 }) => {
-    return <Container>{children}</Container>
+    return (
+        <Container
+            id='Profile dashboard page'
+            className='flex grow'
+        >
+            {children}
+        </Container>
+    )
 }
 
 export default ProfileDashboardsLayout

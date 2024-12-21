@@ -1,5 +1,3 @@
-.user-layout{
-  display: flex;
-  padding: var(--global-padding);
+.user-layout-header {
+    @apply flex p-[--global-padding];
 }
-

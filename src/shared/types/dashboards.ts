@@ -19,7 +19,8 @@ export interface UsersDashboardList {
 export interface DashboardsByCookieItem {
     dashboardId: string
     dashboardName: string
-    url: string
+    urls: string[]
+    urlsBlur: string[]
 }
 
 export interface DashboardsByCookie {

@@ -2,6 +2,7 @@
 
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
+import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -9,8 +10,9 @@ import { type FC } from 'react'
 
 import { useAddPostsToDashboard } from '../model/hooks'
 import { getDashboardItemTitle } from '../model/utils'
-import { DeletePostFromDashboardBtn } from './DeletePostFromDashboardBtn/DeletePostFromDashboardBtn'
+import { DeletePostFromDashboardBtn } from './DeletePostFromDashboardBtn'
 import { Placeholder } from './Placeholder'
+import { PreviewImage } from './PreviewImage'
 import s from './s.module.scss'
 
 interface DashboardItemProps {
@@ -18,7 +20,8 @@ interface DashboardItemProps {
     disabled?: boolean
     dashboardName: string
     skeleton?: boolean
-    url?: string | null
+    url?: string
+    urlBlur?: string
     onClick?: () => void
     deleteBtn?: boolean
     dashboardId: string
@@ -30,6 +33,7 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
         dashboardName,
         deleteBtn,
         url,
+        urlBlur,
         disabled,
         skeleton,
         dashboardId,
@@ -56,20 +60,17 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
             }}
             className={clsx(s['dashboard-item'], {
                 [s.disabled]: disabled,
-                // [s.inactive]: isPending,
             })}
         >
             <div className={clsx(s.content)}>
                 {skeleton && <Skeletons />}
                 {!skeleton && (
                     <>
-                        {url ? (
-                            <Image
-                                className={s['dashboard-item__img']}
-                                src={url}
-                                width={40}
-                                height={40}
-                                alt='test'
+                        {url && urlBlur ? (
+                            <PreviewImage
+                                url={url}
+                                urlBlur={urlBlur}
+                                alt={`${dashboardName} иконка доски`}
                             />
                         ) : (
                             <Placeholder />

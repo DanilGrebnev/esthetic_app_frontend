@@ -19,6 +19,7 @@ export const PostsListSkeleton: FC<PostsListSkeletonProps> = (props) => {
                 display: 'grid',
                 gap: '20px',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                gridAutoRows: '400px',
             }}
         >
             {Array(itemsAmount)

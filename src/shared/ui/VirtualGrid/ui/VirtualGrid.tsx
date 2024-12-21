@@ -9,7 +9,6 @@ export interface IVirtualGridProps {
     itemHeight?: string
     columnAmount: number
     gap?: string
-    loader?: ReactNode
     totalCount: number | undefined
     enabled?: boolean
     increaseViewportBy?: number
@@ -67,8 +66,7 @@ export const VirtualGrid = (props: IVirtualGridProps) => {
         itemHeight,
         totalCount,
         useWindowScroll,
-        enabled,
-        loader,
+        enabled = true,
         increaseViewportBy = { top: 0, bottom: 0 },
         children,
         endReached,
@@ -80,7 +78,7 @@ export const VirtualGrid = (props: IVirtualGridProps) => {
             increaseViewportBy={increaseViewportBy}
             style={{ height: '100%', flexGrow: 1 }}
             totalCount={totalCount}
-            endReached={endReached}
+            endReached={() => (enabled ? endReached?.() : () => {})}
             components={{
                 List,
                 Item: ({ children }) => (

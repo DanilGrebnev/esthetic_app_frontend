@@ -1,22 +1,23 @@
 'use client'
 
-import { PostsListContainerWithBreakpoints } from '@/entities/posts'
+import { PostsListSkeleton } from '@/entities/posts'
 import { useGetCreatedUserPostsQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
-import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
+import { VirtualGrid } from '@/shared/ui/VirtualGrid'
 import { PostsCard } from '@/widgets/PostsCard'
-import { type FC } from 'react'
 
 interface CreatedPostsPageProps {
     userId: string
 }
 
-export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
+export const CreatedPostsPage = (props: CreatedPostsPageProps) => {
     const { data, fetchNextPage, isPending } = useGetCreatedUserPostsQuery(
         props.userId,
     )
 
-    if (!data?.pages[0].posts.length && !isPending) {
+    const postsList = data?.pages.map((page) => page.posts).flat(1)
+
+    if (!postsList?.length && !isPending) {
         return (
             <p style={{ fontSize: 'var(--font-350)' }}>
                 У пользователя нет созданных постов.
@@ -25,26 +26,33 @@ export const CreatedPostsPage: FC<CreatedPostsPageProps> = (props) => {
     }
 
     return (
-        <Container>
-            <InfiniteScrollContainer
-                skip={isPending}
-                action={fetchNextPage}
-            >
-                <PostsListContainerWithBreakpoints>
-                    {data?.pages.map((page) =>
-                        page.posts.map((post) => (
+        <Container
+            id='Created users post page'
+            className='grow'
+        >
+            {postsList && (
+                <VirtualGrid
+                    columnAmount={7}
+                    gap='10px'
+                    totalCount={postsList?.length}
+                    useWindowScroll={true}
+                    endReached={fetchNextPage}
+                >
+                    {(index) => {
+                        const post = postsList?.[index]
+
+                        return (
                             <PostsCard
-                                key={post.postId}
-                                postId={post.postId}
-                                url={post.url}
-                                urlBlur={post.urlBlur}
-                                name={post.postId}
-                                aspectRatio='9/16'
+                                name=''
+                                postId={post?.postId}
+                                url={post?.url}
+                                urlBlur={post?.urlBlur}
                             />
-                        )),
-                    )}
-                </PostsListContainerWithBreakpoints>
-            </InfiniteScrollContainer>
+                        )
+                    }}
+                </VirtualGrid>
+            )}
+            {isPending && <PostsListSkeleton />}
         </Container>
     )
 }

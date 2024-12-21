@@ -19,7 +19,7 @@ interface DashboardListProps {
     postsId: string
 }
 
-export const DashboardModalList: FC<DashboardListProps> = (props) => {
+export const DashboardModalList = (props: DashboardListProps) => {
     const { className, postsId } = props
     const { data: authData } = useCheckAuthQuery()
 
@@ -54,7 +54,7 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                             dashboardId={
                                 dashboardsByCookie?.favorites?.dashboardId || ''
                             }
-                            url={dashboardsByCookie?.favorites?.url}
+                            url={dashboardsByCookie?.favorites?.urls[0]}
                         />
                         {dashboardsByCookie?.dashboards?.map((dashboard) => {
                             return (
@@ -62,6 +62,8 @@ export const DashboardModalList: FC<DashboardListProps> = (props) => {
                                     key={dashboard.dashboardId}
                                     loading={fetchingPostsCheck}
                                     postsId={postsId}
+                                    url={dashboard.urls[0]}
+                                    urlBlur={dashboard.urlsBlur[0]}
                                     deleteBtn={postsCheck?.inDashboards.includes(
                                         dashboard.dashboardId,
                                     )}

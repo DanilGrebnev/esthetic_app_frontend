@@ -7,7 +7,7 @@ import { routes } from '@/shared/routes'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { type CSSProperties } from 'react'
+import { type CSSProperties, memo } from 'react'
 
 import s from './s.module.scss'
 
@@ -22,7 +22,7 @@ interface PostCardProps {
     style?: CSSProperties
 }
 
-export const PostsCard = (props: PostCardProps) => {
+export const PostsCard = memo((props: PostCardProps) => {
     const {
         url,
         quality = 20,
@@ -65,4 +65,6 @@ export const PostsCard = (props: PostCardProps) => {
             />
         </div>
     )
-}
+})
+
+PostsCard.displayName = 'PostsCard'

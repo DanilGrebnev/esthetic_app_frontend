@@ -16,7 +16,8 @@ const UserLayout: FC<UserLayout> = ({ children, params }) => {
     return (
         <Container
             size='l'
-            id='User layout'
+            id='Profile layout'
+            className='flex flex-col grow'
         >
             <Suspense fallback={<UserPublicProfileHeaderSkeleton />}>
                 <UserPublicProfileHeader userId={params.userId} />
