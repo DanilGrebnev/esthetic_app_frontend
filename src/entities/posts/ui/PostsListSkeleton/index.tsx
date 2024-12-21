@@ -1,16 +1,38 @@
 'use client'
 
-import { PostsCardSkeleton } from '@/entities/posts'
-import { type FC } from 'react'
+import { Skeleton } from '@mui/material'
+import { CSSProperties, type FC } from 'react'
 
 interface PostsListSkeletonProps {
     withMasonryContainer?: boolean
+    className?: string
+    style?: CSSProperties
+    itemsAmount?: number
 }
 
 export const PostsListSkeleton: FC<PostsListSkeletonProps> = (props) => {
-    return Array(15)
-        .fill('')
-        .map((_, i) => {
-            return <PostsCardSkeleton key={i} />
-        })
+    const { itemsAmount = 15, ...otherProps } = props
+
+    return (
+        <div
+            style={{
+                display: 'grid',
+                gap: '20px',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+            }}
+        >
+            {Array(itemsAmount)
+                .fill('')
+                .map((_, i) => {
+                    return (
+                        <Skeleton
+                            key={i}
+                            style={{ height: '400px' }}
+                            {...otherProps}
+                            variant='rounded'
+                        />
+                    )
+                })}
+        </div>
+    )
 }

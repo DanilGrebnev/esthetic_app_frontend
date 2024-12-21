@@ -1,5 +1,6 @@
 'use client'
 
+import { PostsListSkeleton } from '@/entities/posts'
 import { useGetRecommendedPosts } from '@/shared/api/posts'
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
 import { PostsCard } from '@/widgets/PostsCard'
@@ -13,24 +14,25 @@ export const PostsList = () => {
     }, [data?.pages.length])
 
     if (!dataList?.length || isPending) {
-        return <h1>Загрузка</h1>
+        return <PostsListSkeleton />
     }
 
     return (
         <VirtualGrid
             gap='10px'
-            totalCount={dataList.length}
+            totalCount={dataList?.length}
+            useWindowScroll={true}
             columnAmount={7}
-            onEndScroll={fetchNextPage}
+            endReached={fetchNextPage}
         >
             {(index) => {
-                const item = dataList[index]
+                const item = dataList?.[index]
 
                 return (
                     <PostsCard
-                        url={item.url}
-                        urlBlur={item.urlBlur}
-                        postId={item.postId}
+                        url={item?.url}
+                        urlBlur={item?.urlBlur}
+                        postId={item?.postId}
                         name=''
                     />
                 )

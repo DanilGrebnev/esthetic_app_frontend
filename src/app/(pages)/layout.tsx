@@ -9,6 +9,7 @@ import { type FC } from 'react'
 import '../styles/globals.css'
 import '../styles/reset.css'
 import '../styles/root.css'
+import '../styles/tailwind-global.css'
 
 export const metadata: Metadata = {
     title: 'Esthetic',

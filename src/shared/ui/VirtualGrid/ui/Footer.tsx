@@ -18,7 +18,7 @@ export const Footer = (props: IVirtualGridFooter) => {
         if (isIntersecting && !enabled) {
             inViewAction?.()
         }
-    }, [isIntersecting])
+    }, [isIntersecting, inViewAction, enabled])
 
     return (
         <div

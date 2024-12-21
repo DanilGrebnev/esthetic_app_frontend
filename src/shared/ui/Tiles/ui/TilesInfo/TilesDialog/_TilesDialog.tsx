@@ -1,7 +1,15 @@
 'use client'
 
 import { AnimatePresence, m } from 'framer-motion'
-import { Children, FC, ReactNode, memo, useEffect, useRef } from 'react'
+import {
+    Children,
+    FC,
+    ReactNode,
+    memo,
+    useCallback,
+    useEffect,
+    useRef,
+} from 'react'
 
 import s from './s.module.scss'
 
@@ -17,16 +25,19 @@ export const _TilesDialogContainer: FC<DialogProps> = memo((props) => {
 
     const ref = useRef<HTMLDivElement | null>(null)
 
-    const close = (e: any) => {
-        if (!ref.current?.contains(e.target)) {
-            onClose?.()
-        }
-    }
+    const close = useCallback(
+        (e: any) => {
+            if (!ref.current?.contains(e.target)) {
+                onClose?.()
+            }
+        },
+        [onClose],
+    )
 
     useEffect(() => {
         open && document.addEventListener('click', close)
         return () => document.removeEventListener('click', close)
-    }, [open])
+    }, [open, close])
 
     const variantsRef = useRef({
         open: { scale: 1 },
