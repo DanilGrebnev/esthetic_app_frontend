@@ -7,7 +7,7 @@ import { routes } from '@/shared/routes'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { CSSProperties, type FC, useEffect, useRef, useState } from 'react'
+import { type CSSProperties } from 'react'
 
 import s from './s.module.scss'
 
@@ -22,7 +22,7 @@ interface PostCardProps {
     style?: CSSProperties
 }
 
-export const PostsCard: FC<PostCardProps> = (props) => {
+export const PostsCard = (props: PostCardProps) => {
     const {
         url,
         quality = 20,
