@@ -1,6 +1,6 @@
+import { UserFullName } from '@/features/user'
 import { getUserPublicProfileServerAction } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
-import { type FC } from 'react'
 
 import { ButtonGroup } from './ButtonGroup/ButtonGroup'
 import s from './UserPublicProfileHeader.module.scss'
@@ -10,9 +10,9 @@ interface UserHeaderLayoutProps {
     userId: string
 }
 
-export const UserPublicProfileHeader: FC<UserHeaderLayoutProps> = async ({
+export const UserPublicProfileHeader = async ({
     userId,
-}) => {
+}: UserHeaderLayoutProps) => {
     const data = await getUserPublicProfileServerAction(userId)
 
     if (data && !('user' in data))
@@ -27,9 +27,10 @@ export const UserPublicProfileHeader: FC<UserHeaderLayoutProps> = async ({
                 word={user?.firstName[0].toUpperCase()}
                 href={user?.avatar}
             />
-            <p className={s['full-name']}>
-                {user?.firstName + ' ' + user?.lastName}
-            </p>
+            <UserFullName
+                firstName={user?.firstName}
+                lastName={user?.lastName}
+            />
             <p className={s['username']}>{user?.userName}</p>
             <p className={s.subscriptions}>
                 подписки: {user?.subscribersAmount}
@@ -37,8 +38,8 @@ export const UserPublicProfileHeader: FC<UserHeaderLayoutProps> = async ({
 
             <ButtonGroup userId={user?.userId} />
             <Navigation
-                userId={userId}
                 className={s['navigation-group']}
+                userId={userId}
             />
         </header>
     )

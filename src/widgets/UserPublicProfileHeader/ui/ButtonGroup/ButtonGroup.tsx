@@ -3,7 +3,8 @@
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { Button } from '@/shared/ui/Button'
-import { type FC } from 'react'
+import { useCallback } from 'react'
+import toast from 'react-hot-toast'
 
 import s from './ButtonGroup.module.scss'
 import { ButtonGroupSkeleton } from './ButtonGroupSkeleton'
@@ -12,15 +13,29 @@ interface ButtonGroupProps {
     userId: string
 }
 
-export const ButtonGroup: FC<ButtonGroupProps> = ({ userId }) => {
+export const ButtonGroup = ({ userId }: ButtonGroupProps) => {
     const { data, isPending } = useGetPublicProfileQuery({ userId })
+
+    const notify = () => toast.success('Ссылка на профиль скопирована')
+
+    const copyProfileURL = useCallback(() => {
+        navigator.clipboard
+            .writeText(window.location.href)
+            .then((text) => console.log(text, 'Текст записан'))
+        notify()
+    }, [])
 
     if (isPending) return <ButtonGroupSkeleton />
 
     return (
         <div className={s['btn-group']}>
             {data?.guest?.isOwner ? (
-                <Button variant='silver'>Поделиться</Button>
+                <Button
+                    variant='silver'
+                    onClick={copyProfileURL}
+                >
+                    Поделиться
+                </Button>
             ) : (
                 <Button variant='silver'>Подписаться</Button>
             )}

@@ -1,6 +1,5 @@
-import { CommentariesItem } from '@/widgets/CommentariesItem'
+import { CommentariesItem } from '@/features/commentaries'
 import { clsx } from 'clsx'
-import { type FC } from 'react'
 
 import s from './s.module.scss'
 
@@ -9,10 +8,10 @@ interface PostsDetailCommentsPosts {
     count: number
 }
 
-export const PostsDetailComments: FC<PostsDetailCommentsPosts> = ({
+export const PostsDetailComments = ({
     className,
     count,
-}) => {
+}: PostsDetailCommentsPosts) => {
     return (
         <div className={clsx(s.comments, className)}>
             {Array(count)

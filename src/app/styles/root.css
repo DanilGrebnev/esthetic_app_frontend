@@ -14,8 +14,8 @@
 
     /* ===== TEXT COLORS ===== */
     --text-palette-main: black;
-    --text-palette-2:white;
-    --text-palette-3:#767676;
+    --text-palette-2: white;
+    --text-palette-3: #767676;
 
     /* ===== ONLY INPUTS COLORS ===== */
     --inputs-text-color-1: rgb(0 0 0 / 60%);

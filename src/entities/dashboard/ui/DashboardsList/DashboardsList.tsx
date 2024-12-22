@@ -5,7 +5,6 @@ import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
 import { DashboardTile, FavoritesTile } from '@/shared/ui/Tiles'
-import { type FC } from 'react'
 
 import { DashboardsContainer } from '../DashboardsContainer'
 import { DashboardsListSkeleton } from '../DashboardsListSkeleton'
@@ -14,7 +13,7 @@ interface DashboardListProps {
     userId?: string
 }
 
-export const DashboardsList: FC<DashboardListProps> = (props) => {
+export const DashboardsList = (props: DashboardListProps) => {
     const { userId = '' } = props
 
     const {

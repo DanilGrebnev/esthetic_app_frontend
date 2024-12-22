@@ -4,13 +4,16 @@ import { MUIProvider } from '@/shared/providers/MUIProvider'
 import { ReactNode } from 'react'
 
 import { TanStackQueryProvider } from './TanStackQueryProvider'
+import { ToasterProvider } from './ToasterProvider'
 
 export const MainProvider = ({ children }: { children: ReactNode }) => {
     return (
         <TanStackQueryProvider>
             <FramerMotionProvider>
                 <AuthProvider>
-                    <MUIProvider>{children}</MUIProvider>
+                    <ToasterProvider>
+                        <MUIProvider>{children}</MUIProvider>
+                    </ToasterProvider>
                 </AuthProvider>
             </FramerMotionProvider>
         </TanStackQueryProvider>

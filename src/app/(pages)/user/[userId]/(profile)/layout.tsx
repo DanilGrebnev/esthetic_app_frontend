@@ -3,7 +3,7 @@ import {
     UserPublicProfileHeader,
     UserPublicProfileHeaderSkeleton,
 } from '@/widgets/UserPublicProfileHeader'
-import { type FC, type ReactNode, Suspense } from 'react'
+import { type ReactNode, Suspense } from 'react'
 
 interface UserLayout {
     children: ReactNode
@@ -12,7 +12,7 @@ interface UserLayout {
     }
 }
 
-const UserLayout: FC<UserLayout> = ({ children, params }) => {
+const UserLayout = ({ children, params }: UserLayout) => {
     return (
         <Container
             size='l'

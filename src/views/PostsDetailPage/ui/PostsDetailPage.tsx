@@ -43,16 +43,16 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
 
                 <div className={s.content}>
                     <PostsDetailHeader
+                        className={s['content__header']}
                         postsId={post?.postId}
                         title={post.name}
                         description={post?.description}
-                        className={s['content__header']}
                         pathToImg={post?.media?.url}
                         author={post?.author}
                     />
                     <PostsDetailComments
-                        count={1}
                         className={s['content__comments']}
+                        count={1}
                     />
                     <div className={s['write-commentaries']}>
                         <CommentariesWriteField />

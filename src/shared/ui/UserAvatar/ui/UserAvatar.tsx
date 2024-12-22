@@ -30,7 +30,7 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
     } = props
     const [error, setError] = useState(false)
 
-    const showAvatar = !!href && !error
+    const showAvatar = href && !error
     const showPlaceholder = placeholder
     const showWord = (word && !error) || !href
 
@@ -58,10 +58,10 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
         >
             {showAvatar && (
                 <Image
-                    fill
+                    className='object-cover'
+                    fill={true}
                     priority={true}
                     alt='User avatar'
-                    style={{ objectFit: 'cover' }}
                     sizes={getImageSize(size)}
                     src={href}
                     onError={() => setError(true)}

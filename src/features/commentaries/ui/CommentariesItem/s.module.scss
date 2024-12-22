@@ -1,0 +1,16 @@
+.comm {
+    @apply flex gap-[--global-gap-1];
+}
+
+.user-info {
+    @apply flex gap-[10px];
+}
+
+.comm {
+    &-text {
+        word-wrap: break-word;
+        p {
+            display: inline-block;
+        }
+    }
+}
