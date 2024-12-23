@@ -1,37 +1,35 @@
 .write-comment {
     --size: 50px;
+    @apply flex 
+    gap-[--global-gap-1] 
+    max-h-max;
+}
 
-    display: flex;
-    gap: var(--global-gap-1);
-    height: max-content;
+.avatar {
+    @apply flex 
+    justify-center 
+    items-center 
+    border-collapse
+    w-[--size]
+    h-[--size]
+    text-[--font-500]
+    
+    leading-[1];
+    background: rgb(0 0 0 / 40%);
+    color: white;
+}
 
-    .avatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        aspect-ratio: 1 / 1;
-        width: var(--size);
-        height: var(--size);
-
-        font-size: var(--font-500);
-        line-height: 1;
-        color: white;
-
-        background: rgb(0 0 0 / 40%);
-        border-radius: 100%;
-    }
-
-    .input {
-        flex-grow: 1;
-
-        min-width: 0;
-        height: var(--size);
-        padding: 0 10px;
-
-        font-size: var(--font-300);
-
-        border: 2px solid var(--border-color-1);
-        border-radius: var(--global-border-radius);
-    }
+.input {
+    --p: 10px;
+    @apply grow 
+    border-2
+    outline-none
+    border-[--border-color-1] 
+    rounded-[--global-border-radius]
+    py-[--p]
+    px-[--p]
+    resize-none
+    min-w-[0]
+    h-[--size]
+    text-[--font-300];
 }

@@ -11,7 +11,7 @@ export const PostsList = () => {
 
     const dataList = useMemo(() => {
         return data?.pages.map((page) => page.posts).flat(1)
-    }, [data?.pages.length])
+    }, [data?.pages])
 
     if (!dataList?.length || isPending) {
         return <PostsListSkeleton />

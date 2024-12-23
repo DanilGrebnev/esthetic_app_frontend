@@ -1,11 +1,12 @@
 // @ts-check
+
 /** @type {import('next').NextConfig} */
 import { SWGRWebpackConfig } from './webpackConfig/SWGRWebpackConfig.js'
 
 const nextConfig = {
     reactStrictMode: false,
-    experimental: {
-    },
+    // output: 'standalone',
+    experimental: {},
     images: {
         remotePatterns: [
             {
