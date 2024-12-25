@@ -1,7 +1,10 @@
+'use client'
+
 import { CommentariesWriteField } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
+import clsx from 'clsx'
 
 import { PostsDetailComments } from './PostsDetailComments'
 import { PostsDetailHeader } from './PostsDetailHeader'
@@ -26,8 +29,8 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
         >
             <div className={s['content-container']}>
                 <div
-                    style={{ aspectRatio: post?.media?.aspectRatio }}
                     className={s['image-container']}
+                    style={{ aspectRatio: post?.media?.aspectRatio }}
                 >
                     <ImageWithBlure
                         fill={true}
@@ -35,7 +38,7 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                         quality={100}
                         loading='lazy'
                         alt={post.name}
-                        placeholder='blur'
+                        objectFit='cover'
                         src={post?.media?.url}
                         blurDataURL={post?.media?.urlBlur}
                     />

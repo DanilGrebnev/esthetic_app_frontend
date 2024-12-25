@@ -28,6 +28,7 @@ export const UserPublicProfileHeader = async ({
                 href={user?.avatar}
             />
             <UserFullName
+                size='big'
                 firstName={user?.firstName}
                 lastName={user?.lastName}
             />

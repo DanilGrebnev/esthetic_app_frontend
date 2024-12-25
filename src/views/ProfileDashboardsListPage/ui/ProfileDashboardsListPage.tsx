@@ -1,5 +1,4 @@
 import { DashboardsList } from '@/entities/dashboard'
-import { type FC } from 'react'
 
 interface UserDashboardsPageProps {
     params: {
@@ -7,8 +6,6 @@ interface UserDashboardsPageProps {
     }
 }
 
-export const ProfileDashboardsListPage: FC<UserDashboardsPageProps> = (
-    props,
-) => {
+export const ProfileDashboardsListPage = (props: UserDashboardsPageProps) => {
     return <DashboardsList userId={props.params.userId} />
 }

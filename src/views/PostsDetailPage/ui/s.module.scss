@@ -6,9 +6,7 @@ $padding: 20px;
 }
 
 .content__header {
-    padding-right: $padding;
-    padding-bottom: $padding;
-    padding-left: $padding;
+    padding: 0 0 $padding $padding;
 }
 
 .content__comments {
@@ -20,24 +18,18 @@ $padding: 20px;
 }
 
 .page {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: 20px;
+    @apply flex grow flex-col;
+    padding: $padding;
 }
 
 .content-container {
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    flex-grow: 1;
-
-    width: 100%;
-    padding-top: $padding;
-    padding-bottom: $padding;
-    padding-left: $padding;
-
-    border-radius: var(--global-border-radius);
+    @apply grid 
+    grid-cols-[400px,_1fr] 
+    grow 
+    rounded-[--global-border-radius] 
+    w-full;
     box-shadow: var(--global-box-shadow);
+    padding: $padding;
 }
 
 .content__comments {
@@ -49,30 +41,22 @@ $padding: 20px;
 }
 
 .image-container {
-    position: relative;
-
-    overflow: hidden;
-
-    aspect-ratio: 9 / 16;
-    width: 100%;
-    max-height: 100%;
-
-    border-radius: var(--global-border-radius);
-
-    img {
-        object-fit: cover;
-    }
+    @apply relative 
+    rounded-[--global-border-radius]
+    w-full
+    max-h-max
+    overflow-hidden;
 }
 
 @media screen and (width <= 750px) {
     .content-container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--global-gap-2);
-
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 0;
+        @apply flex 
+        flex-col
+        gap-[--global-gap-2]
+        my-0
+        mx-auto
+        p-0
+        max-w-[500px];
         padding-bottom: $padding;
     }
 }

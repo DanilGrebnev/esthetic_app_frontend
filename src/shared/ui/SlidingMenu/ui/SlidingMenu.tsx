@@ -8,6 +8,7 @@ import {
     type ReactNode,
     forwardRef,
     memo,
+    useCallback,
     useEffect,
     useState,
 } from 'react'
@@ -37,9 +38,9 @@ export const SlidingMenu = memo(
 
         const combinedRef = useCombinedRef(ref, elementRef)
 
-        const toggleOpen = () => {
+        const toggleOpen = useCallback(() => {
             setOpen((p) => !p)
-        }
+        }, [])
 
         return (
             <div
@@ -57,3 +58,5 @@ export const SlidingMenu = memo(
         )
     }),
 )
+
+SlidingMenu.displayName = 'SlidingMenu'

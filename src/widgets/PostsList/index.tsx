@@ -19,7 +19,7 @@ export const PostsList = () => {
 
     return (
         <VirtualGrid
-            gap='10px'
+            gap='5px'
             totalCount={dataList?.length}
             useWindowScroll={true}
             columnAmount={7}

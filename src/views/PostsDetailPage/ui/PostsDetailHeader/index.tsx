@@ -1,13 +1,14 @@
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn, MenuPostBtn } from '@/entities/posts'
+import { UserFullName } from '@/features/user'
 import { routes } from '@/shared/routes'
 import { TAuthor } from '@/shared/types/user'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
 
 import s from './PostsDetailHeader.module.scss'
+import { Description } from './ui/Description'
 
 interface PostsDetailHeaderProps {
     className?: string
@@ -18,14 +19,14 @@ interface PostsDetailHeaderProps {
     postsId: string
 }
 
-export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
+export const PostsDetailHeader = ({
     className,
     pathToImg,
     description,
     title,
     author,
     postsId,
-}) => {
+}: PostsDetailHeaderProps) => {
     return (
         <header className={clsx(s.header, className)}>
             <div className={s['header__btn-group']}>
@@ -46,11 +47,7 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
             </div>
             <div className={s['posts-info']}>
                 <h2 className={s['posts-info__title']}>{title}</h2>
-                {description && (
-                    <p className={s['posts-info__description']}>
-                        {description}
-                    </p>
-                )}
+                {description && <Description>{description}</Description>}
                 <div className={s['user-info']}>
                     <Link
                         href={routes.userCreatedPosts.getRoute(author?.userId)}
@@ -60,9 +57,11 @@ export const PostsDetailHeader: FC<PostsDetailHeaderProps> = ({
                             size='m'
                         />
                     </Link>
-                    <span>
-                        {author?.firstName} {author?.lastName}
-                    </span>
+                    <UserFullName
+                        size='normal'
+                        firstName={author?.firstName}
+                        lastName={author?.lastName}
+                    />
                 </div>
             </div>
         </header>
