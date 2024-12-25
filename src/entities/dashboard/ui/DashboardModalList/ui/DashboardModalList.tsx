@@ -6,7 +6,8 @@ import {
     useGetDashboardsByCookieQuery,
 } from '@/shared/api/dashboards'
 import { clsx } from 'clsx'
-import { type FC } from 'react'
+import { useMemo } from 'react'
+import { Virtuoso } from 'react-virtuoso'
 
 import { DashboardGroupContainer } from './DashboardGroupContainer'
 import { DashboardItem } from './DashboardItem'
@@ -24,13 +25,30 @@ export const DashboardModalList = (props: DashboardListProps) => {
     const { data: authData } = useCheckAuthQuery()
 
     const {
-        data: dashboardsByCookie,
-        isPending: pendingInitialDashboardList,
+        data: dashboardsPage,
+        isPending: dashboardsPending,
         isError: dashboardsError,
+        fetchNextPage,
     } = useGetDashboardsByCookieQuery({ enabled: !!authData?.isAuth })
 
+    const dashboardsList = useMemo(
+        () =>
+            dashboardsPage?.pages
+                .map((page) => page)
+                .map(({ dashboards }) => dashboards)
+                .flat(1),
+        [dashboardsPage],
+    )
+
+    const favoritesDashboard = useMemo(
+        () => dashboardsPage?.pages.map((page) => page)[0].favorites,
+        [dashboardsPage],
+    )
+
+    console.log(dashboardsList)
+
     const { data: postsCheck, isFetching: fetchingPostsCheck } =
-        useCheckPostInDashboard({ postsId, enabled: !!dashboardsByCookie })
+        useCheckPostInDashboard({ postsId, enabled: !!dashboardsList?.length })
 
     return (
         <div
@@ -39,40 +57,48 @@ export const DashboardModalList = (props: DashboardListProps) => {
         >
             <h2 className={s['container-title']}>Сохранение</h2>
             {dashboardsError && <h2>Ошибка получения досок</h2>}
-            {!dashboardsError && (
-                <div className={s['dashboard-list']}>
-                    <DashboardGroupContainer groupName='Сохранение на доске'>
-                        {pendingInitialDashboardList && (
-                            <DashboardListSkeleton amount={5} />
-                        )}
-                        <DashboardItem
-                            postsId={postsId}
-                            loading={fetchingPostsCheck}
-                            skeleton={pendingInitialDashboardList}
-                            deleteBtn={postsCheck?.inFavorites}
-                            dashboardName='Избранное'
-                            urlBlur={dashboardsByCookie?.favorites?.urlsBlur[0]}
-                            dashboardId={
-                                dashboardsByCookie?.favorites?.dashboardId || ''
-                            }
-                            url={dashboardsByCookie?.favorites?.urls[0]}
-                        />
-                        {dashboardsByCookie?.dashboards?.map((dashboard) => {
+            {dashboardsPending && <DashboardListSkeleton amount={10} />}
+            {dashboardsList?.length && favoritesDashboard && (
+                <div className='grow h-full'>
+                    <Virtuoso
+                        style={{ minHeight: '100%' }}
+                        endReached={() => fetchNextPage()}
+                        components={{
+                            Header: () => (
+                                <DashboardItem
+                                    postsId={postsId}
+                                    loading={fetchingPostsCheck}
+                                    skeleton={dashboardsPending}
+                                    deleteBtn={postsCheck?.inFavorites}
+                                    dashboardName='Избранное'
+                                    urlBlur={favoritesDashboard.urlsBlur[0]}
+                                    dashboardId={
+                                        favoritesDashboard?.dashboardId || ''
+                                    }
+                                    url={favoritesDashboard?.urls[0]}
+                                />
+                            ),
+                        }}
+                        totalCount={dashboardsList?.length}
+                        itemContent={(i) => {
+                            const dashboard = dashboardsList?.[i]
+
                             return (
                                 <DashboardItem
-                                    key={dashboard.dashboardId}
+                                    key={dashboard?.dashboardId}
+                                    dashboardId={dashboard?.dashboardId}
+                                    dashboardName={dashboard?.dashboardName}
                                     loading={fetchingPostsCheck}
                                     postsId={postsId}
-                                    url={dashboard.urls[0]}
-                                    urlBlur={dashboard.urlsBlur[0]}
+                                    url={dashboard?.urls[0]}
+                                    urlBlur={dashboard?.urlsBlur[0]}
                                     deleteBtn={postsCheck?.inDashboards.includes(
-                                        dashboard.dashboardId,
+                                        dashboard?.dashboardId,
                                     )}
-                                    {...dashboard}
                                 />
                             )
-                        })}
-                    </DashboardGroupContainer>
+                        }}
+                    />
                 </div>
             )}
         </div>

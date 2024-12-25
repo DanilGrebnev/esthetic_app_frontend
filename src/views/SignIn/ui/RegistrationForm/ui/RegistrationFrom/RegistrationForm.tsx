@@ -3,7 +3,6 @@
 import { UploadUserAvatar } from '@/features/user'
 import { useRegistrationMutation } from '@/shared/api/users'
 import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
-import { routes } from '@/shared/routes'
 import { type CreateUser } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Dialog } from '@/shared/ui/Dialog'
@@ -15,14 +14,14 @@ import { RecommendedTags } from '@/shared/ui/RecommendedTags'
 import { validationInputs } from '@/shared/validationInputs'
 import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/SubmitButton'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { SubTitle } from '../SubTitle'
-import { Title } from '../Title'
+import { SubTitle } from '../../../SubTitle'
+import { Title } from '../../../Title'
+import { NextBtn } from '../Buttons/NextBtn'
+import { PrevBtn } from '../Buttons/PrevBtn'
 import s from './s.module.scss'
-import { NextBtn } from './ui/Buttons/NextBtn'
-import { PrevBtn } from './ui/Buttons/PrevBtn'
 
 export const RegistrationForm = () => {
     const {

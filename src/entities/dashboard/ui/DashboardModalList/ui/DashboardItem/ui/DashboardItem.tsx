@@ -6,7 +6,7 @@ import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC } from 'react'
+import { type FC, memo } from 'react'
 
 import { useAddPostsToDashboard } from '../model/hooks'
 import { getDashboardItemTitle } from '../model/utils'
@@ -28,7 +28,7 @@ interface DashboardItemProps {
     postsId: string
 }
 
-export const DashboardItem: FC<DashboardItemProps> = (props) => {
+export const DashboardItem = memo((props: DashboardItemProps) => {
     const {
         dashboardName,
         deleteBtn,
@@ -89,7 +89,9 @@ export const DashboardItem: FC<DashboardItemProps> = (props) => {
             )}
         </div>
     )
-}
+})
+
+DashboardItem.displayName = 'DashboardItem'
 
 function Skeletons() {
     return (

@@ -72,12 +72,22 @@ class DashboardsApi {
         })
     }
 
-    getDashboardsListByCookie = (args?: ArgsWithSignal) => {
+    getDashboardsListByCookie = (
+        args?: ArgsWithSignal<{
+            searchParams: { offset: number; limit: number }
+        }>,
+    ) => {
+        const searchParams = args?.searchParams
+            ? {
+                  offset: args?.searchParams.offset,
+                  limit: args?.searchParams.limit,
+              }
+            : undefined
         return apiInstance
             .get(this.baseUrl, {
                 credentials: 'include',
                 signal: args?.signal,
-                searchParams: { offset: 0, limit: 100 },
+                searchParams,
             })
             .json<DashboardsByCookie>()
     }

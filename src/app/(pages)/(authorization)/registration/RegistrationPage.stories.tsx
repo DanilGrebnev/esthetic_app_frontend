@@ -1,4 +1,4 @@
-import { RegistrationForm } from '@/views/SignIn/ui/RegistrationForm/RegistrationForm'
+import { RegistrationForm } from '@/views/SignIn'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof RegistrationForm> = {

@@ -54,12 +54,23 @@ export const useCheckPostInDashboard = ({
 }
 
 export const useGetDashboardsByCookieQuery = (args?: ArgsWithEnabled) => {
-    return useQuery({
-        queryFn: ({ signal }) =>
-            dashboardsApi.getDashboardsListByCookie({ signal }),
-        queryKey: [queryKeys.dashboards.getDashboardsListByCookie] as const,
+    return useInfiniteQuery({
+        queryFn: ({ signal, pageParam }) =>
+            dashboardsApi.getDashboardsListByCookie({
+                signal,
+                searchParams: pageParam,
+            }),
+        queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
         retry: false,
-        ...args,
+        getNextPageParam: (_, __, { limit, offset }) => {
+            return { offset: offset + limit, limit }
+        },
+        getPreviousPageParam: (_, __, { limit, offset }) => {
+            if (!limit) return
+            return { offset: offset - limit, limit }
+        },
+        enabled: args?.enabled,
+        initialPageParam: { offset: 0, limit: 20 },
     })
 }
 

@@ -1,18 +1,20 @@
-import type { FC, ReactNode } from 'react'
+import clsx from 'clsx'
+import { type ReactNode } from 'react'
 
 import s from './s.module.scss'
 
 interface DashboardGroupContainerProps {
     children?: ReactNode
     groupName: string
+    className?: string
 }
 
-export const DashboardGroupContainer: FC<DashboardGroupContainerProps> = (
-    props,
+export const DashboardGroupContainer = (
+    props: DashboardGroupContainerProps,
 ) => {
-    const { children, groupName } = props
+    const { children, groupName, className } = props
     return (
-        <div className={s.container}>
+        <div className={clsx(s.container, className)}>
             <h3 className={s.subtitle}>{groupName}</h3>
             {children}
         </div>
