@@ -36,13 +36,6 @@ export const useGetProfileDashboardListQuery = ({
         },
         initialPageParam: { offset: 0, limit: 10 },
     })
-    // return useQuery({
-    //     queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],
-    //     queryFn: ({ signal }) =>
-    //         dashboardsApi.getProfileDashboardsList({ userId, signal }),
-    //     retry: false,
-    //     enabled: !!userId,
-    // })
 }
 
 export const useCheckPostInDashboard = ({

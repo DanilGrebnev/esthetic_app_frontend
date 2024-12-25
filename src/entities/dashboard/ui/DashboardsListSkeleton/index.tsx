@@ -1,5 +1,5 @@
 import { DashboardsContainer } from '@/entities/dashboard'
-import { DashboardsTileSkeleton, FavoritesTile } from '@/shared/ui/Tiles'
+import { DashboardsTileSkeleton, FavoritesTile } from '@/entities/dashboard'
 import { nanoid } from 'nanoid'
 
 export const DashboardsListSkeleton = () => {

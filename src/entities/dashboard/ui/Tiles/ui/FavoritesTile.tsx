@@ -3,7 +3,7 @@
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { type FC, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { type ITilesInfo } from '../model/tyles-types'
 import { Component } from './Component'
@@ -16,7 +16,7 @@ interface FavoritesTile extends ITilesInfo {
     skeleton?: boolean
 }
 
-export const FavoritesTile: FC<FavoritesTile> = (props) => {
+export const FavoritesTile = (props: FavoritesTile) => {
     const { className, images, href, skeleton = false, ...other } = props
 
     const [cardWidth, setCardWidth] = useState<number>(0)

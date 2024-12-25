@@ -51,6 +51,7 @@ export const DashboardModalList = (props: DashboardListProps) => {
                             skeleton={pendingInitialDashboardList}
                             deleteBtn={postsCheck?.inFavorites}
                             dashboardName='Избранное'
+                            urlBlur={dashboardsByCookie?.favorites?.urlsBlur[0]}
                             dashboardId={
                                 dashboardsByCookie?.favorites?.dashboardId || ''
                             }

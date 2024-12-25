@@ -3,9 +3,8 @@
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { clsx } from 'clsx'
 import { m } from 'framer-motion'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { type FC, memo } from 'react'
+import { memo } from 'react'
 
 import { TileContext } from '../model/tileContext'
 import { type ITilesInfo } from '../model/tyles-types'
@@ -21,7 +20,7 @@ interface IDashboardTile extends ITilesInfo {
     blureImages: string[]
 }
 
-export const DashboardTile: FC<IDashboardTile> = memo((props) => {
+export const DashboardTile = memo((props: IDashboardTile) => {
     const {
         postsCount,
         href,

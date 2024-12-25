@@ -1,10 +1,10 @@
 'use client'
 
+import { DashboardTile, FavoritesTile } from '@/entities/dashboard'
 import { useGetProfileDashboardListQuery } from '@/shared/api/dashboards'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { InfiniteScrollContainer } from '@/shared/ui/InfiniteScrollContainer'
-import { DashboardTile, FavoritesTile } from '@/shared/ui/Tiles'
 
 import { DashboardsContainer } from '../DashboardsContainer'
 import { DashboardsListSkeleton } from '../DashboardsListSkeleton'
@@ -20,6 +20,7 @@ export const DashboardsList = (props: DashboardListProps) => {
         data: dashboards,
         fetchNextPage,
         isPending,
+        isError,
     } = useGetProfileDashboardListQuery({
         userId,
     })
@@ -29,6 +30,10 @@ export const DashboardsList = (props: DashboardListProps) => {
 
     if (isPending) return <DashboardsListSkeleton />
     const favorites = dashboards?.pages[0].favorites
+
+    if (isError) {
+        return <h1>Ошибка получения досок пользователя</h1>
+    }
 
     return (
         <DashboardsContainer>
@@ -47,7 +52,7 @@ export const DashboardsList = (props: DashboardListProps) => {
                 action={fetchNextPage}
             >
                 {dashboards?.pages.map((page) => {
-                    return page.dashboards.map((dashboard, i) => {
+                    return page.dashboards.map((dashboard) => {
                         return (
                             <DashboardTile
                                 key={dashboard.dashboardId}

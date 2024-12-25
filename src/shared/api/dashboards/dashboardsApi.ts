@@ -77,6 +77,7 @@ class DashboardsApi {
             .get(this.baseUrl, {
                 credentials: 'include',
                 signal: args?.signal,
+                searchParams: { offset: 0, limit: 100 },
             })
             .json<DashboardsByCookie>()
     }
