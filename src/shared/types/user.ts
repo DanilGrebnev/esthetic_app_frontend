@@ -24,6 +24,7 @@ export interface UserPublicProfile {
 /* Private users profile*/
 export type UserPrivateProfile = UserProfile & {
     tags: Tag[] | []
+    avatarBlur: string
 }
 
 /* Info about posts author */

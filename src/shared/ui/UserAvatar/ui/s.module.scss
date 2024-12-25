@@ -1,22 +1,21 @@
 .avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: var(--size);
-    min-width: var(--size) !important;
-    height: var(--size);
-    overflow: hidden;
-    line-height: 1;
-    color: white;
-    cursor: pointer;
+    @apply flex
+    relative
+    justify-center
+    items-center
+    cursor-pointer
+    rounded-[--global-border-radius-mini]    
+    w-[--size]
+    min-w-[--size]
+    h-[--size]
+    overflow-hidden
+    leading-none;
     background: rgb(0 0 0 / 40%);
-    border-radius: var(--global-border-radius-mini);
+    color: white;
 }
 
-.full-height{
-    height: 100%;
-    aspect-ratio: 1 / 1;
+.full-height {
+    @apply aspect-square h-full;
 }
 
 .placeholder {
@@ -42,5 +41,3 @@
     --size: 100px;
     font-size: var(--font-600);
 }
-
-

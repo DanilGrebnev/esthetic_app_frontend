@@ -1,7 +1,6 @@
 'use client'
 
 import { UploadUserAvatar } from '@/features/user'
-import { ValidationInputs } from '@/shared/ValidationInputs'
 import { useRegistrationMutation } from '@/shared/api/users'
 import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
 import { routes } from '@/shared/routes'
@@ -13,6 +12,7 @@ import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
 import { ProgressWindow } from '@/shared/ui/ProgressWindow'
 import { RecommendedTags } from '@/shared/ui/RecommendedTags'
+import { validationInputs } from '@/shared/validationInputs'
 import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/SubmitButton'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
@@ -130,13 +130,13 @@ export const RegistrationForm = () => {
                                         placeholder='Введите почту'
                                         {...register('email', {
                                             required:
-                                                ValidationInputs.required
+                                                validationInputs.required
                                                     .message,
                                             pattern: {
-                                                value: ValidationInputs.email
+                                                value: validationInputs.email
                                                     .pattern,
                                                 message:
-                                                    ValidationInputs.email
+                                                    validationInputs.email
                                                         .message,
                                             },
                                         })}

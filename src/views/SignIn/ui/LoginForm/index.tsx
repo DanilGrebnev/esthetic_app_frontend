@@ -7,25 +7,30 @@ import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { Dialog } from '@/shared/ui/Dialog'
 import { Input } from '@/shared/ui/Input'
+import { validationInputs } from '@/shared/validationInputs'
 import { Signature } from '@/views/SignIn/ui/Signature'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 import { Title } from '../Title'
 import s from './s.module.scss'
 
 export const LoginForm = () => {
-    const { handleSubmit, register } = useForm<UsersLoginBody>()
+    const {
+        handleSubmit,
+        control,
+        formState: { errors, isValid },
+    } = useForm<UsersLoginBody>({
+        defaultValues: { email: '', password: '' },
+    })
     const router = useRouter()
 
-    const { mutate, isPending, isSuccess, isError } = useLoginMutation({
-        onSuccess: () => {
-            router.push(routes.main.getRoute())
-        },
-    })
+    const { mutate, isPending, isSuccess, isError } = useLoginMutation()
 
     const onSubmit = handleSubmit((body) => {
-        mutate(body)
+        mutate(body, {
+            onSuccess: () => router.push(routes.main.getRoute()),
+        })
     })
 
     return (
@@ -39,18 +44,40 @@ export const LoginForm = () => {
                     className={s.form}
                 >
                     <Title text='Войти' />
-                    <Input
-                        {...register('email')}
-                        label='Почта'
-                        placeholder='Введите почту'
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: validationInputs.required.message,
+                            pattern: validationInputs.email.pattern,
+                        }}
+                        name='email'
+                        render={({ field }) => {
+                            return (
+                                <Input
+                                    {...field}
+                                    label='Почта'
+                                    placeholder='Введите почту'
+                                />
+                            )
+                        }}
                     />
-                    <Input
-                        {...register('password')}
-                        label='Пароль'
-                        type='password'
-                        placeholder='Введите пароль'
+                    <Controller
+                        control={control}
+                        rules={{ required: validationInputs.required.message }}
+                        name='password'
+                        render={({ field }) => {
+                            return (
+                                <Input
+                                    {...field}
+                                    label='Пароль'
+                                    type='password'
+                                    placeholder='Введите пароль'
+                                />
+                            )
+                        }}
                     />
                     <Button
+                        disabled={!isValid}
                         type='submit'
                         variant='silver'
                         loading={isPending}

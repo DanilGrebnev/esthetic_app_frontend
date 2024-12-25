@@ -1,5 +1,5 @@
-import { ValidationInputs } from '@/shared/ValidationInputs'
 import { Input } from '@/shared/ui/Input'
+import { validationInputs } from '@/shared/validationInputs'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
 type RegisterType<T extends FieldValues> = UseFormRegister<T>
@@ -32,7 +32,7 @@ export const InputWithValidation = <T extends FieldValues>(
 
     const requiredOptions = required && {
         value: true,
-        message: ValidationInputs.required.message,
+        message: validationInputs.required.message,
     }
 
     return (

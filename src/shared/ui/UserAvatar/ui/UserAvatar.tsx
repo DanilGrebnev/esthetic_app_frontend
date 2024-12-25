@@ -1,9 +1,10 @@
 'use client'
 
 import Avatar from '@/shared/assets/user-avatar.png'
+import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
 
 import s from './s.module.scss'
 
@@ -16,9 +17,10 @@ interface UserAvatarProps {
     alt?: string
     onClick?: () => void
     fullHeight?: boolean
+    blurSrc?: string
 }
 
-export const UserAvatar: FC<UserAvatarProps> = (props) => {
+export const UserAvatar = (props: UserAvatarProps) => {
     const {
         size = 'l',
         placeholder,
@@ -27,11 +29,12 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
         href,
         word,
         className,
+        blurSrc,
     } = props
     const [error, setError] = useState(false)
 
     const showAvatar = href && !error
-    const showPlaceholder = placeholder
+    const showPlaceholder = placeholder && !href
     const showWord = (word && !error) || !href
 
     function getImageSize(sizes: typeof size) {
@@ -57,13 +60,13 @@ export const UserAvatar: FC<UserAvatarProps> = (props) => {
             )}
         >
             {showAvatar && (
-                <Image
-                    className='object-cover'
-                    fill={true}
+                <ImageWithBlure
                     priority={true}
                     alt='User avatar'
+                    fill={true}
                     sizes={getImageSize(size)}
                     src={href}
+                    blurDataURL={blurSrc || href}
                     onError={() => setError(true)}
                 />
             )}

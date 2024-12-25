@@ -33,8 +33,7 @@ $card-width: 116px;
     overflow: hidden;
 
     .img {
-        position: relative;
-        background: var(--box-bg-1);
+        @apply relative bg-[--box-bg-1];
 
         &-1 {
             position: relative;
@@ -68,20 +67,12 @@ $card-width: 116px;
 }
 
 .all-posts__images-wrapper {
-    display: flex;
-    position: relative;
+    @apply flex relative;
     height: $images-wrapper-height;
 }
 
 .all-posts__img {
-    position: absolute;
+    @apply absolute rounded-[--global-border-radius] bg-[--box-bg-1] h-full overflow-hidden;
     border: 1px solid white;
-    border-radius: var(--global-border-radius);
-
-    background: var(--box-bg-1);
-
     width: $card-width;
-    height: 100%;
-
-    overflow: hidden;
 }

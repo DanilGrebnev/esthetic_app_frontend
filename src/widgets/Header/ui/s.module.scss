@@ -1,25 +1,19 @@
 .header {
-    position: sticky;
-    z-index: 2;
-    top: 0;
-
-    display: flex;
-    gap: var(--global-gap-1);
-
-    padding: var(--global-padding);
-
-    background: var(--theme-bg-color-1);
+    @apply flex 
+    sticky 
+    z-[2] 
+    bg-[--theme-bg-color-1]
+    top-0
+    gap-[--global-gap-1]
+    p-[--global-padding];
 }
 
 .user-bar {
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-end;
+    @apply flex grow justify-end;
 }
 
 .search {
-    width: 100%;
-    max-width: 300px;
+    @apply w-full max-w-[500px];
 }
 
 @media screen and (width <= 550px) {

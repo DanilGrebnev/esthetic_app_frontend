@@ -25,24 +25,18 @@ export const useGetPublicProfileQuery = (args: { userId: string }) => {
     })
 }
 
-export const useLoginMutation = (options?: {
-    onSuccess?: (data: UserProfile) => void
-    onError?: (error: any) => void
-}) => {
+export const useLoginMutation = () => {
     const queryClient = useQueryClient()
 
     return useMutation({
         mutationFn: (body: UsersLoginBody) => usersApi.login(body),
-        onError: options?.onError,
-        onSuccess: (successResponse) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.auth.checkAuth],
             })
-
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.users.profileByCookie],
             })
-            options?.onSuccess?.(successResponse)
         },
     })
 }

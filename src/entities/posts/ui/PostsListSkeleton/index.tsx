@@ -1,7 +1,7 @@
-'use client'
-
 import { Skeleton } from '@mui/material'
-import { CSSProperties, type FC } from 'react'
+import { CSSProperties } from 'react'
+
+import s from './s.module.scss'
 
 interface PostsListSkeletonProps {
     withMasonryContainer?: boolean
@@ -10,25 +10,20 @@ interface PostsListSkeletonProps {
     itemsAmount?: number
 }
 
-export const PostsListSkeleton: FC<PostsListSkeletonProps> = (props) => {
-    const { itemsAmount = 15, ...otherProps } = props
+export const PostsListSkeleton = (props: PostsListSkeletonProps) => {
+    const { itemsAmount = 25, ...otherProps } = props
 
     return (
-        <div
-            style={{
-                display: 'grid',
-                gap: '20px',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                gridAutoRows: '400px',
-            }}
-        >
+        <div className={s['card-skeleton-wrapper']}>
             {Array(itemsAmount)
-                .fill('')
+                .fill(null)
                 .map((_, i) => {
                     return (
                         <Skeleton
                             key={i}
-                            style={{ height: '400px' }}
+                            style={{
+                                height: 'var(--posts-card-height)',
+                            }}
                             {...otherProps}
                             variant='rounded'
                         />

@@ -67,4 +67,7 @@
 
     /* ===== CUBIC-BEZIER ===== */
     --cubic-bezier-1: cubic-bezier(0.22, 0.68, 0, 1.71);
+
+    /* ===== POSTS CARD ===== */
+    --posts-card-height: 400px;
 }

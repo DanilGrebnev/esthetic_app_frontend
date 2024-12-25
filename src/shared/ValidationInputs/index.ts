@@ -1,4 +1,4 @@
-export const ValidationInputs = {
+export const validationInputs = {
     required: {
         message: 'Поле не может быть пустым',
     },

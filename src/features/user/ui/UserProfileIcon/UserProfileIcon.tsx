@@ -32,6 +32,8 @@ export const UserProfileIcon = () => {
     const openModal = useCallback(() => setOpenModal(true), [])
     const closeModal = useCallback(() => setOpenModal(false), [])
 
+    console.log(userData)
+
     return (
         <div
             className={s['profile-icon']}
@@ -41,6 +43,7 @@ export const UserProfileIcon = () => {
         >
             <UserAvatar
                 onClick={redirect}
+                blurSrc={userData?.avatarBlur}
                 placeholder={isPendingUserData || !authData?.isAuth}
                 href={authData?.isAuth ? userData?.avatar : null}
                 word={userData?.firstName[0]?.toUpperCase()}

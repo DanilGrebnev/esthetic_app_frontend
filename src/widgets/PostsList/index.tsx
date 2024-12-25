@@ -25,8 +25,8 @@ export const PostsList = () => {
             columnAmount={7}
             endReached={fetchNextPage}
         >
-            {(index) => {
-                const item = dataList?.[index]
+            {(i) => {
+                const item = dataList?.[i]
 
                 return (
                     <PostsCard

@@ -1,11 +1,10 @@
 'use client'
 
-import { ValidationInputs } from '@/shared/ValidationInputs'
 import { type TCreatePosts } from '@/shared/types/posts'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { Tag } from '@/shared/ui/InputWithTags/types'
-import { Select } from '@/shared/ui/Select'
+import { validationInputs } from '@/shared/validationInputs'
 import { MutableRefObject, forwardRef, memo, useCallback, useRef } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 
@@ -93,7 +92,7 @@ export const CreatePostForm = memo(
                         placeholder='Добавить название'
                         variant='outlined'
                         {...register('name', {
-                            required: ValidationInputs.required.message,
+                            required: validationInputs.required.message,
                         })}
                         error={!!errors.name?.message}
                         helperText={errors.name?.message}

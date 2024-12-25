@@ -57,8 +57,6 @@ export const PostsCard = memo((props: PostCardProps) => {
                 className={s.img}
                 loading='lazy'
                 blurDataURL={urlBlur}
-                objectFit='cover'
-                objectPosition='center'
                 alt='test'
                 quality={quality}
                 sizes='(max-width: 200px)'

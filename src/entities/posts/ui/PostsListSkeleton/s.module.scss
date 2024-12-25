@@ -1,0 +1,6 @@
+.card-skeleton-wrapper {
+    @apply grid 
+    grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] 
+    gap-[10px] 
+    auto-rows-[--posts-card-height];
+}

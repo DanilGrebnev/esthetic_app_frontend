@@ -13,6 +13,7 @@ class QueryKeys {
         // Список досок пользователя по id
         profileDashboardsList: (userId: string) =>
             'profile-dashboards-list-userid=' + userId,
+
         /* Получение досок по кукам пользователя.
          * Используется для модального окна с досками */
         getDashboardsListByCookie: 'dashboards-by-cookie',
