@@ -30,6 +30,7 @@ export const PostsList = () => {
 
                 return (
                     <PostsCard
+                        key={i}
                         url={item?.url}
                         urlBlur={item?.urlBlur}
                         postId={item?.postId}

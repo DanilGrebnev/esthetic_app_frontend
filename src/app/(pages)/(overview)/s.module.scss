@@ -1,12 +1,7 @@
 .overview {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100dvh;
+    @apply flex flex-col justify-between min-h-[100dvh];
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    @apply flex grow flex-col;
 }

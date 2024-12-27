@@ -13,7 +13,6 @@
     w-[--size]
     h-[--size]
     text-[--font-500]
-    
     leading-[1];
     background: rgb(0 0 0 / 40%);
     color: white;
@@ -26,8 +25,7 @@
     outline-none
     border-[--border-color-1] 
     rounded-[--global-border-radius]
-    py-[--p]
-    px-[--p]
+    p-[--p]
     resize-none
     min-w-[0]
     h-[--size]

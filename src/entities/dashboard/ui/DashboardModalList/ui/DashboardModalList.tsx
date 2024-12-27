@@ -58,7 +58,7 @@ export const DashboardModalList = (props: DashboardListProps) => {
             <h2 className={s['container-title']}>Сохранение</h2>
             {dashboardsError && <h2>Ошибка получения досок</h2>}
             {dashboardsPending && <DashboardListSkeleton amount={10} />}
-            {dashboardsList?.length && favoritesDashboard && (
+            {dashboardsList?.length && !dashboardsPending && (
                 <div className='grow h-full'>
                     <Virtuoso
                         style={{ minHeight: '100%' }}
@@ -71,7 +71,7 @@ export const DashboardModalList = (props: DashboardListProps) => {
                                     skeleton={dashboardsPending}
                                     deleteBtn={postsCheck?.inFavorites}
                                     dashboardName='Избранное'
-                                    urlBlur={favoritesDashboard.urlsBlur[0]}
+                                    urlBlur={favoritesDashboard?.urlsBlur[0]}
                                     dashboardId={
                                         favoritesDashboard?.dashboardId || ''
                                     }

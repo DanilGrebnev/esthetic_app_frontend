@@ -1,35 +1,36 @@
 $padding: 20px;
+.page {
+    padding: $padding;
+    @apply h-full grow grid grid-cols-[1fr] overflow-auto;
+}
+
+.content-container {
+    @apply grid 
+    grid-cols-[400px,_1fr] 
+    grid-rows-1
+    rounded-[--global-border-radius] 
+    w-full
+    h-full
+    overflow-auto;
+    box-shadow: var(--global-box-shadow);
+    padding: $padding;
+}
 
 .content {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col h-full overflow-auto grow;
+}
+
+.content__comments {
+    @apply grow overflow-auto;
+    padding: $padding;
 }
 
 .content__header {
     padding: 0 0 $padding $padding;
 }
 
-.content__comments {
-    padding: $padding;
-}
-
 .write-commentaries {
     padding: 0 $padding;
-}
-
-.page {
-    @apply flex grow flex-col;
-    padding: $padding;
-}
-
-.content-container {
-    @apply grid 
-    grid-cols-[400px,_1fr] 
-    grow 
-    rounded-[--global-border-radius] 
-    w-full;
-    box-shadow: var(--global-box-shadow);
-    padding: $padding;
 }
 
 .content__comments {

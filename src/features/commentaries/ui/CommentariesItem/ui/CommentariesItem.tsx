@@ -1,5 +1,6 @@
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
+import { CSSProperties, memo } from 'react'
 
 import { CommentInfo } from './CommentInfo'
 import { CommentText } from './CommentText'
@@ -8,13 +9,17 @@ import s from './s.module.scss'
 
 interface CommentariesItemProps {
     className?: string
+    style?: CSSProperties
 }
 
-export const CommentariesItem = (props: CommentariesItemProps) => {
-    const { className } = props
+export const CommentariesItem = memo((props: CommentariesItemProps) => {
+    const { className, style } = props
 
     return (
-        <div className={clsx(s.comm, className)}>
+        <div
+            style={style}
+            className={clsx(s.comm, className)}
+        >
             <UserAvatar
                 size='s'
                 className={s.avatar}
@@ -30,4 +35,6 @@ export const CommentariesItem = (props: CommentariesItemProps) => {
             </div>
         </div>
     )
-}
+})
+
+CommentariesItem.displayName = 'CommentariesItem'

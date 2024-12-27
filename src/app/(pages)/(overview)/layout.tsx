@@ -1,11 +1,10 @@
 import { type Layout } from '@/shared/types/layout'
 import { Header } from '@/widgets/Header'
 import clsx from 'clsx'
-import { type FC } from 'react'
 
 import s from './s.module.scss'
 
-const OverviewLayout: FC<Layout> = ({ children }) => {
+const OverviewLayout = ({ children }: Layout) => {
     return (
         <section className={clsx('App', s.overview)}>
             <Header />

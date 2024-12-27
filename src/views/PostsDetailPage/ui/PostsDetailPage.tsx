@@ -1,5 +1,3 @@
-'use client'
-
 import { CommentariesWriteField } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
@@ -55,7 +53,7 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                     />
                     <PostsDetailComments
                         className={s['content__comments']}
-                        count={1}
+                        count={100_000}
                     />
                     <div className={s['write-commentaries']}>
                         <CommentariesWriteField />
