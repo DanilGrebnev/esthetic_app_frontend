@@ -1,7 +1,8 @@
 'use client'
 
 import { clsx } from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence } from 'motion/react'
+import * as m from 'motion/react-m'
 import dynamic from 'next/dynamic'
 import { type FC } from 'react'
 

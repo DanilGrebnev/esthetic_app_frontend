@@ -1,16 +1,17 @@
-.comm {
+.comments-content {
     @apply flex gap-[--global-gap-1];
-}
 
-.user-info {
-    @apply flex gap-[10px];
-}
-
-.comm {
     &-text {
         word-wrap: break-word;
         p {
             display: inline-block;
         }
     }
+}
+.user-info {
+    @apply flex gap-[10px];
+}
+
+.write-section {
+    margin-top: var(--global-gap-1);
 }

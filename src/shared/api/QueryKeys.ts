@@ -29,6 +29,10 @@ class QueryKeys {
         postsDetail: (postsId: string) => 'posts-detail-postsId=' + postsId,
         recommendedPosts: 'recommended-posts',
     } as const
+
+    readonly comments = {
+        commentsList: (postId: string) => 'comments-list-post=' + postId,
+    }
 }
 
 export const queryKeys = new QueryKeys()

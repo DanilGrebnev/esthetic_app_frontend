@@ -2,8 +2,8 @@ import { CommentariesWriteField } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
-import clsx from 'clsx'
 
+import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
 import { PostsDetailComments } from './PostsDetailComments'
 import { PostsDetailHeader } from './PostsDetailHeader'
 import s from './s.module.scss'
@@ -31,12 +31,12 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                     style={{ aspectRatio: post?.media?.aspectRatio }}
                 >
                     <ImageWithBlure
+                        className='object-cover'
                         fill={true}
                         sizes='400px'
                         quality={100}
                         loading='lazy'
                         alt={post.name}
-                        objectFit='cover'
                         src={post?.media?.url}
                         blurDataURL={post?.media?.urlBlur}
                     />
@@ -56,7 +56,7 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                         count={100_000}
                     />
                     <div className={s['write-commentaries']}>
-                        <CommentariesWriteField />
+                        <CommentsWriteFielSection />
                     </div>
                 </div>
             </div>

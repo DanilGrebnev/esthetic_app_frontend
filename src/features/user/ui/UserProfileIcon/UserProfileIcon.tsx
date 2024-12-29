@@ -29,10 +29,8 @@ export const UserProfileIcon = () => {
         router.push(routes.login.getRoute())
     }, [userData, router, authData?.isAuth])
 
-    const openModal = useCallback(() => setOpenModal(true), [])
-    const closeModal = useCallback(() => setOpenModal(false), [])
-
-    console.log(userData)
+    const openModal = () => setOpenModal(true)
+    const closeModal = () => setOpenModal(false)
 
     return (
         <div

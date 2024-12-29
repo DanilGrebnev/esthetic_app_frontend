@@ -1,7 +1,7 @@
 import { apiInstance } from '@/shared/api/Instance'
 import { BadRequest, SuccessResponse } from '@/shared/types/apiResponses'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
-import {
+import type {
     CheckPostInDashboardResponse,
     DashboardsByCookie,
     DashboardsDetail,

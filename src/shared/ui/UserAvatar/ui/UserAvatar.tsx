@@ -4,7 +4,7 @@ import Avatar from '@/shared/assets/user-avatar.png'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import s from './s.module.scss'
 
@@ -20,7 +20,7 @@ interface UserAvatarProps {
     blurSrc?: string
 }
 
-export const UserAvatar = (props: UserAvatarProps) => {
+export const UserAvatar = memo((props: UserAvatarProps) => {
     const {
         size = 'l',
         placeholder,
@@ -61,6 +61,7 @@ export const UserAvatar = (props: UserAvatarProps) => {
         >
             {showAvatar && (
                 <ImageWithBlure
+                    className={s['avatar-img']}
                     priority={true}
                     alt='User avatar'
                     fill={true}
@@ -85,4 +86,6 @@ export const UserAvatar = (props: UserAvatarProps) => {
             )}
         </div>
     )
-}
+})
+
+UserAvatar.displayName = 'UserAvatar'

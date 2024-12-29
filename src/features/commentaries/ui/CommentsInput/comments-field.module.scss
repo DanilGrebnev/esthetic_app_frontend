@@ -1,0 +1,20 @@
+.input-container {
+    @apply flex w-full max-w-full relative grow h-[50px];
+    transition: 0.3s;
+}
+
+.textarea {
+    @apply border-2
+    w-full
+    h-full
+    outline-none
+    rounded-[--global-border-radius]
+    pl-[10px]
+    pr-[30px]
+    resize-none;
+    font-size: var(--font-200);
+}
+
+.on-focus-field {
+    height: 100px;
+}

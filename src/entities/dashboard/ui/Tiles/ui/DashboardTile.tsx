@@ -2,7 +2,7 @@
 
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { clsx } from 'clsx'
-import { m } from 'framer-motion'
+import * as m from 'motion/react-m'
 import { useRouter } from 'next/navigation'
 import { memo } from 'react'
 

@@ -8,5 +8,6 @@ interface UserNameProps {
 }
 export const UserName = (props: UserNameProps) => {
     const { children, className } = props
-    return <span className={clsx(s.username, className)}>{props.children}</span>
+
+    return <span className={clsx(s.username, className)}>{children}</span>
 }

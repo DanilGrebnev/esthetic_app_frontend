@@ -1,7 +1,8 @@
 import { useDialog } from '@/shared/ui/Dialog/lib/hooks'
 import { VariantProps, cva } from 'class-variance-authority'
-import { AnimatePresence, m } from 'framer-motion'
-import { type FC, ReactNode, useEffect, useRef, useState } from 'react'
+import { AnimatePresence } from 'motion/react'
+import * as m from 'motion/react-m'
+import { type ReactNode } from 'react'
 
 import s from './Dialog.module.scss'
 
@@ -32,7 +33,7 @@ const dialog = cva(s.dialog, {
     },
 })
 
-export const Dialog: FC<BaseDialog> = (props) => {
+export const Dialog = (props: BaseDialog) => {
     const { variant, className, open, children, closeTimeout } = props
     const { isOpen } = useDialog({ open, closeTimeout })
 

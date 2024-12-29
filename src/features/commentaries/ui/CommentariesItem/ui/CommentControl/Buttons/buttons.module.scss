@@ -1,0 +1,16 @@
+.btn {
+    color: var(--text-palette-3);
+    font-size: var(--font-200);
+}
+
+.answer-btn {
+    position: relative;
+    font-weight: var(--font-weight-normal);
+
+    &:hover {
+        &:before {
+            @apply absolute bottom-0 w-full h-[1px] content-[''];
+            border-bottom: 1px solid var(--text-palette-3);
+        }
+    }
+}

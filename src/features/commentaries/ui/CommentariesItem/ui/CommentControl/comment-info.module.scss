@@ -2,12 +2,11 @@
     @apply flex gap-[--global-gap-2];
 }
 
-.comm-info,
-.comm-res-btn {
+.comm-info {
     color: var(--text-palette-3);
     font-size: var(--font-200);
 }
 
-.comm-res-btn {
-    font-weight: var(--font-weight-normal);
+.btn-control {
+    @apply flex gap-[--global-gap-1];
 }

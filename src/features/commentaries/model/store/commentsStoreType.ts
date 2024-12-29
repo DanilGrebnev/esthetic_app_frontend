@@ -1,12 +1,17 @@
 type CommentsStoreState = {
     /* this is a commentId */
-    answerCommentId: string | null
+    answerInfo: {
+        commentId: string | null
+        userName: string | null
+    }
     commentContent: string
 }
 
 type CommentsStoreActions = {
-    setAnswerCommentId: (commentId: string) => void
+    setAnswerCommentId: (commentId: string | null) => void
     setCommentContent: (text: string) => void
+    setAnswerName: (name: string | null) => void
+    clearAnswerInfo: () => void
 }
 
-export type CommentsStore = CommentsStoreState & CommentsStoreActions
+export type ICommentsStore = CommentsStoreState & CommentsStoreActions
