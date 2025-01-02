@@ -13,7 +13,7 @@ export const EditBtn = (props: EditBtnProps) => {
     return (
         <button
             onClick={onClick}
-            className={clsx(s.btn, className)}
+            className={clsx(s.btn, 'bottom-line', className)}
         >
             Изменить
         </button>

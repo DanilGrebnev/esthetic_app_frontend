@@ -13,7 +13,7 @@ export const AnswerBtn = (props: AnswerBtnProps) => {
     return (
         <button
             onClick={onClick}
-            className={clsx(s.btn, s['answer-btn'])}
+            className={clsx(s.btn, 'bottom-line', s['answer-btn'])}
         >
             Ответить
         </button>

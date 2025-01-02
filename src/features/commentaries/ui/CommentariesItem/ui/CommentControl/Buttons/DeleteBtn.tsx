@@ -1,6 +1,5 @@
 'use client'
 
-import { Modal } from '@/shared/ui/modal'
 import { clsx } from 'clsx'
 import { MouseEventHandler, useState } from 'react'
 
@@ -17,14 +16,11 @@ export const DeleteBtn = (props: DeleteBtnProps) => {
     return (
         <>
             <button
-                onClick={() => {
-                    setOpenModal(true)
-                }}
-                className={clsx(s.btn, className)}
+                onClick={onClick}
+                className={clsx(s.btn, 'bottom-line', className)}
             >
                 Удалить
             </button>
-            <Modal isOpen={openModal}></Modal>
         </>
     )
 }

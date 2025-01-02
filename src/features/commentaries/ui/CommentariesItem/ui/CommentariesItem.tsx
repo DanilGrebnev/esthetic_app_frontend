@@ -14,16 +14,18 @@ import {
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { routes } from '@/shared/routes'
 import { TCommentsAnswerInfo, TCommentsAuthor } from '@/shared/types/comments'
+import { Button } from '@/shared/ui/Button'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import Link from 'next/link'
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { CommentariesWriteField } from '../../WriteCommentSection'
 import { AnswerInfo } from './AnswerInfo'
 import { CommentControl } from './CommentControl'
 import { CommentText } from './CommentText'
+import { DeleteCommentDialog } from './DeleteCommentDialog/ui/DeleteCommentDialog'
 import { UserName } from './UserName'
 import s from './s.module.scss'
 
@@ -48,6 +50,8 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
         text,
     } = props
 
+    const [openDelete, setOpenDelete] = useState(false)
+
     const setAnswerInfo = useSetAnswerInfoSelector()
     const setEditInfo = useSetEditingInfoSelector()
     const editStoreInfo = useGetEditingInfoSelector()
@@ -70,11 +74,11 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
 
     const onSetAnswerCommentInfo = useCallback(() => {
         setAnswerInfo({ commentId, userName: author.firstName })
-    }, [commentId, author.firstName])
+    }, [commentId, author.firstName, setAnswerInfo])
 
     const onSetEditCommentInfo = useCallback(() => {
         setEditInfo({ commentId, text })
-    }, [commentId, text])
+    }, [commentId, text, setEditInfo])
 
     const createStartText = () => {
         if (isResponseMode) {
@@ -133,7 +137,7 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
     return (
         <div
             ref={elementRef}
-            className={clsx(s.comm, className)}
+            className={clsx(s['comment-container'], className)}
         >
             <div className={s['comments-content']}>
                 <Link href={routes.userDashboards.getRoute(author.authorId)}>
@@ -160,10 +164,16 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                         isLiked={isLiked}
                         onEdit={onSetEditCommentInfo}
                         onResponse={onSetAnswerCommentInfo}
-                        onDelete={() => {}}
+                        onDelete={() => {
+                            setOpenDelete((p) => !p)
+                        }}
                         date='1 мес назад'
                     />
                 </div>
+                <DeleteCommentDialog
+                    open={openDelete}
+                    setOpenModal={() => setOpenDelete(false)}
+                />
             </div>
             {isOpenBottomInput && (
                 <CommentariesWriteField
