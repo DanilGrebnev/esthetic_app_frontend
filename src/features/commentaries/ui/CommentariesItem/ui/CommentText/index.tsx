@@ -1,5 +1,7 @@
+import { ReactNode } from 'react'
+
 interface CommentTextProps {
-    children: string
+    children: ReactNode
 }
 export const CommentText = (props: CommentTextProps) => {
     const { children } = props

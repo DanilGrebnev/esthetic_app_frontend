@@ -1,10 +1,9 @@
-import { CommentariesWriteField } from '@/features/commentaries'
+import { CommentsList } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
-import { PostsDetailComments } from './PostsDetailComments'
 import { PostsDetailHeader } from './PostsDetailHeader'
 import s from './s.module.scss'
 
@@ -51,10 +50,11 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                         pathToImg={post?.media?.url}
                         author={post?.author}
                     />
-                    <PostsDetailComments
+                    <CommentsList
+                        postId={params.postId}
                         className={s['content__comments']}
-                        count={100_000}
                     />
+
                     <div className={s['write-commentaries']}>
                         <CommentsWriteFielSection />
                     </div>

@@ -1,0 +1,20 @@
+.btn-container {
+    @apply grow flex items-center justify-end pr-[--global-gap-1] cursor-pointer;
+}
+
+.icon {
+    --s: 20px;
+    @apply w-[--s] h-[--s] stroke-[1px];
+    stroke: var(--text-palette-3);
+    fill: transparent;
+}
+
+.like-amount {
+    color: var(--text-palette-3);
+    font-size: var(--font-200);
+}
+
+.active {
+    fill: red;
+    stroke: transparent;
+}

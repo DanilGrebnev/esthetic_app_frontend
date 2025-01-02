@@ -3,6 +3,7 @@
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
+import { MouseEventHandler } from 'react'
 
 import { CommentsField } from '../CommentsInput'
 import s from './s.module.scss'
@@ -16,21 +17,39 @@ interface CommentariesWriteFieldProps {
     avatarSize?: TAvatarSize
     startWithText?: TStartWithText
     onSubmit?: TOnSubmit
+    disabled?: boolean
+    onClick?: MouseEventHandler<HTMLDivElement>
+    onSuccessSubmit?: () => void
+    onErrorSubmit?: () => void
 }
-
 export const CommentariesWriteField = (props: CommentariesWriteFieldProps) => {
-    const { className, avatarSize, startWithText, onSubmit } = props
+    const {
+        className,
+        disabled,
+        avatarSize,
+        startWithText,
+        onClick,
+        onSubmit,
+        onSuccessSubmit,
+        onErrorSubmit,
+    } = props
 
     const { data: profileData } = useGetProfileByCookieQuery()
 
     return (
-        <div className={clsx(s['write-comment-section'], className)}>
+        <div
+            onClick={onClick}
+            className={clsx(s['write-comment-section'], className)}
+        >
             <UserAvatar
                 size={avatarSize}
                 href={profileData?.avatar}
             />
             <CommentsField
+                disabled={disabled}
                 onSubmit={onSubmit}
+                onSuccessSubmit={onSuccessSubmit}
+                onErrorSubmit={onErrorSubmit}
                 startWithText={startWithText}
             />
         </div>

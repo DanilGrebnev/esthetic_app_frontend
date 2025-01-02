@@ -1,4 +1,9 @@
-import { useInfiniteQuery } from '@tanstack/react-query'
+import {
+    useInfiniteQuery,
+    useMutation,
+    useQueries,
+    useQueryClient,
+} from '@tanstack/react-query'
 
 import { queryKeys } from '../QueryKeys'
 import { commentsApi } from './commentsApi'
@@ -14,11 +19,50 @@ export const useGetCommentsListQuery = (args: IUseGetCommentsListQuery) => {
         enabled,
         queryKey: [queryKeys.comments.commentsList(postId)],
         queryFn: ({ pageParam, signal }) =>
-            commentsApi.getCommentsList({ signal, pageParam }),
+            commentsApi.getCommentsList({ signal, pageParam, postId }),
         getNextPageParam: (_, __, { limit, offset }) => ({
             offset: offset + limit,
             limit,
         }),
         initialPageParam: { offset: 0, limit: 50 },
+    })
+}
+
+export const useCreateCommentsMutation = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: commentsApi.createComments,
+        onSuccess: (_, { postId }) => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.comments.commentsList(postId)],
+            })
+        },
+    })
+}
+
+export const useEditCommentsMutations = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: commentsApi.editComments,
+        onSuccess: ({ postId }) => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.comments.commentsList(postId)],
+            })
+        },
+    })
+}
+
+export const useAnswerCommentsMutation = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: commentsApi.answerOnComments,
+        onSuccess: ({ postId }) => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.comments.commentsList(postId)],
+            })
+        },
     })
 }

@@ -34,78 +34,76 @@ export const LoginForm = () => {
     })
 
     return (
-        <>
-            <Container
-                size='s'
-                className={s['login-form']}
+        <Container
+            size='s'
+            className={s['login-container']}
+        >
+            <form
+                onSubmit={onSubmit}
+                className={s.form}
             >
-                <form
-                    onSubmit={onSubmit}
-                    className={s.form}
+                <Title text='Войти' />
+                <Controller
+                    control={control}
+                    rules={{
+                        required: validationInputs.required.message,
+                        pattern: validationInputs.email.pattern,
+                    }}
+                    name='email'
+                    render={({ field }) => {
+                        return (
+                            <Input
+                                {...field}
+                                label='Почта'
+                                placeholder='Введите почту'
+                            />
+                        )
+                    }}
+                />
+                <Controller
+                    control={control}
+                    rules={{ required: validationInputs.required.message }}
+                    name='password'
+                    render={({ field }) => {
+                        return (
+                            <Input
+                                {...field}
+                                label='Пароль'
+                                type='password'
+                                placeholder='Введите пароль'
+                            />
+                        )
+                    }}
+                />
+                <Button
+                    disabled={!isValid}
+                    type='submit'
+                    variant='silver'
+                    loading={isPending}
                 >
-                    <Title text='Войти' />
-                    <Controller
-                        control={control}
-                        rules={{
-                            required: validationInputs.required.message,
-                            pattern: validationInputs.email.pattern,
-                        }}
-                        name='email'
-                        render={({ field }) => {
-                            return (
-                                <Input
-                                    {...field}
-                                    label='Почта'
-                                    placeholder='Введите почту'
-                                />
-                            )
-                        }}
-                    />
-                    <Controller
-                        control={control}
-                        rules={{ required: validationInputs.required.message }}
-                        name='password'
-                        render={({ field }) => {
-                            return (
-                                <Input
-                                    {...field}
-                                    label='Пароль'
-                                    type='password'
-                                    placeholder='Введите пароль'
-                                />
-                            )
-                        }}
-                    />
-                    <Button
-                        disabled={!isValid}
-                        type='submit'
-                        variant='silver'
-                        loading={isPending}
-                    >
-                        Отправить
-                    </Button>
-                    <Signature
-                        text='Ещё нет аккаунта?'
-                        href={routes.registration.getRoute()}
-                        linkText='Зарегистрироваться'
-                    />
-                </form>
-                <Dialog
-                    className={s.dialog}
-                    open={isError}
-                    variant='warning'
-                    closeTimeout={5000}
-                >
-                    Ошибка авторизации
-                </Dialog>
-                <Dialog
-                    className={s.dialog}
-                    open={isSuccess}
-                    variant='success'
-                >
-                    Авторизация успешна
-                </Dialog>
-            </Container>
-        </>
+                    Отправить
+                </Button>
+                <Signature
+                    text='Ещё нет аккаунта?'
+                    href={routes.registration.getRoute()}
+                    linkText='Зарегистрироваться'
+                />
+            </form>
+            <Dialog
+                className={s.dialog}
+                open={isError}
+                variant='warning'
+                closeTimeout={5000}
+            >
+                Ошибка авторизации
+            </Dialog>
+            <Dialog
+                className={s.dialog}
+                open={isSuccess}
+                variant='success'
+            >
+                Авторизация успешна
+            </Dialog>
+        </Container>
     )
 }

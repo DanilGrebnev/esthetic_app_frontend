@@ -1,20 +1,20 @@
-interface CommentsItemType {
+export interface TCommentsItem {
     commentId: string
     text: string
-    author: CommentsAuthorType
-    answerInfo?: CommentsAnswerInfoType
+    author: TCommentsAuthor
+    answerInfo: CommentsAnswerInfoType | null
     likeCount: number
     isLiked: boolean
     dateOfCreation: Date
 }
 
-interface CommentsAuthorType {
+export interface TCommentsAuthor {
     authorId: string
     firstName: string
     lastName: string
     userName: string
-    avatar: string
-    avatarBlur: string
+    avatar: string | null
+    avatarBlur: string | null
     isOwner: boolean
 }
 
@@ -25,4 +25,21 @@ interface CommentsAnswerInfoType {
     lastName: string
 }
 
-type GetCommentsListResponseType = CommentsItemType[]
+export interface TGetCommentsListResponse {
+    commentsAmount: number
+    commentsList: TCommentsItem[]
+}
+
+export interface TCreateCommentsBody {
+    text: string
+    answerCommentId?: string
+}
+
+export interface TEditCommentsBody {
+    text: string
+}
+
+export interface TAnswerOnCommentsBody {
+    answerCommentId: string
+    text: string
+}

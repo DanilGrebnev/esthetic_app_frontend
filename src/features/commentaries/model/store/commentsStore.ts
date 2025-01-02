@@ -1,18 +1,46 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
-import { ICommentsStore } from './commentsStoreType'
+import {
+    AnswerInfoType,
+    ICommentsStore,
+    TEditingInfo,
+} from './commentsStoreType'
 
-const useCommentsStore = create<ICommentsStore>()(
+export const useCommentsStore = create<ICommentsStore>()(
     immer((set) => ({
         answerInfo: {
             userName: null,
             commentId: null,
         },
+        editingInfo: {
+            text: null,
+            commentId: null,
+        },
+        postId: '',
         commentContent: '',
-        setAnswerCommentId: (commentId) => {
+        setPostId(postId) {
+            set((state) => {
+                state.postId = postId
+            })
+        },
+        setAnswerCommentId(commentId) {
             set((state) => {
                 state.answerInfo.commentId = commentId
+            })
+        },
+        setAnswerInfo(fields) {
+            set((state) => {
+                Object.entries(fields).forEach(([k, v]) => {
+                    state.answerInfo[k as keyof AnswerInfoType] = v
+                })
+            })
+        },
+        setEditingInfo(fields) {
+            set((state) => {
+                Object.entries(fields).forEach(([k, v]) => {
+                    state.editingInfo[k as keyof TEditingInfo] = v
+                })
             })
         },
         setAnswerName: (name) => {
@@ -20,28 +48,10 @@ const useCommentsStore = create<ICommentsStore>()(
                 state.answerInfo.userName = name
             })
         },
-        setCommentContent: (text) => {
+        setCommentContent(text) {
             set((state) => {
                 state.commentContent = text
             })
         },
-        clearAnswerInfo: () => {
-            set((state) => {
-                state.answerInfo = { commentId: null, userName: null }
-            })
-        },
     })),
 )
-
-export const useSetAnswerCommentIdSelector = () =>
-    useCommentsStore((s) => s.setAnswerCommentId)
-export const useSetCommentContentSelector = () =>
-    useCommentsStore((s) => s.setCommentContent)
-export const useGetCommentContentSelector = () =>
-    useCommentsStore((s) => s.commentContent)
-export const useSetAnswerCommentNameSelector = () =>
-    useCommentsStore((s) => s.setAnswerName)
-export const useClearAnswerInfoSelector = () =>
-    useCommentsStore((s) => s.clearAnswerInfo)
-export const useGetAnswerInfoSelector = () =>
-    useCommentsStore((s) => s.answerInfo)

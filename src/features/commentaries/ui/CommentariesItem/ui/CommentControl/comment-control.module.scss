@@ -1,0 +1,9 @@
+.comm-control {
+    @apply flex gap-[--global-gap-2] w-full text-[--text-palette-3];
+
+    font-size: var(--font-200);
+}
+
+.btn-control {
+    @apply grow flex gap-[--global-gap-1];
+}

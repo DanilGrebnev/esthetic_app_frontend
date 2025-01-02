@@ -1,9 +1,10 @@
 import clsx from 'clsx'
+import { ReactNode } from 'react'
 
 import s from './s.module.scss'
 
 interface UserNameProps {
-    children: string
+    children: ReactNode
     className?: string
 }
 export const UserName = (props: UserNameProps) => {
