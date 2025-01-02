@@ -4,6 +4,7 @@ import { Container } from '@/shared/ui/Container'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
+import { InitialSetPostIdInStore } from './InitialSetPostIdInStore'
 import { PostsDetailHeader } from './PostsDetailHeader'
 import s from './s.module.scss'
 
@@ -13,8 +14,10 @@ interface DetailPostsParams {
     }
 }
 
-export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
-    const postData = await postsApi.getPostDetail({ postId: params.postId })
+export const PostsDetailPage = async ({
+    params: { postId },
+}: DetailPostsParams) => {
+    const postData = await postsApi.getPostDetail({ postId })
 
     if (!postData) return <h1>Ошибка </h1>
     const { post } = postData
@@ -24,6 +27,7 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
             size='m'
             className={s.page}
         >
+            <InitialSetPostIdInStore postId={postId} />
             <div className={s['content-container']}>
                 <div
                     className={s['image-container']}
@@ -51,7 +55,7 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                         author={post?.author}
                     />
                     <CommentsList
-                        postId={params.postId}
+                        postId={postId}
                         className={s['content__comments']}
                     />
 

@@ -1,16 +1,23 @@
-.btn {
-    color: var(--text-palette-3);
-    font-size: var(--font-200);
-}
-
-.answer-btn {
+@mixin bottom-line {
     position: relative;
     font-weight: var(--font-weight-normal);
 
+    &:before {
+        @apply absolute bottom-0 w-[0%] h-[1px] content-[''];
+        transition: 0.2s;
+        border-bottom: 1px solid var(--text-palette-3);
+    }
+
     &:hover {
         &:before {
-            @apply absolute bottom-0 w-full h-[1px] content-[''];
-            border-bottom: 1px solid var(--text-palette-3);
+            width: 100%;
         }
     }
+}
+
+.btn {
+    color: var(--text-palette-3);
+    font-size: var(--font-200);
+
+    @include bottom-line;
 }

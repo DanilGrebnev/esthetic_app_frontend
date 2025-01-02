@@ -72,7 +72,7 @@ export const CommentsField = (props: CommentsFieldProps) => {
         }
     }, [text])
 
-    console.log(errors)
+    console.log({ errors })
 
     return (
         <div

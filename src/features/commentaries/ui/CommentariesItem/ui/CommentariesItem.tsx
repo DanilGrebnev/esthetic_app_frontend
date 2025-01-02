@@ -3,6 +3,7 @@
 import {
     useGetAnswerInfoSelector,
     useGetEditingInfoSelector,
+    useGetPostIdSelector,
     useSetAnswerInfoSelector,
     useSetEditingInfoSelector,
 } from '@/features/commentaries/model/store/commentsStoreSelectors'
@@ -11,13 +12,16 @@ import {
     useEditCommentsMutations,
 } from '@/shared/api/comments'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
-import { TCommentsAuthor } from '@/shared/types/comments'
+import { routes } from '@/shared/routes'
+import { TCommentsAnswerInfo, TCommentsAuthor } from '@/shared/types/comments'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
-import { memo, useCallback, useMemo } from 'react'
+import Link from 'next/link'
+import { memo, useCallback } from 'react'
 import toast from 'react-hot-toast'
 
 import { CommentariesWriteField } from '../../WriteCommentSection'
+import { AnswerInfo } from './AnswerInfo'
 import { CommentControl } from './CommentControl'
 import { CommentText } from './CommentText'
 import { UserName } from './UserName'
@@ -25,10 +29,8 @@ import s from './s.module.scss'
 
 interface CommentariesItemProps {
     className?: string
-    firstName: string
-    lastName: string
-    isOwner?: boolean
-    answerInfo?: TCommentsAuthor
+    author: TCommentsAuthor
+    answerInfo: TCommentsAnswerInfo | null
     text: string
     commentId: string
     likeCount: number
@@ -39,32 +41,23 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
     const {
         className,
         commentId,
-        isOwner,
         answerInfo,
+        author,
         isLiked,
         likeCount,
-        firstName,
-        lastName,
         text,
     } = props
 
     const setAnswerInfo = useSetAnswerInfoSelector()
     const setEditInfo = useSetEditingInfoSelector()
-    const editInfo = useGetEditingInfoSelector()
+    const editStoreInfo = useGetEditingInfoSelector()
     const answerStoreInfo = useGetAnswerInfoSelector()
+    const postId = useGetPostIdSelector()
     const { mutate: answerCommentMutate } = useAnswerCommentsMutation()
     const { mutate: editCommentMutate } = useEditCommentsMutations()
 
-    const isResponseMode = useMemo(
-        () => answerStoreInfo.commentId === commentId,
-        [answerStoreInfo.commentId, commentId],
-    )
-
-    const isEditMode = useMemo(
-        () => editInfo.commentId === commentId,
-        [editInfo.commentId, commentId],
-    )
-
+    const isResponseMode = answerStoreInfo.commentId === commentId
+    const isEditMode = editStoreInfo.commentId === commentId
     const isOpenBottomInput = isResponseMode || isEditMode
 
     const { elementRef } = useOutsideClick({
@@ -76,8 +69,8 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
     })
 
     const onSetAnswerCommentInfo = useCallback(() => {
-        setAnswerInfo({ commentId, userName: firstName })
-    }, [commentId, firstName])
+        setAnswerInfo({ commentId, userName: author.firstName })
+    }, [commentId, author.firstName])
 
     const onSetEditCommentInfo = useCallback(() => {
         setEditInfo({ commentId, text })
@@ -87,36 +80,53 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
         if (isResponseMode) {
             return `${answerStoreInfo.userName}, `
         } else {
-            return editInfo.text
+            return editStoreInfo.text
         }
     }
 
-    const onSubmit = (text: string) => {
-        return new Promise((resolve, reject) => {
-            if (isEditMode) {
+    const onSubmit = async (text: string) => {
+        if (isEditMode) {
+            return new Promise((res, rej) => {
                 editCommentMutate(
                     { body: { text }, commentId },
-                    { onSuccess: resolve, onError: reject },
+                    {
+                        onSuccess: () => {
+                            toast.success('Изменение комментария успешно')
+                            setEditInfo({ commentId: null, text: null })
+                            res('')
+                        },
+                        onError: () => {
+                            toast.error('Ошибка изменения комментария')
+                            rej()
+                        },
+                    },
                 )
-                return
-            } else {
-            }
-        })
-    }
+            })
+        } else if (isResponseMode) {
+            return new Promise((res, rej) => {
+                if (!answerStoreInfo.commentId) return rej()
 
-    const onSuccessSubmit = () => {
-        if (isEditMode) {
-            toast.success('Изменение комментария успешно')
-        } else {
-            toast.success('Ответ на комментарий опубликован')
-        }
-    }
-
-    const onErrorSubmit = () => {
-        if (isEditMode) {
-            toast.error('Ошибка изменения комментария')
-        } else {
-            toast.error('Ошибка ответа на комментарий')
+                answerCommentMutate(
+                    {
+                        postId,
+                        body: {
+                            answerCommentId: answerStoreInfo.commentId,
+                            text,
+                        },
+                    },
+                    {
+                        onSuccess: () => {
+                            toast.success('Ответ опубликован')
+                            setAnswerInfo({ commentId: null, userName: null })
+                            res('')
+                        },
+                        onError: () => {
+                            toast.error('Ошибка ответа на комментарий')
+                            rej('')
+                        },
+                    },
+                )
+            })
         }
     }
 
@@ -126,22 +136,31 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
             className={clsx(s.comm, className)}
         >
             <div className={s['comments-content']}>
-                <UserAvatar
-                    size='s'
-                    className={s.avatar}
-                />
+                <Link href={routes.userDashboards.getRoute(author.authorId)}>
+                    <UserAvatar
+                        size='s'
+                        href={author.avatar}
+                        blurSrc={author.avatarBlur}
+                        word={author.firstName[0]}
+                        className={s.avatar}
+                    />
+                </Link>
                 <div className={s.content}>
                     <div className={s['comm-text']}>
-                        <UserName>{clsx(firstName, lastName)}:</UserName>
+                        <UserName>
+                            {`${author.firstName} ${author.lastName}`}
+                        </UserName>
+                        {answerInfo && <AnswerInfo {...answerInfo} />}
                         <CommentText>{text}</CommentText>
                     </div>
 
                     <CommentControl
-                        isOwner={isOwner}
+                        isOwner={author.isOwner}
                         likeCount={likeCount}
                         isLiked={isLiked}
-                        onEditClick={onSetEditCommentInfo}
-                        onResponseClick={onSetAnswerCommentInfo}
+                        onEdit={onSetEditCommentInfo}
+                        onResponse={onSetAnswerCommentInfo}
+                        onDelete={() => {}}
                         date='1 мес назад'
                     />
                 </div>
@@ -152,8 +171,6 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                     avatarSize='s'
                     onSubmit={onSubmit}
                     startWithText={createStartText() || ''}
-                    onErrorSubmit={onErrorSubmit}
-                    onSuccessSubmit={onSuccessSubmit}
                 />
             )}
         </div>

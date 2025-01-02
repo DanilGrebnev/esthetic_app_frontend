@@ -5,9 +5,11 @@
     right-[10px] 
     top-[50%] 
     translate-y-[-50%];
+    transition: 0.3s;
+    cursor: pointer;
 
-    &:not(.disabled) {
-        cursor: pointer;
+    &:not(.disabled):active {
+        scale: 1.1;
     }
 
     path {

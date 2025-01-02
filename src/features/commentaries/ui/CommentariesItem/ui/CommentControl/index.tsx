@@ -7,11 +7,14 @@ import { DeleteBtn } from './Buttons/DeleteBtn'
 import { EditBtn } from './Buttons/EditBtn'
 import s from './comment-control.module.scss'
 
+type TBtn = MouseEventHandler<HTMLButtonElement>
+
 interface CommentControlProps {
     date: string
     className?: string
-    onResponseClick?: MouseEventHandler<HTMLButtonElement>
-    onEditClick?: MouseEventHandler<HTMLButtonElement>
+    onResponse?: TBtn
+    onEdit?: TBtn
+    onDelete?: TBtn
     isOwner?: boolean
     likeCount: number
     isLiked: boolean
@@ -24,8 +27,9 @@ export const CommentControl = (props: CommentControlProps) => {
         isLiked,
         isOwner,
         likeCount,
-        onEditClick,
-        onResponseClick,
+        onEdit,
+        onResponse,
+        onDelete,
     } = props
 
     return (
@@ -33,11 +37,11 @@ export const CommentControl = (props: CommentControlProps) => {
             <p>{date}</p>
             <div className={s['btn-control']}>
                 {!isOwner ? (
-                    <AnswerBtn onClick={onResponseClick} />
+                    <AnswerBtn onClick={onResponse} />
                 ) : (
                     <>
-                        <EditBtn onClick={onEditClick} />
-                        <DeleteBtn />
+                        <EditBtn onClick={onEdit} />
+                        <DeleteBtn onClick={onDelete} />
                     </>
                 )}
 

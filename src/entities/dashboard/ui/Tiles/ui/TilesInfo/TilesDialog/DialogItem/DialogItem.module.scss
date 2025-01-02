@@ -1,8 +1,6 @@
 .dialog-item {
-    border-radius: var(--global-border-radius);
-    padding: var(--global-gap-1);
-    width: 100%;
-    overflow: hidden;
+    @apply w-full p-[--global-gap-1] overflow-hidden rounded-[--global-border-radius];
+
     color: var(--text-palette-main);
     text-overflow: ellipsis;
     white-space: nowrap;

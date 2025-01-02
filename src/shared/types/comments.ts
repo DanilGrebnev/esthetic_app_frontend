@@ -2,7 +2,7 @@ export interface TCommentsItem {
     commentId: string
     text: string
     author: TCommentsAuthor
-    answerInfo: CommentsAnswerInfoType | null
+    answerInfo: TCommentsAnswerInfo | null
     likeCount: number
     isLiked: boolean
     dateOfCreation: Date
@@ -18,7 +18,7 @@ export interface TCommentsAuthor {
     isOwner: boolean
 }
 
-interface CommentsAnswerInfoType {
+export interface TCommentsAnswerInfo {
     commentId: string
     userId: string
     firstName: string

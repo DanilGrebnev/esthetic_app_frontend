@@ -38,6 +38,7 @@ class CommentsApi {
             .get(this.baseUrl + `/${postId}`, {
                 signal,
                 searchParams: pageParam,
+                credentials: 'include',
             })
             .json<TGetCommentsListResponse>()
     }
@@ -77,10 +78,12 @@ class CommentsApi {
         postId: string
         body: TAnswerOnCommentsBody
     }) =>
-        apiInstance(this.baseUrl + `/${postId}`, {
-            credentials: 'include',
-            json: body,
-        }).json<{ postId: string }>()
+        apiInstance
+            .post(this.baseUrl + `/${postId}`, {
+                credentials: 'include',
+                json: body,
+            })
+            .json<{ postId: string }>()
 }
 
 export const commentsApi = new CommentsApi()

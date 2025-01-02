@@ -24,13 +24,14 @@ export interface UserPublicProfile {
 /* Private users profile*/
 export type UserPrivateProfile = UserProfile & {
     tags: Tag[] | []
-    avatarBlur: string
+    avatarBlur?: string | null
 }
 
 /* Info about posts author */
 export interface TAuthor extends Omit<BaseUser, 'email'> {
     userId: string
-    avatar: string
+    avatar?: string | null
+    avatarBlur?: string | null
 }
 
 /* Info about guest. Use with UserPublicProfile type */

@@ -20,7 +20,7 @@ export const ImageWithBlure = memo(
                     alt={props.alt}
                     src={currentSrc}
                 />
-                
+
                 {loading && (
                     <Image
                         ref={ref}

@@ -3,7 +3,7 @@
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
-import { MouseEventHandler } from 'react'
+import { MouseEventHandler, useEffect } from 'react'
 
 import { CommentsField } from '../CommentsInput'
 import s from './s.module.scss'
@@ -34,7 +34,7 @@ export const CommentariesWriteField = (props: CommentariesWriteFieldProps) => {
         onErrorSubmit,
     } = props
 
-    const { data: profileData } = useGetProfileByCookieQuery()
+    const { data: profileData, isPending } = useGetProfileByCookieQuery()
 
     return (
         <div
@@ -43,7 +43,10 @@ export const CommentariesWriteField = (props: CommentariesWriteFieldProps) => {
         >
             <UserAvatar
                 size={avatarSize}
+                word={profileData?.firstName[0]}
                 href={profileData?.avatar}
+                blurSrc={profileData?.avatarBlur}
+                placeholder={isPending}
             />
             <CommentsField
                 disabled={disabled}

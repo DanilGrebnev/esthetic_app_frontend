@@ -4,7 +4,7 @@ import Avatar from '@/shared/assets/user-avatar.png'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { memo, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 
 import s from './s.module.scss'
 
@@ -14,10 +14,11 @@ interface UserAvatarProps {
     className?: string
     placeholder?: boolean
     href?: string | null
+    blurSrc?: string | null
+
     alt?: string
     onClick?: () => void
     fullHeight?: boolean
-    blurSrc?: string
 }
 
 export const UserAvatar = memo((props: UserAvatarProps) => {
@@ -31,11 +32,11 @@ export const UserAvatar = memo((props: UserAvatarProps) => {
         className,
         blurSrc,
     } = props
-    const [error, setError] = useState(false)
+    const [errorFethImg, setErrorFethImg] = useState(false)
 
-    const showAvatar = href && !error
-    const showPlaceholder = placeholder && !href
-    const showWord = (word && !error) || !href
+    const onError = useCallback(() => {
+        setErrorFethImg(true)
+    }, [])
 
     function getImageSize(sizes: typeof size) {
         return {
@@ -46,6 +47,12 @@ export const UserAvatar = memo((props: UserAvatarProps) => {
         }[sizes]
     }
 
+    const showAvatar = !errorFethImg && href
+    /* Если ошибка загрузки фото или нет основной и второстепенной ссылки */
+    const showWord = (word && !href) || errorFethImg
+    /*Если нет ни главный ссылки, ни второстепенной и ошибка */
+    const showAwatarPlaceholder = placeholder
+
     return (
         <div
             onClick={onClick}
@@ -53,7 +60,7 @@ export const UserAvatar = memo((props: UserAvatarProps) => {
                 s.avatar,
                 s[size],
                 {
-                    [s.placeholder]: showPlaceholder,
+                    [s.placeholder]: showAwatarPlaceholder,
                     [s['full-height']]: fullHeight,
                 },
                 className,
@@ -68,13 +75,13 @@ export const UserAvatar = memo((props: UserAvatarProps) => {
                     sizes={getImageSize(size)}
                     src={href}
                     blurDataURL={blurSrc || href}
-                    onError={() => setError(true)}
+                    onError={onError}
                 />
             )}
 
             {showWord && word}
 
-            {showPlaceholder && (
+            {showAwatarPlaceholder && (
                 <Image
                     fill
                     sizes={getImageSize(size)}

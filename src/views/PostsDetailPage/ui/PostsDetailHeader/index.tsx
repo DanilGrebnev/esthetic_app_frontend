@@ -54,6 +54,8 @@ export const PostsDetailHeader = ({
                     >
                         <UserAvatar
                             href={author?.avatar}
+                            blurSrc={author?.avatarBlur}
+                            word={author?.firstName[0]}
                             size='m'
                         />
                     </Link>

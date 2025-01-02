@@ -20,10 +20,13 @@ export const useGetCommentsListQuery = (args: IUseGetCommentsListQuery) => {
         queryKey: [queryKeys.comments.commentsList(postId)],
         queryFn: ({ pageParam, signal }) =>
             commentsApi.getCommentsList({ signal, pageParam, postId }),
-        getNextPageParam: (_, __, { limit, offset }) => ({
-            offset: offset + limit,
-            limit,
-        }),
+        getNextPageParam: (_, allPages, { limit, offset }) => {
+            const commentsOnLastPage = allPages.at(-1)?.commentsList.length
+
+            if (commentsOnLastPage && limit > commentsOnLastPage) return
+
+            return { offset: offset + limit, limit }
+        },
         initialPageParam: { offset: 0, limit: 50 },
     })
 }
