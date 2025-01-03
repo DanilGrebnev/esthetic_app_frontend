@@ -1,20 +1,24 @@
 import { AuthProvider } from '@/entities/auth'
-import { FramerMotionProvider } from '@/shared/providers/FramerMotionProvider'
-import { MUIProvider } from '@/shared/providers/MUIProvider'
 import { ReactNode } from 'react'
 
+import { Layout } from '../types/layout'
+import { EnabledMapSetImmerProvider } from './EnabledMapSetImmerProvider'
+import { FramerMotionProvider } from './FramerMotionProvider'
+import { MUIProvider } from './MUIProvider'
 import { TanStackQueryProvider } from './TanStackQueryProvider'
 import { ToasterProvider } from './ToasterProvider'
 
-export const MainProvider = ({ children }: { children: ReactNode }) => {
+export const MainProvider = ({ children }: Layout) => {
     return (
         <TanStackQueryProvider>
             <FramerMotionProvider>
-                <AuthProvider>
-                    <ToasterProvider>
-                        <MUIProvider>{children}</MUIProvider>
-                    </ToasterProvider>
-                </AuthProvider>
+                <EnabledMapSetImmerProvider>
+                    <AuthProvider>
+                        <ToasterProvider>
+                            <MUIProvider>{children}</MUIProvider>
+                        </ToasterProvider>
+                    </AuthProvider>
+                </EnabledMapSetImmerProvider>
             </FramerMotionProvider>
         </TanStackQueryProvider>
     )

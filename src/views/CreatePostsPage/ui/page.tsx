@@ -20,7 +20,7 @@ export const CreatePostsPage = () => {
 
     const { data: profileByCookie } = useGetProfileByCookieQuery()
 
-    const { mutateAsync, isPending, isSuccess } = useCreatePostsMutation(
+    const { mutate, isPending, isSuccess } = useCreatePostsMutation(
         profileByCookie?.userId || '',
     )
 
@@ -44,12 +44,14 @@ export const CreatePostsPage = () => {
                     postsEdit={false}
                     isPending={isPending}
                     mutate={(formData) => {
-                        mutateAsync(formData).then(() => {
-                            router.push(
-                                routes.userCreatedPosts.getRoute(
-                                    profileByCookie?.userId,
-                                ),
-                            )
+                        mutate(formData, {
+                            onSuccess: () => {
+                                router.push(
+                                    routes.userCreatedPosts.getRoute(
+                                        profileByCookie?.userId,
+                                    ),
+                                )
+                            },
                         })
                     }}
                     submitBtnRef={submitButtonRef}

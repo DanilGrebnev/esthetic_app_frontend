@@ -4,6 +4,7 @@ interface TCommentsStoreState {
         commentId: string | null
         userName: string | null
     }
+    commentIdOnDeletionList: Set<string>
     editingInfo: {
         commentId: string | null
         text: string | null
@@ -19,7 +20,6 @@ type TSetAnswerFields = {
 type TSetEditingFields = {
     [key in keyof TEditingInfo]?: TEditingInfo[key]
 }
-
 type CommentsStoreActions = {
     setAnswerCommentId: (commentId: string | null) => void
     setCommentContent: (text: string) => void
@@ -27,6 +27,9 @@ type CommentsStoreActions = {
     setAnswerInfo: (fields: TSetAnswerFields) => void
     setEditingInfo: (fields: TSetEditingFields) => void
     setPostId: (postId: string) => void
+    addCommentIdInQueueDeleteList: (commentId: string) => void
+    filterCommentIdOnQueueDeleteList: (commentId: string) => void
+    clearCommentIdQueueDeleteList: () => void
 }
 
 export type ICommentsStore = TCommentsStoreState & CommentsStoreActions

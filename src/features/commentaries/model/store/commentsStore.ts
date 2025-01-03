@@ -13,12 +13,28 @@ export const useCommentsStore = create<ICommentsStore>()(
             userName: null,
             commentId: null,
         },
+        commentIdOnDeletionList: new Set(),
         editingInfo: {
             text: null,
             commentId: null,
         },
         postId: '',
         commentContent: '',
+        addCommentIdInQueueDeleteList(commentId) {
+            set((state) => {
+                state.commentIdOnDeletionList.add(commentId)
+            })
+        },
+        clearCommentIdQueueDeleteList() {
+            set((state) => {
+                state.commentIdOnDeletionList.clear()
+            })
+        },
+        filterCommentIdOnQueueDeleteList(commentId: string) {
+            set((state) => {
+                state.commentIdOnDeletionList.delete(commentId)
+            })
+        },
         setPostId(postId) {
             set((state) => {
                 state.postId = postId

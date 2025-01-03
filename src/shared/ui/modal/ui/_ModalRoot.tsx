@@ -1,14 +1,8 @@
 'use client'
 
-import type { FC, ReactNode } from 'react'
-
 import s from './modal.module.scss'
 
-interface ModalProviderProps {
-    children?: ReactNode
-}
-
-export const _ModalRoot: FC<ModalProviderProps> = () => {
+export const _ModalRoot = () => {
     return (
         <div
             id='modal-root'

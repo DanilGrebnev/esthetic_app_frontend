@@ -33,9 +33,17 @@ export const useOutsideClick = ({
             }
         }
 
+        const handleKeydown = (e: KeyboardEvent) => {
+            if (e.key !== 'Escape') return
+            handlerRef.current?.()
+        }
+
         document.addEventListener('click', handleClick)
+        document.addEventListener('keydown', handleKeydown)
+
         return () => {
             document.removeEventListener('click', handleClick)
+            document.removeEventListener('keydown', handleKeydown)
         }
     }, [elementRef, attached])
 

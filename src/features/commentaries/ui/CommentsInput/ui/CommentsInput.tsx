@@ -72,8 +72,6 @@ export const CommentsField = (props: CommentsFieldProps) => {
         }
     }, [text])
 
-    console.log({ errors })
-
     return (
         <div
             ref={elementRef}

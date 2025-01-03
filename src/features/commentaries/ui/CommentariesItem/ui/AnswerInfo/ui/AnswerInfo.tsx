@@ -1,5 +1,6 @@
 import { routes } from '@/shared/routes'
 import { TCommentsAnswerInfo } from '@/shared/types/comments'
+import clsx from 'clsx'
 import Link from 'next/link'
 
 import s from './answer-info.module.scss'
@@ -12,7 +13,7 @@ export const AnswerInfo = (props: TCommentsAnswerInfo) => {
             {' '}
             <span>в ответ</span>{' '}
             <Link
-                className={s.name}
+                className={clsx(s.name, 'bottom-line')}
                 href={routes.userDashboards.getRoute(userId)}
             >
                 {firstName}

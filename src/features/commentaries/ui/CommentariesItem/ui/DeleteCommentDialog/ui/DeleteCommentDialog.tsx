@@ -1,25 +1,48 @@
+'use client'
+
+import {
+    useFilterCommentIdInQueueDeleteListSelector,
+    useGetCommentIdQueueDeleteListSelector,
+} from '@/features/commentaries/model/store'
 import clsx from 'clsx'
+import { AnimatePresence } from 'motion/react'
+import * as m from 'motion/react-m'
 
 import s from './delete-comment-dialog.module.scss'
 
 interface DeleteCommentDialogProps {
-    open: boolean
-    setOpenModal: () => void
+    commentId: string
 }
 export const DeleteCommentDialog = (props: DeleteCommentDialogProps) => {
-    const { open, setOpenModal } = props
+    const { commentId } = props
+    const commentsIdList = useGetCommentIdQueueDeleteListSelector()
+    const deleteCommentId = useFilterCommentIdInQueueDeleteListSelector()
+    const isOpen = commentsIdList.has(commentId)
+
+    const animate = {
+        initial: { height: '0%' },
+        animate: { height: '100%' },
+    }
 
     return (
-        <div
-            className={clsx(s['delete-block'], {
-                [s.open]: open,
-            })}
-        >
-            <p>Удалить комментарий?</p>
-            <div className={s['delete-block-control']}>
-                <button className='border-line'>Удалить</button>
-                <button onClick={setOpenModal}>Отмена</button>
-            </div>
-        </div>
+        <AnimatePresence>
+            {isOpen ? (
+                <m.div
+                    key='box'
+                    transition={{}}
+                    animate={animate.animate}
+                    exit={animate.initial}
+                    className={clsx(s['delete-block'])}
+                >
+                    <p>Комментарий удалён.</p>
+                    <button
+                        onClick={() => deleteCommentId(commentId)}
+                        className={clsx('bottom-line', s.btn)}
+                    >
+                        Восстановить
+                    </button>
+                </m.div>
+            ) : null}
+        </AnimatePresence>
     )
 }

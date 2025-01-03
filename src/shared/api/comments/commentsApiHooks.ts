@@ -1,7 +1,10 @@
 import {
+    useFilterCommentIdInQueueDeleteListSelector,
+    useGetCommentIdQueueDeleteListSelector,
+} from '@/features/commentaries/model/store/commentsStoreSelectors'
+import {
     useInfiniteQuery,
     useMutation,
-    useQueries,
     useQueryClient,
 } from '@tanstack/react-query'
 
@@ -64,6 +67,30 @@ export const useAnswerCommentsMutation = () => {
         mutationFn: commentsApi.answerOnComments,
         onSuccess: ({ postId }) => {
             queryClient.invalidateQueries({
+                queryKey: [queryKeys.comments.commentsList(postId)],
+            })
+        },
+    })
+}
+
+export const useDeleteCommentsMutation = (postId: string) => {
+    const queryClient = useQueryClient()
+    const commentsIdList = useGetCommentIdQueueDeleteListSelector()
+    const deleteCommentIdFrom = useFilterCommentIdInQueueDeleteListSelector()
+
+    return useMutation({
+        mutationFn: () => {
+            if (![...commentsIdList].length) return Promise.reject()
+
+            const promises = [...commentsIdList].map((commentId) => {
+                deleteCommentIdFrom(commentId)
+                return commentsApi.deleteComments(commentId)
+            })
+            return Promise.allSettled(promises)
+        },
+
+        onSuccess: () => {
+            queryClient.refetchQueries({
                 queryKey: [queryKeys.comments.commentsList(postId)],
             })
         },

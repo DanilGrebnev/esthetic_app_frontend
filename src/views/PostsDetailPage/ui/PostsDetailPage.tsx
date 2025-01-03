@@ -4,6 +4,7 @@ import { Container } from '@/shared/ui/Container'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
+import { DeleteCommentAfterUnmount } from './DeleteCommentAfterUnmount'
 import { InitialSetPostIdInStore } from './InitialSetPostIdInStore'
 import { PostsDetailHeader } from './PostsDetailHeader'
 import s from './s.module.scss'
@@ -28,6 +29,7 @@ export const PostsDetailPage = async ({
             className={s.page}
         >
             <InitialSetPostIdInStore postId={postId} />
+            <DeleteCommentAfterUnmount postId={postId} />
             <div className={s['content-container']}>
                 <div
                     className={s['image-container']}

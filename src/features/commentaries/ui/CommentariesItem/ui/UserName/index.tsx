@@ -1,18 +1,23 @@
 'use client'
 
 import clsx from 'clsx'
-import { type ReactNode, memo } from 'react'
+import { memo } from 'react'
 
 import s from './s.module.scss'
 
 interface UserNameProps {
-    children: ReactNode
+    firstName: string
+    lastName: string
     className?: string
 }
 export const UserName = memo((props: UserNameProps) => {
-    const { children, className } = props
+    const { firstName, lastName, className } = props
 
-    return <span className={clsx(s.username, className)}>{children}</span>
+    return (
+        <span className={clsx(s.username, className)}>
+            {firstName + ' ' + lastName}
+        </span>
+    )
 })
 
 UserName.displayName = 'UserName'

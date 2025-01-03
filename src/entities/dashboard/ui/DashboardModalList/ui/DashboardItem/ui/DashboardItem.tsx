@@ -2,11 +2,9 @@
 
 import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
-import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
-import Image from 'next/image'
-import { type FC, memo } from 'react'
+import { memo } from 'react'
 
 import { useAddPostsToDashboard } from '../model/hooks'
 import { getDashboardItemTitle } from '../model/utils'

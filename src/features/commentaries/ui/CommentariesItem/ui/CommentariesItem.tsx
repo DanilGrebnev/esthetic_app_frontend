@@ -5,6 +5,7 @@ import {
     useGetEditingInfoSelector,
     useGetPostIdSelector,
     useSetAnswerInfoSelector,
+    useSetCommentIdInQueueDeleteListSelector,
     useSetEditingInfoSelector,
 } from '@/features/commentaries/model/store/commentsStoreSelectors'
 import {
@@ -14,7 +15,6 @@ import {
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { routes } from '@/shared/routes'
 import { TCommentsAnswerInfo, TCommentsAuthor } from '@/shared/types/comments'
-import { Button } from '@/shared/ui/Button'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import Link from 'next/link'
@@ -25,7 +25,7 @@ import { CommentariesWriteField } from '../../WriteCommentSection'
 import { AnswerInfo } from './AnswerInfo'
 import { CommentControl } from './CommentControl'
 import { CommentText } from './CommentText'
-import { DeleteCommentDialog } from './DeleteCommentDialog/ui/DeleteCommentDialog'
+import { DeleteCommentDialog } from './DeleteCommentDialog'
 import { UserName } from './UserName'
 import s from './s.module.scss'
 
@@ -50,12 +50,13 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
         text,
     } = props
 
-    const [openDelete, setOpenDelete] = useState(false)
-
     const setAnswerInfo = useSetAnswerInfoSelector()
     const setEditInfo = useSetEditingInfoSelector()
     const editStoreInfo = useGetEditingInfoSelector()
     const answerStoreInfo = useGetAnswerInfoSelector()
+    const setCommentIdInQueueDeleteList =
+        useSetCommentIdInQueueDeleteListSelector()
+
     const postId = useGetPostIdSelector()
     const { mutate: answerCommentMutate } = useAnswerCommentsMutation()
     const { mutate: editCommentMutate } = useEditCommentsMutations()
@@ -151,9 +152,10 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                 </Link>
                 <div className={s.content}>
                     <div className={s['comm-text']}>
-                        <UserName>
-                            {`${author.firstName} ${author.lastName}`}
-                        </UserName>
+                        <UserName
+                            firstName={author.firstName}
+                            lastName={author.lastName}
+                        />
                         {answerInfo && <AnswerInfo {...answerInfo} />}
                         <CommentText>{text}</CommentText>
                     </div>
@@ -165,15 +167,12 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                         onEdit={onSetEditCommentInfo}
                         onResponse={onSetAnswerCommentInfo}
                         onDelete={() => {
-                            setOpenDelete((p) => !p)
+                            setCommentIdInQueueDeleteList(commentId)
                         }}
                         date='1 мес назад'
                     />
                 </div>
-                <DeleteCommentDialog
-                    open={openDelete}
-                    setOpenModal={() => setOpenDelete(false)}
-                />
+                <DeleteCommentDialog commentId={commentId} />
             </div>
             {isOpenBottomInput && (
                 <CommentariesWriteField

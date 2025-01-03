@@ -84,6 +84,13 @@ class CommentsApi {
                 json: body,
             })
             .json<{ postId: string }>()
+
+    deleteComments = (commentId: string) =>
+        apiInstance
+            .delete(this.baseUrl + `/${commentId}`, {
+                credentials: 'include',
+            })
+            .json<{ postId: string }>()
 }
 
 export const commentsApi = new CommentsApi()

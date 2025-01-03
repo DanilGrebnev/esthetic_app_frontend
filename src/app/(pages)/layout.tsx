@@ -1,22 +1,20 @@
 import { roboto } from '@/shared/fonts'
 import { MainProvider } from '@/shared/providers/MainProvider'
+import '@/shared/styles/globals.css'
+import '@/shared/styles/reset.css'
+import '@/shared/styles/root.css'
+import '@/shared/styles/tailwind-global.css'
 import { Layout } from '@/shared/types/layout'
 import { _ModalRoot } from '@/shared/ui/modal'
 import { clsx } from 'clsx'
-import type { Metadata } from 'next'
-import { type FC } from 'react'
-
-import '../styles/globals.css'
-import '../styles/reset.css'
-import '../styles/root.css'
-import '../styles/tailwind-global.css'
+import { type Metadata } from 'next'
 
 export const metadata: Metadata = {
     title: 'Esthetic',
     description: 'This is a "Esthetic App"',
 }
 
-const RootLayout: FC<Layout> = ({ children }) => {
+const RootLayout = ({ children }: Layout) => {
     return (
         <html lang='ru'>
             <body className={clsx(roboto.variable)}>

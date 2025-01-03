@@ -45,8 +45,6 @@ export const DashboardModalList = (props: DashboardListProps) => {
         [dashboardsPage],
     )
 
-    console.log(dashboardsList)
-
     const { data: postsCheck, isFetching: fetchingPostsCheck } =
         useCheckPostInDashboard({ postsId, enabled: !!dashboardsList?.length })
 
@@ -58,11 +56,12 @@ export const DashboardModalList = (props: DashboardListProps) => {
             <h2 className={s['container-title']}>Сохранение</h2>
             {dashboardsError && <h2>Ошибка получения досок</h2>}
             {dashboardsPending && <DashboardListSkeleton amount={10} />}
-            {dashboardsList?.length && !dashboardsPending && (
+            {!dashboardsPending && (
                 <div className='grow h-full'>
                     <Virtuoso
                         style={{ minHeight: '100%' }}
                         endReached={() => fetchNextPage()}
+                        data={dashboardsList || []}
                         components={{
                             Header: () => (
                                 <DashboardItem
@@ -79,10 +78,7 @@ export const DashboardModalList = (props: DashboardListProps) => {
                                 />
                             ),
                         }}
-                        totalCount={dashboardsList?.length}
-                        itemContent={(i) => {
-                            const dashboard = dashboardsList?.[i]
-
+                        itemContent={(i, dashboard) => {
                             return (
                                 <DashboardItem
                                     key={dashboard?.dashboardId}
