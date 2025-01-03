@@ -1,3 +1,4 @@
+import { getDateRange } from '@/shared/utils/getDateRange'
 import clsx from 'clsx'
 import { MouseEventHandler } from 'react'
 
@@ -10,7 +11,7 @@ import s from './comment-control.module.scss'
 type TBtn = MouseEventHandler<HTMLButtonElement>
 
 interface CommentControlProps {
-    date: string
+    dateOfCreation: Date
     className?: string
     onResponse?: TBtn
     onEdit?: TBtn
@@ -19,10 +20,9 @@ interface CommentControlProps {
     likeCount: number
     isLiked: boolean
 }
-
 export const CommentControl = (props: CommentControlProps) => {
     const {
-        date,
+        dateOfCreation,
         className,
         isLiked,
         isOwner,
@@ -34,7 +34,7 @@ export const CommentControl = (props: CommentControlProps) => {
 
     return (
         <div className={clsx(s['comm-control'], className)}>
-            <p>{date}</p>
+            <p>{getDateRange(dateOfCreation)}</p>
             <div className={s['btn-control']}>
                 {!isOwner ? (
                     <AnswerBtn onClick={onResponse} />

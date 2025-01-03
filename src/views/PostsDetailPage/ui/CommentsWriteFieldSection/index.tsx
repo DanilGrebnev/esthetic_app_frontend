@@ -3,6 +3,7 @@
 import {
     CommentariesWriteField,
     useGetAnswerInfoSelector,
+    useGetEditingCommentInfoSelector,
     useGetPostIdSelector,
 } from '@/features/commentaries'
 import { useCreateCommentsMutation } from '@/shared/api/comments'
@@ -10,12 +11,15 @@ import toast from 'react-hot-toast'
 
 export const CommentsWriteFielSection = () => {
     const answerInfo = useGetAnswerInfoSelector()
+    const editInfo = useGetEditingCommentInfoSelector()
     const postId = useGetPostIdSelector()
     const { mutate } = useCreateCommentsMutation()
 
+    const disabled = !!answerInfo.userName || !!editInfo.commentId
+
     return (
         <CommentariesWriteField
-            onSubmit={async (text) =>
+            onSubmit={(text) =>
                 new Promise((res, rej) => {
                     mutate(
                         {
@@ -23,19 +27,19 @@ export const CommentsWriteFielSection = () => {
                             body: { text },
                         },
                         {
-                            onSuccess: res,
-                            onError: rej,
+                            onSuccess: () => {
+                                toast.success('Комментарий опубликован')
+                                return res('')
+                            },
+                            onError: () => {
+                                toast.error('Ошибка публикации комментария')
+                                return rej()
+                            },
                         },
                     )
                 })
             }
-            onSuccessSubmit={() => {
-                toast.success('Комментарий опубликован')
-            }}
-            onErrorSubmit={() => {
-                toast.error('Ошибка публикации комментария')
-            }}
-            disabled={!!answerInfo.userName}
+            disabled={disabled}
         />
     )
 }

@@ -36,7 +36,7 @@ export const CommentsField = (props: CommentsFieldProps) => {
         watch,
         setValue,
         reset,
-        formState: { errors, isValid },
+        formState: { isValid },
     } = useForm<{ text: string }>({
         values: { text: startWithText },
         mode: 'all',
@@ -63,6 +63,7 @@ export const CommentsField = (props: CommentsFieldProps) => {
 
     useEffect(() => {
         reset()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -77,7 +78,7 @@ export const CommentsField = (props: CommentsFieldProps) => {
             ref={elementRef}
             className={clsx(s['input-container'], {
                 [s['on-focus-field']]: focus,
-                [s.disabled]: disabled,
+                'input-disabled': disabled,
             })}
         >
             <Controller

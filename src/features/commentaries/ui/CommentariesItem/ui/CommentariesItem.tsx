@@ -2,7 +2,7 @@
 
 import {
     useGetAnswerInfoSelector,
-    useGetEditingInfoSelector,
+    useGetEditingCommentInfoSelector,
     useGetPostIdSelector,
     useSetAnswerInfoSelector,
     useSetCommentIdInQueueDeleteListSelector,
@@ -18,7 +18,7 @@ import { TCommentsAnswerInfo, TCommentsAuthor } from '@/shared/types/comments'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import Link from 'next/link'
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback } from 'react'
 import toast from 'react-hot-toast'
 
 import { CommentariesWriteField } from '../../WriteCommentSection'
@@ -37,6 +37,7 @@ interface CommentariesItemProps {
     commentId: string
     likeCount: number
     isLiked: boolean
+    dateOfCreation: Date
 }
 
 export const CommentariesItem = memo((props: CommentariesItemProps) => {
@@ -48,11 +49,12 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
         isLiked,
         likeCount,
         text,
+        dateOfCreation,
     } = props
 
     const setAnswerInfo = useSetAnswerInfoSelector()
     const setEditInfo = useSetEditingInfoSelector()
-    const editStoreInfo = useGetEditingInfoSelector()
+    const editStoreInfo = useGetEditingCommentInfoSelector()
     const answerStoreInfo = useGetAnswerInfoSelector()
     const setCommentIdInQueueDeleteList =
         useSetCommentIdInQueueDeleteListSelector()
@@ -169,7 +171,7 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                         onDelete={() => {
                             setCommentIdInQueueDeleteList(commentId)
                         }}
-                        date='1 мес назад'
+                        dateOfCreation={dateOfCreation}
                     />
                 </div>
                 <DeleteCommentDialog commentId={commentId} />

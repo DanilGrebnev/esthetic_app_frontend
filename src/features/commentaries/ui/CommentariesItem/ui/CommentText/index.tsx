@@ -8,7 +8,7 @@ interface CommentTextProps {
 export const CommentText = memo((props: CommentTextProps) => {
     const { children } = props
 
-    return <p>{children}</p>
+    return <pre className='main-font-family'>{children}</pre>
 })
 
 CommentText.displayName = 'CommentText'

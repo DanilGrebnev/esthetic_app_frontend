@@ -8,7 +8,7 @@ export const InitialSetPostIdInStore = ({ postId }: { postId: string }) => {
 
     useEffect(() => {
         setPostId(postId)
-    }, [postId])
+    }, [postId, setPostId])
 
     return <></>
 }

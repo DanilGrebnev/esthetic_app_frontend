@@ -1,9 +1,9 @@
 'use client'
 
-import { CommentariesItem, useSetPostIdSelector } from '@/features/commentaries'
+import { CommentariesItem } from '@/features/commentaries'
 import { useGetCommentsListQuery } from '@/shared/api/comments'
 import { clsx } from 'clsx'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 
 interface CommentsListPosts {
@@ -40,6 +40,7 @@ export const CommentsList = ({ className, postId }: CommentsListPosts) => {
                 ) => {
                     return (
                         <CommentariesItem
+                            dateOfCreation={dateOfCreation}
                             author={author}
                             answerInfo={answerInfo}
                             likeCount={likeCount}
