@@ -1,7 +1,7 @@
 .input-container {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 10px;
 }
 
 .input {
@@ -11,9 +11,9 @@
 
     &,
     &::placeholder {
-        font-family: var(--font-roboto);
-        font-size: var(--font-340);
-        font-weight: 400;
         color: var(--inputs-text-color-1);
+        font-weight: 400;
+        font-size: var(--font-rem-100);
+        font-family: var(--font-roboto);
     }
 }

@@ -1,15 +1,14 @@
 .input {
-    cursor: text;
-
     display: flex;
-    gap: 10px;
     align-items: center;
-
-    min-height: 56px;
-    padding: 8px 12px;
+    gap: 10px;
+    cursor: text;
+    border-radius: var(--global-border-radius);
 
     background: var(--inputs-bg-1);
-    border-radius: var(--global-border-radius);
+    padding: 8px 12px;
+
+    min-height: 56px;
 }
 
 .tags-list {
