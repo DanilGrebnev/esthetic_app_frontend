@@ -50,8 +50,7 @@ export const DashboardsList = (props: DashboardListProps) => {
                     images={favorites?.urls || []}
                     title='Избранное'
                     postsCount={favorites?.postsAmount || 0}
-                    // date={favorites?.created_at}
-                    date={new Date()}
+                    date={favorites?.dateOfCreation}
                 />
             )}
 
