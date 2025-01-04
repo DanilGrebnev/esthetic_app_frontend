@@ -62,7 +62,8 @@ export const useGetDashboardsByCookieQuery = (args?: ArgsWithEnabled) => {
             }),
         queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
         retry: false,
-        getNextPageParam: (_, __, { limit, offset }) => {
+        getNextPageParam: (lastPage, __, { limit, offset }) => {
+            if (lastPage.dashboards.length < limit) return
             return { offset: offset + limit, limit }
         },
         getPreviousPageParam: (_, __, { limit, offset }) => {

@@ -1,12 +1,12 @@
 'use client'
 
+import { CommentariesWriteField } from '@/features/commentaries'
+import { useCreateCommentsMutation } from '@/shared/api/comments'
 import {
-    CommentariesWriteField,
     useGetAnswerInfoSelector,
     useGetEditingCommentInfoSelector,
-    useGetPostIdSelector,
-} from '@/features/commentaries'
-import { useCreateCommentsMutation } from '@/shared/api/comments'
+} from '@/shared/store/comments'
+import { useGetPostIdSelector } from '@/shared/store/posts'
 import toast from 'react-hot-toast'
 
 export const CommentsWriteFielSection = () => {

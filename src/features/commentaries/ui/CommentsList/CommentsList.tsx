@@ -19,7 +19,7 @@ export const CommentsList = ({ className, postId }: CommentsListPosts) => {
         [data],
     )
 
-    const onReached = useCallback(() => fetchNextPage(), [])
+    const onReached = useCallback(() => fetchNextPage(), [fetchNextPage])
 
     return (
         <div className={clsx(className)}>

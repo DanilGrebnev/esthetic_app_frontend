@@ -1,6 +1,6 @@
 'use client'
 
-import { useSetPostIdSelector } from '@/features/commentaries'
+import { useSetPostIdSelector } from '@/shared/store/posts'
 import { useEffect } from 'react'
 
 export const InitialSetPostIdInStore = ({ postId }: { postId: string }) => {

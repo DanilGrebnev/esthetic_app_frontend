@@ -1,7 +1,7 @@
 import {
     useFilterCommentIdInQueueDeleteListSelector,
     useGetCommentIdQueueDeleteListSelector,
-} from '@/features/commentaries/model/store/commentsStoreSelectors'
+} from '@/shared/store/comments'
 import {
     useInfiniteQuery,
     useMutation,
@@ -95,4 +95,31 @@ export const useDeleteCommentsMutation = (postId: string) => {
             })
         },
     })
+}
+
+export const useToggleLikeCommentMutation = () => {
+    const queryClient = useQueryClient()
+
+    const toggleCommentsLikeMutation = useMutation({
+        mutationFn: ({ commentId }: { commentId: string; postId: string }) =>
+            commentsApi.toggleLike(commentId),
+
+        onSuccess: (_, { postId }) => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.comments.commentsList(postId)],
+            })
+        },
+
+        // onMutate: async ({ postId }) => {
+        //     await queryClient.cancelQueries({
+        //         queryKey: [queryKeys.comments.commentsList(postId)],
+        //     })
+
+        //     const previousPosts = queryClient.getQueryData([
+        //         queryKeys.comments.commentsList(postId),
+        //     ])
+        // },
+    })
+
+    return toggleCommentsLikeMutation
 }

@@ -1,6 +1,6 @@
 export interface ITilesInfo {
     title: string
     postsCount: number
-    date: string
+    date: string | Date
     className?: string
 }

@@ -10,7 +10,7 @@ import { clsx } from 'clsx'
 import { forwardRef, memo, useRef, useState } from 'react'
 import { type UseFormClearErrors } from 'react-hook-form'
 
-import { usePostsSliceActions } from '../../model/slice'
+import { usePostsSliceActions } from '../../../../shared/store/posts'
 import s from './s.module.scss'
 
 interface UploadPostsContentWindowProps

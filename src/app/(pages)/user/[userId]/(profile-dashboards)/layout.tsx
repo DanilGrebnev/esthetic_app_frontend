@@ -1,5 +1,5 @@
 import { Container } from '@/shared/ui/Container'
-import type { FC, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface ProfileDashboardsLayoutProps {
     children?: ReactNode
@@ -8,9 +8,9 @@ interface ProfileDashboardsLayoutProps {
     }
 }
 
-const ProfileDashboardsLayout: FC<ProfileDashboardsLayoutProps> = ({
+const ProfileDashboardsLayout = ({
     children,
-}) => {
+}: ProfileDashboardsLayoutProps) => {
     return (
         <Container
             id='Profile dashboard page'

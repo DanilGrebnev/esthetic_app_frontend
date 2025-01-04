@@ -16,29 +16,22 @@ interface ButtonGroupProps {
 export const ButtonGroup = ({ userId }: ButtonGroupProps) => {
     const { data, isPending } = useGetPublicProfileQuery({ userId })
 
-    const notify = () => toast.success('Ссылка на профиль скопирована')
-
     const copyProfileURL = useCallback(() => {
-        navigator.clipboard
-            .writeText(window.location.href)
-            .then((text) => console.log(text, 'Текст записан'))
-        notify()
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            toast.success('Ссылка на профиль скопирована')
+        })
     }, [])
 
     if (isPending) return <ButtonGroupSkeleton />
 
     return (
         <div className={s['btn-group']}>
-            {data?.guest?.isOwner ? (
-                <Button
-                    variant='silver'
-                    onClick={copyProfileURL}
-                >
-                    Поделиться
-                </Button>
-            ) : (
-                <Button variant='silver'>Подписаться</Button>
-            )}
+            <Button
+                variant='silver'
+                onClick={copyProfileURL}
+            >
+                Поделиться
+            </Button>
             {data?.guest?.isOwner ? (
                 <Button
                     href={routes.editUserInfo.getRoute(userId)}
@@ -47,7 +40,7 @@ export const ButtonGroup = ({ userId }: ButtonGroupProps) => {
                     Изменить
                 </Button>
             ) : (
-                <Button variant='silver'>Написать</Button>
+                <Button variant='silver'>Подписаться</Button>
             )}
         </div>
     )

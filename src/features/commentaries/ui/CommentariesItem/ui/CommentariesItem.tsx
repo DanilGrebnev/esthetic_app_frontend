@@ -1,25 +1,21 @@
 'use client'
 
+import { useAnswerOnComment } from '@/features/commentaries/model/hooks/useAnswerOnComment'
+import { useCreateComment } from '@/features/commentaries/model/hooks/useCreateComment'
+import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
+import { routes } from '@/shared/routes'
 import {
     useGetAnswerInfoSelector,
     useGetEditingCommentInfoSelector,
-    useGetPostIdSelector,
     useSetAnswerInfoSelector,
     useSetCommentIdInQueueDeleteListSelector,
     useSetEditingInfoSelector,
-} from '@/features/commentaries/model/store/commentsStoreSelectors'
-import {
-    useAnswerCommentsMutation,
-    useEditCommentsMutations,
-} from '@/shared/api/comments'
-import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
-import { routes } from '@/shared/routes'
+} from '@/shared/store/comments'
 import { TCommentsAnswerInfo, TCommentsAuthor } from '@/shared/types/comments'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
 import Link from 'next/link'
-import { memo, useCallback } from 'react'
-import toast from 'react-hot-toast'
+import { memo } from 'react'
 
 import { CommentariesWriteField } from '../../WriteCommentSection'
 import { AnswerInfo } from './AnswerInfo'
@@ -54,14 +50,13 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
 
     const setAnswerInfo = useSetAnswerInfoSelector()
     const setEditInfo = useSetEditingInfoSelector()
-    const editStoreInfo = useGetEditingCommentInfoSelector()
-    const answerStoreInfo = useGetAnswerInfoSelector()
     const setCommentIdInQueueDeleteList =
         useSetCommentIdInQueueDeleteListSelector()
+    const createCommentMutate = useCreateComment()
+    const answerOnCommentMutate = useAnswerOnComment()
 
-    const postId = useGetPostIdSelector()
-    const { mutate: answerCommentMutate } = useAnswerCommentsMutation()
-    const { mutate: editCommentMutate } = useEditCommentsMutations()
+    const editStoreInfo = useGetEditingCommentInfoSelector()
+    const answerStoreInfo = useGetAnswerInfoSelector()
 
     const isResponseMode = answerStoreInfo.commentId === commentId
     const isEditMode = editStoreInfo.commentId === commentId
@@ -75,65 +70,19 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
         },
     })
 
-    const onSetAnswerCommentInfo = useCallback(() => {
-        setAnswerInfo({ commentId, userName: author.firstName })
-    }, [commentId, author.firstName, setAnswerInfo])
-
-    const onSetEditCommentInfo = useCallback(() => {
-        setEditInfo({ commentId, text })
-    }, [commentId, text, setEditInfo])
-
     const createStartText = () => {
         if (isResponseMode) {
-            return `${answerStoreInfo.userName}, `
+            return answerStoreInfo.userName + ', '
         } else {
-            return editStoreInfo.text
+            return editStoreInfo.text + ''
         }
     }
 
     const onSubmit = async (text: string) => {
         if (isEditMode) {
-            return new Promise((res, rej) => {
-                editCommentMutate(
-                    { body: { text }, commentId },
-                    {
-                        onSuccess: () => {
-                            toast.success('Изменение комментария успешно')
-                            setEditInfo({ commentId: null, text: null })
-                            res('')
-                        },
-                        onError: () => {
-                            toast.error('Ошибка изменения комментария')
-                            rej()
-                        },
-                    },
-                )
-            })
+            return createCommentMutate({ commentId, body: { text } })
         } else if (isResponseMode) {
-            return new Promise((res, rej) => {
-                if (!answerStoreInfo.commentId) return rej()
-
-                answerCommentMutate(
-                    {
-                        postId,
-                        body: {
-                            answerCommentId: answerStoreInfo.commentId,
-                            text,
-                        },
-                    },
-                    {
-                        onSuccess: () => {
-                            toast.success('Ответ опубликован')
-                            setAnswerInfo({ commentId: null, userName: null })
-                            res('')
-                        },
-                        onError: () => {
-                            toast.error('Ошибка ответа на комментарий')
-                            rej('')
-                        },
-                    },
-                )
-            })
+            return answerOnCommentMutate({ commentId, body: { text } })
         }
     }
 
@@ -166,8 +115,14 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                         isOwner={author.isOwner}
                         likeCount={likeCount}
                         isLiked={isLiked}
-                        onEdit={onSetEditCommentInfo}
-                        onResponse={onSetAnswerCommentInfo}
+                        commentId={commentId}
+                        onEdit={() => setEditInfo({ commentId, text })}
+                        onResponse={() =>
+                            setAnswerInfo({
+                                commentId,
+                                userName: author.firstName,
+                            })
+                        }
                         onDelete={() => {
                             setCommentIdInQueueDeleteList(commentId)
                         }}
@@ -181,7 +136,7 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                     className={s['write-section']}
                     avatarSize='s'
                     onSubmit={onSubmit}
-                    startWithText={createStartText() || ''}
+                    startWithText={createStartText()}
                 />
             )}
         </div>

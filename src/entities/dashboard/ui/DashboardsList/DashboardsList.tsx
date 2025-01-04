@@ -29,6 +29,10 @@ export const DashboardsList = (props: DashboardListProps) => {
         useGetPublicProfileQuery({ userId })
 
     if (isPending) return <DashboardsListSkeleton />
+    const dashboardsList = dashboards?.pages
+        .map((page) => page.dashboards)
+        .flat(1)
+
     const favorites = dashboards?.pages[0].favorites
 
     if (isError) {
@@ -37,43 +41,40 @@ export const DashboardsList = (props: DashboardListProps) => {
 
     return (
         <DashboardsContainer>
-            <FavoritesTile
-                href={routes.userDashboardDetail.getRoute(
-                    userId,
-                    favorites?.dashboardId || 'empty-dashboard',
-                )}
-                images={favorites?.urls || []}
-                title='Избранное'
-                postsCount={favorites?.postsAmount || 0}
-                date='3'
-            />
+            {favorites && (
+                <FavoritesTile
+                    href={routes.userDashboardDetail.getRoute(
+                        userId,
+                        favorites?.dashboardId || 'empty-dashboard',
+                    )}
+                    images={favorites?.urls || []}
+                    title='Избранное'
+                    postsCount={favorites?.postsAmount || 0}
+                    // date={favorites?.created_at}
+                    date={new Date()}
+                />
+            )}
+
             <InfiniteScrollContainer
                 skip={!userId}
                 action={fetchNextPage}
             >
-                {dashboards?.pages.map((page) => {
-                    return page.dashboards.map((dashboard) => {
-                        return (
-                            <DashboardTile
-                                key={dashboard.dashboardId}
-                                dashboardId={dashboard.dashboardId}
-                                dotMenu={
-                                    !profilePending &&
-                                    profileData?.guest?.isOwner
-                                }
-                                href={routes.userDashboardDetail.getRoute(
-                                    userId,
-                                    dashboard.dashboardId,
-                                )}
-                                images={dashboard.urls}
-                                blureImages={dashboard.urlsBlur}
-                                postsCount={dashboard.postsAmount}
-                                title={dashboard.dashboardName}
-                                date='1'
-                            />
-                        )
-                    })
-                })}
+                {dashboardsList?.map((dashboard) => (
+                    <DashboardTile
+                        key={dashboard.dashboardId}
+                        dashboardId={dashboard.dashboardId}
+                        dotMenu={!profilePending && profileData?.guest?.isOwner}
+                        href={routes.userDashboardDetail.getRoute(
+                            userId,
+                            dashboard.dashboardId,
+                        )}
+                        images={dashboard.urls}
+                        blureImages={dashboard.urlsBlur}
+                        postsCount={dashboard.postsAmount}
+                        title={dashboard.dashboardName}
+                        date={dashboard.dateOfCreation}
+                    />
+                ))}
             </InfiniteScrollContainer>
         </DashboardsContainer>
     )

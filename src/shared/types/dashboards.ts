@@ -12,7 +12,7 @@ interface Dashboard {
 
 export interface UsersDashboardList {
     dashboardsAmount: number
-    favorites: Dashboard
+    favorites: Dashboard | null
     dashboards: Dashboard[]
 }
 

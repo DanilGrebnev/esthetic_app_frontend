@@ -19,6 +19,7 @@ interface CommentControlProps {
     isOwner?: boolean
     likeCount: number
     isLiked: boolean
+    commentId: string
 }
 export const CommentControl = (props: CommentControlProps) => {
     const {
@@ -27,6 +28,7 @@ export const CommentControl = (props: CommentControlProps) => {
         isLiked,
         isOwner,
         likeCount,
+        commentId,
         onEdit,
         onResponse,
         onDelete,
@@ -46,6 +48,8 @@ export const CommentControl = (props: CommentControlProps) => {
                 )}
 
                 <CommentLikeBtn
+                    isOwner={isOwner}
+                    commentId={commentId}
                     isLiked={isLiked}
                     likeCount={likeCount}
                 />

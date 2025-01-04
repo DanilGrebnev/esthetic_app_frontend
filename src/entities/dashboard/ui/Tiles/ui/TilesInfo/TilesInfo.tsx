@@ -2,6 +2,7 @@
 
 import { DotMenu } from '@/shared/ui/DotMenu'
 import { Modal } from '@/shared/ui/modal'
+import { getDateRange } from '@/shared/utils/getDateRange'
 import { stopPropAndPrevDef } from '@/shared/utils/stopPropAndPrevDef'
 import clsx from 'clsx'
 import { type FC, useRef, useState } from 'react'
@@ -16,7 +17,7 @@ interface TilesInfo extends ITilesInfo {
     dotMenu?: boolean
 }
 
-export const TilesInfo: FC<TilesInfo> = (props) => {
+export const TilesInfo = (props: TilesInfo) => {
     const { className, date, title, postsCount, dotMenu = false } = props
     const [openDialog, setOpenDialog] = useState(false)
     const [openModal, setOpenModal] = useState(false)
@@ -49,7 +50,7 @@ export const TilesInfo: FC<TilesInfo> = (props) => {
                 </header>
                 <div className={s.footer}>
                     <p className={s.count}>{postsCount} пин</p>
-                    <p className={s.date}>{date} нед.</p>
+                    <p className={s.date}>{getDateRange(date)}</p>
                 </div>
                 {hoverOnIcon && (
                     <TilesDialog.Container

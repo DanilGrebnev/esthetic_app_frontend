@@ -1,7 +1,7 @@
 'use client'
 
-import { useGetCommentIdQueueDeleteListSelector } from '@/features/commentaries'
 import { useDeleteCommentsMutation } from '@/shared/api/comments'
+import { useGetCommentIdQueueDeleteListSelector } from '@/shared/store/comments'
 import { useEffect } from 'react'
 
 interface DeleteCommentAfterUnmountProps {
@@ -15,7 +15,7 @@ export const DeleteCommentAfterUnmount = (
     const { mutate } = useDeleteCommentsMutation(postId)
 
     useEffect(() => {
-        window.addEventListener('', () => {
+        window.addEventListener('unload', () => {
             alert('Hello')
             // mutate()
         })
@@ -24,7 +24,7 @@ export const DeleteCommentAfterUnmount = (
             mutate()
             console.log('Удаление комментариев')
         }
-    }, [])
+    }, [mutate])
 
     return <></>
 }

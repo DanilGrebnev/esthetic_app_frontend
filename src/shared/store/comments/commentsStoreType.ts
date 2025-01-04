@@ -9,7 +9,6 @@ interface TCommentsStoreState {
         commentId: string | null
         text: string | null
     }
-    postId: string
     commentContent: string
 }
 export type AnswerInfoType = TCommentsStoreState['answerInfo']
@@ -26,7 +25,6 @@ type CommentsStoreActions = {
     setAnswerName: (name: string | null) => void
     setAnswerInfo: (fields: TSetAnswerFields) => void
     setEditingInfo: (fields: TSetEditingFields) => void
-    setPostId: (postId: string) => void
     addCommentIdInQueueDeleteList: (commentId: string) => void
     filterCommentIdOnQueueDeleteList: (commentId: string) => void
     clearCommentIdQueueDeleteList: () => void

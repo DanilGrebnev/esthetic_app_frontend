@@ -7,23 +7,6 @@ import {
 } from '@/shared/types/comments'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 
-async function getComments<T>({
-    offset,
-    limit,
-}: {
-    offset: number
-    limit: number
-}): Promise<T> {
-    const data = (await import('@/shared/MOCK_DATA.json')).default
-    const commentsResponse = {
-        commentsAmount: data.length,
-        commentsList: data.slice(offset, offset + limit),
-    }
-    return new Promise((resolve) => {
-        resolve(commentsResponse as any)
-    })
-}
-
 class CommentsApi {
     private readonly baseUrl = 'comments' as const
 
@@ -91,6 +74,13 @@ class CommentsApi {
                 credentials: 'include',
             })
             .json<{ postId: string }>()
+
+    toggleLike = (commentId: string) =>
+        apiInstance
+            .put(this.baseUrl + '/toggle-like' + `/${commentId}`, {
+                credentials: 'include',
+            })
+            .json()
 }
 
 export const commentsApi = new CommentsApi()

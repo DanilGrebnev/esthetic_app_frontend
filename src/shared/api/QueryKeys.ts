@@ -5,6 +5,7 @@ class QueryKeys {
 
     readonly users = {
         publicProfile: (userId: string) => 'public-profile-userId=' + userId,
+        /* Профиля пользователя по кукам */
         profileByCookie: 'profile-by-cookie',
         createdPosts: (userId: string) => 'created-posts-userId=' + userId,
     } as const
@@ -31,7 +32,7 @@ class QueryKeys {
     } as const
 
     readonly comments = {
-        commentsList: (postId: string) => 'comments-list-post=' + postId,
+        commentsList: (postId: string) => 'comments-list-postId=' + postId,
     }
 }
 

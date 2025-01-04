@@ -3,7 +3,7 @@
 import {
     useFilterCommentIdInQueueDeleteListSelector,
     useGetCommentIdQueueDeleteListSelector,
-} from '@/features/commentaries/model/store'
+} from '@/shared/store/comments'
 import clsx from 'clsx'
 import { AnimatePresence } from 'motion/react'
 import * as m from 'motion/react-m'

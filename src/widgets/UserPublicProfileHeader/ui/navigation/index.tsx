@@ -3,14 +3,13 @@
 import { routes } from '@/shared/routes'
 import { Button } from '@/shared/ui/Button'
 import { usePathname } from 'next/navigation'
-import { type FC } from 'react'
 
 interface NavigationProps {
     className?: string
     userId: string
 }
 
-export const Navigation: FC<NavigationProps> = ({ className, userId }) => {
+export const Navigation = ({ className, userId }: NavigationProps) => {
     const pathname = usePathname()
 
     return (
