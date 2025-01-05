@@ -5,7 +5,6 @@
     left: 0;
     flex-direction: column;
     gap: var(--global-gap-1);
-    //transform: scale(0);
     z-index: 5;
     transition: 0.1s;
     border: 1px solid var(--border-color-1);
@@ -18,7 +17,3 @@
 .dialog-wrapper {
     padding: var(--global-gap-1);
 }
-
-//.open {
-//    transform: scale(1);
-//}

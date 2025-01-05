@@ -2,6 +2,7 @@ import {
     useFilterCommentIdInQueueDeleteListSelector,
     useGetCommentIdQueueDeleteListSelector,
 } from '@/shared/store/comments'
+import { TCommentsItem } from '@/shared/types/comments'
 import {
     useInfiniteQuery,
     useMutation,
@@ -10,6 +11,7 @@ import {
 
 import { queryKeys } from '../QueryKeys'
 import { commentsApi } from './commentsApi'
+import { toggleCommentLike } from './lib'
 
 interface IUseGetCommentsListQuery {
     postId: string
@@ -104,21 +106,54 @@ export const useToggleLikeCommentMutation = () => {
         mutationFn: ({ commentId }: { commentId: string; postId: string }) =>
             commentsApi.toggleLike(commentId),
 
+        onMutate: async ({ postId, commentId }) => {
+            await queryClient.cancelQueries({
+                queryKey: [queryKeys.comments.commentsList(postId)],
+            })
+
+            const previousPosts = queryClient.getQueryData([
+                queryKeys.comments.commentsList(postId),
+            ])
+            type TOldCache = {
+                pageParams: { offset: number; limit: number }[]
+                pages: {
+                    commentsAmount: number
+                    commentsList: TCommentsItem[]
+                }[]
+            }
+
+            queryClient.setQueryData(
+                [queryKeys.comments.commentsList(postId)],
+                (old: TOldCache) => {
+                    const mutatedPages = old?.pages.map((page) => ({
+                        ...page,
+                        commentsList: page.commentsList.map((comment) => {
+                            if (comment.commentId !== commentId) {
+                                return comment
+                            }
+                            return toggleCommentLike(comment)
+                        }),
+                    }))
+
+                    return { ...old, pages: mutatedPages }
+                },
+            )
+
+            return { previousPosts }
+        },
+
         onSuccess: (_, { postId }) => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.comments.commentsList(postId)],
             })
         },
 
-        // onMutate: async ({ postId }) => {
-        //     await queryClient.cancelQueries({
-        //         queryKey: [queryKeys.comments.commentsList(postId)],
-        //     })
-
-        //     const previousPosts = queryClient.getQueryData([
-        //         queryKeys.comments.commentsList(postId),
-        //     ])
-        // },
+        onError: (_, { postId }, context) => {
+            queryClient.setQueryData(
+                [queryKeys.comments.commentsList(postId)],
+                context?.previousPosts,
+            )
+        },
     })
 
     return toggleCommentsLikeMutation

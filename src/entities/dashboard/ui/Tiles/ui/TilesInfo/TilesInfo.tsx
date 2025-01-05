@@ -5,7 +5,7 @@ import { Modal } from '@/shared/ui/modal'
 import { getDateRange } from '@/shared/utils/getDateRange'
 import { stopPropAndPrevDef } from '@/shared/utils/stopPropAndPrevDef'
 import clsx from 'clsx'
-import { type FC, useRef, useState } from 'react'
+import { type FC, useCallback, useRef, useState } from 'react'
 
 import { ITilesInfo } from '../../model/tyles-types'
 import { DeleteDashboardModal } from './DeleteDashboardModal'
@@ -20,13 +20,15 @@ interface TilesInfo extends ITilesInfo {
 export const TilesInfo = (props: TilesInfo) => {
     const { className, date, title, postsCount, dotMenu = false } = props
     const [openDialog, setOpenDialog] = useState(false)
-    const [openModal, setOpenModal] = useState(false)
+    const [openDeleteModal, setOpenModal] = useState(false)
+    const [openChangeModal, setOpenChangeDashboardModal] = useState(false)
     const [hoverOnIcon, setHoverOnIcon] = useState(false)
 
-    const closeDialogRef = useRef(() => setOpenDialog(false))
+    const openDeleteDashboardModal = useCallback(() => setOpenModal(true), [])
+    const closeDeleteDashboardModal = useCallback(() => setOpenModal(false), [])
 
-    const openDeleteDashboardModalRef = useRef(() => setOpenModal(true))
-    const closeDeleteDashboardModalRef = useRef(() => setOpenModal(false))
+    const openChangeDashboardModal = useCallback(() => setOpenModal(true), [])
+    const closeChangeDashboardModal = useCallback(() => setOpenModal(false), [])
 
     return (
         <>
@@ -59,8 +61,8 @@ export const TilesInfo = (props: TilesInfo) => {
                     >
                         <TilesDialog.Item
                             onClick={() => {
-                                openDeleteDashboardModalRef.current()
-                                closeDialogRef.current()
+                                openDeleteDashboardModal()
+                                closeDeleteDashboardModal()
                             }}
                         >
                             Удалить доску
@@ -70,12 +72,16 @@ export const TilesInfo = (props: TilesInfo) => {
                 )}
             </div>
             <Modal
-                isOpen={openModal}
-                onClose={closeDeleteDashboardModalRef.current}
+                isOpen={openDeleteModal}
+                onClose={closeDeleteDashboardModal}
             >
-                <DeleteDashboardModal
-                    onClose={closeDeleteDashboardModalRef.current}
-                />
+                <DeleteDashboardModal onClose={openDeleteDashboardModal} />
+            </Modal>
+            <Modal
+                isOpen={openChangeModal}
+                onClose={closeChangeDashboardModal}
+            >
+                <DeleteDashboardModal onClose={closeChangeDashboardModal} />
             </Modal>
         </>
     )

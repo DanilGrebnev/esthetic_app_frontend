@@ -9,9 +9,9 @@ import { TileContext } from '../../../model/tileContext'
 interface DeleteDashboardModalModalProps {
     onClose: () => void
 }
-export const DeleteDashboardModal: FC<DeleteDashboardModalModalProps> = ({
+export const DeleteDashboardModal = ({
     onClose,
-}) => {
+}: DeleteDashboardModalModalProps) => {
     const { dashboardId } = useContext(TileContext)
 
     const { data: profileData } = useGetProfileByCookieQuery()
