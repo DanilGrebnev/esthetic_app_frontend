@@ -1,23 +1,20 @@
 'use client'
 
-import {
-    useFilterCommentIdInQueueDeleteListSelector,
-    useGetCommentIdQueueDeleteListSelector,
-} from '@/shared/store/comments'
 import clsx from 'clsx'
 import { AnimatePresence } from 'motion/react'
 import * as m from 'motion/react-m'
+import { memo } from 'react'
 
+import { useCommentsIdInDeleteQueueList } from '../../../../../model/hooks/useCommentsIdInDeleteQueueList'
 import s from './delete-comment-dialog.module.scss'
 
 interface DeleteCommentDialogProps {
     commentId: string
 }
-export const DeleteCommentDialog = (props: DeleteCommentDialogProps) => {
+
+export const DeleteCommentDialog = memo((props: DeleteCommentDialogProps) => {
     const { commentId } = props
-    const commentsIdList = useGetCommentIdQueueDeleteListSelector()
-    const deleteCommentId = useFilterCommentIdInQueueDeleteListSelector()
-    const isOpen = commentsIdList.has(commentId)
+    const { hasCommentId, removeCommentId } = useCommentsIdInDeleteQueueList()
 
     const animate = {
         initial: { height: '0%' },
@@ -26,7 +23,7 @@ export const DeleteCommentDialog = (props: DeleteCommentDialogProps) => {
 
     return (
         <AnimatePresence>
-            {isOpen ? (
+            {hasCommentId(commentId) ? (
                 <m.div
                     key='box'
                     transition={{}}
@@ -36,7 +33,7 @@ export const DeleteCommentDialog = (props: DeleteCommentDialogProps) => {
                 >
                     <p>Комментарий удалён.</p>
                     <button
-                        onClick={() => deleteCommentId(commentId)}
+                        onClick={() => removeCommentId(commentId)}
                         className={clsx('bottom-line', s.btn)}
                     >
                         Восстановить
@@ -45,4 +42,6 @@ export const DeleteCommentDialog = (props: DeleteCommentDialogProps) => {
             ) : null}
         </AnimatePresence>
     )
-}
+})
+
+DeleteCommentDialog.displayName = 'DeleteCommentDialog'

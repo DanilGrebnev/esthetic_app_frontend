@@ -1,8 +1,11 @@
+import { useCommentsIdInDeleteQueueList } from '@/features/commentaries/model/hooks/useCommentsIdInDeleteQueueList'
+import { consts } from '@/shared/consts'
 import {
     useFilterCommentIdInQueueDeleteListSelector,
     useGetCommentIdQueueDeleteListSelector,
 } from '@/shared/store/comments'
 import { TCommentsItem } from '@/shared/types/comments'
+import { setInLocalStorage } from '@/shared/utils/setInLocalStorage'
 import {
     useInfiniteQuery,
     useMutation,
@@ -22,7 +25,10 @@ export const useGetCommentsListQuery = (args: IUseGetCommentsListQuery) => {
 
     return useInfiniteQuery({
         enabled,
-        queryKey: [queryKeys.comments.commentsList(postId)],
+        queryKey: [
+            queryKeys.comments.commentsListById(postId),
+            queryKeys.comments.commentsList,
+        ],
         queryFn: ({ pageParam, signal }) =>
             commentsApi.getCommentsList({ signal, pageParam, postId }),
         getNextPageParam: (_, allPages, { limit, offset }) => {
@@ -43,7 +49,7 @@ export const useCreateCommentsMutation = () => {
         mutationFn: commentsApi.createComments,
         onSuccess: (_, { postId }) => {
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.comments.commentsList(postId)],
+                queryKey: [queryKeys.comments.commentsListById(postId)],
             })
         },
     })
@@ -56,7 +62,7 @@ export const useEditCommentsMutations = () => {
         mutationFn: commentsApi.editComments,
         onSuccess: ({ postId }) => {
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.comments.commentsList(postId)],
+                queryKey: [queryKeys.comments.commentsListById(postId)],
             })
         },
     })
@@ -69,35 +75,55 @@ export const useAnswerCommentsMutation = () => {
         mutationFn: commentsApi.answerOnComments,
         onSuccess: ({ postId }) => {
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.comments.commentsList(postId)],
+                queryKey: [queryKeys.comments.commentsListById(postId)],
             })
         },
     })
 }
 
-export const useDeleteCommentsMutation = (postId: string) => {
+export const useDeleteCommentsByCommentsIdListMutation = () => {
+    const { commentsIdList } = useCommentsIdInDeleteQueueList()
     const queryClient = useQueryClient()
-    const commentsIdList = useGetCommentIdQueueDeleteListSelector()
-    const deleteCommentIdFrom = useFilterCommentIdInQueueDeleteListSelector()
 
     return useMutation({
-        mutationFn: () => {
-            if (![...commentsIdList].length) return Promise.reject()
-
-            const promises = [...commentsIdList].map((commentId) => {
-                deleteCommentIdFrom(commentId)
-                return commentsApi.deleteComments(commentId)
-            })
-            return Promise.allSettled(promises)
+        mutationFn: async (postId?: string) => {
+            await Promise.allSettled(
+                commentsIdList.map((commentId) =>
+                    commentsApi.deleteComments(commentId),
+                ),
+            )
+            setInLocalStorage(consts.commentsIdOnDeleteQueueKey, [])
         },
 
-        onSuccess: () => {
-            queryClient.refetchQueries({
-                queryKey: [queryKeys.comments.commentsList(postId)],
+        onSuccess: (_, postId) => {
+            if (postId) {
+                queryClient.refetchQueries({
+                    queryKey: [queryKeys.comments.commentsListById(postId)],
+                })
+            }
+
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.comments.commentsList],
             })
         },
     })
 }
+
+// export const useDeleteCommentsMutation = () => {
+//     const queryClient = useQueryClient()
+
+//     return useMutation({
+//         mutationFn: commentsApi.deleteComments,
+
+//         onSuccess: ({ postId }) => {
+//             if (postId) {
+//                 queryClient.invalidateQueries({
+//                     queryKey: [queryKeys.comments.commentsListById(postId)],
+//                 })
+//             }
+//         },
+//     })
+// }
 
 export const useToggleLikeCommentMutation = () => {
     const queryClient = useQueryClient()
@@ -108,11 +134,11 @@ export const useToggleLikeCommentMutation = () => {
 
         onMutate: async ({ postId, commentId }) => {
             await queryClient.cancelQueries({
-                queryKey: [queryKeys.comments.commentsList(postId)],
+                queryKey: [queryKeys.comments.commentsListById(postId)],
             })
 
             const previousPosts = queryClient.getQueryData([
-                queryKeys.comments.commentsList(postId),
+                queryKeys.comments.commentsListById(postId),
             ])
             type TOldCache = {
                 pageParams: { offset: number; limit: number }[]
@@ -123,7 +149,7 @@ export const useToggleLikeCommentMutation = () => {
             }
 
             queryClient.setQueryData(
-                [queryKeys.comments.commentsList(postId)],
+                [queryKeys.comments.commentsListById(postId)],
                 (old: TOldCache) => {
                     const mutatedPages = old?.pages.map((page) => ({
                         ...page,
@@ -144,13 +170,13 @@ export const useToggleLikeCommentMutation = () => {
 
         onSuccess: (_, { postId }) => {
             queryClient.invalidateQueries({
-                queryKey: [queryKeys.comments.commentsList(postId)],
+                queryKey: [queryKeys.comments.commentsListById(postId)],
             })
         },
 
         onError: (_, { postId }, context) => {
             queryClient.setQueryData(
-                [queryKeys.comments.commentsList(postId)],
+                [queryKeys.comments.commentsListById(postId)],
                 context?.previousPosts,
             )
         },

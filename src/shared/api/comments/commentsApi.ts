@@ -1,8 +1,12 @@
 import { apiInstance } from '@/shared/api/Instance'
-import {
+import type {
     TAnswerOnCommentsBody,
+    TAnswerOnCommentsResponse,
     TCreateCommentsBody,
+    TCreateCommentsResponse,
+    TDeleteCommentsResponse,
     TEditCommentsBody,
+    TEditCommentsResponse,
     TGetCommentsListResponse,
 } from '@/shared/types/comments'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
@@ -37,7 +41,7 @@ class CommentsApi {
                 json: body,
                 credentials: 'include',
             })
-            .json<{ postId: string }>()
+            .json<TCreateCommentsResponse>()
     }
 
     editComments = ({
@@ -52,7 +56,7 @@ class CommentsApi {
                 json: body,
                 credentials: 'include',
             })
-            .json<{ postId: string }>()
+            .json<TEditCommentsResponse>()
 
     answerOnComments = ({
         postId,
@@ -66,14 +70,14 @@ class CommentsApi {
                 credentials: 'include',
                 json: body,
             })
-            .json<{ postId: string }>()
+            .json<TAnswerOnCommentsResponse>()
 
     deleteComments = (commentId: string) =>
         apiInstance
             .delete(this.baseUrl + `/${commentId}`, {
                 credentials: 'include',
             })
-            .json<{ postId: string }>()
+            .json<TDeleteCommentsResponse>()
 
     toggleLike = (commentId: string) =>
         apiInstance

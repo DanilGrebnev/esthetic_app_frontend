@@ -1,6 +1,7 @@
 'use client'
 
 import { useAnswerOnComment } from '@/features/commentaries/model/hooks/useAnswerOnComment'
+import { useCommentsIdInDeleteQueueList } from '@/features/commentaries/model/hooks/useCommentsIdInDeleteQueueList'
 import { useCreateComment } from '@/features/commentaries/model/hooks/useCreateComment'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { routes } from '@/shared/routes'
@@ -8,7 +9,6 @@ import {
     useGetAnswerInfoSelector,
     useGetEditingCommentInfoSelector,
     useSetAnswerInfoSelector,
-    useSetCommentIdInQueueDeleteListSelector,
     useSetEditingInfoSelector,
 } from '@/shared/store/comments'
 import { TCommentsAnswerInfo, TCommentsAuthor } from '@/shared/types/comments'
@@ -50,11 +50,10 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
 
     const setAnswerInfo = useSetAnswerInfoSelector()
     const setEditInfo = useSetEditingInfoSelector()
-    const setCommentIdInQueueDeleteList =
-        useSetCommentIdInQueueDeleteListSelector()
+
     const createCommentMutate = useCreateComment()
     const answerOnCommentMutate = useAnswerOnComment()
-
+    const { setCommentId } = useCommentsIdInDeleteQueueList()
     const editStoreInfo = useGetEditingCommentInfoSelector()
     const answerStoreInfo = useGetAnswerInfoSelector()
 
@@ -124,7 +123,7 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                             })
                         }
                         onDelete={() => {
-                            setCommentIdInQueueDeleteList(commentId)
+                            setCommentId(commentId)
                         }}
                         dateOfCreation={dateOfCreation}
                     />

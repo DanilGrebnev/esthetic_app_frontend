@@ -32,7 +32,8 @@ class QueryKeys {
     } as const
 
     readonly comments = {
-        commentsList: (postId: string) => 'comments-list-postId=' + postId,
+        commentsListById: (postId: string) => 'comments-list-postId=' + postId,
+        commentsList: 'comments-list',
     }
 }
 

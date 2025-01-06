@@ -1,5 +1,4 @@
 import { roboto } from '@/shared/fonts'
-import { MainProvider } from '@/shared/providers/MainProvider'
 import '@/shared/styles/globals.css'
 import '@/shared/styles/reset.css'
 import '@/shared/styles/root.css'
@@ -8,6 +7,8 @@ import { Layout } from '@/shared/types/layout'
 import { _ModalRoot } from '@/shared/ui/modal'
 import { clsx } from 'clsx'
 import { type Metadata } from 'next'
+
+import { MainProvider } from './MainProvider'
 
 export const metadata: Metadata = {
     title: 'Esthetic',

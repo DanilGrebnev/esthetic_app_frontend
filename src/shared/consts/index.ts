@@ -9,10 +9,9 @@ export const consts = {
     baseUrl,
     pathToImage: baseUrl + 'assets/',
     baseApiUrl,
+    commentsIdOnDeleteQueueKey: 'comments-id-on-delete-queue',
 } as const
 
 export const paginationPostsAmount = Number(
     process.env.NEXT_PUBLIC_PAGINATION_AMOUNT,
 )
-
-export const paginationDashboardsAmount = 10

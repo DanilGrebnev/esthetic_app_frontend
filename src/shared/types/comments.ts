@@ -34,12 +34,24 @@ export interface TCreateCommentsBody {
     text: string
     answerCommentId?: string
 }
-
+export interface TCreateCommentsResponse {
+    postId: string
+}
 export interface TEditCommentsBody {
     text: string
 }
-
+export interface TEditCommentsResponse {
+    postId: string
+}
 export interface TAnswerOnCommentsBody {
     answerCommentId: string
     text: string
+}
+export interface TAnswerOnCommentsResponse {
+    postId: string
+}
+
+export interface TDeleteCommentsResponse {
+    commentId: string
+    postId: string
 }
