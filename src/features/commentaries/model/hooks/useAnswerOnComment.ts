@@ -1,10 +1,10 @@
-import { useEditCommentsMutations } from '@/shared/api/comments'
+import { useAnswerCommentsMutation } from '@/shared/api/comments'
 import { useSetAnswerInfoSelector } from '@/shared/store/comments'
 import toast from 'react-hot-toast'
 
 export const useAnswerOnComment = () => {
     const setAnswerInfo = useSetAnswerInfoSelector()
-    const { mutateAsync } = useEditCommentsMutations()
+    const { mutateAsync } = useAnswerCommentsMutation()
 
     return async (...args: Parameters<typeof mutateAsync>) => {
         try {

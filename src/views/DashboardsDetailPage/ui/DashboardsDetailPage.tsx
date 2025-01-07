@@ -1,6 +1,9 @@
 'use client'
 
-import { PostsListSkeleton } from '@/entities/posts'
+import {
+    PostsListSkeleton,
+    useCalculateColumnsAmountByScreenSize,
+} from '@/entities/posts'
 import { useGetDashboardsDetail } from '@/shared/api/dashboards'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
@@ -21,7 +24,7 @@ interface DashboardDetailPageProps {
 
 export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
     const { userId, dashboardsId } = params
-
+    const columnsAmount = useCalculateColumnsAmountByScreenSize()
     const { data: publicProfile } = useGetPublicProfileQuery({ userId })
     const {
         data: dashboardsDetail,
@@ -57,8 +60,8 @@ export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
                 {dashboardsDetail && (
                     <VirtualGrid
                         totalCount={dashoardList?.length}
-                        itemHeight='400px'
-                        columnAmount={7}
+                        // itemHeight='400px'
+                        columnAmount={columnsAmount}
                         endReached={fetchNextPage}
                         enabled={isPending}
                         useWindowScroll

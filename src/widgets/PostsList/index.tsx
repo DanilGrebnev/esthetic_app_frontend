@@ -1,6 +1,9 @@
 'use client'
 
-import { PostsListSkeleton } from '@/entities/posts'
+import {
+    PostsListSkeleton,
+    useCalculateColumnsAmountByScreenSize,
+} from '@/entities/posts'
 import { useGetRecommendedPosts } from '@/shared/api/posts'
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
 import { PostsCard } from '@/widgets/PostsCard'
@@ -8,6 +11,7 @@ import { useMemo } from 'react'
 
 export const PostsList = () => {
     const { data, isPending, fetchNextPage } = useGetRecommendedPosts()
+    const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
     const dataList = useMemo(() => {
         return data?.pages.map((page) => page.posts).flat(1)
@@ -22,7 +26,7 @@ export const PostsList = () => {
             gap='5px'
             totalCount={dataList?.length}
             useWindowScroll={true}
-            columnAmount={7}
+            columnAmount={columnsAmount}
             endReached={fetchNextPage}
         >
             {(i) => {

@@ -1,7 +1,5 @@
-import { ReactNode } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 
-import { Footer } from './Footer'
 import { Item } from './Item'
 import { List } from './List'
 

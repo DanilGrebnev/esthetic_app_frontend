@@ -11,6 +11,7 @@ import {
     useSetAnswerInfoSelector,
     useSetEditingInfoSelector,
 } from '@/shared/store/comments'
+import { useGetPostIdSelector } from '@/shared/store/posts'
 import { TCommentsAnswerInfo, TCommentsAuthor } from '@/shared/types/comments'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { clsx } from 'clsx'
@@ -53,6 +54,8 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
 
     const createCommentMutate = useCreateComment()
     const answerOnCommentMutate = useAnswerOnComment()
+    const postId = useGetPostIdSelector()
+
     const { setCommentId } = useCommentsIdInDeleteQueueList()
     const editStoreInfo = useGetEditingCommentInfoSelector()
     const answerStoreInfo = useGetAnswerInfoSelector()
@@ -81,7 +84,13 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
         if (isEditMode) {
             return createCommentMutate({ commentId, body: { text } })
         } else if (isResponseMode) {
-            return answerOnCommentMutate({ commentId, body: { text } })
+            return answerOnCommentMutate({
+                postId,
+                body: {
+                    text,
+                    answerCommentId: answerStoreInfo.commentId as string,
+                },
+            })
         }
     }
 
