@@ -25,10 +25,7 @@ export const useGetCommentsListQuery = (args: IUseGetCommentsListQuery) => {
 
     return useInfiniteQuery({
         enabled,
-        queryKey: [
-            queryKeys.comments.commentsListById(postId),
-            queryKeys.comments.commentsList,
-        ],
+        queryKey: [queryKeys.comments.commentsListById(postId)],
         queryFn: ({ pageParam, signal }) =>
             commentsApi.getCommentsList({ signal, pageParam, postId }),
         getNextPageParam: (_, allPages, { limit, offset }) => {
@@ -101,29 +98,9 @@ export const useDeleteCommentsByCommentsIdListMutation = () => {
                     queryKey: [queryKeys.comments.commentsListById(postId)],
                 })
             }
-
-            queryClient.invalidateQueries({
-                queryKey: [queryKeys.comments.commentsList],
-            })
         },
     })
 }
-
-// export const useDeleteCommentsMutation = () => {
-//     const queryClient = useQueryClient()
-
-//     return useMutation({
-//         mutationFn: commentsApi.deleteComments,
-
-//         onSuccess: ({ postId }) => {
-//             if (postId) {
-//                 queryClient.invalidateQueries({
-//                     queryKey: [queryKeys.comments.commentsListById(postId)],
-//                 })
-//             }
-//         },
-//     })
-// }
 
 export const useToggleLikeCommentMutation = () => {
     const queryClient = useQueryClient()
@@ -137,7 +114,7 @@ export const useToggleLikeCommentMutation = () => {
                 queryKey: [queryKeys.comments.commentsListById(postId)],
             })
 
-            const previousPosts = queryClient.getQueryData([
+            const previousComments = queryClient.getQueryData([
                 queryKeys.comments.commentsListById(postId),
             ])
             type TOldCache = {
@@ -150,8 +127,8 @@ export const useToggleLikeCommentMutation = () => {
 
             queryClient.setQueryData(
                 [queryKeys.comments.commentsListById(postId)],
-                (old: TOldCache) => {
-                    const mutatedPages = old?.pages.map((page) => ({
+                (store: TOldCache) => {
+                    const mutatedPages = store?.pages.map((page) => ({
                         ...page,
                         commentsList: page.commentsList.map((comment) => {
                             if (comment.commentId !== commentId) {
@@ -161,11 +138,11 @@ export const useToggleLikeCommentMutation = () => {
                         }),
                     }))
 
-                    return { ...old, pages: mutatedPages }
+                    return { ...store, pages: mutatedPages }
                 },
             )
 
-            return { previousPosts }
+            return { previousComments }
         },
 
         onSuccess: (_, { postId }) => {
@@ -177,7 +154,7 @@ export const useToggleLikeCommentMutation = () => {
         onError: (_, { postId }, context) => {
             queryClient.setQueryData(
                 [queryKeys.comments.commentsListById(postId)],
-                context?.previousPosts,
+                context?.previousComments,
             )
         },
     })

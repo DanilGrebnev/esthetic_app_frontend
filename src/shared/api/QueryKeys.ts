@@ -33,7 +33,6 @@ class QueryKeys {
 
     readonly comments = {
         commentsListById: (postId: string) => 'comments-list-postId=' + postId,
-        commentsList: 'comments-list',
     }
 }
 

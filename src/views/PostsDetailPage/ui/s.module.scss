@@ -1,7 +1,11 @@
 $padding: 20px;
 .page {
     padding: $padding;
-    @apply h-full grow grid grid-cols-[1fr] overflow-auto;
+    @apply h-full 
+    grow 
+    grid 
+    grid-cols-[1fr] 
+    overflow-auto;
 }
 
 .content-container {
@@ -17,7 +21,11 @@ $padding: 20px;
 }
 
 .content {
-    @apply flex flex-col h-full overflow-auto grow;
+    @apply flex 
+    flex-col 
+    h-full 
+    overflow-auto 
+    grow;
 }
 
 .content__comments {
@@ -39,14 +47,6 @@ $padding: 20px;
 
 .content__header {
     border-bottom: 1px solid var(--border-color-1);
-}
-
-.image-container {
-    @apply relative 
-    rounded-[--global-border-radius]
-    w-full
-    max-h-max
-    overflow-hidden;
 }
 
 @media screen and (width <= 750px) {

@@ -7,11 +7,10 @@ export const toggleCommentLike = (comment: TCommentsItem) => {
             isLiked: false,
             likeCount: comment.likeCount - 1,
         }
-    } else {
-        return {
-            ...comment,
-            isLiked: true,
-            likeCount: comment.likeCount + 1,
-        }
+    }
+    return {
+        ...comment,
+        isLiked: true,
+        likeCount: comment.likeCount + 1,
     }
 }

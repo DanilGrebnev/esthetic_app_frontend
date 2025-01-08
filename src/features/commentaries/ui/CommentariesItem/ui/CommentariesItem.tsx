@@ -118,7 +118,6 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                         {answerInfo && <AnswerInfo {...answerInfo} />}
                         <CommentText>{text}</CommentText>
                     </div>
-
                     <CommentControl
                         isOwner={author.isOwner}
                         likeCount={likeCount}

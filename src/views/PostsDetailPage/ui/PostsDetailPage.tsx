@@ -2,10 +2,10 @@ import { CommentsList } from '@/features/commentaries'
 import { DeleteCommentsAfterUnmount } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
-import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
 import { InitialSetPostIdInStore } from './InitialSetPostIdInStore'
+import { PostImage } from './PostImage'
 import { PostsDetailHeader } from './PostsDetailHeader'
 import s from './s.module.scss'
 
@@ -31,22 +31,12 @@ export const PostsDetailPage = async ({
             <InitialSetPostIdInStore postId={postId} />
             <DeleteCommentsAfterUnmount postId={postId} />
             <div className={s['content-container']}>
-                <div
-                    className={s['image-container']}
-                    style={{ aspectRatio: post?.media?.aspectRatio }}
-                >
-                    <ImageWithBlure
-                        className='object-cover'
-                        fill={true}
-                        sizes='400px'
-                        quality={100}
-                        loading='lazy'
-                        alt={post.name}
-                        src={post?.media?.url}
-                        blurDataURL={post?.media?.urlBlur}
-                    />
-                </div>
-
+                <PostImage
+                    aspectRatio={post?.media?.aspectRatio}
+                    name={post.name}
+                    url={post.media.url}
+                    urlBlur={post.media.urlBlur}
+                />
                 <div className={s.content}>
                     <PostsDetailHeader
                         className={s['content__header']}
