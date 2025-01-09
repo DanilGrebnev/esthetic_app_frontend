@@ -1,14 +1,17 @@
 'use client'
 
+import { Layout } from '@/shared/types/layout'
 import { AnimatePresence } from 'motion/react'
 import * as m from 'motion/react-m'
 import { ReactNode, useRef } from 'react'
+import { useScrollLock } from 'usehooks-ts'
 
-import { useModalContext } from './ModalProvider/modalContext'
+import { useModalContext } from '../model/ModalProvider/modalContext'
 import s from './modal.module.scss'
 
-export default function ModalWrapper({ children }: { children: ReactNode }) {
+export default function ModalWrapper({ children }: Layout) {
     const { isOpen, onClose } = useModalContext()
+    // useScrollLock() // body: overflow: hidden / auto
 
     const ref = useRef<HTMLDivElement>(null)
 

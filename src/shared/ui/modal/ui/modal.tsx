@@ -1,11 +1,12 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { type ReactNode, useEffect, useRef, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useScrollLock } from 'usehooks-ts'
 
-import { useCloseIfClickOnEscapeKey, useToggleBodyOverflow } from '../hooks'
-import { ModalProvider } from './ModalProvider/modalContext'
+import { useCloseIfClickOnEscapeKey } from '../model/hooks'
+import { ModalProvider } from '../model/ModalProvider/ModalProvider'
 
 const ModalWrapper = dynamic(
     () => import(/* webpackChunkName: "ModalWrapper" */ './ModalWrapper'),
@@ -29,11 +30,23 @@ interface ModalProps {
 export const Modal = (props: ModalProps) => {
     const { children, isOpen, onClose } = props
     const [openModal, setOpenModal] = useState(false)
-
     const timeOutRef = useRef<NodeJS.Timeout | null>(null)
 
+    const { lock, unlock } = useScrollLock({
+        autoLock: false,
+    })
+
     useCloseIfClickOnEscapeKey(isOpen, onClose)
-    useToggleBodyOverflow(isOpen)
+    // useToggleBodyOverflow(isOpen)
+
+    useEffect(() => {
+        if (openModal) {
+            lock()
+        } else {
+            unlock()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openModal])
 
     useEffect(() => {
         if (isOpen) {
@@ -41,7 +54,6 @@ export const Modal = (props: ModalProps) => {
             clearTimeout(timeOutRef?.current as any)
             return
         }
-
         if (!isOpen && openModal) {
             timeOutRef.current = setTimeout(setOpenModal, 300, false)
         }

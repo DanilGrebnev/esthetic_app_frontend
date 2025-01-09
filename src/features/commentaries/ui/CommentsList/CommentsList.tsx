@@ -5,6 +5,7 @@ import { useGetCommentsListQuery } from '@/shared/api/comments'
 import { clsx } from 'clsx'
 import { useCallback, useMemo } from 'react'
 import { Virtuoso } from 'react-virtuoso'
+import { useScreen } from 'usehooks-ts'
 
 interface CommentsListPosts {
     className?: string
@@ -18,6 +19,8 @@ export const CommentsList = ({ className, postId }: CommentsListPosts) => {
         () => data?.pages.map((page) => page.commentsList).flat(1),
         [data],
     )
+
+    // const {} = useScreen()
 
     const onReached = useCallback(() => fetchNextPage(), [fetchNextPage])
 
