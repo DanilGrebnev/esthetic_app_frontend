@@ -1,9 +1,5 @@
 import { useCommentsIdInDeleteQueueList } from '@/features/commentaries/model/hooks/useCommentsIdInDeleteQueueList'
 import { consts } from '@/shared/consts'
-import {
-    useFilterCommentIdInQueueDeleteListSelector,
-    useGetCommentIdQueueDeleteListSelector,
-} from '@/shared/store/comments'
 import { TCommentsItem } from '@/shared/types/comments'
 import { setInLocalStorage } from '@/shared/utils/setInLocalStorage'
 import {

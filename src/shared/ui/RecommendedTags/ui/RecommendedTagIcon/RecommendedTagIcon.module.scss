@@ -1,14 +1,12 @@
 .tag-wrapper {
-    display: flex;
+    @apply flex
+    cursor-pointer
+    rounded-[--global-border-radius]
+    p-[5px]
+    w-max;
 
     transition: var(--global-transition-1);
-    cursor: pointer;
-
     border: 1px solid var(--border-color-1);
-    border-radius: var(--global-border-radius);
-    padding: 5px;
-
-    width: max-content;
 
     &:hover {
         background: var(--global-btn-hover);

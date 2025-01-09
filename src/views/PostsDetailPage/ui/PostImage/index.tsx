@@ -16,11 +16,11 @@ interface PostImageProps {
 export const PostImage = (props: PostImageProps) => {
     const { aspectRatio, name = '', url, urlBlur } = props
     const ref = useRef<HTMLDivElement>(null)
-    const [h, setH] = useState<number>(0)
+    const [height, setHeight] = useState<number>(0)
 
     useLayoutEffect(() => {
         if (!ref.current) return
-        setH(ref.current.clientWidth)
+        setHeight(ref.current.clientWidth)
     }, [])
 
     return (
@@ -28,15 +28,16 @@ export const PostImage = (props: PostImageProps) => {
             ref={ref}
             className={s['image-container']}
             style={{
-                minHeight: calculateHeightFromAspectRatio(aspectRatio, h),
-                maxHeight: calculateHeightFromAspectRatio(aspectRatio, h),
+                height: calculateHeightFromAspectRatio(aspectRatio, height),
+                minHeight: calculateHeightFromAspectRatio(aspectRatio, height),
             }}
         >
             <ImageWithBlure
-                className='object-cover'
+                className={s.img}
                 fill={true}
+                priority={false}
                 sizes='400px'
-                quality={100}
+                quality={30}
                 loading='lazy'
                 alt={name}
                 src={url}

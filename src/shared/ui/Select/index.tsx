@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import { StyledEngineProvider } from '@mui/material/styles'
 import { clsx } from 'clsx'
-import { type FC, memo, useId, useState } from 'react'
+import { memo, useId, useState } from 'react'
 
 import s from './s.module.scss'
 
@@ -25,7 +25,7 @@ type BasicSelectProps = Omit<
     placeholder?: string
 }
 
-const BasicSelect: FC<BasicSelectProps> = memo((props) => {
+const BasicSelect = memo((props: BasicSelectProps) => {
     const {
         label,
         children = [],

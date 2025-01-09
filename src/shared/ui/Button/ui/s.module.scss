@@ -3,29 +3,26 @@
 }
 
 .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    @apply flex
+    justify-center
+    items-center
+    outline-none
+    rounded-[--global-border-radius]
+    min-w-max
+    max-w-max
+    select-none
+    text-nowrap;
     transition: 0.3s var(--cubic-bezier-1);
-    outline: none;
-
-    border-radius: var(--global-border-radius);
-
     padding: 0 20px;
 
-    min-width: max-content;
-    max-width: max-content;
     color: var(--text-palette-main);
     font-weight: var(--font-weight-semibold);
 
     font-size: var(--font-300);
-    user-select: none;
-    text-wrap: nowrap;
 
     &:disabled {
-        opacity: 0.5;
-        pointer-events: none;
+        @apply opacity-[0.5] 
+            pointer-events-none;
     }
 }
 
@@ -63,17 +60,18 @@
 
     // Вариант с подчеркиванием
     &.active-underline {
-        position: relative;
-        border-radius: 0;
+        @apply relative
+        rounded-none;
 
         &::before {
-            position: absolute;
-            bottom: 0;
+            @apply absolute
+            bottom-0
+            w-full
+            h-[2px]
+            bg-[--theme-bg-color-2];
 
-            background: var(--theme-bg-color-2);
+            // background: var(--theme-bg-color-2);
 
-            width: 100%;
-            height: 2px;
             content: '';
         }
     }

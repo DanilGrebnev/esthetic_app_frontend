@@ -1,17 +1,15 @@
 .btn {
     --size: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @apply flex
+    justify-center
+    items-center
+    outline-none
+    rounded-full
+    bg-[white]
+    w-[--size]
+    h-[--size];
 
     transition: 0.3s;
-    outline: none;
-    border-radius: 100%;
-
-    background: white;
-
-    width: var(--size);
-    height: var(--size);
 
     &:disabled {
         opacity: var(--global-btn-disabled);

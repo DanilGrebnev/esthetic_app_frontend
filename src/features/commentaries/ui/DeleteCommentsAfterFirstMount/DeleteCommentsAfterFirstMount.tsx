@@ -15,6 +15,7 @@ export const DeleteCommentsAfterFirstMount = ({ children }: Layout) => {
 
     useEffect(() => {
         mutate(undefined)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return <>{children}</>

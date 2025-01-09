@@ -1,5 +1,5 @@
 .comm-control {
-    @apply flex gap-[--global-gap-2] w-full text-[--text-palette-3];
+    @apply flex gap-[--global-gap-2] w-full text-[--text-palette-3] flex-wrap;
 
     font-size: var(--font-200);
 }

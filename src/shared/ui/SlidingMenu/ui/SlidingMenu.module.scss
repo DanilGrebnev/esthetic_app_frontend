@@ -1,20 +1,19 @@
 .wrapper {
-    display: flex;
-    max-width: 100%;
+    @apply flex max-w-full;
 }
 
 .items-wrapper {
-    display: flex;
-    position: relative;
-    gap: var(--global-gap-1);
-    z-index: 3;
+    @apply flex
+    relative
+    gap-[--global-gap-1]
+    z-[3]
+    max-w-[0%]
+    overflow-hidden;
     transition: 0.3s;
-    max-width: 0%;
-    overflow: hidden;
 
     &.open {
-        margin-left: var(--global-gap-1);
-        max-width: 100%;
-        overflow: visible;
+        @apply ml-[--global-gap-1]
+        max-w-full
+        overflow-visible;
     }
 }

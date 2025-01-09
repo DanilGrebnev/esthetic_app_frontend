@@ -48,7 +48,7 @@ export const DashboardItem = memo((props: DashboardItemProps) => {
         dashboardName,
     })
 
-    const isAddToDashboardPending = getIsPending(dashboardId)
+    const addToDashboardPending = getIsPending(dashboardId)
 
     return (
         <div
@@ -77,8 +77,8 @@ export const DashboardItem = memo((props: DashboardItemProps) => {
                     </>
                 )}
             </div>
-            {isAddToDashboardPending && <CircularProgress sizesVariant='s' />}
-            {deleteBtn && !isAddToDashboardPending && (
+            {addToDashboardPending && <CircularProgress sizesVariant='s' />}
+            {deleteBtn && !addToDashboardPending && (
                 <DeletePostFromDashboardBtn
                     usersId={usersId}
                     dashboardId={dashboardId}

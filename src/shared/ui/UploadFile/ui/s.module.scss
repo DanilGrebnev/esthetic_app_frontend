@@ -1,23 +1,18 @@
 .upload {
-    cursor: pointer;
-
-    position: relative;
-
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    @apply flex
+    items-center
+    justify-center
+    relative
+    cursor-pointer
+    overflow-hidden
+    rounded-[--global-border-radius]
+    bg-[--inputs-bg-1]
+    w-[70%]
+    text-center;
+    transition: 0.3s;
     aspect-ratio: 1 / 1;
-    width: 70%;
 
     color: var(--inputs-text-color-1);
-    text-align: center;
-
-    background: var(--inputs-bg-1);
-    border-radius: var(--global-border-radius);
-
-    transition: 0.3s;
 
     & > * {
         pointer-events: none;
@@ -34,13 +29,11 @@
 }
 
 .disabled {
-    pointer-events: none;
     opacity: 0.5;
+    pointer-events: none;
 }
 
-
-
-.error:not(.disabled){
-    color: red;
+.error:not(.disabled) {
     outline: 1px solid red;
+    color: red;
 }

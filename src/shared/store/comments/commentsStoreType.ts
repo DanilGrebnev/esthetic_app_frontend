@@ -4,7 +4,6 @@ interface TCommentsStoreState {
         commentId: string | null
         userName: string | null
     }
-    commentIdOnDeletionList: Set<string>
     editingInfo: {
         commentId: string | null
         text: string | null
@@ -25,9 +24,6 @@ type CommentsStoreActions = {
     setAnswerName: (name: string | null) => void
     setAnswerInfo: (fields: TSetAnswerFields) => void
     setEditingInfo: (fields: TSetEditingFields) => void
-    addCommentIdInQueueDeleteList: (commentId: string) => void
-    filterCommentIdOnQueueDeleteList: (commentId: string) => void
-    clearCommentIdQueueDeleteList: () => void
 }
 
 export type ICommentsStore = TCommentsStoreState & CommentsStoreActions

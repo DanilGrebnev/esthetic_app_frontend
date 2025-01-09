@@ -1,36 +1,25 @@
 $container-width: 1600px;
 $container-width-2: 1000px;
 $container-width-3: 600px;
+$container-width-full: 100vw;
 
 .container {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
+    @apply mx-auto w-full
+    px-[--global-padding];
 }
 
 .l {
     max-width: $container-width;
-
-    @media screen and (max-width: $container-width) {
-        padding-right: var(--global-padding);
-        padding-left: var(--global-padding);
-    }
 }
 
 .m {
     max-width: $container-width-2;
-
-    @media screen and (max-width: $container-width-2) {
-        padding-right: var(--global-padding);
-        padding-left: var(--global-padding);
-    }
 }
 
 .s {
     max-width: $container-width-3;
+}
 
-    @media screen and (max-width: $container-width-3) {
-        padding-right: var(--global-padding);
-        padding-left: var(--global-padding);
-    }
+.full {
+    width: $container-width-full;
 }

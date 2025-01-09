@@ -6,7 +6,7 @@ import s from './s.module.scss'
 interface IContainer {
     children?: ReactNode
     className?: string
-    size?: 'l' | 'm' | 's'
+    size?: 'l' | 'm' | 's' | 'full'
     style?: CSSProperties
     id?: string
 }
