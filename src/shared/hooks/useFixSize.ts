@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
-type sizeType = { width: string; height: string }
+type TSizeType = { width: string; height: string }
 
-/* Получает размеры компонент и фиксирует их */
+/* Получает размеры компонента и фиксирует их */
 export const useFixSize = <T extends HTMLElement>() => {
-    const [size, setSize] = useState<sizeType | null>(null)
+    const [size, setSize] = useState<TSizeType | null>(null)
     const nodeRef = useRef<T>(null)
-    const styleRef = useRef<sizeType | null>(null)
+    const styleRef = useRef<TSizeType | null>(null)
 
     const fixWidthStyle = {
         minWidth: styleRef?.current?.width,

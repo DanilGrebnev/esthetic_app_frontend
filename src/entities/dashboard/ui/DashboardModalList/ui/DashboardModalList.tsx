@@ -49,46 +49,45 @@ export const DashboardModalList = (props: DashboardListProps) => {
             className={clsx(s['dashboard-container'], className)}
         >
             <h2 className={s['container-title']}>Сохранение</h2>
+
             {dashboardsError && <h2>Ошибка получения досок</h2>}
             {dashboardsPending && <DashboardListSkeleton amount={10} />}
-            <div className='grow h-full'>
-                <Virtuoso
-                    endReached={() => fetchNextPage()}
-                    data={dashboardsList}
-                    components={{
-                        Header: () => (
-                            <DashboardItem
-                                postsId={postsId}
-                                loading={fetchingPostsCheck}
-                                skeleton={dashboardsPending}
-                                deleteBtn={postsCheck?.inFavorites}
-                                dashboardName='Избранное'
-                                urlBlur={favoritesDashboard?.urlsBlur[0]}
-                                dashboardId={
-                                    favoritesDashboard?.dashboardId || ''
-                                }
-                                url={favoritesDashboard?.urls[0]}
-                            />
-                        ),
-                    }}
-                    itemContent={(_, dashboard) => {
-                        return (
-                            <DashboardItem
-                                key={dashboard?.dashboardId}
-                                dashboardId={dashboard?.dashboardId}
-                                dashboardName={dashboard?.dashboardName}
-                                loading={fetchingPostsCheck}
-                                postsId={postsId}
-                                url={dashboard?.urls[0]}
-                                urlBlur={dashboard?.urlsBlur[0]}
-                                deleteBtn={postsCheck?.inDashboards.includes(
-                                    dashboard?.dashboardId,
-                                )}
-                            />
-                        )
-                    }}
-                />
-            </div>
+            {/* <div className='grow h-full max-h-full'> */}
+            <Virtuoso
+                endReached={() => fetchNextPage()}
+                data={dashboardsList}
+                components={{
+                    Header: () => (
+                        <DashboardItem
+                            postsId={postsId}
+                            loading={fetchingPostsCheck}
+                            skeleton={dashboardsPending}
+                            deleteBtn={postsCheck?.inFavorites}
+                            dashboardName='Избранное'
+                            urlBlur={favoritesDashboard?.urlsBlur[0]}
+                            dashboardId={favoritesDashboard?.dashboardId || ''}
+                            url={favoritesDashboard?.urls[0]}
+                        />
+                    ),
+                }}
+                itemContent={(_, dashboard) => {
+                    return (
+                        <DashboardItem
+                            key={dashboard?.dashboardId}
+                            dashboardId={dashboard?.dashboardId}
+                            dashboardName={dashboard?.dashboardName}
+                            loading={fetchingPostsCheck}
+                            postsId={postsId}
+                            url={dashboard?.urls[0]}
+                            urlBlur={dashboard?.urlsBlur[0]}
+                            deleteBtn={postsCheck?.inDashboards.includes(
+                                dashboard?.dashboardId,
+                            )}
+                        />
+                    )
+                }}
+            />
+            {/* </div> */}
         </div>
     )
 }

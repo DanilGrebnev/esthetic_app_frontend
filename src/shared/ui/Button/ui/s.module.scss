@@ -1,3 +1,8 @@
+@mixin btnHeight($height) {
+    min-height: $height;
+    max-height: $height;
+}
+
 %in-touches {
     scale: 0.95;
 }
@@ -11,9 +16,10 @@
     min-w-max
     max-w-max
     select-none
-    text-nowrap;
+    text-nowrap
+    px-[20px]
+    py-0;
     transition: 0.3s var(--cubic-bezier-1);
-    padding: 0 20px;
 
     color: var(--text-palette-main);
     font-weight: var(--font-weight-semibold);
@@ -28,13 +34,11 @@
 
 // Размеры кнопки
 .size-l {
-    min-height: var(--button-l-height);
-    max-height: var(--button-l-height);
+    @include btnHeight(var(--button-l-height));
 }
 
 .size-m {
-    min-height: var(--button-m-height);
-    max-height: var(--button-m-height);
+    @include btnHeight(var(--button-m-height));
 }
 
 // Стандартный вариант кнопки
@@ -69,9 +73,6 @@
             w-full
             h-[2px]
             bg-[--theme-bg-color-2];
-
-            // background: var(--theme-bg-color-2);
-
             content: '';
         }
     }

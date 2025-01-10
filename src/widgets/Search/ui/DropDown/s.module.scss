@@ -1,0 +1,14 @@
+.dropdown {
+    @apply absolute
+    flex
+    flex-wrap
+    gap-[--global-gap-1]
+    top-[110%]
+    bg-[--theme-bg-color-1]
+    left-0 
+    w-full
+    rounded-[--global-border-radius]
+    p-[10px]
+    h-max;
+    border: 1px solid var(--inputs-bg-1);
+}

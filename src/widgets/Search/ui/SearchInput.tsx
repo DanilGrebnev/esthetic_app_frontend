@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import { ChangeEvent, type FC, useState } from 'react'
 
+import { DropDown } from './DropDown'
 import { LeftSideWithIcon } from './LeftSideWithIcon'
 import s from './s.module.scss'
 
@@ -26,6 +27,7 @@ export const SearchInput: FC<SearchInputProps> = ({ className }) => {
                 value={value}
                 onChange={onChange}
             />
+            {/* <DropDown /> */}
         </div>
     )
 }

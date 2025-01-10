@@ -1,19 +1,17 @@
 .tag {
-    cursor: pointer;
-
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-between;
-
-    min-width: 70px;
-    max-width: 200px;
-    padding: 8px;
-
-    border: 1px solid var(--border-color-1);
-    border-radius: var(--global-border-radius);
+    @apply flex
+    justify-between
+    items-center
+    gap-[--global-gap-1]
+    cursor-pointer
+    rounded-[--global-border-radius]
+    p-[8px]
+    min-w-[70px]
+    max-w-[200px];
 
     transition: 0.2s;
+
+    border: 1px solid var(--border-color-1);
 
     &:hover,
     &:focus {
@@ -22,9 +20,8 @@
 
     p {
         overflow: hidden;
-
-        font-family: var(--font-roboto) !important;
         font-size: var(--font-300);
+        font-family: var(--font-roboto) !important;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -32,17 +29,14 @@
 
 .tag__delete-btn {
     --size: 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: var(--size);
-    max-width: var(--size);
-    height: var(--size);
-
-    line-height: 1;
-
+    @apply flex justify-center
+    items-center
+    rounded-[--global-border-radius]
+    min-w-[--size]
+    max-w-[--size]
+    h-[--size]
+    leading-[1]
+    
+    ;
     border: 1px solid var(--border-color-1);
-    border-radius: var(--global-border-radius);
 }

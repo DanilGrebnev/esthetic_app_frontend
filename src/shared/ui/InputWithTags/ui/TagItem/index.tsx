@@ -13,7 +13,7 @@ interface TagItemProps {
     onClick?: (tag: Tag) => void
 }
 
-export const TagItem: FC<TagItemProps> = memo((props) => {
+export const TagItem = memo((props: TagItemProps) => {
     const { tagId, label, deleteTag, onClick } = props
 
     return (

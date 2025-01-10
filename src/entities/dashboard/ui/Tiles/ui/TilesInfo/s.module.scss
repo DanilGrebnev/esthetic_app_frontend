@@ -1,13 +1,12 @@
 .tiles-info {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    gap: 10px;
+    @apply flex
+    relative
+    flex-col
+    gap-[--global-gap-1];
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
+    @apply flex justify-between;
 }
 
 .dot-menu {
@@ -24,8 +23,6 @@
     color: var(--text-palette-main);
     font-weight: var(--font-weight-semibold);
     font-size: var(--font-400);
-    //text-overflow: ellipsis;
-    //white-space: nowrap;
 }
 
 .footer {

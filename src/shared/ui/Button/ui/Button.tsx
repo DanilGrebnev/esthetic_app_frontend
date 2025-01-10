@@ -4,9 +4,9 @@ import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useFixSize } from '@/shared/hooks/useFixSize'
 import { CircularProgress } from '@/shared/ui/CircularProgress'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/navigation'
 import { forwardRef, memo } from 'react'
 
+import { useClickWithHref } from '../model/hooks'
 import { ButtonProps } from '../model/types'
 import s from './s.module.scss'
 
@@ -30,10 +30,10 @@ export const Button = memo(
             size = 'l',
             ...other
         } = props
-        const router = useRouter()
 
         const { nodeRef, fixWidthStyle } = useFixSize<HTMLButtonElement>()
         const combinedRef = useCombinedRef(ref, nodeRef)
+        const onClickWithHref = useClickWithHref(onClick, href)
 
         function createStyle() {
             return fullWidth
@@ -49,19 +49,14 @@ export const Button = memo(
                 type='button'
                 ref={combinedRef}
                 style={createStyle()}
-                onClick={(e) => {
-                    onClick?.(e)
-                    if (href) router.push(href)
-                }}
+                onClick={onClickWithHref}
                 className={clsx(
                     s.btn,
                     s[variant],
+                    s['size-' + size],
+                    s['h-' + heightSize],
                     {
-                        [s['h-full']]: heightSize === 'full',
-                        [s['h-content']]: heightSize === 'content',
                         [s[activeVariant]]: active,
-                        [s['size-l']]: size === 'l',
-                        [s['size-m']]: size === 'm',
                         [s.loading]: loading,
                     },
                     className,

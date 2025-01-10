@@ -5,20 +5,19 @@ import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useScrollLock } from 'usehooks-ts'
 
-import { useCloseIfClickOnEscapeKey } from '../model/hooks'
 import { ModalProvider } from '../model/ModalProvider/ModalProvider'
+import { useCloseIfClickOnEscapeKey } from '../model/hooks'
 
 const ModalWrapper = dynamic(
     () => import(/* webpackChunkName: "ModalWrapper" */ './ModalWrapper'),
-    {
-        ssr: false,
-    },
+    { ssr: false },
 )
 
 interface ModalProps {
     isOpen: boolean
     onClose?: () => void
     children?: ReactNode
+    animation?: boolean
 }
 
 /*
@@ -37,7 +36,6 @@ export const Modal = (props: ModalProps) => {
     })
 
     useCloseIfClickOnEscapeKey(isOpen, onClose)
-    // useToggleBodyOverflow(isOpen)
 
     useEffect(() => {
         if (openModal) {

@@ -12,7 +12,7 @@
 }
 
 .container-title {
-    padding: 10px;
+    @apply p-[10px]
+    text-center;
     font-size: var(--font-400);
-    text-align: center;
 }

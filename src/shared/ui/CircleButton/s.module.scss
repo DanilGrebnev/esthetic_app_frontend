@@ -7,9 +7,13 @@
     rounded-full
     bg-[white]
     w-[--size]
-    h-[--size];
-
+    h-[--size]
+    max-h-[--size];
     transition: 0.3s;
+
+    & svg {
+        max-height: 100%;
+    }
 
     &:disabled {
         opacity: var(--global-btn-disabled);

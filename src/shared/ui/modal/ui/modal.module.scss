@@ -21,9 +21,8 @@
 
 .modal {
     @apply rounded-[--global-border-radius]
-    p-[--global-gap-1];
-    
-    background: var(--theme-bg-color-1);
+    p-[--global-gap-1]
+    bg-[--theme-bg-color-1];
 }
 
 .animate-wrapper {
