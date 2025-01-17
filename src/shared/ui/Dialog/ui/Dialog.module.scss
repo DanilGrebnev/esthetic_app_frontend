@@ -1,25 +1,25 @@
 .dialog {
-  color: var(--text-palette-2);
-  border-radius: var(--global-border-radius);
-  font-size: var(--font-350);
+    border-radius: var(--global-border-radius);
+    color: var(--text-palette-2);
+    font-size: var(--font-350);
 }
 
 .open {
-  height: max-content;
+    height: max-content;
 }
 
 .wrapper {
-  padding: var(--global-padding);
+    padding: var(--padding-normal);
 }
 
 .info {
-  background: yellow;
+    background: yellow;
 }
 
 .success {
-  background: green;
+    background: green;
 }
 
 .warning {
-  background: red;
+    background: red;
 }

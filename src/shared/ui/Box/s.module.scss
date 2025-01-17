@@ -1,0 +1,16 @@
+.box {
+    @apply rounded-[--global-border-radius]
+    bg-[--theme-bg-color-1];
+}
+
+.padding {
+    &-normal {
+        padding: var(--padding-normal);
+    }
+    &-small {
+        padding: var(--padding-small);
+    }
+    &-large {
+        padding: var(--padding-large);
+    }
+}

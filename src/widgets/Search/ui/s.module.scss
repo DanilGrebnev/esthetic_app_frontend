@@ -6,11 +6,30 @@
     transition: 0.3s;
 }
 
-.input {
-    @apply w-full 
-    outline-none
+.input-wrapper {
+    @apply flex
+    w-full
     rounded-r-[--global-border-radius]
     bg-[--inputs-bg-1]
+    pr-[10px]
+    overflow-auto
+    items-center
+    h-full;
+}
+
+.tags-string {
+    @apply flex
+    items-center
+    flex-nowrap
+    min-w-max;
+}
+
+.input {
+    @apply w-full 
+    h-full
+    outline-none
+    rounded-r-[--global-border-radius]
+    bg-transparent
     pr-[10px];
 
     font-size: var(--font-300);
@@ -32,4 +51,14 @@
 .search-icon {
     @apply w-[20px]
     h-[20px];
+}
+
+.dropdown {
+    @apply absolute
+    flex
+    flex-col
+    w-full
+    overflow-auto
+    gap-[--global-gap-1]
+    top-[110%];
 }

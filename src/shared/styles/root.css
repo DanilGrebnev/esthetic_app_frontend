@@ -1,3 +1,4 @@
+/* stylelint-disable value-keyword-case */
 :root {
     /* ===== CONTAINER SIZES ===== */
     --container-width: 1600px;
@@ -54,7 +55,9 @@
     --global-gap-1: 10px;
     --global-gap-2: 20px;
     --global-gap-3: 30px;
-    --global-padding: 10px;
+    --padding-normal: 10px;
+    --padding-small: 5px;
+    --padding-large: 20px;
     --maring-l: 50px;
 
     /* ===== ROUNDED ===== */

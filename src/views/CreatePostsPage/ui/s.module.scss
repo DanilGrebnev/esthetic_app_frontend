@@ -2,8 +2,8 @@ $border: 1px solid var(--border-color-1);
 
 .page {
     display: flex;
-    flex-direction: column;
     flex-grow: 1;
+    flex-direction: column;
     gap: var(--global-gap-2);
 
     padding-bottom: var(--global-gap-2);
@@ -11,11 +11,11 @@ $border: 1px solid var(--border-color-1);
 
 .header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-
-    padding: var(--global-padding);
+    align-items: center;
 
     border-top: $border;
     border-bottom: $border;
+
+    padding: var(--padding-normal);
 }

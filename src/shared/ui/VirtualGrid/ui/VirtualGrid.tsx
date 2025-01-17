@@ -4,6 +4,7 @@ import { Item } from './Item'
 import { List } from './List'
 
 export interface IVirtualGridProps {
+    listClassName?: string
     itemHeight?: string
     columnAmount: number
     gap?: string
@@ -65,6 +66,7 @@ export const VirtualGrid = (props: IVirtualGridProps) => {
         totalCount,
         useWindowScroll,
         enabled = true,
+        listClassName,
         increaseViewportBy = { top: 0, bottom: 0 },
         children,
         endReached,
@@ -72,6 +74,7 @@ export const VirtualGrid = (props: IVirtualGridProps) => {
 
     return (
         <VirtuosoGrid
+            listClassName={listClassName}
             useWindowScroll={useWindowScroll}
             increaseViewportBy={increaseViewportBy}
             style={{ height: '100%', flexGrow: 1 }}

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Layout) => {
     return (
         <html lang='ru'>
-            <body className={clsx(roboto.variable)}>
+            <body className={clsx(roboto.variable, 'scrollbar')}>
                 <_ModalRoot />
                 <MainProvider>{children}</MainProvider>
             </body>

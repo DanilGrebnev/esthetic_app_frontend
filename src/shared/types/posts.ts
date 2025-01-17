@@ -61,3 +61,9 @@ export interface TPostsPreview {
     url: string
     urlBlur: string
 }
+
+export interface TSearchPostsTags {
+    tag: string
+    id: string
+    active: boolean
+}

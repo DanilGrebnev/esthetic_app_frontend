@@ -1,14 +1,14 @@
-.drop-down{
-  position: absolute;
-  right: 0;
+.drop-down {
+    position: absolute;
+    right: 0;
+    box-shadow: var(--global-box-shadow);
+    border-radius: var(--global-border-radius);
 
-  background: var(--theme-bg-color-1);
-  border-radius: var(--global-border-radius);
-  box-shadow: var(--global-box-shadow);
+    background: var(--theme-bg-color-1);
 }
 
 .drop-down-wrapper {
-  display: flex;
-  flex-direction: column;
-  padding: var(--global-padding);
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-normal);
 }

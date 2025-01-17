@@ -5,7 +5,7 @@ $container-width-full: 100vw;
 
 .container {
     @apply mx-auto w-full
-    px-[--global-padding];
+    px-[--padding-normal];
 }
 
 .l {

@@ -1,5 +1,5 @@
 .tag {
-    @apply w-max
+    @apply max-w-max
     bg-[--inputs-bg-1]
     h-max
     p-[10px]
@@ -10,4 +10,9 @@
     &:hover {
         transform: scale(1.05);
     }
+}
+
+.active {
+    background: green;
+    color: white;
 }
