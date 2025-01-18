@@ -53,6 +53,8 @@ class PostsApi {
             })
             .json()
     }
+
+    getRecommendedTags = () => {}
 }
 
 export const postsApi = new PostsApi()

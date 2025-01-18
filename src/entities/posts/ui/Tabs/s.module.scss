@@ -1,0 +1,8 @@
+.tabs-wrapper {
+    @apply p-[px]
+    w-fit
+    h-fit;
+    border-radius: var(--global-border-radius);
+    font-weight: 500;
+    font-size: 12px;
+}

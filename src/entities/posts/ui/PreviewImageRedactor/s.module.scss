@@ -1,8 +1,8 @@
 .redactor {
-    display: flex;
-    flex-grow: 1;
-    gap: 20px;
-    width: 100%;
+    @apply flex 
+    flex-grow 
+    gap-[20px] 
+    w-full;
 }
 
 .img {
@@ -10,46 +10,38 @@
 }
 
 .img-wrapper {
-    position: relative;
-
-    overflow: hidden;
-
-    width: 200px;
-    height: min-content;
+    @apply relative 
+    w-[200px]
+    h-min 
+    overflow-hidden;
 
     border-radius: var(--global-border-radius);
 
     &:hover {
         .delete {
-            pointer-events: all;
-            opacity: 1;
+            @apply opacity-[1]
+            pointer-events-auto;
         }
     }
 }
 
 .delete {
-    pointer-events: none;
-    cursor: pointer;
-
-    position: relative;
-    z-index: 1;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
-
-    color: white;
-
-    opacity: 0;
-    background: rgb(0 0 0 / 50%);
-
+    @apply relative
+    flex
+    justify-center
+    items-center
+    opacity-0
+    z-[1]
+    cursor-pointer
+    w-full
+    h-full
+    pointer-events-none
+    text-[white];
     transition: 0.3s;
+    background: rgb(0 0 0 / 50%);
 }
 
 .disabled {
-    pointer-events: none;
-    opacity: var(--input-disabled-opacity);
+    @apply opacity-[--input-disabled-opacity]
+    pointer-events-none;
 }

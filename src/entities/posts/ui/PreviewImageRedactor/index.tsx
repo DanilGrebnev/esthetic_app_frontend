@@ -1,8 +1,9 @@
 'use client'
 
+import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { type FC, memo, useState } from 'react'
+import { memo, useState } from 'react'
 
 import { Tabs } from '../Tabs'
 import s from './s.module.scss'
@@ -13,10 +14,10 @@ interface PreviewImageProps {
     disabled?: boolean
 }
 
-export const PreviewImageRedactor: FC<PreviewImageProps> = memo((props) => {
+export const PreviewImageRedactor = memo((props: PreviewImageProps) => {
     const { image, onDeleteFile, disabled } = props
 
-    const [aspect, setAspect] = useState<string>('9/16')
+    const [aspect, setAspect] = useState<string>(aspectRatioVariants[0])
 
     const changeAspect = (aspect: string) => {
         setAspect(aspect)
@@ -46,8 +47,8 @@ export const PreviewImageRedactor: FC<PreviewImageProps> = memo((props) => {
                     fill={true}
                 />
                 <div
-                    onClick={onDeleteImage}
                     className={s.delete}
+                    onClick={onDeleteImage}
                 >
                     Удалить
                 </div>

@@ -1,49 +1,50 @@
 'use client'
 
+import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import clsx from 'clsx'
-import { type FC, ReactNode, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { TabItem } from './TabItem'
-import s from './s.module.sass'
+import { TabsRender } from './TabsRender'
+import s from './s.module.scss'
 
 interface ITabs {
     onChange?: (currentTab: string) => void
     className?: string
     name?: string
 }
-const tabs = ['9/16', '2/3', '3/4', '4/5', '1/1'] as const
 
-export const Tabs: FC<ITabs> = (props) => {
+export const Tabs = (props: ITabs) => {
     const { onChange: onChangeFromProps, className, name } = props
-    const [currentTab, setCurrentTab] = useState<string>(tabs[0])
+    const [aspectRatio, setAspectRatio] = useState<string>(
+        aspectRatioVariants[0],
+    )
 
     const changeActiveTab = useCallback((label: string) => {
-        setCurrentTab(label)
+        setAspectRatio(label)
     }, [])
 
     useEffect(() => {
-        onChangeFromProps?.(currentTab)
-    }, [currentTab, onChangeFromProps])
+        onChangeFromProps?.(aspectRatio)
+    }, [aspectRatio, onChangeFromProps])
 
     return (
         <nav className={clsx(s['tabs-wrapper'], className)}>
             <input
                 name={name}
-                value={currentTab}
+                value={aspectRatio}
                 type='hidden'
             />
-            <ul className={s['tabs-list']}>
-                {tabs.map((label) => {
-                    return (
-                        <TabItem
-                            key={label}
-                            label={label}
-                            active={label === currentTab}
-                            onClick={changeActiveTab}
-                        />
-                    )
-                })}
-            </ul>
+            <TabsRender data={aspectRatioVariants}>
+                {(label) => (
+                    <TabItem
+                        key={label}
+                        label={label}
+                        active={label === aspectRatio}
+                        onClick={changeActiveTab}
+                    />
+                )}
+            </TabsRender>
         </nav>
     )
 }
