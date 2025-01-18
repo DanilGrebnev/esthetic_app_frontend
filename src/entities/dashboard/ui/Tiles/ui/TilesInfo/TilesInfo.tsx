@@ -65,7 +65,7 @@ export const TilesInfo = (props: TilesInfo) => {
                     )}
                 </header>
                 <div className={s.footer}>
-                    <p className={s.count}>{postsCount} постов</p>
+                    <p className={s.count}>постов: {postsCount}</p>
                     <p className={s.date}>{getDateRange(date)}</p>
                 </div>
                 {hoverOnIcon && (
@@ -73,11 +73,7 @@ export const TilesInfo = (props: TilesInfo) => {
                         onClose={() => setOpenDialog(false)}
                         open={openDialog}
                     >
-                        <TilesDialog.Item
-                            onClick={() => {
-                                openDeleteDashboardModal()
-                            }}
-                        >
+                        <TilesDialog.Item onClick={openDeleteDashboardModal}>
                             Удалить доску
                         </TilesDialog.Item>
                         <TilesDialog.Item onClick={openChangeDashboardModal}>
@@ -90,7 +86,7 @@ export const TilesInfo = (props: TilesInfo) => {
                 isOpen={openDeleteModal}
                 onClose={closeDeleteDashboardModal}
             >
-                <DeleteDashboardModal onClose={openDeleteDashboardModal} />
+                <DeleteDashboardModal onClose={closeDeleteDashboardModal} />
             </Modal>
             <Modal
                 isOpen={openChangeModal}
