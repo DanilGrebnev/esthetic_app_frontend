@@ -4,6 +4,7 @@ import { type TCreatePosts } from '@/shared/types/posts'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { Tag } from '@/shared/ui/InputWithTags/types'
+import { Select } from '@/shared/ui/Select'
 import { validationInputs } from '@/shared/validationInputs'
 import { MutableRefObject, forwardRef, memo, useCallback, useRef } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -113,13 +114,13 @@ export const CreatePostForm = memo(
                         variant='outlined'
                         {...register('link')}
                     />
-                    {/*<Select*/}
-                    {/*    label='Доска'*/}
-                    {/*    placeholder='Выбрать доску'*/}
-                    {/*    name='dashboard'*/}
-                    {/*>*/}
-                    {/*    {dashboardsList}*/}
-                    {/*</Select>*/}
+                    {/* <Select
+                        label='Доска'
+                        placeholder='Выбрать доску'
+                        name='dashboard'
+                    >
+                        {dashboardsList}
+                    </Select> */}
                     <InputWithTags
                         defaultValue={defaultValues?.tags}
                         onChange={onChangeTags}

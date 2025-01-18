@@ -7,7 +7,8 @@ import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { Container } from '@/shared/ui/Container'
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
+import toast from 'react-hot-toast'
 
 import { CreatePostButton } from './components/CreatePostButton'
 import s from './s.module.scss'
@@ -46,11 +47,15 @@ export const CreatePostsPage = () => {
                     mutate={(formData) => {
                         mutate(formData, {
                             onSuccess: () => {
+                                toast.success('Опубликовано')
                                 router.push(
                                     routes.userCreatedPosts.getRoute(
                                         profileByCookie?.userId,
                                     ),
                                 )
+                            },
+                            onError: () => {
+                                toast.error('Ошибка публикации')
                             },
                         })
                     }}
