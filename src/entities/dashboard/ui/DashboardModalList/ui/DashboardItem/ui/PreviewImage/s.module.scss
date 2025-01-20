@@ -1,3 +1,5 @@
 .preview-image {
-    @apply rounded-[--global-border-radius] object-cover h-[40px];
+    @apply rounded-[--global-border-radius] 
+    object-cover 
+    h-[40px];
 }

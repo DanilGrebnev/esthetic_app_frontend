@@ -30,6 +30,8 @@
 .container {
     @apply flex
     overflow-auto
+    pt-[2px]
+    pl-[2px]
     pb-[--global-gap-1]
     gap-[--global-gap-1];
 }

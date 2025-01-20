@@ -11,9 +11,11 @@
 }
 
 html,
-body {
+body,
+#theme-provider {
     max-width: 100vw;
     height: 100vh;
+    background: var(--theme-bg-color-1);
 }
 
 .text-ellipsis {
@@ -51,6 +53,7 @@ body {
 .scrollbar::-webkit-scrollbar {
     width: 7px;
     height: 7px;
+    color: var(--theme-bg-color-1);
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

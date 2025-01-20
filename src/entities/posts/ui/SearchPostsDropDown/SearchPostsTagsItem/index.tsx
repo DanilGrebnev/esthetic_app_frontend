@@ -20,9 +20,10 @@ export const SearchPostsTags = memo((props: TagsItemProps) => {
             className={clsx(s.tag, 'tag', {
                 [s.active]: active,
             })}
-            onClick={(e) => {
+            onClick={() => {
                 if (active) {
-                    return deleteTag(id)
+                    deleteTag(id)
+                    return
                 }
                 setTags({ id, tag })
             }}

@@ -4,6 +4,7 @@ import { EnabledMapSetImmerProvider } from '@/shared/providers/EnabledMapSetImme
 import { FramerMotionProvider } from '@/shared/providers/FramerMotionProvider'
 import { MUIProvider } from '@/shared/providers/MUIProvider'
 import { TanStackQueryProvider } from '@/shared/providers/TanStackQueryProvider'
+import { ThemeProvider } from '@/shared/providers/ThemeProvider'
 import { ToasterProvider } from '@/shared/providers/ToasterProvider'
 import { Layout } from '@/shared/types/layout'
 
@@ -13,13 +14,15 @@ export const MainProvider = ({ children }: Layout) => {
             <FramerMotionProvider>
                 <EnabledMapSetImmerProvider>
                     <AuthProvider>
-                        <ToasterProvider>
-                            <MUIProvider>
-                                <DeleteCommentsAfterFirstMount>
-                                    {children}
-                                </DeleteCommentsAfterFirstMount>
-                            </MUIProvider>
-                        </ToasterProvider>
+                        <ThemeProvider>
+                            <ToasterProvider>
+                                <MUIProvider>
+                                    <DeleteCommentsAfterFirstMount>
+                                        {children}
+                                    </DeleteCommentsAfterFirstMount>
+                                </MUIProvider>
+                            </ToasterProvider>
+                        </ThemeProvider>
                     </AuthProvider>
                 </EnabledMapSetImmerProvider>
             </FramerMotionProvider>

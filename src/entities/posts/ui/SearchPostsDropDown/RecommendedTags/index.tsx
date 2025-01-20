@@ -2,8 +2,8 @@
 
 import { useGetIncludesActiveTagsInSearchPostsSelector } from '@/shared/store/posts'
 
-import { SearchPostsTags } from '../../SearchPostsTagsItem'
 import { SearchPostsDropDown } from '../BaseDropDown'
+import { SearchPostsTags } from '../SearchPostsTagsItem'
 import mockTags from './mock-tags.json'
 
 interface DropDown {

@@ -1,0 +1,25 @@
+.tag {
+    @apply max-w-max
+    bg-[--silver-btn-bg-color]
+    h-max
+    p-[10px]
+    text-[--text-palette-main]
+    rounded-[--global-border-radius]
+    cursor-pointer;
+    transition: scale 0.3s;
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    &:not(.active) {
+        &:hover {
+            outline: 2px solid var(--border-color-1);
+        }
+    }
+}
+
+.active {
+    @apply bg-[green]
+    text-[--text-palette-2];
+}

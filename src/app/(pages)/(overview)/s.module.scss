@@ -1,5 +1,9 @@
 .overview {
-    @apply flex flex-col justify-between min-h-[100dvh];
+    @apply flex 
+    flex-col 
+    justify-between 
+    min-h-[100dvh]
+    bg-[--theme-bg-color-1];
 }
 
 .main {

@@ -2,7 +2,8 @@
 
 import { SearchPostsDropDown } from '@/entities/posts'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
-import clsx from 'clsx'
+import { useGetThemeContext } from '@/shared/providers/ThemeProvider'
+import { clsx } from 'clsx'
 import { ChangeEvent, useState } from 'react'
 
 import { LeftSideWithIcon } from './LeftSideWithIcon'
@@ -32,7 +33,7 @@ export const SearchInput = ({ className }: SearchInputProps) => {
     return (
         <div
             ref={elementRef}
-            className={clsx(s['search-wrapper'], 'search-input', className)}
+            className={clsx(s['search-wrapper'], className)}
         >
             <LeftSideWithIcon className={s['left-side']} />
             <div className={s['input-wrapper']}>

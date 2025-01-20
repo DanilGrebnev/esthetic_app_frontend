@@ -3,8 +3,8 @@
 import { useGetActiveTagsFromSearchPostsSelector } from '@/shared/store/posts'
 import { useEffect, useState } from 'react'
 
-import { SearchPostsTags } from '../../SearchPostsTagsItem'
 import { SearchPostsDropDown } from '../BaseDropDown'
+import { SearchPostsTags } from '../SearchPostsTagsItem'
 
 interface ActiveTagsProps {
     className?: string

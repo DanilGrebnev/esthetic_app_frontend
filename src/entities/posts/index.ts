@@ -9,5 +9,5 @@ export { PostsListContainerWithBreakpoints } from './ui/PostsListContainerWithBr
 export { MenuPostBtn } from './ui/MenuPostBtn'
 export { RenderPostsList } from './ui/RenderPostsList'
 export { useCalculateColumnsAmountByScreenSize } from './model/utils/useCalculateColumnsAmountByScreenSize'
-export { SearchPostsTags } from './ui/SearchPostsTagsItem'
+export { SearchPostsTags } from './ui/SearchPostsDropDown/SearchPostsTagsItem'
 export { SearchPostsDropDown } from './ui/SearchPostsDropDown'
