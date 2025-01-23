@@ -1,7 +1,6 @@
 'use client'
 
 import { useGetActiveTagsFromSearchPostsSelector } from '@/shared/store/posts'
-import { useEffect, useState } from 'react'
 
 import { SearchPostsDropDown } from '../BaseDropDown'
 import { SearchPostsTags } from '../SearchPostsTagsItem'
@@ -17,6 +16,7 @@ export const ActiveTags = (props: ActiveTagsProps) => {
 
     return (
         <SearchPostsDropDown
+            hiddenIfEmptyData={true}
             className={className}
             mode='horizontal'
             title='Выбранные теги'
@@ -24,9 +24,9 @@ export const ActiveTags = (props: ActiveTagsProps) => {
         >
             {(tag) => (
                 <SearchPostsTags
-                    key={tag.id}
+                    key={tag}
                     active={true}
-                    {...tag}
+                    tag={tag}
                 />
             )}
         </SearchPostsDropDown>

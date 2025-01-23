@@ -57,7 +57,11 @@ export const UploadPostsContentWindow = memo(
             return (
                 <>
                     <UploadFiles
-                        className={clsx({ [s.hidden]: file }, className)}
+                        className={clsx(
+                            s.upload,
+                            { [s.hidden]: file },
+                            className,
+                        )}
                         onChange={onChange}
                         isError={isError}
                         ref={combinedRef}

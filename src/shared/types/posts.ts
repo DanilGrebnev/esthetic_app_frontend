@@ -63,6 +63,5 @@ export interface TPostsPreview {
 
 export interface TSearchPostsTags {
     tag: string
-    id: string
     active: boolean
 }

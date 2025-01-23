@@ -8,12 +8,12 @@ import {
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { BaseModalWindow, useModalContext } from '@/shared/ui/modal'
-import { type FC, useRef } from 'react'
+import { useRef } from 'react'
 
 import { useMenuPostBtnContext } from '../../MenuPostBtnContext'
 import s from './EditPostsModal.module.scss'
 
-export const EditPostsModal: FC = () => {
+export const EditPostsModal = () => {
     const { postsId } = useMenuPostBtnContext()
     const submitRef = useRef<HTMLButtonElement | null>(null)
 
@@ -21,7 +21,7 @@ export const EditPostsModal: FC = () => {
 
     const { data: postData } = useGetDetailPostsQuery(postsId)
 
-    const { mutateAsync: editPost, isPending } = useUpdatePostsMutation({
+    const { mutate, isError, isPending } = useUpdatePostsMutation({
         postsId,
     })
 
@@ -39,7 +39,12 @@ export const EditPostsModal: FC = () => {
                         tags: postData?.post?.tags ?? [],
                     }}
                     mutate={(formData) => {
-                        editPost({ body: formData, postsId }).then(onClose)
+                        mutate(
+                            { body: formData, postsId },
+                            {
+                                onSuccess: onClose,
+                            },
+                        )
                     }}
                     submitBtnRef={submitRef}
                 />

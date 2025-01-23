@@ -1,10 +1,10 @@
 import { Button } from '@/shared/ui/Button'
 import { useProgressWindow } from '@/shared/ui/ProgressWindow'
-import { type FC, memo } from 'react'
+import { memo } from 'react'
 
 import { type ButtonTypes } from './types'
 
-export const PrevBtn: FC<ButtonTypes> = memo(({ disabled }) => {
+export const PrevBtn = memo(({ disabled }: ButtonTypes) => {
     const { onPrev, currentPage } = useProgressWindow()
 
     return (

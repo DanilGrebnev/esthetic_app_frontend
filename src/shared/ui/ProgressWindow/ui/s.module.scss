@@ -1,14 +1,11 @@
 .slider-wrapper {
-    position: relative;
-    overflow: hidden;
+    @apply relative overflow-hidden;
 }
 
 .window-container {
-    position: relative;
     display: flex;
+    position: relative;
     transition: all 0.3s ease-in;
-
-    //transition-timing-function: var(--cubic-bezier-1);
 }
 
 .btn-group {

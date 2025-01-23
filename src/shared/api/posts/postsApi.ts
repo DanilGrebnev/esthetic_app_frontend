@@ -7,7 +7,11 @@ class PostsApi {
 
     // GET
     /* Возврат всех постов на основе тегов пользователя */
-    recommendedPosts = (searchParams: { offset: number; limit: number }) => {
+    getPosts = (searchParams: {
+        offset: number
+        limit: number
+        search: string
+    }) => {
         return apiInstance
             .get(this.baseUrl, {
                 credentials: 'include',

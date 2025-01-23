@@ -1,36 +1,34 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
-import { TSearchPostsTags } from '../../../types/posts'
-
-type TTagItem = Omit<TSearchPostsTags, 'active'>
-
 type State = {
-    tags: Set<TTagItem>
+    tags: Set<string>
+    search: string
 }
 
 type Actions = {
-    setTags: (tag: TTagItem) => void
-    deleteTags: (tagId: string) => void
+    setTags: (tag: string) => void
+    deleteTags: (tag: string) => void
+    setSearch: (value: string) => void
 }
 
 export const useSearchPostsStore = create<State & Actions>()(
     immer((set) => ({
         tags: new Set(),
+        search: '',
+        setSearch: (value) => {
+            set((state) => {
+                state.search = value
+            })
+        },
         setTags: (tag) =>
             set((state) => {
-                if (!![...state.tags].find(({ id }) => id === tag.id)) {
-                    return
-                }
+                if (state.tags.has(tag)) return
                 state.tags.add(tag)
             }),
-        deleteTags: (tagId) =>
+        deleteTags: (tag) =>
             set((state) => {
-                state.tags.forEach((tag) => {
-                    if (tag.id === tagId) {
-                        state.tags.delete(tag)
-                    }
-                })
+                state.tags.delete(tag)
             }),
     })),
 )

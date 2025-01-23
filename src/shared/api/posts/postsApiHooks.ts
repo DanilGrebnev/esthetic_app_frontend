@@ -15,19 +15,24 @@ export const useGetDetailPostsQuery = (postId: string) => {
     return useQuery({
         queryKey: [queryKeys.posts.postsDetail(postId)],
         queryFn: ({ signal }) => postsApi.getPostDetail({ signal, postId }),
-        retry: false,
     })
 }
 
 // Получение постов по тэгам пользователя
-export const useGetRecommendedPosts = (options?: { enabled: boolean }) => {
+export const useGetPostsQuery = (args?: {
+    enabled?: boolean
+    querySearchParam: string
+}) => {
     return useInfiniteQuery({
-        queryKey: [queryKeys.posts.recommendedPosts],
-        enabled: options?.enabled,
+        queryKey: [queryKeys.posts.recommendedPosts, args?.querySearchParam],
+        enabled: args?.enabled,
         queryFn: ({ pageParam }) => {
-            return postsApi.recommendedPosts(pageParam)
+            return postsApi.getPosts({
+                ...pageParam,
+                search: args?.querySearchParam ?? '',
+            })
         },
-        getNextPageParam: (lastPage, _, lastPageParam) => {
+        getNextPageParam: (_, __, lastPageParam) => {
             return {
                 offset: lastPageParam.offset + paginationPostsAmount,
                 limit: lastPageParam.limit,

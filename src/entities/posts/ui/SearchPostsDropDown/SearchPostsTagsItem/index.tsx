@@ -11,7 +11,7 @@ import s from './s.module.scss'
 interface TagsItemProps extends TSearchPostsTags {}
 
 export const SearchPostsTags = memo((props: TagsItemProps) => {
-    const { tag, active, id } = props
+    const { tag, active } = props
     const setTags = useSetTagInSearchPostSelector()
     const deleteTag = useDeleteTagFromSearchPostSelector()
 
@@ -22,10 +22,10 @@ export const SearchPostsTags = memo((props: TagsItemProps) => {
             })}
             onClick={() => {
                 if (active) {
-                    deleteTag(id)
+                    deleteTag(tag)
                     return
                 }
-                setTags({ id, tag })
+                setTags(tag)
             }}
         >
             {tag}

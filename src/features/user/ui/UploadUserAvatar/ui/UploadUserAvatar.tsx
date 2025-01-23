@@ -3,7 +3,7 @@
 import { UploadFiles } from '@/shared/ui/UploadFile'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { FC, useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import s from './UploadUserAvatar.module.scss'
 
@@ -13,7 +13,7 @@ interface UploadUserAvatar {
     defaultValue?: string | null
 }
 
-export const UploadUserAvatar: FC<UploadUserAvatar> = (props) => {
+export const UploadUserAvatar = (props: UploadUserAvatar) => {
     const { onChange, defaultValue, className } = props
 
     const [objectUrl, setObjectUrl] = useState<string | null>(null)

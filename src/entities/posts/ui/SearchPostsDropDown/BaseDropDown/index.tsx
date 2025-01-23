@@ -9,6 +9,7 @@ interface SearchPostsDropDownProps<T extends TData> {
     mode: 'horizontal' | 'vertical'
     title?: string
     data: T
+    hiddenIfEmptyData?: boolean
     children?: (data: T[number], i: number) => JSX.Element
     className?: string
 }
@@ -18,7 +19,18 @@ interface SearchPostsDropDownProps<T extends TData> {
 export const SearchPostsDropDown = <T extends TData>(
     props: SearchPostsDropDownProps<T>,
 ) => {
-    const { mode, className, children, data = [], title } = props
+    const {
+        mode,
+        hiddenIfEmptyData,
+        className,
+        children,
+        data = [],
+        title,
+    } = props
+
+    if (hiddenIfEmptyData) {
+        if (!data.length) return
+    }
 
     return (
         <Box className={clsx(s.box, s[mode], className)}>

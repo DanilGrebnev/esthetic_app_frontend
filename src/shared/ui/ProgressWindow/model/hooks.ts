@@ -1,8 +1,9 @@
+import { type Context, useContext } from 'react'
+
 import {
     PrivateProgressWindowContext,
     ProgressWindowContext,
-} from '@/shared/ui/ProgressWindow/model/context/ProgressWindowContext'
-import { type Context, useContext } from 'react'
+} from './context/ProgressWindowContext'
 
 /* Осуществляет проверку на вызов контекста внутри контекст провайдера. */
 const useErrorBoundaryContext = <T>(contextProps: Context<T>) => {

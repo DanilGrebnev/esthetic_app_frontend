@@ -5,7 +5,8 @@
     p-[10px]
     text-[--text-palette-main]
     rounded-[--global-border-radius]
-    cursor-pointer;
+    cursor-pointer
+    text-nowrap;
     transition: scale 0.3s;
 
     &:active {

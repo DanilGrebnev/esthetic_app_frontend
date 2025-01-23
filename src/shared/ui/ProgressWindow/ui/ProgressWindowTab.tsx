@@ -1,20 +1,14 @@
 'use client'
 
-import { createPortal } from 'react-dom'
-
 import { usePrivateProgressWindowContext } from '../model/hooks'
 import { ProgressWindowTabProps } from '../model/types'
 
-export const ProgressWindowTab = (props: ProgressWindowTabProps) => {
+export function ProgressWindowTab(props: ProgressWindowTabProps) {
     const { children, className, style } = props
-    const context = usePrivateProgressWindowContext()
+    const { parentContainerWidth, currentPage } =
+        usePrivateProgressWindowContext()
 
-    if (!context) return
-
-    const { containerId, parentContainerWidth } = context
-    const container = document.getElementById(containerId)
-
-    if (!children || !container) return
+    if (!children || !parentContainerWidth) return
 
     const styles = parentContainerWidth
         ? {
@@ -24,17 +18,12 @@ export const ProgressWindowTab = (props: ProgressWindowTabProps) => {
         : style
 
     return (
-        <>
-            {createPortal(
-                <div
-                    className={className}
-                    style={styles}
-                >
-                    {children}
-                </div>,
-                container,
-            )}
-        </>
+        <div
+            style={styles}
+            className={className}
+        >
+            {children}
+        </div>
     )
 }
 

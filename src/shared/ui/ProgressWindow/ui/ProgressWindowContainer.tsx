@@ -1,23 +1,23 @@
 import { getSetting } from '@/shared/ui/ProgressWindow/model/lib'
 import { clsx } from 'clsx'
-import { type FC, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 import { usePrivateProgressWindowContext } from '../model/hooks'
 import { TProgressWindowContainer } from '../model/types'
 import s from './s.module.scss'
 
-export const ProgressWindowContainer: FC<TProgressWindowContainer> = ({
+export const ProgressWindowContainer = ({
     children,
     setting,
     className,
-}) => {
+}: TProgressWindowContainer) => {
     const {
-        containerId,
         setPagesAmount,
         currentPage,
-        nodeRef,
+        containerRef,
         parentContainerWidth: width,
     } = usePrivateProgressWindowContext()
+
     const [currentPosition, setCurrentPosition] = useState(0)
 
     useEffect(() => {
@@ -33,21 +33,18 @@ export const ProgressWindowContainer: FC<TProgressWindowContainer> = ({
     const settings = getSetting(setting)
 
     return (
-        <div className={clsx(s['progress-window'], className)}>
+        <div
+            ref={containerRef}
+            className={clsx(s['slider-wrapper'], className)}
+        >
             <div
-                ref={nodeRef}
-                className={s['slider-wrapper']}
+                style={{
+                    transform: `translateX(${currentPosition}px)`,
+                    transition: settings?.transition,
+                }}
+                className={clsx(s['window-container'])}
             >
-                <div
-                    id={containerId}
-                    style={{
-                        transform: `translateX(${currentPosition}px)`,
-                        transition: settings?.transition,
-                    }}
-                    className={clsx(s['window-container'])}
-                >
-                    {children}
-                </div>
+                {children}
             </div>
         </div>
     )

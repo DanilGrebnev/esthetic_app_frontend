@@ -3,6 +3,7 @@
 import { UploadUserAvatar } from '@/features/user'
 import { useRegistrationMutation } from '@/shared/api/users'
 import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
+import { routes } from '@/shared/routes'
 import { type CreateUser } from '@/shared/types/user'
 import { Container } from '@/shared/ui/Container'
 import { Dialog } from '@/shared/ui/Dialog'
@@ -16,6 +17,7 @@ import { SubmitButton } from '@/views/SignIn/ui/RegistrationForm/ui/Buttons/Subm
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { SubTitle } from '../../../SubTitle'
 import { Title } from '../../../Title'
@@ -36,8 +38,14 @@ export const RegistrationForm = () => {
 
     const router = useRouter()
 
-    const { mutate, isPending, isError, error, data, isSuccess } =
-        useRegistrationMutation()
+    const {
+        mutate,
+        isPending,
+        isError,
+        error: errorFromServer,
+        data,
+        isSuccess,
+    } = useRegistrationMutation()
 
     const onSubmit = handleSubmit(async (_, e) => {
         const formData = new FormData(e?.target)
@@ -54,10 +62,12 @@ export const RegistrationForm = () => {
         )
         formData.delete('recommendedTags')
 
-        mutate(formData)
-        // setTimeout(() => {
-        //     router.push(routes.login.getRoute())
-        // }, 1000)
+        mutate(formData, {
+            onSuccess: () => {
+                toast.success('Регистрация успешна')
+                router.push(routes.login.getRoute())
+            },
+        })
     })
 
     const { email, firstName, password, userName } = watch()
@@ -82,9 +92,9 @@ export const RegistrationForm = () => {
                     onSubmit={onSubmit}
                     className={s['registration-form']}
                 >
-                    <ProgressWindow.provider>
-                        <ProgressWindow.container>
-                            <ProgressWindow.tab>
+                    <ProgressWindow.Provider>
+                        <ProgressWindow.Container>
+                            <ProgressWindow.Tab>
                                 <div className={s['inputs-wrapper']}>
                                     <SubTitle>Заполните информацию</SubTitle>
                                     <InputWithValidation
@@ -143,8 +153,8 @@ export const RegistrationForm = () => {
                                         helperText={errors.email?.message}
                                     />
                                 </div>
-                            </ProgressWindow.tab>
-                            <ProgressWindow.tab
+                            </ProgressWindow.Tab>
+                            <ProgressWindow.Tab
                                 className={s['upload-avatar-page']}
                             >
                                 <SubTitle>Добавьте аватар</SubTitle>
@@ -154,8 +164,8 @@ export const RegistrationForm = () => {
                                         onChange={onChangeAvatar}
                                     />
                                 </div>
-                            </ProgressWindow.tab>
-                            <ProgressWindow.tab className={s['tag-page']}>
+                            </ProgressWindow.Tab>
+                            <ProgressWindow.Tab className={s['tag-page']}>
                                 <SubTitle>Выберите теги</SubTitle>
                                 <RecommendedTags
                                     name='recommendedTags'
@@ -168,7 +178,8 @@ export const RegistrationForm = () => {
                                     open={isError}
                                     closeTimeout={3000}
                                 >
-                                    {error?.message ?? 'Ошибка регистрации'}
+                                    {errorFromServer?.message ??
+                                        'Ошибка регистрации'}
                                 </Dialog>
                                 <Dialog
                                     open={isSuccess}
@@ -176,8 +187,8 @@ export const RegistrationForm = () => {
                                 >
                                     Регистрация успешна
                                 </Dialog>
-                            </ProgressWindow.tab>
-                        </ProgressWindow.container>
+                            </ProgressWindow.Tab>
+                        </ProgressWindow.Container>
                         <div className={s['btn-group']}>
                             <PrevBtn disabled={isSuccess} />
                             <NextBtn disabled={!nextResolve || isSuccess} />
@@ -186,7 +197,7 @@ export const RegistrationForm = () => {
                                 disabled={isSuccess}
                             />
                         </div>
-                    </ProgressWindow.provider>
+                    </ProgressWindow.Provider>
                 </form>
             </div>
         </Container>

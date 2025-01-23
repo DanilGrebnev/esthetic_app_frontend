@@ -17,7 +17,6 @@ import {
 export const ProgressWindowProvider = ({
     children,
 }: ProgressWindowProviderProps) => {
-    const containerId = useId()
     const [currentPage, setCurrentPage] = useState(0)
     const latestCurrentPage = useLatest(currentPage)
     const [totalPages, setTotalPages] = useState(0)
@@ -37,7 +36,7 @@ export const ProgressWindowProvider = ({
         setCurrentPage((p) => p - 1)
     }, [latestCurrentPage])
 
-    const context: TProgressWindowContext = {
+    const publicContextValue: TProgressWindowContext = {
         onNext,
         onPrev,
         currentPage: currentPage + 1,
@@ -45,17 +44,16 @@ export const ProgressWindowProvider = ({
         isLastPage: currentPage + 1 === totalPages,
     }
 
-    const privateContext: TPrivateProgressWindowContext = {
-        containerId,
+    const privateContextValue: TPrivateProgressWindowContext = {
         parentContainerWidth: width,
         currentPage,
-        nodeRef,
+        containerRef: nodeRef,
         setPagesAmount,
     }
 
     return (
-        <ProgressWindowContext.Provider value={context}>
-            <PrivateProgressWindowContext.Provider value={privateContext}>
+        <ProgressWindowContext.Provider value={publicContextValue}>
+            <PrivateProgressWindowContext.Provider value={privateContextValue}>
                 {children}
             </PrivateProgressWindowContext.Provider>
         </ProgressWindowContext.Provider>

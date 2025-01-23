@@ -10,9 +10,8 @@ export interface TProgressWindowContext {
 
 /* Приватный контекст */
 export interface TPrivateProgressWindowContext {
-    containerId: string
     parentContainerWidth?: number
-    nodeRef: MutableRefObject<HTMLDivElement | null>
+    containerRef: MutableRefObject<HTMLDivElement | null>
     setPagesAmount: (pagesAmount: number) => void
     currentPage: number
 }

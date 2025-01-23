@@ -2,9 +2,10 @@
 
 import { SearchPostsDropDown } from '@/entities/posts'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
-import { useGetThemeContext } from '@/shared/providers/ThemeProvider'
+import { useSetSearchValueSelector } from '@/shared/store/posts'
 import { clsx } from 'clsx'
 import { ChangeEvent, useState } from 'react'
+import { useDebounceCallback, useDebounceValue } from 'usehooks-ts'
 
 import { LeftSideWithIcon } from './LeftSideWithIcon'
 import s from './s.module.scss'
@@ -14,8 +15,10 @@ interface SearchInputProps {
 }
 
 export const SearchInput = ({ className }: SearchInputProps) => {
-    const [value, setValue] = useState<string>('')
     const [open, setOpen] = useState(false)
+
+    const search = useSetSearchValueSelector()
+    const setSearch = useDebounceCallback(search, 300)
 
     const { elementRef } = useOutsideClick({
         attached: open,
@@ -23,7 +26,7 @@ export const SearchInput = ({ className }: SearchInputProps) => {
     })
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value)
+        setSearch(e.target.value)
     }
 
     const onFocus = () => {
@@ -41,7 +44,6 @@ export const SearchInput = ({ className }: SearchInputProps) => {
                     onFocus={onFocus}
                     placeholder='Поиск'
                     className={s.input}
-                    value={value}
                     onChange={onChange}
                 />
             </div>

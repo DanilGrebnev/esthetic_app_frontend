@@ -1,5 +1,5 @@
 import { ActiveTags } from './ActiveTags/ActiveTags'
-import { RecommendedTags } from './RecommendedTags'
+import { SearchTags } from './SearchTags'
 
 interface DropDownProps {
     className?: string
@@ -11,7 +11,7 @@ export const SearchPostsDropDown = (props: DropDownProps) => {
     return (
         <div className={className}>
             <ActiveTags />
-            <RecommendedTags />
+            <SearchTags />
         </div>
     )
 }

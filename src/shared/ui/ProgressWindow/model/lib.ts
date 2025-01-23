@@ -9,3 +9,4 @@ export const getSetting = (setting?: TSetting) => {
 
     return { transition }
 }
+
