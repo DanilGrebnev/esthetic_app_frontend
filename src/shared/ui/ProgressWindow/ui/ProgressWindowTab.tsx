@@ -1,25 +1,19 @@
 'use client'
 
+import { type CSSProperties } from 'react'
+
 import { usePrivateProgressWindowContext } from '../model/hooks'
 import { ProgressWindowTabProps } from '../model/types'
 
 export function ProgressWindowTab(props: ProgressWindowTabProps) {
     const { children, className, style } = props
-    const { parentContainerWidth, currentPage } =
-        usePrivateProgressWindowContext()
+    const { parentContainerWidth } = usePrivateProgressWindowContext()
 
     if (!children || !parentContainerWidth) return
 
-    const styles = parentContainerWidth
-        ? {
-              minWidth: parentContainerWidth + 'px',
-              ...style,
-          }
-        : style
-
     return (
         <div
-            style={styles}
+            style={createStyle({ parentContainerWidth, style })}
             className={className}
         >
             {children}
@@ -28,3 +22,19 @@ export function ProgressWindowTab(props: ProgressWindowTabProps) {
 }
 
 ProgressWindowTab.displayName = 'ProgressWindowTab'
+
+function createStyle({
+    parentContainerWidth,
+    style,
+}: {
+    parentContainerWidth: number
+    style?: CSSProperties
+}) {
+    const parentWidth = parentContainerWidth + 'px'
+
+    return {
+        minWidth: parentWidth,
+        maxWidth: parentWidth,
+        ...style,
+    }
+}

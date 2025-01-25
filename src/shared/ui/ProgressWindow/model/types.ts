@@ -26,6 +26,7 @@ export type TSetting = { transition?: number }
 export interface TProgressWindowContainer {
     children: ReactNode[]
     className?: string
+    /** in seconds */
     setting?: TSetting
 }
 
