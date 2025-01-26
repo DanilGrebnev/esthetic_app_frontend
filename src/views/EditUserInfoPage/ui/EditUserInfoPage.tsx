@@ -10,10 +10,8 @@ import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
-import { InputWithValidation } from '@/shared/ui/InputWithValidation'
 import { Controller, useForm } from 'react-hook-form'
 
-import { submitProfile } from '../model/submitProfile'
 import { EditUserInfoSkeleton } from './components/EditUserInfoSkeleton'
 import s from './s.module.scss'
 
@@ -24,15 +22,16 @@ export const EditUserInfoPage = () => {
     const {
         handleSubmit,
         control,
+        reset,
         formState: { errors, defaultValues },
-    } = useForm<Omit<CreateUser, 'tags' | 'password' | 'avatar'>>({
+    } = useForm<Omit<CreateUser, 'password' | 'avatar'>>({
         mode: 'onBlur',
-
         values: {
             firstName: profile?.firstName ?? '',
             lastName: profile?.lastName ?? '',
             email: profile?.email ?? '',
             userName: profile?.userName ?? '',
+            tags: profile?.tags ?? [],
         },
     })
 
@@ -48,6 +47,7 @@ export const EditUserInfoPage = () => {
         if (!(formData.get('avatar') as File).size) {
             formData.delete('avatar')
         }
+
         mutate(formData)
     })
 
@@ -123,8 +123,24 @@ export const EditUserInfoPage = () => {
                                 />
                             )}
                         />
-
-                        <InputWithTags defaultValue={profile?.tags} />
+                        <Controller
+                            control={control}
+                            name='tags'
+                            render={({ field }) => {
+                                return (
+                                    <InputWithTags
+                                        onChange={field.onChange}
+                                        defaultValue={field.value}
+                                    />
+                                )
+                            }}
+                        />
+                        {/* <InputWithTags
+                            // onChange={(tags) => {
+                            //     console.log(tags)
+                            // }}
+                            defaultValue={profile?.tags}
+                        /> */}
                     </>
                 )}
 
@@ -135,7 +151,9 @@ export const EditUserInfoPage = () => {
                     >
                         Изменить
                     </Button>
-                    <Button>Отменить</Button>
+                    <Button onClick={() => reset(defaultValues)}>
+                        Отменить
+                    </Button>
                 </div>
             </form>
         </Container>

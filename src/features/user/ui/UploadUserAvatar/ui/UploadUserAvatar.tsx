@@ -1,5 +1,6 @@
 'use client'
 
+import { Skeleton } from '@/shared/ui/Skeleton'
 import { UploadFiles } from '@/shared/ui/UploadFile'
 import { clsx } from 'clsx'
 import Image from 'next/image'
@@ -15,7 +16,7 @@ interface UploadUserAvatar {
 }
 
 export const UploadUserAvatar = (props: UploadUserAvatar) => {
-    const { onChange, defaultValue, loading, className } = props
+    const { onChange, defaultValue, className } = props
 
     const [objectUrl, setObjectUrl] = useState<string | null>(null)
     const fileRef = useRef<HTMLInputElement>(null)
@@ -35,7 +36,7 @@ export const UploadUserAvatar = (props: UploadUserAvatar) => {
     const onChangeAvatar = (files: FileList) => onChange?.(files[0])
 
     return (
-        <div className={clsx(s['upload-user-avatar-container'], className)}>
+        <div className={clsx(s['avatar-container'], className)}>
             <div className={s['preview-area']}>
                 <UploadFiles
                     ref={fileRef}
@@ -54,9 +55,11 @@ export const UploadUserAvatar = (props: UploadUserAvatar) => {
                             fill={true}
                             src={objectUrl}
                             priority={false}
+                            loading='lazy'
                             alt='Предпросмотр аватара'
                             className={s['avatar-preview']}
                         />
+
                         <div
                             onClick={deleteAvatar}
                             className={s['delete-avatar-area']}

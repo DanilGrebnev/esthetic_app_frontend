@@ -10,7 +10,7 @@ export type TOnChange = (tags: Tag[]) => void
 export interface InputProps
     extends Omit<ComponentPropsWithRef<'input'>, 'onChange'> {
     setTags: Dispatch<SetStateAction<Tag[]>>
-    onChange?: TOnChange
+    onChange?: (tags: Tag[]) => void
     tags: Tag[]
 }
 
@@ -18,7 +18,7 @@ export interface InputWithTagsProps {
     className?: string
     defaultValue?: Tag[] | []
     onClick?: (tag: Tag) => void
-    onChange?: TOnChange
+    onChange?: (tags: Tag[]) => void
     disabled?: boolean
     name?: string
     value?: Tag[]
