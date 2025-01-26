@@ -1,16 +1,11 @@
 .comment-container {
-    position: relative;
+    @apply relative overflow-auto;
 }
 
 .comments-content {
-    @apply flex gap-[--global-gap-1];
-
-    &-text {
-        word-wrap: break-word;
-        p {
-            display: inline-block;
-        }
-    }
+    @apply flex 
+    gap-[--global-gap-1] 
+    w-full overflow-auto;
 }
 
 .content {
@@ -22,7 +17,5 @@
 }
 
 .write-section {
-    margin-top: var(--global-gap-1);
+    @apply mt-[--global-gap-1];
 }
-
-

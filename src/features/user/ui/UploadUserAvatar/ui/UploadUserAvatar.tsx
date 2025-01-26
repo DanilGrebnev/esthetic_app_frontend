@@ -11,10 +11,11 @@ interface UploadUserAvatar {
     onChange?: (file: File) => void
     className?: string
     defaultValue?: string | null
+    loading?: boolean
 }
 
 export const UploadUserAvatar = (props: UploadUserAvatar) => {
-    const { onChange, defaultValue, className } = props
+    const { onChange, defaultValue, loading, className } = props
 
     const [objectUrl, setObjectUrl] = useState<string | null>(null)
     const fileRef = useRef<HTMLInputElement>(null)
@@ -31,6 +32,8 @@ export const UploadUserAvatar = (props: UploadUserAvatar) => {
         fileRef.current.value = ''
     }, [])
 
+    const onChangeAvatar = (files: FileList) => onChange?.(files[0])
+
     return (
         <div className={clsx(s['upload-user-avatar-container'], className)}>
             <div className={s['preview-area']}>
@@ -41,12 +44,8 @@ export const UploadUserAvatar = (props: UploadUserAvatar) => {
                         [s.hidden]: objectUrl,
                     })}
                     name='avatar'
-                    onChange={(files) => {
-                        onChange?.(files[0])
-                    }}
-                    onSetObjectURL={(string) => {
-                        setObjectUrl(string)
-                    }}
+                    onChange={onChangeAvatar}
+                    onSetObjectURL={setObjectUrl}
                 />
 
                 {objectUrl && (

@@ -56,6 +56,7 @@ export const useTagsInput = ({ setTags, onChange, tags }: TUseTagsInput) => {
             addTag()
         }
     }
+
     return {
         onChangeTags,
         clearLabel,

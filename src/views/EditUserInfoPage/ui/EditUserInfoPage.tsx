@@ -8,11 +8,12 @@ import {
 import { type CreateUser } from '@/shared/types/user'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
+import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
-import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
+import { submitProfile } from '../model/submitProfile'
 import { EditUserInfoSkeleton } from './components/EditUserInfoSkeleton'
 import s from './s.module.scss'
 
@@ -21,26 +22,19 @@ export const EditUserInfoPage = () => {
     const { mutate, isPending } = useChangeUserProfileData()
 
     const {
-        register,
         handleSubmit,
+        control,
         formState: { errors, defaultValues },
     } = useForm<Omit<CreateUser, 'tags' | 'password' | 'avatar'>>({
         mode: 'onBlur',
 
         values: {
-            firstName: profile?.firstName ?? ' ',
-            lastName: profile?.lastName ?? ' ',
-            email: profile?.email ?? ' ',
-            userName: profile?.userName ?? ' ',
+            firstName: profile?.firstName ?? '',
+            lastName: profile?.lastName ?? '',
+            email: profile?.email ?? '',
+            userName: profile?.userName ?? '',
         },
     })
-    useEffect(() => {
-        console.log('isFetching', isFetching)
-    }, [isFetching])
-
-    useEffect(() => {
-        console.log('Profile update')
-    }, [profile])
 
     const onSubmit = handleSubmit((data, e) => {
         const formData = new FormData(e?.target)
@@ -54,7 +48,6 @@ export const EditUserInfoPage = () => {
         if (!(formData.get('avatar') as File).size) {
             formData.delete('avatar')
         }
-
         mutate(formData)
     })
 
@@ -78,28 +71,57 @@ export const EditUserInfoPage = () => {
                             }
                             className={s.avatar}
                         />
-
-                        <InputWithValidation
-                            register={register}
-                            label='Имя*'
+                        <Controller
+                            control={control}
+                            rules={{ required: 'Обязательно для заполнения' }}
                             name='firstName'
-                            errors={errors}
-                            required
+                            render={({ field }) => (
+                                <Input
+                                    label='Имя*'
+                                    error={!!errors.firstName}
+                                    helperText={errors.firstName?.message}
+                                    {...field}
+                                />
+                            )}
                         />
-                        <InputWithValidation
-                            register={register}
-                            label='Фамилия'
+                        <Controller
+                            control={control}
+                            rules={{ required: 'Обязательно для заполнения' }}
                             name='lastName'
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    label='Фамилия*'
+                                    error={!!errors.lastName}
+                                    helperText={errors.lastName?.message}
+                                />
+                            )}
                         />
-                        <InputWithValidation
-                            register={register}
-                            label='Username'
+                        <Controller
+                            control={control}
+                            rules={{ required: 'Обязательно для заполнения' }}
                             name='userName'
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    label='Username'
+                                    error={!!errors.userName}
+                                    helperText={errors.userName?.message}
+                                />
+                            )}
                         />
-                        <InputWithValidation
-                            register={register}
-                            label='Почта пользователя*'
+                        <Controller
+                            control={control}
+                            rules={{ required: 'Обязательно для заполнения' }}
                             name='email'
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    label='Почта пользователя'
+                                    error={!!errors.email}
+                                    helperText={errors.email?.message}
+                                />
+                            )}
                         />
 
                         <InputWithTags defaultValue={profile?.tags} />

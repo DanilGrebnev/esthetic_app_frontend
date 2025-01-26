@@ -1,8 +1,5 @@
 'use client'
 
-import { useAnswerOnComment } from '@/features/commentaries/model/hooks/useAnswerOnComment'
-import { useCommentsIdInDeleteQueueList } from '@/features/commentaries/model/hooks/useCommentsIdInDeleteQueueList'
-import { useCreateComment } from '@/features/commentaries/model/hooks/useCreateComment'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { routes } from '@/shared/routes'
 import {
@@ -18,6 +15,9 @@ import { clsx } from 'clsx'
 import Link from 'next/link'
 import { memo } from 'react'
 
+import { useAnswerOnComment } from '../../../model/hooks/useAnswerOnComment'
+import { useCommentsIdInDeleteQueueList } from '../../../model/hooks/useCommentsIdInDeleteQueueList'
+import { useCreateComment } from '../../../model/hooks/useCreateComment'
 import { CommentariesWriteField } from '../../WriteCommentSection'
 import { AnswerInfo } from './AnswerInfo'
 import { CommentControl } from './CommentControl'
@@ -110,14 +110,14 @@ export const CommentariesItem = memo((props: CommentariesItemProps) => {
                     />
                 </Link>
                 <div className={s.content}>
-                    <div className={s['comm-text']}>
-                        <UserName
-                            firstName={author.firstName}
-                            lastName={author.lastName}
-                        />
-                        {answerInfo && <AnswerInfo {...answerInfo} />}
-                        <CommentText>{text}</CommentText>
-                    </div>
+                    {/* <div className={s['comm-text']}> */}
+                    <UserName
+                        firstName={author.firstName}
+                        lastName={author.lastName}
+                    />
+                    {answerInfo && <AnswerInfo {...answerInfo} />}
+                    <CommentText>{text}</CommentText>
+                    {/* </div> */}
                     <CommentControl
                         isOwner={author.isOwner}
                         likeCount={likeCount}

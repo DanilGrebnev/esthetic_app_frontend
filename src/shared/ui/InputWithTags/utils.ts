@@ -3,7 +3,7 @@
  * @param string - текст тега
  */
 export const isValidLabel = (string: string) => {
-    return string.length >= 3
+    return string.length >= 2
 }
 
 export const setInitialTags = <T extends { length: number } | undefined>(
