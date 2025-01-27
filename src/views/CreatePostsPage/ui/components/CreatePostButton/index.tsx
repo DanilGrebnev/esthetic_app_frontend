@@ -2,7 +2,7 @@ import { Button } from '@/shared/ui/Button'
 import { FC, RefObject, useEffect } from 'react'
 
 interface PublishPostsBtnProps {
-    submitButtonRef: RefObject<HTMLButtonElement>
+    submitButtonRef: RefObject<HTMLButtonElement | null>
     loading?: boolean
     isSuccess: boolean
 }

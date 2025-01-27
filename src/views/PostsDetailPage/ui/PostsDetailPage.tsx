@@ -30,12 +30,13 @@ export const PostsDetailPage = async ({
         >
             <InitialSetPostIdInStore postId={postId} />
             <DeleteCommentsAfterUnmount postId={postId} />
-            <div className={s['content-container']}>
+            <div id={s['content-container']}>
                 <PostImage
                     aspectRatio={post?.media?.aspectRatio}
                     name={post.name}
                     url={post.media.url}
                     urlBlur={post.media.urlBlur}
+                    className={s.image}
                 />
                 <div className={s.content}>
                     <PostsDetailHeader
@@ -45,6 +46,7 @@ export const PostsDetailPage = async ({
                         description={post?.description}
                         pathToImg={post?.media?.url}
                         author={post?.author}
+                        link={post?.link}
                     />
                     <CommentsList
                         postId={postId}

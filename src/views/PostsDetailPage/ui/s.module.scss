@@ -8,7 +8,7 @@ $padding: 20px;
     overflow-auto;
 }
 
-.content-container {
+#content-container {
     @apply grid 
     grid-cols-[400px,_1fr] 
     grid-rows-1
@@ -50,18 +50,26 @@ $padding: 20px;
 }
 
 @media screen and (width <= 750px) {
-    .content-container {
+    #content-container {
         @apply flex 
         flex-col
         gap-[--global-gap-2]
         my-0
         mx-auto
         p-0
-        max-w-[500px];
+        max-w-[98%];
         padding-bottom: $padding;
+    }
+
+    .image {
+        @apply p-[10px];
     }
 
     .content__comments {
         min-height: 500px;
+    }
+
+    .content__header {
+        padding: $padding;
     }
 }

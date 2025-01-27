@@ -38,7 +38,7 @@ export const createOnChange =
 /* Создаёт обработчик события onDrop, который срабатывает при перетаскивании и отпускании файла */
 export const createOnDrop = (
     props: IUploadFiles,
-    inputRef: RefObject<HTMLInputElement>,
+    inputRef: RefObject<HTMLInputElement | null>,
     setIsOver: (value: SetStateAction<boolean>) => void,
 ) =>
     stopPropAndPrevDef(({ dataTransfer }: TDragEvent) => {

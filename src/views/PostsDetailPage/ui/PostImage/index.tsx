@@ -2,6 +2,7 @@
 
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import { calculateHeightFromAspectRatio } from '@/shared/utils/calculateHeightFromAspectRatio'
+import clsx from 'clsx'
 import { useLayoutEffect, useRef, useState } from 'react'
 
 import s from './post-image.module.scss'
@@ -11,10 +12,11 @@ interface PostImageProps {
     name: string
     url: string
     urlBlur: string
+    className?: string
 }
 
 export const PostImage = (props: PostImageProps) => {
-    const { aspectRatio, name = '', url, urlBlur } = props
+    const { aspectRatio, className, name = '', url, urlBlur } = props
     const ref = useRef<HTMLDivElement>(null)
     const [height, setHeight] = useState<number>(0)
 
@@ -26,7 +28,7 @@ export const PostImage = (props: PostImageProps) => {
     return (
         <div
             ref={ref}
-            className={s['image-container']}
+            className={clsx(s['image-container'], className)}
             style={{
                 height: calculateHeightFromAspectRatio(aspectRatio, height),
                 minHeight: calculateHeightFromAspectRatio(aspectRatio, height),

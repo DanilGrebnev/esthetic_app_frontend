@@ -17,6 +17,7 @@ interface PostsDetailHeaderProps {
     title: string
     author: TAuthor
     postsId: string
+    link?: string
 }
 
 export const PostsDetailHeader = ({
@@ -26,6 +27,7 @@ export const PostsDetailHeader = ({
     title,
     author,
     postsId,
+    link,
 }: PostsDetailHeaderProps) => {
     return (
         <header className={clsx(s.header, className)}>
@@ -48,6 +50,7 @@ export const PostsDetailHeader = ({
             <div className={s['posts-info']}>
                 <h2 className={s['posts-info__title']}>{title}</h2>
                 {description && <Description>{description}</Description>}
+                {link && <a href={link}>{link}</a>}
                 <div className={s['user-info']}>
                     <Link
                         href={routes.userCreatedPosts.getRoute(author?.userId)}
