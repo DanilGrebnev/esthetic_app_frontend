@@ -13,7 +13,7 @@ export const RecommendedTags = forwardRef<HTMLInputElement, TRecommendedTags>(
         const { recommendedTags, inputRef, toggleRecommendedTag } =
             useRecommendedTags(initialTags)
 
-        const combinedRef = useCombinedRef(inputRef, ref)
+        const combinedRef = useCombinedRef<HTMLInputElement>(inputRef, ref)
 
         return (
             <div className={s['recommended-tag-list']}>

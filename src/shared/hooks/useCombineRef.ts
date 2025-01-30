@@ -1,17 +1,16 @@
-import { type ForwardedRef, useCallback } from 'react'
+import { Ref, RefObject } from 'react'
 
-export const useCombinedRef = <T extends any>(...refs: ForwardedRef<T>[]) => {
-    return useCallback(
-        (element: T) => {
-            refs.forEach((ref) => {
-                if (!ref) return
-                if (typeof ref === 'function') {
-                    ref(element)
-                } else {
-                    ref.current = element
-                }
-            })
-        },
-        [refs],
-    )
+export const useCombinedRef = <T extends HTMLElement = HTMLElement>(
+    ...refs: ((Ref<T> | undefined) | (RefObject<T> | undefined))[]
+) => {
+    return (element: T) => {
+        refs.forEach((ref) => {
+            if (!ref) return
+            if (typeof ref === 'function') {
+                ref(element)
+            } else {
+                ref.current = element
+            }
+        })
+    }
 }

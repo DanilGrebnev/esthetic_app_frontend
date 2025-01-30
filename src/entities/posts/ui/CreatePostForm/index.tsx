@@ -5,17 +5,17 @@ import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { Tag } from '@/shared/ui/InputWithTags/types'
 import { validationInputs } from '@/shared/validationInputs'
-import { MutableRefObject, forwardRef, memo, useCallback, useRef } from 'react'
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import { RefObject, forwardRef, memo, useCallback, useRef } from 'react'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
 import { UploadPostsContentWindow } from '../UploadPostsContentWindow'
 import s from './s.module.scss'
 
-interface CreatePostFormProps {
-    mutate: (formData: FormData) => void
+interface CreatePostFormProps<T extends Record<string, any> = TCreatePosts> {
+    mutate: ({ formData, data }: { formData: FormData; data: T }) => void
     isPending?: boolean
     postsEdit?: boolean
-    submitBtnRef?: MutableRefObject<HTMLButtonElement | null>
+    submitBtnRef?: RefObject<HTMLButtonElement | null>
     defaultValues?: Omit<TCreatePosts, 'file' | 'aspectRatio'> & {
         tags: Tag[] | []
     }
@@ -33,6 +33,7 @@ export const CreatePostForm = memo(
 
         const {
             register,
+            control,
             handleSubmit,
             setError,
             clearErrors,
@@ -68,7 +69,7 @@ export const CreatePostForm = memo(
                 })
             }
 
-            mutate(formData)
+            mutate({ formData, data })
         }
 
         return (
@@ -87,39 +88,49 @@ export const CreatePostForm = memo(
                     </div>
                 )}
                 <div className={s['right-col']}>
-                    <Input
-                        label='Название'
-                        placeholder='Добавить название'
-                        variant='outlined'
-                        {...register('name', {
-                            required: validationInputs.required.message,
-                        })}
-                        error={!!errors.name?.message}
-                        helperText={errors.name?.message}
+                    <Controller
+                        name='name'
+                        control={control}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                label='Название'
+                                placeholder='Добавить название'
+                                variant='outlined'
+                                error={!!errors.name?.message}
+                                helperText={errors.name?.message}
+                            />
+                        )}
                     />
-                    <Input
-                        id='outlined-basic'
-                        label='Добавить описание'
-                        placeholder='Добавьте подробное описание'
-                        multiline
-                        minRows={5}
-                        maxRows={10}
-                        variant='outlined'
-                        {...register('description')}
+                    <Controller
+                        name='description'
+                        control={control}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                id='outlined-basic'
+                                label='Добавить описание'
+                                placeholder='Добавьте подробное описание'
+                                multiline
+                                minRows={5}
+                                maxRows={10}
+                                variant='outlined'
+                            />
+                        )}
                     />
-                    <Input
-                        label='Ссылка'
-                        placeholder='Добавить ссылку'
-                        variant='outlined'
-                        {...register('link')}
+                    <Controller
+                        name='link'
+                        control={control}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                id='outlined-basic'
+                                label='Ссылка'
+                                placeholder='Добавьте ссылку'
+                                variant='outlined'
+                            />
+                        )}
                     />
-                    {/* <Select
-                        label='Доска'
-                        placeholder='Выбрать доску'
-                        name='dashboard'
-                    >
-                        {dashboardsList}
-                    </Select> */}
                     <InputWithTags
                         defaultValue={defaultValues?.tags}
                         onChange={onChangeTags}

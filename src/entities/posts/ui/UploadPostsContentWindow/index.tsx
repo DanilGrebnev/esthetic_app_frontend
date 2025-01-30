@@ -38,7 +38,7 @@ export const UploadPostsContentWindow = memo(
 
             const actions = usePostsSliceActions()
             const inputRef = useRef<HTMLInputElement | null>(null)
-            const combinedRef = useCombinedRef(inputRef, ref)
+            const combinedRef = useCombinedRef<HTMLInputElement>(inputRef, ref)
 
             const onChange = (files: FileList) => {
                 readFile(files[0]).then((file) => {

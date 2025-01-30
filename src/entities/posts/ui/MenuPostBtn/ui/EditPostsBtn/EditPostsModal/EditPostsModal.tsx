@@ -38,7 +38,7 @@ export const EditPostsModal = () => {
                         description: postData?.post?.description ?? '',
                         tags: postData?.post?.tags ?? [],
                     }}
-                    mutate={(formData) => {
+                    mutate={({ formData }) => {
                         mutate(
                             { body: formData, postsId },
                             {

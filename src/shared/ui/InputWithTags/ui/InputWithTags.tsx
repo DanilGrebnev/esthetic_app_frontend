@@ -44,7 +44,10 @@ export const InputWithTags = memo(
         const { nodeRef, width } = useFixSize<HTMLDivElement>()
         const { inputRef, focusOnInput } = useFocusOnInput()
 
-        const combinedHiddenInputRef = useCombinedRef(hiddenInputRef, ref)
+        const combinedHiddenInputRef = useCombinedRef<HTMLInputElement>(
+            hiddenInputRef,
+            ref,
+        )
 
         const deleteTag = useCallback(
             (tagId: string) => {

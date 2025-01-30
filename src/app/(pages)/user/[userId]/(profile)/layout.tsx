@@ -4,6 +4,7 @@ import {
     UserPublicProfileHeaderSkeleton,
 } from '@/widgets/UserPublicProfileHeader'
 import { type ReactNode, Suspense } from 'react'
+import s from './profile-layout.module.scss'
 
 interface UserLayout {
     children: ReactNode
@@ -12,15 +13,17 @@ interface UserLayout {
     }
 }
 
-const UserLayout = ({ children, params }: UserLayout) => {
+const UserLayout = async ({ children, params }: UserLayout) => {
+    const { userId } = await params
+
     return (
         <Container
             size='l'
             id='Profile layout'
-            className='flex flex-col grow'
+            className={s['profile-container']}
         >
             <Suspense fallback={<UserPublicProfileHeaderSkeleton />}>
-                <UserPublicProfileHeader userId={params.userId} />
+                <UserPublicProfileHeader userId={userId} />
             </Suspense>
             {children}
         </Container>

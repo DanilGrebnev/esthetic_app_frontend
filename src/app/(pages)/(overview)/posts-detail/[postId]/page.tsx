@@ -5,7 +5,8 @@ export async function generateMetadata({
 }: {
     params: { postId: string }
 }) {
-    const postData = await postsApi.getPostDetail({ postId: params.postId })
+    const { postId } = await params
+    const postData = await postsApi.getPostDetail({ postId })
 
     return {
         title: postData?.post?.name,

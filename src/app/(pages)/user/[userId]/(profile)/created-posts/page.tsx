@@ -12,7 +12,8 @@ export async function generateMetadata({
 }: {
     params: { userId: string }
 }) {
-    const userProfile = await getUserPublicProfileServerAction(params.userId)
+    const { userId } = await params
+    const userProfile = await getUserPublicProfileServerAction(userId)
 
     return {
         title: `Посты пользователя ${userProfile.user.firstName} ${userProfile.user.lastName}`,
@@ -20,8 +21,10 @@ export async function generateMetadata({
 }
 
 /* Созданные пользователем посты */
-const CreatedPosts = (props: Props) => {
-    return <CreatedPostsPage userId={props.params.userId} />
+const CreatedPosts = async ({ params }: Props) => {
+    const { userId } = await params
+
+    return <CreatedPostsPage userId={userId} />
 }
 
 export default CreatedPosts

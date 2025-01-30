@@ -15,9 +15,8 @@ interface DetailPostsParams {
     }
 }
 
-export const PostsDetailPage = async ({
-    params: { postId },
-}: DetailPostsParams) => {
+export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
+    const { postId } = await params
     const postData = await postsApi.getPostDetail({ postId })
 
     if (!postData) return <h1>Ошибка </h1>

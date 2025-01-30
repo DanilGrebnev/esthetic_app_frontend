@@ -13,11 +13,11 @@ import {
 import s from './s.module.scss'
 
 export const UploadFiles = memo(
-    forwardRef<HTMLInputElement, IUploadFiles>((props, ref) => {
+    forwardRef<HTMLInputElement, IUploadFiles>((props: IUploadFiles, ref) => {
         const [isOver, setIsOver] = useState<boolean>(false)
 
         const inputRef = useRef<HTMLInputElement>(null)
-        const combineRef = useCombinedRef(ref, inputRef)
+        const combineRef = useCombinedRef<HTMLInputElement>(ref, inputRef)
         const onChange = createOnChange(props)
         const onDrop = createOnDrop(props, inputRef, setIsOver)
 
