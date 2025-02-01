@@ -2,6 +2,8 @@ import type { TAspectRatio } from '@/shared/types/media'
 import type { TAuthor } from '@/shared/types/user'
 import type { Tag } from '@/shared/ui/InputWithTags/types'
 
+import { SuccessResponse } from './apiResponses'
+
 /* Базовй тип поста */
 export interface TPosts {
     postId: string
@@ -64,4 +66,8 @@ export interface TPostsPreview {
 export interface TSearchPostsTags {
     tag: string
     active: boolean
+}
+
+export interface TTogglePostsLikeResponse extends SuccessResponse {
+    postId: string
 }

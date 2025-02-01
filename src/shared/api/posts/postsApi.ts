@@ -1,7 +1,11 @@
 import { api } from '@/shared/api/Instance'
 import { isErrorResponse } from '@/shared/types/apiResponses'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
-import type { TPostsDetail, TPostsPreview } from '@/shared/types/posts'
+import type {
+    TPostsDetail,
+    TPostsPreview,
+    TTogglePostsLikeResponse,
+} from '@/shared/types/posts'
 
 import { createBaseResponse } from '../lib'
 
@@ -93,7 +97,13 @@ class PostsApi {
             .json()
     }
 
-    getRecommendedTags = () => {}
+    toggleLikeOnPost = (postId: string) => {
+        return api
+            .put(this.baseUrl + '/toggle-like/' + postId, {
+                credentials: 'include',
+            })
+            .json<TTogglePostsLikeResponse>()
+    }
 }
 
 export const postsApi = new PostsApi()

@@ -1,0 +1,29 @@
+.btn-container {
+    @apply flex
+    max-w-max;
+}
+
+.icon {
+    --s: 20px;
+    @apply w-[--s] 
+    h-[--s] 
+    stroke-[1px] 
+    cursor-pointer
+    fill-transparent;
+    stroke: var(--text-palette-3);
+}
+
+.like-amount {
+    color: var(--text-palette-3);
+    font-size: var(--font-200);
+}
+
+.liked {
+    @apply fill-[red] 
+    stroke-transparent;
+}
+
+.unactive {
+    @apply cursor-none 
+    pointer-events-none;
+}

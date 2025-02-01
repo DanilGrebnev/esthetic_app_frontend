@@ -1,35 +1,41 @@
-.header__btn-group {
+.header__btn_group {
     display: flex;
 }
 
-.left-btn-group {
+.left_btn_group {
     display: flex;
     gap: var(--global-gap-1);
 }
 
-.right-btn-group {
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-end;
+.right_btn_group {
+    @apply flex 
+    grow 
+    justify-end;
 }
 
-.save-btn {
-    flex-grow: 1;
-    justify-self: flex-end;
+.save_btn {
+    @apply grow self-end;
 }
 
-.posts-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--global-gap-1);
+.posts_info {
+    @apply flex 
+    flex-col
+    gap-[--global-gap-1];
 }
 
-.posts-info__title {
+.posts_info__title {
     font-size: var(--font-400);
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: var(--global-gap-1);
+.user_info {
+    @apply flex 
+    items-center 
+    gap-[--global-gap-1];
+}
+
+// LIKE BUTTON
+.like_post_btn {
+    @apply flex 
+    gap-[--global-gap-1]
+    text-[--text-palette-3];
 }

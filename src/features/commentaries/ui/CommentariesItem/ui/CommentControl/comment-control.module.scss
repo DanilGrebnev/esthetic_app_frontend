@@ -1,9 +1,18 @@
 .comm-control {
-    @apply flex gap-[--global-gap-2] w-full text-[--text-palette-3] flex-wrap;
-
+    @apply flex 
+    gap-[--global-gap-2] 
+    w-full 
+    flex-wrap
+    text-[--text-palette-3];
     font-size: var(--font-200);
 }
 
 .btn-control {
-    @apply grow flex gap-[--global-gap-1];
+    @apply flex 
+    grow 
+    gap-[--global-gap-1];
+}
+
+.like_btn_container {
+    @apply flex grow justify-end;
 }

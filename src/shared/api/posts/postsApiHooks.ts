@@ -121,3 +121,18 @@ export const useUpdatePostsMutation = ({ postsId }: { postsId: string }) => {
         },
     })
 }
+
+export const useToggleLikeOnPostMutation = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: postsApi.toggleLikeOnPost,
+        onSuccess: ({ postId }) => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.posts.postsDetail(postId)],
+            })
+
+            revalidatePostsDetailPage(postId)
+        },
+    })
+}

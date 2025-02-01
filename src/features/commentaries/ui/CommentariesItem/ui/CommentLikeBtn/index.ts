@@ -1,1 +1,1 @@
-export { CommentLikeBtn } from './ui/CommentLikeBtn'
+export { CommentLikeBtn } from './CommentLikeBtn'

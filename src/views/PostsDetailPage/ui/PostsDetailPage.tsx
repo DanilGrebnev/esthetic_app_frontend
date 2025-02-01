@@ -2,6 +2,7 @@ import { CommentsList } from '@/features/commentaries'
 import { DeleteCommentsAfterUnmount } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
+import { cookies } from 'next/headers'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
 import { InitialSetPostIdInStore } from './InitialSetPostIdInStore'
@@ -29,7 +30,7 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
         >
             <InitialSetPostIdInStore postId={postId} />
             <DeleteCommentsAfterUnmount postId={postId} />
-            <div id={s['content-container']}>
+            <div id={s.content_container}>
                 <PostImage
                     aspectRatio={post?.media?.aspectRatio}
                     name={post.name}
@@ -39,7 +40,8 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                 />
                 <div className={s.content}>
                     <PostsDetailHeader
-                        className={s['content__header']}
+                        likeCount={post.likeCount}
+                        className={s.content__header}
                         postsId={post?.postId}
                         title={post.name}
                         description={post?.description}
@@ -49,10 +51,10 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                     />
                     <CommentsList
                         postId={postId}
-                        className={s['content__comments']}
+                        className={s.content__comments}
                     />
 
-                    <div className={s['write-commentaries']}>
+                    <div className={s.write_commentaries}>
                         <CommentsWriteFielSection />
                     </div>
                 </div>

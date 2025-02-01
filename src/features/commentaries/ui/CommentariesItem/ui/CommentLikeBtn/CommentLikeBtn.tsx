@@ -1,10 +1,7 @@
 import { useToggleLikeCommentMutation } from '@/shared/api/comments'
-import HeartIcon from '@/shared/assets/heart-icon.svg'
 import { useGetPostIdSelector } from '@/shared/store/posts'
-import clsx from 'clsx'
+import { LikeBtn } from '@/shared/ui/LikeBtn/LikeBtn'
 import { MouseEventHandler } from 'react'
-
-import s from './comment-like-btn.module.scss'
 
 interface CommentLikeBtnProps {
     likeCount?: number
@@ -22,17 +19,13 @@ export const CommentLikeBtn = (props: CommentLikeBtnProps) => {
     const { mutate } = useToggleLikeCommentMutation()
 
     return (
-        <div className={clsx(s['btn-container'], className)}>
-            <HeartIcon
-                onClick={() => {
-                    mutate({ commentId, postId })
-                }}
-                className={clsx(s.icon, {
-                    [s.liked]: isLiked,
-                    [s.unactive]: isOwner,
-                })}
-            />
-            <p className={s['like-amount']}>{likeCount}</p>
-        </div>
+        <LikeBtn
+            className={className}
+            unactive={isOwner}
+            isLiked={isLiked}
+            enableLikeCount={true}
+            likeCount={likeCount}
+            onClick={() => mutate({ commentId, postId })}
+        />
     )
 }

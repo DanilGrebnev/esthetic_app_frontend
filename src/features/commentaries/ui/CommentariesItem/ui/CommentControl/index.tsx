@@ -46,13 +46,15 @@ export const CommentControl = (props: CommentControlProps) => {
                         <DeleteBtn onClick={onDelete} />
                     </>
                 )}
-
-                <CommentLikeBtn
-                    isOwner={isOwner}
-                    commentId={commentId}
-                    isLiked={isLiked}
-                    likeCount={likeCount}
-                />
+                <div className={s.like_btn_container}>
+                    <CommentLikeBtn
+                        className={s.like_btn}
+                        isOwner={isOwner}
+                        commentId={commentId}
+                        isLiked={isLiked}
+                        likeCount={likeCount}
+                    />
+                </div>
             </div>
         </div>
     )

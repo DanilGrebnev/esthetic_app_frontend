@@ -9,6 +9,7 @@ import Link from 'next/link'
 
 import s from './PostsDetailHeader.module.scss'
 import { Description } from './ui/Description'
+import { LikePostBtn } from './ui/LikePostBtn'
 
 interface PostsDetailHeaderProps {
     className?: string
@@ -18,21 +19,25 @@ interface PostsDetailHeaderProps {
     author: TAuthor
     postsId: string
     link?: string
+    likeCount: number
 }
 
-export const PostsDetailHeader = ({
-    className,
-    pathToImg,
-    description,
-    title,
-    author,
-    postsId,
-    link,
-}: PostsDetailHeaderProps) => {
+export const PostsDetailHeader = (props: PostsDetailHeaderProps) => {
+    const {
+        className,
+        pathToImg,
+        description,
+        title,
+        author,
+        postsId,
+        link,
+        likeCount,
+    } = props
+
     return (
         <header className={clsx(s.header, className)}>
-            <div className={s['header__btn-group']}>
-                <div className={s['left-btn-group']}>
+            <div className={s.header__btn_group}>
+                <div className={s.left_btn_group}>
                     <DownloadFileBtn
                         href={pathToImg}
                         downloadFileName={title}
@@ -40,18 +45,31 @@ export const PostsDetailHeader = ({
                     <MenuPostBtn postsId={postsId} />
                 </div>
 
-                <div className={s['right-btn-group']}>
+                <div className={s.right_btn_group}>
                     <SaveToDashboardButton
                         postsId={postsId}
-                        className={s['save-btn']}
+                        className={s.save_btn}
                     />
                 </div>
             </div>
-            <div className={s['posts-info']}>
-                <h2 className={s['posts-info__title']}>{title}</h2>
+            <div className={s.posts_info}>
+                <h2 className={s.posts_info__title}>{title}</h2>
+
+                {/** DESCRIPTION */}
                 {description && <Description>{description}</Description>}
+
+                {/**LIKE BUTTON */}
+                <LikePostBtn
+                    postsId={postsId}
+                    className={s.like_post_btn}
+                    likeCount={likeCount}
+                />
+
+                {/** LINK */}
                 {link && <a href={link}>{link}</a>}
-                <div className={s['user-info']}>
+
+                {/**USER INFO */}
+                <div className={s.user_info}>
                     <Link
                         href={routes.userCreatedPosts.getRoute(author?.userId)}
                     >
