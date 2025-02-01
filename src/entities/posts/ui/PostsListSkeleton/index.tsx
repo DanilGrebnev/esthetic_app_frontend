@@ -1,4 +1,4 @@
-import { Skeleton } from '@mui/material'
+import { Skeleton } from '@/shared/ui/Skeleton'
 import { CSSProperties } from 'react'
 
 import s from './s.module.scss'
@@ -25,7 +25,6 @@ export const PostsListSkeleton = (props: PostsListSkeletonProps) => {
                                 height: 'var(--posts-card-height)',
                             }}
                             {...otherProps}
-                            variant='rounded'
                         />
                     )
                 })}

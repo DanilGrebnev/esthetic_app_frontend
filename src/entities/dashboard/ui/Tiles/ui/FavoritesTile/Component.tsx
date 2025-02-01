@@ -7,7 +7,6 @@ interface ComponentProps {
     className?: string
     style?: CSSProperties
 }
-
 export const Component = forwardRef<any, ComponentProps>(
     ({ skeleton, children, style, className }, ref) => {
         if (skeleton) {
@@ -25,6 +24,7 @@ export const Component = forwardRef<any, ComponentProps>(
                 </div>
             )
         }
+
         return (
             <div
                 ref={ref}

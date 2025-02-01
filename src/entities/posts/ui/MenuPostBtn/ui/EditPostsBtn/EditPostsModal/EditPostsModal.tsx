@@ -9,6 +9,7 @@ import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { BaseModalWindow, useModalContext } from '@/shared/ui/modal'
 import { useRef } from 'react'
+import toast from 'react-hot-toast'
 
 import { useMenuPostBtnContext } from '../../MenuPostBtnContext'
 import s from './EditPostsModal.module.scss'
@@ -21,9 +22,19 @@ export const EditPostsModal = () => {
 
     const { data: postData } = useGetDetailPostsQuery(postsId)
 
-    const { mutate, isError, isPending } = useUpdatePostsMutation({
+    const { mutate, isError, error, isPending } = useUpdatePostsMutation({
         postsId,
     })
+
+    const onSuccess = () => {
+        onClose?.()
+        toast.success('Запись изменена успешно')
+    }
+
+    const onError = () => {
+        if (!isError) return
+        toast.error(error.message)
+    }
 
     return (
         <Container size='s'>
@@ -42,7 +53,8 @@ export const EditPostsModal = () => {
                         mutate(
                             { body: formData, postsId },
                             {
-                                onSuccess: onClose,
+                                onSuccess,
+                                onError,
                             },
                         )
                     }}

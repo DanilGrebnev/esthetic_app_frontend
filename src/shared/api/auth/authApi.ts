@@ -1,4 +1,4 @@
-import { apiInstance } from '@/shared/api/Instance'
+import { api } from '@/shared/api/Instance'
 import { queryKeys } from '@/shared/api/QueryKeys'
 import { useQuery } from '@tanstack/react-query'
 
@@ -12,7 +12,7 @@ export const useCheckAuthQuery = () => {
 
         retry: false,
         queryFn: async () => {
-            const response = await apiInstance
+            const response = await api
                 .get('auth/check', {
                     credentials: 'include',
                     hooks: {

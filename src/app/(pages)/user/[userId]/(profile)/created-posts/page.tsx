@@ -2,16 +2,12 @@ import { getUserPublicProfileServerAction } from '@/shared/api/users'
 import { CreatedPostsPage } from '@/views/CreatedPostsPage'
 
 interface Props {
-    params: {
+    params: Promise<{
         userId: string
-    }
+    }>
 }
 
-export async function generateMetadata({
-    params,
-}: {
-    params: { userId: string }
-}) {
+export async function generateMetadata({ params }: Props) {
     const { userId } = await params
     const userProfile = await getUserPublicProfileServerAction(userId)
 

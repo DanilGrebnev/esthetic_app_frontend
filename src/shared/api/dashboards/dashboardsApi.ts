@@ -1,10 +1,12 @@
-import { apiInstance } from '@/shared/api/Instance'
+import { api } from '@/shared/api/Instance'
 import { BadRequest, SuccessResponse } from '@/shared/types/apiResponses'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 import type {
     CheckPostInDashboardResponse,
     DashboardsByCookie,
     DashboardsDetail,
+    TChangeDashboard,
+    TChangeDashboardResponse,
     UsersDashboardList,
 } from '@/shared/types/dashboards'
 import { Pagination } from '@/shared/types/pagination'
@@ -15,7 +17,7 @@ interface CreateDashboard {
 }
 
 class DashboardsApi {
-    readonly baseUrl = 'dashboards' as const
+    private readonly baseUrl = 'dashboards' as const
 
     /* Get users dashboard list by userId */
     getProfileDashboardsList = (
@@ -26,7 +28,7 @@ class DashboardsApi {
     ) => {
         const { userId, signal, pageParam } = args
 
-        return apiInstance
+        return api
             .get(this.baseUrl + `/${userId}/list`, {
                 signal,
                 searchParams: pageParam,
@@ -39,8 +41,8 @@ class DashboardsApi {
         dashboardsId,
         signal,
         searchParams,
-    }: ArgsWithSignal<{ dashboardsId: string; searchParams: Pagination }>) => {
-        return apiInstance
+    }: ArgsWithSignal<{ dashboardsId: string; searchParams?: Pagination }>) => {
+        return api
             .get(this.baseUrl + `/${dashboardsId}`, {
                 signal,
                 searchParams,
@@ -49,7 +51,7 @@ class DashboardsApi {
     }
 
     createDashboard = (args: CreateDashboard) => {
-        return apiInstance
+        return api
             .post(this.baseUrl, {
                 credentials: 'include',
                 json: { dashboardName: args.dashboardName },
@@ -66,10 +68,12 @@ class DashboardsApi {
         postsId: string
         dashboardId: string
     }) => {
-        return apiInstance.post(this.baseUrl + `/${dashboardId}`, {
-            json: { postsId },
-            credentials: 'include',
-        })
+        return api
+            .post(this.baseUrl + `/${dashboardId}`, {
+                json: { postsId },
+                credentials: 'include',
+            })
+            .json()
     }
 
     getDashboardsListByCookie = (
@@ -83,7 +87,7 @@ class DashboardsApi {
                   limit: args?.searchParams.limit,
               }
             : undefined
-        return apiInstance
+        return api
             .get(this.baseUrl, {
                 credentials: 'include',
                 signal: args?.signal,
@@ -93,9 +97,11 @@ class DashboardsApi {
     }
 
     deleteDashboard = (dashboardId: string) => {
-        return apiInstance.delete(this.baseUrl + '/' + dashboardId, {
-            credentials: 'include',
-        })
+        return api
+            .delete(this.baseUrl + '/' + dashboardId, {
+                credentials: 'include',
+            })
+            .json()
     }
 
     deletePostsFromDashboard = ({
@@ -105,21 +111,29 @@ class DashboardsApi {
         dashboardId: string
         postsId: string
     }) => {
-        return apiInstance.delete(
-            this.baseUrl + `/${dashboardId}/delete-posts`,
-            {
+        return api
+            .delete(this.baseUrl + `/${dashboardId}/delete-posts`, {
                 credentials: 'include',
                 json: { postsId },
-            },
-        )
+            })
+            .json()
     }
 
     checkPostInDashboard = (postId: string) => {
-        return apiInstance
+        return api
             .get(this.baseUrl + `/check-posts?postid=${postId}`, {
                 credentials: 'include',
             })
             .json<CheckPostInDashboardResponse>()
     }
+
+    /* Изменение информации о доске */
+    changeDashboard = ({ dashboardId, dashboardName }: TChangeDashboard) =>
+        api
+            .put(this.baseUrl + '/' + dashboardId, {
+                credentials: 'include',
+                json: { dashboardName },
+            })
+            .json<TChangeDashboardResponse>()
 }
 export const dashboardsApi = new DashboardsApi()

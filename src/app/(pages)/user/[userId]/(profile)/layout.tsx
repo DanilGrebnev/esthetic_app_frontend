@@ -4,13 +4,14 @@ import {
     UserPublicProfileHeaderSkeleton,
 } from '@/widgets/UserPublicProfileHeader'
 import { type ReactNode, Suspense } from 'react'
+
 import s from './profile-layout.module.scss'
 
 interface UserLayout {
     children: ReactNode
-    params: {
+    params: Promise<{
         userId: string
-    }
+    }>
 }
 
 const UserLayout = async ({ children, params }: UserLayout) => {

@@ -8,13 +8,13 @@ import type {
 } from '@/shared/types/user'
 import { HTTPError } from 'ky'
 
-import { apiInstance } from '../Instance'
+import { api } from '../Instance'
 
 class UsersApi {
     private basePath = 'users' as const
 
     login = (body: UsersLoginBody) => {
-        return apiInstance
+        return api
             .post(`${this.basePath}/login`, {
                 json: body,
                 credentials: 'include',
@@ -22,13 +22,13 @@ class UsersApi {
             .json<UserProfile>()
     }
     logout = () => {
-        return apiInstance.post(`${this.basePath}/logout`, {
+        return api.post(`${this.basePath}/logout`, {
             credentials: 'include',
         })
     }
     registration = async (body: FormData) => {
         try {
-            return await apiInstance
+            return await api
                 .post(this.basePath + '/registration', {
                     body,
                 })
@@ -40,21 +40,21 @@ class UsersApi {
         }
     }
     publicProfile = (userId: string) => {
-        return apiInstance
+        return api
             .get(this.basePath + '/public-profile/' + userId, {
                 credentials: 'include',
             })
             .json<UserPublicProfile>()
     }
     profileByCookie = () => {
-        return apiInstance
+        return api
             .get(this.basePath + '/private-profile', {
                 credentials: 'include',
             })
             .json<UserPrivateProfile>()
     }
     changeProfileData = (formData: FormData) => {
-        return apiInstance.put(this.basePath, {
+        return api.put(this.basePath, {
             credentials: 'include',
             body: formData,
         })
@@ -66,7 +66,7 @@ class UsersApi {
         }>,
     ) => {
         const { signal, userId, searchParams } = args
-        return apiInstance
+        return api
             .get(this.basePath + '/' + userId + '/created-posts ', {
                 signal,
                 searchParams,

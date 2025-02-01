@@ -1,3 +1,3 @@
-export { DashboardTile } from './ui/DashboardTile'
-export { FavoritesTile } from './ui/FavoritesTile'
-export { DashboardsTileSkeleton } from './ui/DashboardsTileSkeleton'
+export { DashboardTile } from './ui/DashboardTile/DashboardTile'
+export { FavoritesTile } from './ui/FavoritesTile/FavoritesTile'
+export { DashboardsTileSkeleton } from './ui/TilesSkeleton/DashboardsTileSkeleton'

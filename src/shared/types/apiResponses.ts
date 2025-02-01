@@ -1,12 +1,13 @@
 /* Функция для создания базового объекта с ответом api */
-export function createBaseResponse<M extends string, S extends number>(
-    message: M,
-    status: S,
-) {
-    return { message, status } as const
-}
+import { createBaseResponse } from '../api/lib'
 
 export type BaseResponseType = ReturnType<typeof createBaseResponse>
+
+export type TErrorResponse = ReturnType<typeof createBaseResponse>
+
+export const isErrorResponse = (data: any): data is TErrorResponse => {
+    return 'message' in data && 'status' in data
+}
 
 export type SuccessResponse = ReturnType<typeof createBaseResponse<'ok', 200>>
 

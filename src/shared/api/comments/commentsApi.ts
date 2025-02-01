@@ -1,4 +1,4 @@
-import { apiInstance } from '@/shared/api/Instance'
+import { api } from '@/shared/api/Instance'
 import type {
     TAnswerOnCommentsBody,
     TAnswerOnCommentsResponse,
@@ -21,7 +21,7 @@ class CommentsApi {
         }>,
     ) => {
         const { pageParam, signal, postId } = args
-        return apiInstance
+        return api
             .get(this.baseUrl + `/${postId}`, {
                 signal,
                 searchParams: pageParam,
@@ -36,7 +36,7 @@ class CommentsApi {
         postId: string
         body: TCreateCommentsBody
     }) => {
-        return apiInstance
+        return api
             .post(this.baseUrl + `/${postId}`, {
                 json: body,
                 credentials: 'include',
@@ -51,7 +51,7 @@ class CommentsApi {
         commentId: string
         body: TEditCommentsBody
     }) =>
-        apiInstance
+        api
             .put(this.baseUrl + `/${commentId}`, {
                 json: body,
                 credentials: 'include',
@@ -65,7 +65,7 @@ class CommentsApi {
         postId: string
         body: TAnswerOnCommentsBody
     }) =>
-        apiInstance
+        api
             .post(this.baseUrl + `/${postId}`, {
                 credentials: 'include',
                 json: body,
@@ -73,14 +73,14 @@ class CommentsApi {
             .json<TAnswerOnCommentsResponse>()
 
     deleteComments = (commentId: string) =>
-        apiInstance
+        api
             .delete(this.baseUrl + `/${commentId}`, {
                 credentials: 'include',
             })
             .json<TDeleteCommentsResponse>()
 
     toggleLike = (commentId: string) =>
-        apiInstance
+        api
             .put(this.baseUrl + '/toggle-like' + `/${commentId}`, {
                 credentials: 'include',
             })

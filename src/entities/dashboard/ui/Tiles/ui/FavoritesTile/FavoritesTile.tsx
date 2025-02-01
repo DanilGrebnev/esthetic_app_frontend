@@ -1,14 +1,13 @@
 'use client'
 
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
-import { type ITilesInfo } from '../model/tyles-types'
-import { Component } from './Component'
-import { TilesInfo } from './TilesInfo/TilesInfo'
-import s from './tiles.module.scss'
+import { type ITilesInfo } from '../../model/tyles-types'
+import { TilesInfo } from '../TilesInfo/TilesInfo'
+import { FavoritesTileImageRender } from './FavoritesTileImageRender'
+import s from './favorites-tile.module.scss'
 
 interface FavoritesTile extends ITilesInfo {
     images: string[] | []
@@ -25,7 +24,7 @@ export const FavoritesTile = (props: FavoritesTile) => {
 
     const _cardsAmount = 5
     const cardRef = useRef<HTMLDivElement>(null)
-    const cardWrapperRef = useRef<HTMLDivElement>(null)
+    const cardWrapperRef = useRef<HTMLDivElement | null>(null)
 
     const onClick = () => {
         router.push(href)
@@ -53,45 +52,19 @@ export const FavoritesTile = (props: FavoritesTile) => {
     return (
         <div
             onClick={onClick}
-            className={clsx(s['all-posts-tile'], className)}
+            className={clsx(s.favorites_tile, className)}
         >
             <div
                 ref={cardWrapperRef}
                 className={s['all-posts__images-wrapper']}
             >
-                {Array(_cardsAmount)
-                    .fill('')
-                    .map((_, i) => {
-                        const imgUrl = images[i]
-
-                        return (
-                            <Component
-                                key={i}
-                                skeleton={skeleton}
-                                ref={i === 0 ? cardRef : undefined}
-                                className={clsx(
-                                    s['all-posts__img-' + i],
-                                    s['all-posts__img'],
-                                )}
-                                style={{
-                                    zIndex: _cardsAmount - (i + 1),
-                                    left: calculateLeftIndentation(
-                                        _cardsAmount,
-                                        i,
-                                    ),
-                                }}
-                            >
-                                {imgUrl && (
-                                    <Image
-                                        fill={true}
-                                        src={imgUrl}
-                                        alt='preview'
-                                        sizes={'20vw'}
-                                    />
-                                )}
-                            </Component>
-                        )
-                    })}
+                <FavoritesTileImageRender
+                    _cardsAmount={_cardsAmount}
+                    images={images}
+                    skeleton={skeleton}
+                    cardRef={cardRef}
+                    left={(i) => calculateLeftIndentation(_cardsAmount, i)}
+                />
             </div>
             <TilesInfo {...other} />
         </div>

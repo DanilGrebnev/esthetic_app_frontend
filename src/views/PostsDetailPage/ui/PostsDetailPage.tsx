@@ -10,9 +10,9 @@ import { PostsDetailHeader } from './PostsDetailHeader'
 import s from './s.module.scss'
 
 interface DetailPostsParams {
-    params: {
+    params: Promise<{
         postId: string
-    }
+    }>
 }
 
 export const PostsDetailPage = async ({ params }: DetailPostsParams) => {

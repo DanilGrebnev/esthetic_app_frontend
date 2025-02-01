@@ -9,6 +9,7 @@ import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
 import { PostsCard } from '@/widgets/PostsCard'
 import { useMemo } from 'react'
+import { use } from 'react'
 
 import s from './DashboardDetailPage.module.scss'
 import { PostsAmount } from './PostsAmount'
@@ -16,14 +17,15 @@ import { Title } from './Title'
 import { AuthorInfo } from './UserInfo'
 
 interface DashboardDetailPageProps {
-    params: {
+    params: Promise<{
         userId: string
         dashboardsId: string | 'empty-dashboard'
-    }
+    }>
 }
 
 export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
-    const { userId, dashboardsId } = params
+    const { userId, dashboardsId } = use(params)
+
     const columnsAmount = useCalculateColumnsAmountByScreenSize()
     const { data: publicProfile } = useGetPublicProfileQuery({ userId })
     const {
@@ -60,7 +62,6 @@ export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
                 {dashboardsDetail && (
                     <VirtualGrid
                         totalCount={dashoardList?.length}
-                        // itemHeight='400px'
                         columnAmount={columnsAmount}
                         endReached={fetchNextPage}
                         enabled={isPending}

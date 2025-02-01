@@ -1,11 +1,11 @@
-import { apiInstance } from '@/shared/api/Instance'
+import { api } from '@/shared/api/Instance'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 import { IUseGetTagsResponse } from '@/shared/types/tags'
 
 class TagsApi {
     baseUrl = 'tags'
     getTags = ({ signal, tag_name }: ArgsWithSignal<{ tag_name: string }>) =>
-        apiInstance
+        api
             .get(this.baseUrl, {
                 signal,
                 searchParams: {

@@ -44,7 +44,7 @@ export const CreatePostsPage = () => {
                 <CreatePostForm
                     postsEdit={false}
                     isPending={isPending}
-                    mutate={(formData) => {
+                    mutate={({ formData }) => {
                         mutate(formData, {
                             onSuccess: () => {
                                 toast.success('Опубликовано')

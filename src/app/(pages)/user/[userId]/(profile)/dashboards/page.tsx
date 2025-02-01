@@ -5,9 +5,12 @@ export { ProfileDashboardsListPage as default } from '@/views/ProfileDashboardsL
 export const generateMetadata = async ({
     params,
 }: {
-    params: { userId: string }
+    params: Promise<{ userId: string }>
 }) => {
-    const userProfile = await usersApi.publicProfile(params.userId)
+    const { userId } = await params
+
+    const userProfile = await usersApi.publicProfile(userId)
+
     const {
         user: { firstName, lastName },
     } = userProfile

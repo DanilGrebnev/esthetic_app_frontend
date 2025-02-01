@@ -1,0 +1,39 @@
+$images-wrapper-height: 160px;
+
+.render_container {
+    @apply grid 
+    gap-[1px]
+    rounded-[--global-border-radius]
+    overflow-hidden
+    grid-rows-[repeat(2,1fr)]
+    grid-cols-[repeat(3,1fr)];
+    height: $images-wrapper-height;
+
+    .img {
+        @apply relative 
+        bg-[--box-bg-1];
+
+        &-1 {
+            @apply relative
+            row-[1_/_3]
+            col-[1_/_3];
+        }
+
+        &-2,
+        &-3 {
+            grid-column: 3 / 4;
+        }
+
+        &-2 {
+            grid-row: 1 / 2;
+        }
+
+        &-3 {
+            grid-row: 2 / 3;
+        }
+    }
+}
+
+.image {
+    background: var(--theme-bg-color-1);
+}

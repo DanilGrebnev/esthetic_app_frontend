@@ -1,14 +1,15 @@
 'use client'
 
+import { useGetDashboardContext } from '@/entities/dashboard/model/dashboardContext'
 import { DotMenu } from '@/shared/ui/DotMenu'
 import { Modal } from '@/shared/ui/modal'
 import { getDateRange } from '@/shared/utils/getDateRange'
 import clsx from 'clsx'
-import { useCallback, useState } from 'react'
 
+import { ChangeDashboardModal } from '../../../ChangeDashboardModal'
+import { DeleteDashboardModal } from '../../../DeleteDashboardModal'
+import { useTilesStore } from '../../model/tilesStore'
 import { ITilesInfo } from '../../model/tyles-types'
-import { ChangeDashboardModal } from './ChangeDashboardModal'
-import { DeleteDashboardModal } from './DeleteDashboardModal'
 import { TilesDialog } from './TilesDialog'
 import s from './s.module.scss'
 
@@ -19,28 +20,15 @@ interface TilesInfo extends ITilesInfo {
 
 export const TilesInfo = (props: TilesInfo) => {
     const { className, date, title, postsCount, dotMenu = false } = props
-    const [openDialog, setOpenDialog] = useState(false)
-    const [openDeleteModal, setOpenDeleteModal] = useState(false)
-    const [openChangeModal, setOpenChangeDashboardModal] = useState(false)
-    const [hoverOnIcon, setHoverOnIcon] = useState(false)
-
-    const openDeleteDashboardModal = useCallback(
-        () => setOpenDeleteModal(true),
-        [],
-    )
-    const closeDeleteDashboardModal = useCallback(
-        () => setOpenDeleteModal(false),
-        [],
-    )
-
-    const openChangeDashboardModal = useCallback(
-        () => setOpenChangeDashboardModal(true),
-        [],
-    )
-    const closeChangeDashboardModal = useCallback(
-        () => setOpenChangeDashboardModal(false),
-        [],
-    )
+    const [state, actions] = useTilesStore()
+    const { hoverOnIcon, openChangeModal, openDeleteModal, openDialog } = state
+    const {
+        setHoverOnIcon,
+        setOpenChangeDashboardModal,
+        setOpenDeleteModal,
+        setOpenDialog,
+    } = actions
+    const { dashboardId, dashboardName } = useGetDashboardContext()
 
     return (
         <>
@@ -73,10 +61,14 @@ export const TilesInfo = (props: TilesInfo) => {
                         onClose={() => setOpenDialog(false)}
                         open={openDialog}
                     >
-                        <TilesDialog.Item onClick={openDeleteDashboardModal}>
+                        <TilesDialog.Item
+                            onClick={() => setOpenDeleteModal(true)}
+                        >
                             Удалить доску
                         </TilesDialog.Item>
-                        <TilesDialog.Item onClick={openChangeDashboardModal}>
+                        <TilesDialog.Item
+                            onClick={() => setOpenChangeDashboardModal(true)}
+                        >
                             Изменить доску
                         </TilesDialog.Item>
                     </TilesDialog.Container>
@@ -84,15 +76,21 @@ export const TilesInfo = (props: TilesInfo) => {
             </div>
             <Modal
                 isOpen={openDeleteModal}
-                onClose={closeDeleteDashboardModal}
+                onClose={() => setOpenDeleteModal(false)}
             >
-                <DeleteDashboardModal onClose={closeDeleteDashboardModal} />
+                <DeleteDashboardModal
+                    dashboardId={dashboardId}
+                    onClose={() => setOpenDeleteModal(false)}
+                />
             </Modal>
             <Modal
                 isOpen={openChangeModal}
-                onClose={closeChangeDashboardModal}
+                onClose={() => setOpenChangeDashboardModal(false)}
             >
-                <ChangeDashboardModal />
+                <ChangeDashboardModal
+                    dashboardName={dashboardName}
+                    dashboardId={dashboardId}
+                />
             </Modal>
         </>
     )

@@ -44,3 +44,13 @@ export interface DashboardsDetail {
     }
     posts: TPostsPreview[]
 }
+
+export interface TChangeDashboard {
+    dashboardId: string
+    dashboardName: string
+}
+
+export interface TChangeDashboardResponse {
+    userId: string
+    dashboardId: string
+}

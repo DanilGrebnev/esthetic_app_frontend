@@ -1,0 +1,20 @@
+$width: 240px;
+$images-wrapper-height: 160px;
+$card-width: 116px;
+
+.render_container {
+    width: 100%;
+    max-width: $width;
+    max-height: $images-wrapper-height;
+}
+
+.favorites_tile__img {
+    @apply absolute 
+    rounded-[--global-border-radius] 
+    bg-[--box-bg-1] 
+    h-full 
+    overflow-hidden;
+
+    border: 1px solid white;
+    width: $card-width;
+}

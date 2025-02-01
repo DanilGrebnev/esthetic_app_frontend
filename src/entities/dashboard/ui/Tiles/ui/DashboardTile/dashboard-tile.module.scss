@@ -1,0 +1,10 @@
+.dashboard_tile {
+    @apply flex 
+    flex-col
+    gap-[--global-gap-1]
+    cursor-pointer;
+
+    img {
+        object-fit: cover;
+    }
+}

@@ -2,19 +2,19 @@
 
 import { CreateDashboardButton } from '@/entities/dashboard'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
-import type { FC, ReactNode } from 'react'
+import { type ReactNode, use } from 'react'
 
 interface Layout {
     children?: ReactNode
-    params: {
+    params: Promise<{
         userId: string
-    }
+    }>
 }
 
-const Layout: FC<Layout> = (props) => {
-    const { children, params } = props
-
-    const { data } = useGetPublicProfileQuery({ userId: params?.userId })
+const Layout = (props: Layout) => {
+    const { children } = props
+    const { userId } = use(props.params)
+    const { data } = useGetPublicProfileQuery({ userId })
 
     return (
         <div id='Users dashboards'>

@@ -1,0 +1,8 @@
+@use '../DashboardTile/DashboardTileImageRender/s.module.scss';
+
+.dashboard-tile {
+    @apply flex 
+    flex-col
+    gap-[--global-gap-1]
+    select-none;
+}

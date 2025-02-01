@@ -1,0 +1,10 @@
+.container {
+    @apply flex 
+    
+    flex-col
+    gap-[--global-gap-1];
+}
+
+.btn_group {
+    @apply flex gap-[--global-gap-1];
+}

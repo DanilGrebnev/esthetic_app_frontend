@@ -1,6 +1,6 @@
 import { queryKeys } from '@/shared/api/QueryKeys'
+import { createBaseResponse } from '@/shared/api/lib/createBaseResponse'
 import { paginationPostsAmount } from '@/shared/consts'
-import { createBaseResponse } from '@/shared/types/apiResponses'
 import { ArgsWithEnabled } from '@/shared/types/commonApiTypes'
 import {
     useInfiniteQuery,
@@ -182,15 +182,6 @@ export const useDeletePostsFromDashboardMutation = ({
     return useMutation({
         mutationFn: dashboardsApi.deletePostsFromDashboard,
         onSuccess: async () => {
-            const p1 = queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
-            })
-            const p2 = queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.checkPostInDashboard(postsId)],
-            })
-
-            await Promise.allSettled([p1, p2])
-
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
             })
@@ -198,6 +189,17 @@ export const useDeletePostsFromDashboardMutation = ({
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardId)],
             })
+
+            await Promise.allSettled([
+                queryClient.invalidateQueries({
+                    queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
+                }),
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        queryKeys.dashboards.checkPostInDashboard(postsId),
+                    ],
+                }),
+            ])
         },
     })
 }
@@ -222,13 +224,6 @@ export const useAddPostsToDashboardMutation = ({
         mutationFn: dashboardsApi.addPostsToDashboard,
 
         onSuccess: async () => {
-            const p1 = queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
-            })
-            const p2 = queryClient.invalidateQueries({
-                queryKey: [queryKeys.dashboards.checkPostInDashboard(postsId)],
-            })
-
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList(usersId)],
             })
@@ -237,7 +232,16 @@ export const useAddPostsToDashboardMutation = ({
                 queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardId)],
             })
 
-            await Promise.allSettled([p1, p2])
+            await Promise.allSettled([
+                queryClient.invalidateQueries({
+                    queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
+                }),
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        queryKeys.dashboards.checkPostInDashboard(postsId),
+                    ],
+                }),
+            ])
         },
     })
 
@@ -248,15 +252,31 @@ export const useAddPostsToDashboardMutation = ({
             mutation.variables.dashboardId === dashboardId,
     }
 }
+/* Изменение информации о доске */
+export const useChangeDashboardMutation = () => {
+    const queryClient = useQueryClient()
 
+    return useMutation({
+        mutationFn: dashboardsApi.changeDashboard,
+        onSuccess: (response) => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
+            })
+            queryClient.invalidateQueries({
+                queryKey: [
+                    queryKeys.dashboards.profileDashboardsList(response.userId),
+                ],
+            })
+        },
+    })
+}
 // ### DELETE ###
 export const useDeleteDashboardMutation = ({ userId }: { userId: string }) => {
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationFn: (dashboardId: string) => {
-            return dashboardsApi.deleteDashboard(dashboardId)
-        },
+        mutationFn: dashboardsApi.deleteDashboard,
+
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.dashboards.profileDashboardsList(userId)],

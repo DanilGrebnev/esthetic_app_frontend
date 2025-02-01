@@ -3,7 +3,7 @@ import { postsApi } from '@/shared/api/posts'
 export async function generateMetadata({
     params,
 }: {
-    params: { postId: string }
+    params: Promise<{ postId: string }>
 }) {
     const { postId } = await params
     const postData = await postsApi.getPostDetail({ postId })

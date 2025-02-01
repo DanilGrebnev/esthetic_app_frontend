@@ -16,7 +16,7 @@ export const PostsList = () => {
     const { data, isPending, fetchNextPage } = useGetPostsQuery({
         querySearchParam: search,
     })
-    
+
     const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
     const dataList = useMemo(() => {

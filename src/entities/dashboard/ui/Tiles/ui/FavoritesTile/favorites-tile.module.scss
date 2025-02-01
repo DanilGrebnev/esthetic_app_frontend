@@ -1,0 +1,26 @@
+$width: 240px;
+$images-wrapper-height: 160px;
+$card-width: 116px;
+
+.favorites_tile {
+    cursor: pointer;
+    width: 100%;
+    max-width: $width;
+}
+
+.all-posts__images-wrapper {
+    @apply flex relative;
+    height: $images-wrapper-height;
+    overflow: auto;
+}
+
+.all-posts__img {
+    @apply absolute 
+    rounded-[--global-border-radius] 
+    bg-[--box-bg-1] 
+    h-full 
+    overflow-hidden;
+
+    border: 1px solid white;
+    width: $card-width;
+}

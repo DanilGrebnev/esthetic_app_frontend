@@ -3,9 +3,6 @@ import type { ReactNode } from 'react'
 
 interface ProfileDashboardsLayoutProps {
     children?: ReactNode
-    params: {
-        userId: string
-    }
 }
 
 const ProfileDashboardsLayout = ({

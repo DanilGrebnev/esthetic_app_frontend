@@ -1,11 +1,14 @@
 import { DashboardsList } from '@/entities/dashboard'
 
 interface UserDashboardsPageProps {
-    params: {
+    params: Promise<{
         userId: string
-    }
+    }>
 }
 
-export const ProfileDashboardsListPage = (props: UserDashboardsPageProps) => {
-    return <DashboardsList userId={props.params.userId} />
+export const ProfileDashboardsListPage = async (
+    props: UserDashboardsPageProps,
+) => {
+    const { userId } = await props.params
+    return <DashboardsList userId={userId} />
 }

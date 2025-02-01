@@ -103,8 +103,6 @@ export const useDeletePostsMutation = ({
                 })
             })
         },
-
-        retry: false,
     })
 }
 

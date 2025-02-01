@@ -1,6 +1,9 @@
-import { apiInstance } from '@/shared/api/Instance'
+import { api } from '@/shared/api/Instance'
+import { isErrorResponse } from '@/shared/types/apiResponses'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 import type { TPostsDetail, TPostsPreview } from '@/shared/types/posts'
+
+import { createBaseResponse } from '../lib'
 
 class PostsApi {
     baseUrl = 'posts'
@@ -12,7 +15,7 @@ class PostsApi {
         limit: number
         search: string
     }) => {
-        return apiInstance
+        return api
             .get(this.baseUrl, {
                 credentials: 'include',
                 searchParams,
@@ -25,7 +28,7 @@ class PostsApi {
         postId,
         signal,
     }: ArgsWithSignal<{ postId: string }>) => {
-        return apiInstance
+        return api
             .get(this.baseUrl + `/${postId}`, {
                 signal,
                 credentials: 'include',
@@ -36,22 +39,54 @@ class PostsApi {
     // POST
     /* Создание поста */
     createPost = (formData: FormData) => {
-        return apiInstance.post(this.baseUrl, {
+        return api.post(this.baseUrl, {
             credentials: 'include',
             body: formData,
         })
     }
 
     // PUT
-    editPost = ({ postsId, body }: { postsId: string; body: FormData }) => {
-        return apiInstance
-            .put(this.baseUrl + '/' + postsId, { body, credentials: 'include' })
+    editPost = async ({
+        postsId,
+        body,
+    }: {
+        postsId: string
+        body: FormData
+    }) => {
+        return api
+            .put(this.baseUrl + '/' + postsId, {
+                body,
+                credentials: 'include',
+                hooks: {
+                    afterResponse: [
+                        async (_, __, res) => {
+                            if (!res.ok) {
+                                try {
+                                    const data = await res.json()
+                                    if (isErrorResponse(data)) {
+                                        return Promise.reject(data)
+                                    }
+                                } catch (err) {
+                                    return Promise.reject(
+                                        createBaseResponse(
+                                            'Непредвиденная ошибка',
+                                            400,
+                                        ),
+                                    )
+                                }
+                            }
+
+                            return Promise.resolve(res)
+                        },
+                    ],
+                },
+            })
             .json()
     }
 
     // DELETE
     deletePosts = (postsId: string) => {
-        return apiInstance
+        return api
             .delete(this.baseUrl + '/' + postsId, {
                 credentials: 'include',
             })
