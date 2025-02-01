@@ -36,12 +36,12 @@ export const UploadUserAvatar = (props: UploadUserAvatar) => {
     const onChangeAvatar = (files: FileList) => onChange?.(files[0])
 
     return (
-        <div className={clsx(s['avatar-container'], className)}>
-            <div className={s['preview-area']}>
+        <div className={clsx(s.avatar_container, className)}>
+            <div className={s.preview_area}>
                 <UploadFiles
                     ref={fileRef}
                     placeholder='Загрузить аватар'
-                    className={clsx(s['upload-area'], {
+                    className={clsx(s.upload_area, {
                         [s.hidden]: objectUrl,
                     })}
                     name='avatar'
@@ -57,14 +57,14 @@ export const UploadUserAvatar = (props: UploadUserAvatar) => {
                             priority={false}
                             loading='lazy'
                             alt='Предпросмотр аватара'
-                            className={s['avatar-preview']}
+                            className={s.avatar_preview}
                         />
 
                         <div
                             onClick={deleteAvatar}
-                            className={s['delete-avatar-area']}
+                            className={s.delete_avatar_area}
                         >
-                            Удалить
+                            Изменить
                         </div>
                     </>
                 )}

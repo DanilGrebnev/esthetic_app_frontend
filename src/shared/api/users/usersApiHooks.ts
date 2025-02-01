@@ -98,3 +98,16 @@ export const useChangeUserProfileData = () => {
         },
     })
 }
+
+export const useDeleteProfileAvatarMutation = () => {
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: usersApi.deleteProfileAvatar,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.users.profileByCookie],
+            })
+        },
+    })
+}

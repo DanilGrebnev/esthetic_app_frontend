@@ -1,4 +1,4 @@
-.avatar-container {
+.avatar_container {
     @apply flex
     flex-col
     grow
@@ -7,7 +7,7 @@
     aspect-square;
 }
 
-.preview-area {
+.preview_area {
     @apply relative 
     flex
     justify-center
@@ -18,15 +18,15 @@
     overflow-hidden;
 }
 
-.upload-area {
+.upload_area {
     @apply relative w-full;
 }
 
-.avatar-preview {
+.avatar_preview {
     object-fit: cover;
 }
 
-.delete-avatar-area {
+.delete_avatar_area {
     @apply flex
     absolute
     justify-center

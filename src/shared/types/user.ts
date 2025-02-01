@@ -1,5 +1,7 @@
 import { type Tag } from '@/shared/ui/InputWithTags'
 
+import { SuccessResponse } from './apiResponses'
+
 /* Base user type */
 interface BaseUser {
     firstName: string

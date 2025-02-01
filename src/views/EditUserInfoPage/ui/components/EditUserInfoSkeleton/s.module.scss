@@ -1,0 +1,16 @@
+.wrapper {
+    @apply flex 
+    flex-col 
+    gap-[--global-gap-1];
+}
+
+.text {
+    @apply block 
+    rounded-[--global-border-radius]
+    min-h-[56px];
+}
+.avatar {
+    @apply w-[200px]
+    rounded-[--global-border-radius]
+    min-h-[200px];
+}

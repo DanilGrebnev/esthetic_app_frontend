@@ -1,6 +1,9 @@
 'use client'
 
-import { PostsListSkeleton } from '@/entities/posts'
+import {
+    PostsListSkeleton,
+    useCalculateColumnsAmountByScreenSize,
+} from '@/entities/posts'
 import { useGetCreatedUserPostsQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
@@ -16,6 +19,7 @@ export const CreatedPostsPage = (props: CreatedPostsPageProps) => {
     )
 
     const postsList = data?.pages.map((page) => page.posts).flat(1)
+    const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
     if (!postsList?.length && !isPending) {
         return (
@@ -32,7 +36,7 @@ export const CreatedPostsPage = (props: CreatedPostsPageProps) => {
         >
             {postsList && (
                 <VirtualGrid
-                    columnAmount={7}
+                    columnAmount={columnsAmount}
                     gap='10px'
                     totalCount={postsList?.length}
                     useWindowScroll={true}

@@ -1,3 +1,4 @@
+import { SuccessResponse } from '@/shared/types/apiResponses'
 import { ArgsWithSignal } from '@/shared/types/commonApiTypes'
 import { TPostsList } from '@/shared/types/posts'
 import type {
@@ -72,6 +73,12 @@ class UsersApi {
                 searchParams,
             })
             .json<TPostsList>()
+    }
+
+    deleteProfileAvatar = (_: any) => {
+        return api
+            .delete(this.basePath + '/avatar', { credentials: 'include' })
+            .json<SuccessResponse>()
     }
 }
 

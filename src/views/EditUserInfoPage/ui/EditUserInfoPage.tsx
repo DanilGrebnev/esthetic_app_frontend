@@ -12,6 +12,8 @@ import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { Controller, useForm } from 'react-hook-form'
 
+import { DeleteAvatarBtn } from './components/DeleteAvatarBtn'
+import { EditUserInfoHeader } from './components/EditUserInfoHeader'
 import { EditUserInfoSkeleton } from './components/EditUserInfoSkeleton'
 import s from './s.module.scss'
 
@@ -57,9 +59,7 @@ export const EditUserInfoPage = () => {
                 onSubmit={onSubmit}
                 className={s.page}
             >
-                <header>
-                    <h1 className={s.title}>Изменение профиля пользователя</h1>
-                </header>
+                <EditUserInfoHeader />
                 {isFetching || isPending ? (
                     <EditUserInfoSkeleton />
                 ) : (
@@ -71,6 +71,7 @@ export const EditUserInfoPage = () => {
                             }
                             className={s.avatar}
                         />
+                        <DeleteAvatarBtn />
                         <Controller
                             control={control}
                             rules={{ required: 'Обязательно для заполнения' }}
@@ -135,12 +136,6 @@ export const EditUserInfoPage = () => {
                                 )
                             }}
                         />
-                        {/* <InputWithTags
-                            // onChange={(tags) => {
-                            //     console.log(tags)
-                            // }}
-                            defaultValue={profile?.tags}
-                        /> */}
                     </>
                 )}
 
