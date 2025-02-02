@@ -1,0 +1,35 @@
+.input_wrapper {
+    @apply flex
+    w-full
+    rounded-[--global-border-radius]
+    bg-[--inputs-bg-1]
+    pr-[10px]
+    overflow-auto
+    items-center
+    h-full;
+}
+
+.input {
+    @apply w-full 
+    h-[48px]
+    outline-none
+    bg-transparent
+    pr-[10px];
+    font-size: var(--font-300);
+
+    &::placeholder {
+        color: var(--inputs-text-color-1);
+    }
+}
+
+.left_side {
+    @apply flex
+    items-center
+    justify-center
+    px-[10px];
+}
+
+.search_icon {
+    @apply w-[20px]
+    h-[20px];
+}

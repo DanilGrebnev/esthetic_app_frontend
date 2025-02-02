@@ -6,7 +6,7 @@ import {
     useGetSearchValueSelector,
 } from '@/shared/store/posts'
 
-import { SearchPostsDropDown } from '../BaseDropDown'
+import { BaseDropDown } from '../BaseDropDown'
 import { SearchPostsTags } from '../SearchPostsTagsItem'
 
 interface DropDown {
@@ -22,7 +22,7 @@ export const SearchTags = (props: DropDown) => {
 
     return (
         <>
-            <SearchPostsDropDown
+            <BaseDropDown
                 hiddenIfEmptyData={true}
                 className={className}
                 data={data?.searchTags ?? []}
@@ -36,8 +36,8 @@ export const SearchTags = (props: DropDown) => {
                         active={includeTags(tag)}
                     />
                 )}
-            </SearchPostsDropDown>
-            <SearchPostsDropDown
+            </BaseDropDown>
+            <BaseDropDown
                 className={className}
                 data={data?.recommendedTags ?? []}
                 mode='vertical'
@@ -50,7 +50,7 @@ export const SearchTags = (props: DropDown) => {
                         active={includeTags(tag)}
                     />
                 )}
-            </SearchPostsDropDown>
+            </BaseDropDown>
         </>
     )
 }

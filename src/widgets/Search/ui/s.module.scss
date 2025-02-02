@@ -1,4 +1,4 @@
-.search-wrapper {
+.search_wrapper {
     @apply flex
     relative
     rounded-[--global-border-radius]
@@ -6,51 +6,11 @@
     transition: 0.3s;
 }
 
-.input-wrapper {
-    @apply flex
-    w-full
-    rounded-r-[--global-border-radius]
-    bg-[--inputs-bg-1]
-    pr-[10px]
-    overflow-auto
-    items-center
-    h-full;
-}
-
-.tags-string {
+.tags_string {
     @apply flex
     items-center
     flex-nowrap
     min-w-max;
-}
-
-.input {
-    @apply w-full 
-    h-[48px]
-    outline-none
-    rounded-r-[--global-border-radius]
-    bg-transparent
-    pr-[10px];
-
-    font-size: var(--font-300);
-
-    &::placeholder {
-        color: var(--inputs-text-color-1);
-    }
-}
-
-.left-side {
-    @apply flex
-    items-center
-    rounded-l-[--global-border-radius]
-    justify-center
-    bg-[--inputs-bg-1]
-    px-[10px];
-}
-
-.search-icon {
-    @apply w-[20px]
-    h-[20px];
 }
 
 .dropdown {

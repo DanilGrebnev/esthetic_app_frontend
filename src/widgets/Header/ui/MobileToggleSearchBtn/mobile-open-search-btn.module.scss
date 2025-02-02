@@ -1,0 +1,11 @@
+.btn {
+    @apply flex 
+    items-center
+    px-[10px]
+    rounded-[--global-border-radius]
+    bg-[--inputs-bg-1];
+}
+
+.icon {
+    @apply w-[20px] h-[20px];
+}

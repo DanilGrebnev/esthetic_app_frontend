@@ -1,20 +1,22 @@
 'use client'
 
 import { SearchPostsDropDown } from '@/entities/posts'
+import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import { useSetSearchValueSelector } from '@/shared/store/posts'
 import { clsx } from 'clsx'
-import { ChangeEvent, useState } from 'react'
-import { useDebounceCallback, useDebounceValue } from 'usehooks-ts'
+import { ChangeEvent, Ref, useState } from 'react'
+import { useDebounceCallback } from 'usehooks-ts'
 
-import { LeftSideWithIcon } from './LeftSideWithIcon'
+import { Input } from './Input'
 import s from './s.module.scss'
 
 interface SearchInputProps {
     className?: string
+    ref?: Ref<HTMLDivElement>
 }
 
-export const SearchInput = ({ className }: SearchInputProps) => {
+export const SearchInput = ({ className, ref }: SearchInputProps) => {
     const [open, setOpen] = useState(false)
 
     const search = useSetSearchValueSelector()
@@ -24,6 +26,8 @@ export const SearchInput = ({ className }: SearchInputProps) => {
         attached: open,
         handler: () => setOpen(false),
     })
+
+    const combinedRef = useCombinedRef(elementRef, ref)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
@@ -35,19 +39,14 @@ export const SearchInput = ({ className }: SearchInputProps) => {
 
     return (
         <div
-            ref={elementRef}
-            className={clsx(s['search-wrapper'], className)}
+            ref={combinedRef}
+            className={clsx(s.search_wrapper, className)}
         >
-            <LeftSideWithIcon className={s['left-side']} />
-            <div className={s['input-wrapper']}>
-                <input
-                    onFocus={onFocus}
-                    placeholder='Поиск'
-                    className={s.input}
-                    onChange={onChange}
-                />
-            </div>
-            {open && <SearchPostsDropDown className={s['dropdown']} />}
+            <Input
+                onFocus={onFocus}
+                onChange={onChange}
+            />
+            {open && <SearchPostsDropDown className={s.dropdown} />}
         </div>
     )
 }

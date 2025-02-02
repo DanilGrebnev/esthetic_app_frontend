@@ -2,7 +2,7 @@
 
 import { useGetActiveTagsFromSearchPostsSelector } from '@/shared/store/posts'
 
-import { SearchPostsDropDown } from '../BaseDropDown'
+import { BaseDropDown } from '../BaseDropDown'
 import { SearchPostsTags } from '../SearchPostsTagsItem'
 
 interface ActiveTagsProps {
@@ -15,7 +15,7 @@ export const ActiveTags = (props: ActiveTagsProps) => {
     if (!activeTags.length) return null
 
     return (
-        <SearchPostsDropDown
+        <BaseDropDown
             hiddenIfEmptyData={true}
             className={className}
             mode='horizontal'
@@ -29,6 +29,6 @@ export const ActiveTags = (props: ActiveTagsProps) => {
                     tag={tag}
                 />
             )}
-        </SearchPostsDropDown>
+        </BaseDropDown>
     )
 }

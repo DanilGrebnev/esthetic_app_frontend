@@ -16,7 +16,7 @@ interface SearchPostsDropDownProps<T extends TData> {
 /**
  * Принимает теги и отрисовывает их в горизонтальном или вертикальном режиме
  */
-export const SearchPostsDropDown = <T extends TData>(
+export const BaseDropDown = <T extends TData>(
     props: SearchPostsDropDownProps<T>,
 ) => {
     const {
