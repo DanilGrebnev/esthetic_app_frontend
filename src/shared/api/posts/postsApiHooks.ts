@@ -32,7 +32,8 @@ export const useGetPostsQuery = (args?: {
                 search: args?.querySearchParam ?? '',
             })
         },
-        getNextPageParam: (_, __, lastPageParam) => {
+        getNextPageParam: (lastPage, __, lastPageParam) => {
+            if (lastPage.posts.length < lastPageParam.limit) return
             return {
                 offset: lastPageParam.offset + paginationPostsAmount,
                 limit: lastPageParam.limit,
