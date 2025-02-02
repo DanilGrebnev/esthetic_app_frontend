@@ -1,12 +1,9 @@
 'use client'
 
-import {
-    PostsListSkeleton,
-    useCalculateColumnsAmountByScreenSize,
-} from '@/entities/posts'
+import { PostsListRender } from '@/entities/posts'
+import '@/entities/posts'
 import { useGetCreatedUserPostsQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
-import { VirtualGrid } from '@/shared/ui/VirtualGrid'
 import { PostsCard } from '@/widgets/PostsCard'
 
 interface CreatedPostsPageProps {
@@ -17,46 +14,25 @@ export const CreatedPostsPage = (props: CreatedPostsPageProps) => {
     const { data, fetchNextPage, isPending } = useGetCreatedUserPostsQuery(
         props.userId,
     )
-
     const postsList = data?.pages.map((page) => page.posts).flat(1)
-    const columnsAmount = useCalculateColumnsAmountByScreenSize()
-
-    if (!postsList?.length && !isPending) {
-        return (
-            <p style={{ fontSize: 'var(--font-350)' }}>
-                У пользователя нет созданных постов.
-            </p>
-        )
-    }
 
     return (
-        <Container
-            id='Created users post page'
-            className='grow'
-        >
-            {postsList && (
-                <VirtualGrid
-                    columnAmount={columnsAmount}
-                    gap='10px'
-                    totalCount={postsList?.length}
-                    useWindowScroll={true}
-                    endReached={fetchNextPage}
-                >
-                    {(index) => {
-                        const post = postsList?.[index]
-
-                        return (
-                            <PostsCard
-                                name=''
-                                postId={post?.postId}
-                                url={post?.url}
-                                urlBlur={post?.urlBlur}
-                            />
-                        )
-                    }}
-                </VirtualGrid>
-            )}
-            {isPending && <PostsListSkeleton />}
+        <Container>
+            <PostsListRender
+                zeroDataTitle='У пользователя нет созданных постов.'
+                data={postsList}
+                useWindowScroll={true}
+                loading={isPending}
+                endReached={fetchNextPage}
+                render={({ postId, url, urlBlur }) => (
+                    <PostsCard
+                        name=''
+                        postId={postId}
+                        url={url}
+                        urlBlur={urlBlur}
+                    />
+                )}
+            />
         </Container>
     )
 }
