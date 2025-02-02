@@ -3,8 +3,8 @@ import { getUserPublicProfileServerAction } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 
 import { ButtonGroup } from './ButtonGroup/ButtonGroup'
-import { Navigation } from './Navigation'
 import s from './UserPublicProfileHeader.module.scss'
+import { Navigation } from './Navigation'
 
 interface UserHeaderLayoutProps {
     userId: string
