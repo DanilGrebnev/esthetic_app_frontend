@@ -2,7 +2,6 @@ import { CommentsList } from '@/features/commentaries'
 import { DeleteCommentsAfterUnmount } from '@/features/commentaries'
 import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
-import { cookies } from 'next/headers'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
 import { InitialSetPostIdInStore } from './InitialSetPostIdInStore'
@@ -18,9 +17,14 @@ interface DetailPostsParams {
 
 export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
     const { postId } = await params
-    const postData = await postsApi.getPostDetail({ postId })
+    let postData
 
-    if (!postData) return <h1>Ошибка </h1>
+    try {
+        postData = await postsApi.getPostDetail({ postId })
+    } catch (err) {
+        return <h1>Ошибка получения поста</h1>
+    }
+
     const { post } = postData
 
     return (

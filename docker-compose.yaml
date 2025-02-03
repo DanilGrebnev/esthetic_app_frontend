@@ -3,7 +3,12 @@ version: '3.9'
 services:
   postes:
     container_name: postes_client
-    image: postes
+    env_file: '.env.production'
+    environment:
+    # Отключаем линтинг для ускорения сборки
+      LINT: 'false'
+    # Отключаем проверку SSL сертификата 
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
     build: .
     ports:
       - "3000:3000"

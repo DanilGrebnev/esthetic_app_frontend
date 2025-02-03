@@ -6,7 +6,15 @@ export async function generateMetadata({
     params: Promise<{ postId: string }>
 }) {
     const { postId } = await params
-    const postData = await postsApi.getPostDetail({ postId })
+    let postData
+    try {
+        postData = await postsApi.getPostDetail({ postId })
+    } catch (err) {
+        return {
+            title: 'Ошибка получения поста',
+            description: 'Ошибка получения описания поста',
+        }
+    }
 
     return {
         title: postData?.post?.name,
