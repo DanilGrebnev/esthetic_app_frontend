@@ -45,8 +45,8 @@
         "zustand": "^4.5.4"
     },
     "resolutions": {
-        "wrap-ansi": "7.0.0",
-        "string-width": "4.1.0"
+        "wrap-ansi": "8.1.0",
+        "string-width": "4.2.3"
     },
     "devDependencies": {
         "@chromatic-com/storybook": "1.8.0",
