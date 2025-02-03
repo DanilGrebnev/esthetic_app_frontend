@@ -1,3 +1,4 @@
+import { JSX } from 'react'
 import s from './tabs-render.module.scss'
 
 type TData = any[]

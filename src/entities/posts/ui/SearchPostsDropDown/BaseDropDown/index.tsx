@@ -2,6 +2,7 @@ import { Box } from '@/shared/ui/Box'
 import clsx from 'clsx'
 
 import s from './s.module.scss'
+import { JSX } from 'react'
 
 type TData = any[]
 

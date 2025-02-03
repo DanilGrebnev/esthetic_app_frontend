@@ -23,14 +23,13 @@ const nextConfig = {
     output: 'standalone',
     experimental: {},
     env: {
-        NEXT_PUBLIC_PROTOCOL: 'http',
+        NEXT_PUBLIC_PROTOCOL: 'https',
         NEXT_PUBLIC_HOSTNAME: '91.202.207.229',
         NEXT_PUBLIC_PORT: '3000',
         NEXT_PUBLIC_APP_NAME: 'Esthetic',
         NEXT_PUBLIC_PAGINATION_AMOUNT: '30',
         NEXT_PUBLIC_FETCH_URL: 'https://postes.ru/api',
         NEXT_SHARP_PATH: '/tmp/node_modules/sharp',
-        NEXT_TELEMETRY_DISABLED: 1,
     },
     images: {
         remotePatterns: [

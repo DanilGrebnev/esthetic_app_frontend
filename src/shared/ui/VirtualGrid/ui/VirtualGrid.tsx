@@ -2,6 +2,7 @@ import { VirtuosoGrid } from 'react-virtuoso'
 
 import { Item } from './Item'
 import { List } from './List'
+import { JSX } from 'react'
 
 export interface IVirtualGridProps {
     listClassName?: string

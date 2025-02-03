@@ -1,7 +1,7 @@
 'use client'
 
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
-import { memo, useMemo } from 'react'
+import { JSX, memo } from 'react'
 
 import { useCalculateColumnsAmountByScreenSize } from '../../model/utils/useCalculateColumnsAmountByScreenSize'
 import { PostsListSkeleton } from '../PostsListSkeleton'

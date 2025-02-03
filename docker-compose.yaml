@@ -3,7 +3,7 @@ version: '3.9'
 services:
   postes:
     container_name: postes_client
-    env_file: '.env.production'
+    # env_file: '.env.production'
     environment:
     # Отключаем линтинг для ускорения сборки
       LINT: 'false'
