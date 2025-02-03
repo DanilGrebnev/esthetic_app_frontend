@@ -14,15 +14,15 @@ export const CreatedPostsPage = (props: CreatedPostsPageProps) => {
     const { data, fetchNextPage, isPending } = useGetCreatedUserPostsQuery(
         props.userId,
     )
-    const postsList = data?.pages.map((page) => page.posts).flat(1)
 
     return (
         <Container>
             <PostsListRender
                 zeroDataTitle='У пользователя нет созданных постов.'
-                data={postsList}
+                data={data?.posts}
                 useWindowScroll={true}
                 loading={isPending}
+                enabled={data?.next}
                 endReached={fetchNextPage}
                 render={({ postId, url, urlBlur }) => (
                     <PostsCard

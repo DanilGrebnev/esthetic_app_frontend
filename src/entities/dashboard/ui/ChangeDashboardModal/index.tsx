@@ -1,14 +1,9 @@
 'use client'
 
-import {
-    useChangeDashboardMutation,
-    useGetDashboardsDetail,
-} from '@/shared/api/dashboards'
-import { dashboardsApi } from '@/shared/api/dashboards'
+import { useChangeDashboardMutation } from '@/shared/api/dashboards'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 import { BaseModalWindow, useModalContext } from '@/shared/ui/modal'
-import { use, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 

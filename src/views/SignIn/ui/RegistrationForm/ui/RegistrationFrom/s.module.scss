@@ -1,32 +1,22 @@
 .page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
+    @apply flex 
+    flex-col 
+    justify-center 
+    content-center 
+    h-[100vh];
 }
 
 .registration-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--global-gap-1);
-    height: max-content;
-}
-
-.progress-window-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--global-gap-1);
-    box-shadow: var(--global-box-shadow);
-
-    border-radius: var(--global-border-radius);
-
-    padding: 10px;
+    @apply flex 
+    flex-col
+    gap-[--global-gap-1]
+    h-max;
 }
 
 .inputs-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: var(--global-gap-1);
+    @apply flex 
+    flex-col 
+    gap-[--global-gap-1];
 }
 
 .btn-group {
@@ -34,25 +24,26 @@
 }
 
 .upload-avatar-page {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col;
 }
 
 .upload-avatar-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    @apply flex 
+    flex-col 
+    justify-center 
+    content-center
+    items-center
+    h-full;
 }
 
 .upload-avatar {
-    width: 200px;
-    max-height: 200px;
+    --size: 200px;
+    @apply w-[--size]
+     max-h-[--size];
 }
 
 .tag-page {
-    display: flex;
-    flex-direction: column;
-    gap: var(--global-gap-1);
+    @apply flex 
+    flex-col 
+    gap-[--global-gap-1];
 }

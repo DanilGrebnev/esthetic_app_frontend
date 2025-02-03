@@ -27,12 +27,9 @@ export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
         enabled: dashboardsId !== 'empty-dashboard',
     })
 
-    const posts = data?.pages.map((page) => page.posts).flat(1)
-    const postsAmount = data?.pages[0].dashboardInfo.postsAmount
-
     return (
         <div className={s.container}>
-            <Title>{data?.pages[0].dashboardInfo.dashboardName}</Title>
+            <Title>{data?.dashboardInfo.dashboardName}</Title>
 
             <AuthorInfo
                 firstName={publicProfile?.user.firstName}
@@ -40,11 +37,12 @@ export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
                 word={publicProfile?.user?.firstName[0].toUpperCase()}
                 awatarSrc={publicProfile?.user?.avatar}
             />
-            <PostsAmount postsAmount={postsAmount} />
+            <PostsAmount postsAmount={data?.dashboardInfo.postsAmount} />
             <PostsListRender
-                data={posts}
+                data={data?.posts}
                 endReached={fetchNextPage}
                 useWindowScroll={true}
+                enabled={data?.next}
                 loading={isPending}
                 zeroDataTitle='В доске нет постов'
                 render={({ postId, url, urlBlur }) => (

@@ -7,15 +7,24 @@ interface BoxProps {
     children: ReactNode
     className?: string
     padding?: 'normal' | 'small' | 'large'
+    boxShadow?: boolean
     style?: CSSProperties
 }
 export const Box = memo((props: BoxProps) => {
-    const { children, padding = 'normal', style, className } = props
+    const {
+        children,
+        boxShadow = false,
+        padding = 'normal',
+        style,
+        className,
+    } = props
 
     return (
         <div
             style={style}
-            className={clsx(s.box, className, s['padding-' + padding])}
+            className={clsx(className, s.box, s['padding-' + padding], {
+                [s.shadow]: boxShadow,
+            })}
         >
             {children}
         </div>

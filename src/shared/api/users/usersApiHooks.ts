@@ -8,6 +8,7 @@ import {
     useQueryClient,
 } from '@tanstack/react-query'
 
+import { PostsAmount } from './../../../views/DashboardsDetailPage/ui/PostsAmount/index'
 import { usersApi } from './usersApi'
 
 export const useGetProfileByCookieQuery = (options?: { enabled?: boolean }) => {
@@ -82,6 +83,15 @@ export const useGetCreatedUserPostsQuery = (userId: string) => {
                 limit: paginationPostsAmount,
             }
         },
+
+        select: ({ pageParams, pages }) => {
+            const posts = pages.map((page) => page.posts).flat()
+            const postsAmount = pages[0].postsAmount
+            const next = pages.at(-1)?.posts.length === pageParams.at(-1)?.limit
+
+            return { posts, postsAmount, next }
+        },
+
         initialPageParam: { offset: 0, limit: paginationPostsAmount },
     })
 }

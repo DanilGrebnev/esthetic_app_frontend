@@ -1,11 +1,11 @@
 .card {
-    position: relative;
-    cursor: pointer;
-    width: 100%;
-    user-select: none;
+    @apply relative
+    cursor-pointer
+    w-full
+    select-none;
 
     &:hover {
-        .button-group {
+        .button_group {
             opacity: 1;
             background: rgb(0 0 0 / 20%);
         }
@@ -13,7 +13,7 @@
 }
 
 .card,
-.button-group,
+.button_group,
 .img {
     border-radius: var(--global-border-radius);
 }
@@ -22,20 +22,18 @@
     object-fit: cover;
 }
 
-.button-group {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-
-    opacity: 0;
-    z-index: 1;
+.button_group {
+    @apply flex 
+    flex-col
+    absolute
+    justify-between
+    items-end
+    opacity-0
+    z-[1]
+    p-[--padding-normal]
+    w-full
+    h-full;
 
     transition: 0.2s;
     background: rgba(0 0 0 / 0%);
-    padding: var(--padding-normal);
-
-    width: 100%;
-    height: 100%;
 }

@@ -12,11 +12,9 @@ export const PostsList = () => {
         querySearchParam: search,
     })
 
-    const dataList = data?.pages.map((page) => page.posts).flat(1) ?? []
-
     return (
         <PostsListRender
-            data={dataList}
+            data={data?.posts}
             endReached={fetchNextPage}
             loading={isPending}
             render={({ postId, url, urlBlur }) => (

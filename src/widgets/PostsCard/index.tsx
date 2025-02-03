@@ -41,15 +41,15 @@ export const PostsCard = memo((props: PostCardProps) => {
             style={{ aspectRatio, minHeight: '20px', ...style }}
             onClick={() => router.push(href)}
         >
-            <div className={s['button-group']}>
+            <div className={s.button_group}>
                 <SaveToDashboardButton
                     postsId={postId}
-                    className={s['save-btn']}
+                    className={s.save_btn}
                 />
                 <DownloadFileBtn
                     href={url}
                     downloadFileName={'test_file_name'}
-                    className={s['card-circle-icon']}
+                    className={s.card_circle_icon}
                 />
             </div>
 

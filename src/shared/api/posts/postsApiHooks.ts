@@ -39,13 +39,15 @@ export const useGetPostsQuery = (args?: {
                 limit: lastPageParam.limit,
             }
         },
-        getPreviousPageParam: (_, __, lastPageParam) => {
-            if (!lastPageParam.offset) return
-            return {
-                offset: lastPageParam.offset - paginationPostsAmount,
-                limit: lastPageParam.limit,
-            }
+
+        select: ({ pageParams, pages }) => {
+            const postsAmount = pages[0].postsAmount
+            const posts = pages.map((page) => page.posts).flat()
+            const next = pageParams.at(-1)?.limit === pages.at(-1)?.posts.length
+
+            return { postsAmount, posts, next }
         },
+
         initialPageParam: { offset: 0, limit: paginationPostsAmount },
     })
 }

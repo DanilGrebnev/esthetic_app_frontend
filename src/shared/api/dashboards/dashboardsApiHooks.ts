@@ -63,12 +63,8 @@ export const useGetDashboardsByCookieQuery = (args?: ArgsWithEnabled) => {
         queryKey: [queryKeys.dashboards.getDashboardsListByCookie],
         retry: false,
         getNextPageParam: (lastPage, __, { limit, offset }) => {
-            if (lastPage.dashboards.length < limit) return
+            if (lastPage.dashboards.length !== limit) return
             return { offset: offset + limit, limit }
-        },
-        getPreviousPageParam: (_, __, { limit, offset }) => {
-            if (!limit) return
-            return { offset: offset - limit, limit }
         },
         enabled: args?.enabled,
         initialPageParam: { offset: 0, limit: 20 },
@@ -92,14 +88,22 @@ export const useGetDashboardsDetail = ({
                 searchParams: pageParam,
             }),
         getNextPageParam: (lastPage, _, lastPageParam) => {
+            console.log('get next page')
             if (lastPage.posts.length < paginationPostsAmount) return
             return {
                 limit: lastPageParam.limit,
                 offset: lastPageParam.offset + paginationPostsAmount,
             }
         },
+        select: ({ pageParams, pages }) => {
+            const author = pages[0].author
+            const dashboardInfo = pages[0].dashboardInfo
+            const posts = pages.map((page) => page.posts).flat()
+            const next = pages.at(-1)?.posts.length === pageParams.at(-1)?.limit
+
+            return { author, dashboardInfo, posts, next }
+        },
         queryKey: [queryKeys.dashboards.dashboardsDetail(dashboardsId)],
-        retry: false,
         initialPageParam: { offset: 0, limit: paginationPostsAmount },
     })
 }

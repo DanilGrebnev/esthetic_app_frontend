@@ -5,6 +5,7 @@ import { useRegistrationMutation } from '@/shared/api/users'
 import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
 import { routes } from '@/shared/routes'
 import { type CreateUser } from '@/shared/types/user'
+import { Box } from '@/shared/ui/Box'
 import { Container } from '@/shared/ui/Container'
 import { Dialog } from '@/shared/ui/Dialog'
 import { Input } from '@/shared/ui/Input'
@@ -19,6 +20,7 @@ import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
+import { Signature } from '../../../Signature'
 import { SubTitle } from '../../../SubTitle'
 import { Title } from '../../../Title'
 import { NextBtn } from '../Buttons/NextBtn'
@@ -86,7 +88,7 @@ export const RegistrationForm = () => {
             size='s'
             className={s.page}
         >
-            <div className={s['progress-window-wrapper']}>
+            <Box boxShadow={true}>
                 <Title text='Регистрация' />
                 <form
                     onSubmit={onSubmit}
@@ -199,7 +201,12 @@ export const RegistrationForm = () => {
                         </div>
                     </ProgressWindow.Provider>
                 </form>
-            </div>
+                <Signature
+                    text='Уже есть аккаунт?'
+                    linkText='Войти'
+                    href={routes.login.getRoute()}
+                />
+            </Box>
         </Container>
     )
 }

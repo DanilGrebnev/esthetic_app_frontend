@@ -1,6 +1,7 @@
 'use client'
 
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
+import { memo, useMemo } from 'react'
 
 import { useCalculateColumnsAmountByScreenSize } from '../../model/utils/useCalculateColumnsAmountByScreenSize'
 import { PostsListSkeleton } from '../PostsListSkeleton'
@@ -14,38 +15,46 @@ interface PostsListRenderProps<TData extends any[]> {
 
     loading?: boolean
     useWindowScroll?: boolean
+    enabled?: boolean
 }
 
-export const PostsListRender = <TData extends any[]>(
-    props: PostsListRenderProps<TData>,
-) => {
-    const {
-        render,
-        endReached,
-        data,
-        useWindowScroll,
-        loading,
-        zeroDataTitle,
-    } = props
-    const columnsAmount = useCalculateColumnsAmountByScreenSize()
+export const PostsListRender = memo(
+    <TData extends any[]>(props: PostsListRenderProps<TData>) => {
+        const {
+            render,
+            endReached,
+            data,
+            useWindowScroll,
+            loading,
+            zeroDataTitle,
+            enabled,
+        } = props
 
-    if (loading || !data?.length) {
-        return <PostsListSkeleton />
-    }
+        const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
-    if (zeroDataTitle && !data?.length && !loading) {
-        return <p style={{ fontSize: 'var(--font-350)' }}>{zeroDataTitle}</p>
-    }
+        if (loading || !data?.length) {
+            return <PostsListSkeleton />
+        }
 
-    return (
-        <VirtualGrid
-            gap='5px'
-            totalCount={data.length}
-            useWindowScroll={useWindowScroll}
-            columnAmount={columnsAmount}
-            endReached={endReached}
-        >
-            {(i) => render(data[i])}
-        </VirtualGrid>
-    )
-}
+        if (zeroDataTitle && !data?.length && !loading) {
+            return (
+                <p style={{ fontSize: 'var(--font-350)' }}>{zeroDataTitle}</p>
+            )
+        }
+
+        return (
+            <VirtualGrid
+                gap='5px'
+                enabled={enabled}
+                totalCount={data.length}
+                useWindowScroll={useWindowScroll}
+                columnAmount={columnsAmount}
+                endReached={endReached}
+            >
+                {(i) => render(data[i])}
+            </VirtualGrid>
+        )
+    },
+)
+
+PostsListRender.displayName = 'PostsListRender'
