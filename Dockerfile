@@ -1,33 +1,19 @@
-FROM node:alpine AS base
-ARG PORT=3000
-ENV NEXT_TELEMETRY_DISABLED=1
+FROM node:23-alpine3.20
+
 WORKDIR /app
 
-FROM base AS dependencies
+RUN npm install yarn
 
-COPY package.json packaje-lick.json ./
-RUN npm ci
+COPY package.json ./
+COPY package-lock.json ./
+COPY yarn.lock ./
+
+RUN npm install
+
+COPY . .
 
 RUN npm run build
 
-# Run
-FROM base AS run
+EXPOSE 3000
 
-ENV NODE_ENV=production
-ENV PORT=$PORT
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-COPY --from=build /app/public ./public
-COPY --from=build --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
-
-EXPOSE $PORT
-
-ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD ["npm", "start"]

@@ -32,7 +32,7 @@ export const UserPublicProfileHeader = async ({
                 firstName={user?.firstName}
                 lastName={user?.lastName}
             />
-            <p className={s['username']}>{user?.userName}</p>
+            <p className={s.username}>{user?.userName}</p>
             <p className={s.subscriptions}>
                 подписки: {user?.subscribersAmount}
             </p>

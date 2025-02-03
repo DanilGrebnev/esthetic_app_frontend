@@ -1,9 +1,9 @@
 version: '3.9'
 
 services:
-    nextapp:
-        container_name: esthetic-app-client
-        image: esthetic-app-client
-        build: .
-        ports:
-            - '3000:3000'
+  postes:
+    container_name: postes_client
+    image: postes
+    build: .
+    ports:
+      - "3000:3000"

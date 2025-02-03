@@ -1,17 +1,14 @@
 $gap: 10px;
 
 .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-self: center;
+    @apply flex 
+    flex-col 
+    items-center 
+    self-center
+    w-max;
     gap: $gap;
     margin: 0 auto var(--maring-l);
-
-    width: max-content;
 }
-
-
 
 .username {
     font-size: var(--font-200);
@@ -27,18 +24,15 @@ $gap: 10px;
 }
 
 .avatar {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    border-radius: var(--global-border-radius);
-
+    @apply flex
+    relative
+    justify-center
+    items-center
+    self-center
+    rounded-[--global-border-radius]
+    w-[100px]
+    h-[100px]
+    text-white;
     background: rgb(0 0 0 / 10%);
-
-    width: 100px;
-    height: 100px;
-    color: white;
-
     font-size: 30px;
 }
