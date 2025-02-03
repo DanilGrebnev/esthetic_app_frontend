@@ -1,9 +1,7 @@
 'use client'
 
 import { UserFullName } from '@/features/user'
-import { getUserPublicProfileServerAction } from '@/shared/api/users'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
-import { UserPublicProfile } from '@/shared/types/user'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 
 import { ButtonGroup } from './ButtonGroup/ButtonGroup'

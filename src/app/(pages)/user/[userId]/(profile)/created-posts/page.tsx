@@ -1,4 +1,4 @@
-import { getUserPublicProfileServerAction } from '@/shared/api/users'
+import { usersApi } from '@/shared/api/users'
 import { UserPublicProfile } from '@/shared/types/user'
 import { CreatedPostsPage } from '@/views/CreatedPostsPage'
 
@@ -13,14 +13,13 @@ export async function generateMetadata({ params }: Props) {
     let userProfile: UserPublicProfile
 
     try {
-        userProfile = await getUserPublicProfileServerAction(userId)
+        userProfile = await usersApi.publicProfile(userId)
     } catch (err) {
         return {
             title: 'Ошибка получения профиля пользователя',
         }
     }
-    console.log({ userProfile })
-    console.log({ userId })
+
     return {
         title: `Посты пользователя ${userProfile?.user?.firstName} ${userProfile?.user?.lastName}`,
     }
