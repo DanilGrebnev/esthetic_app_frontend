@@ -10,7 +10,7 @@ interface DownloadContentBtnProps {
     className?: string
 }
 
-export const DownloadFileBtn: FC<DownloadContentBtnProps> = memo((props) => {
+export const DownloadFileBtn = memo((props: DownloadContentBtnProps) => {
     const { className, href, downloadFileName } = props
 
     const onDownload = (e: any) => {

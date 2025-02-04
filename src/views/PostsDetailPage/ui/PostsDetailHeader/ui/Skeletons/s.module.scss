@@ -1,0 +1,8 @@
+.download_btn {
+    --s: 35px;
+    @apply w-[--s] h-[--s] rounded-full;
+}
+
+.save_to_dashboard_btn {
+    @apply w-[120px] h-[48px];
+}

@@ -5,8 +5,6 @@ services:
     container_name: postes_client
     # env_file: '.env.production'
     environment:
-    # Отключаем линтинг для ускорения сборки
-      LINT: 'false'
     # Отключаем проверку SSL сертификата 
       NODE_TLS_REJECT_UNAUTHORIZED: 0
     build: .

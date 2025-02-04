@@ -1,7 +1,7 @@
-.image-container {
+.image_container {
     @apply relative 
     rounded-[--global-border-radius]
-    w-full
+    min-w-full
     overflow-hidden;
 }
 

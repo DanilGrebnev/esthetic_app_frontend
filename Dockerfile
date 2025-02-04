@@ -11,7 +11,7 @@ WORKDIR /app
 # COPY package.json yarn.lock* package-lock.json* ./
 COPY package.json yarn.lock* ./
 
-RUN yarn --force --frozen-lockfile
+RUN yarn --frozen-lockfile
 
 
 # Rebuild the source code only when needed
@@ -24,6 +24,8 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV MODE=production
+ENV LINT=false
 
 RUN yarn run build
 

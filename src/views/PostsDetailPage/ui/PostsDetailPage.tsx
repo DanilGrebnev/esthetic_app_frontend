@@ -1,6 +1,5 @@
 import { CommentsList } from '@/features/commentaries'
 import { DeleteCommentsAfterUnmount } from '@/features/commentaries'
-import { postsApi } from '@/shared/api/posts'
 import { Container } from '@/shared/ui/Container'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
@@ -17,15 +16,6 @@ interface DetailPostsParams {
 
 export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
     const { postId } = await params
-    let postData
-
-    try {
-        postData = await postsApi.getPostDetail({ postId })
-    } catch (err) {
-        return <h1>Ошибка получения поста</h1>
-    }
-
-    const { post } = postData
 
     return (
         <Container
@@ -36,22 +26,13 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
             <DeleteCommentsAfterUnmount postId={postId} />
             <div id={s.content_container}>
                 <PostImage
-                    aspectRatio={post?.media?.aspectRatio}
-                    name={post.name}
-                    url={post.media.url}
-                    urlBlur={post.media.urlBlur}
+                    postId={postId}
                     className={s.image}
                 />
                 <div className={s.content}>
                     <PostsDetailHeader
-                        likeCount={post.likeCount}
                         className={s.content__header}
-                        postsId={post?.postId}
-                        title={post.name}
-                        description={post?.description}
-                        pathToImg={post?.media?.url}
-                        author={post?.author}
-                        link={post?.link}
+                        postsId={postId}
                     />
                     <CommentsList
                         postId={postId}

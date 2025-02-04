@@ -32,8 +32,8 @@ export const PostsListRender = memo(
 
         const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
-        if (loading || !data?.length) {
-            return <PostsListSkeleton />
+        if (loading) {
+            return <PostsListSkeleton itemsAmount={10} />
         }
 
         if (zeroDataTitle && !data?.length && !loading) {
@@ -46,12 +46,12 @@ export const PostsListRender = memo(
             <VirtualGrid
                 gap='5px'
                 enabled={enabled}
-                totalCount={data.length}
+                totalCount={data?.length}
                 useWindowScroll={useWindowScroll}
                 columnAmount={columnsAmount}
                 endReached={endReached}
             >
-                {(i) => render(data[i])}
+                {(i) => render(data?.[i])}
             </VirtualGrid>
         )
     },

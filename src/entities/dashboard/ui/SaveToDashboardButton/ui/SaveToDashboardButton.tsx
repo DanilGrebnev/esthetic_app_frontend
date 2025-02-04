@@ -4,7 +4,6 @@ import { Button } from '@/shared/ui/Button'
 import { Modal } from '@/shared/ui/modal'
 import {
     type ComponentPropsWithoutRef,
-    type FC,
     memo,
     useCallback,
     useState,
@@ -17,8 +16,8 @@ interface SaveToDashboardButtonProps
     postsId: string
 }
 
-export const SaveToDashboardButton: FC<SaveToDashboardButtonProps> = memo(
-    ({ className, postsId }) => {
+export const SaveToDashboardButton = memo(
+    ({ className, postsId }: SaveToDashboardButtonProps) => {
         const [open, setIsOpen] = useState(false)
 
         const onOpen = useCallback((e: any) => {

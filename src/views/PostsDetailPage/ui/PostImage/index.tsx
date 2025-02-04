@@ -1,34 +1,45 @@
 'use client'
 
+import { useGetDetailPostsQuery } from '@/shared/api/posts'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
+import { Skeleton } from '@/shared/ui/Skeleton'
 import { calculateHeightFromAspectRatio } from '@/shared/utils/calculateHeightFromAspectRatio'
 import clsx from 'clsx'
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import s from './post-image.module.scss'
 
 interface PostImageProps {
-    aspectRatio: string
-    name: string
-    url: string
-    urlBlur: string
+    postId: string
     className?: string
 }
 
 export const PostImage = (props: PostImageProps) => {
-    const { aspectRatio, className, name = '', url, urlBlur } = props
+    const { postId, className } = props
+    const { data, isPending } = useGetDetailPostsQuery(postId)
+
     const ref = useRef<HTMLDivElement>(null)
     const [height, setHeight] = useState<number>(0)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!ref.current) return
         setHeight(ref.current.clientWidth)
-    }, [])
+    }, [isPending])
+
+    if (!data || isPending) {
+        return <Skeleton className='w-full h-[80%]' />
+    }
+
+    const {
+        post: {
+            media: { aspectRatio, url, urlBlur },
+        },
+    } = data
 
     return (
         <div
             ref={ref}
-            className={clsx(s['image-container'], className)}
+            className={clsx(s.image_container, className)}
             style={{
                 height: calculateHeightFromAspectRatio(aspectRatio, height),
                 minHeight: calculateHeightFromAspectRatio(aspectRatio, height),
@@ -41,7 +52,7 @@ export const PostImage = (props: PostImageProps) => {
                 sizes='400px'
                 quality={30}
                 loading='lazy'
-                alt={name}
+                alt=''
                 src={url}
                 blurDataURL={urlBlur}
             />

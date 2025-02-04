@@ -5,17 +5,17 @@ import {
     useGetDetailPostsQuery,
     useUpdatePostsMutation,
 } from '@/shared/api/posts'
+import { useGetPostIdSelector } from '@/shared/store/posts'
 import { Button } from '@/shared/ui/Button'
 import { Container } from '@/shared/ui/Container'
 import { BaseModalWindow, useModalContext } from '@/shared/ui/modal'
 import { useRef } from 'react'
 import toast from 'react-hot-toast'
 
-import { useMenuPostBtnContext } from '../../MenuPostBtnContext'
 import s from './EditPostsModal.module.scss'
 
 export const EditPostsModal = () => {
-    const { postsId } = useMenuPostBtnContext()
+    const postsId = useGetPostIdSelector()
     const submitRef = useRef<HTMLButtonElement | null>(null)
 
     const { onClose } = useModalContext()
