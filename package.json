@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
+        "build:remote": "cross-env MODE=\"production:remote\" LINT=\"false\" NEXT_PUBLIC_FETCH_URL=\"https://postes.ru/api\" NODE_TLS_REJECT_UNAUTHORIZED=\"0\" next build && next start",
         "start": "next start",
         "start:standalone": "node .next/standalone/server.js",
         "lint": "next lint",

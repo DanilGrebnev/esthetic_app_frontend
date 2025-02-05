@@ -1,3 +1,4 @@
+import { TAcceptFiles } from '@/shared/types/acceptAploadFiles'
 import type { DragEvent } from 'react'
 
 export interface IUploadFiles {
@@ -8,6 +9,7 @@ export interface IUploadFiles {
     name?: string
     isError?: boolean
     disabled?: boolean
+    acceptFiles?: TAcceptFiles
 }
 
 export type TStopPropAndPrevDef = <Cb extends (...args: any) => any>(

@@ -1,5 +1,6 @@
 'use client'
 
+import { consts } from '@/shared/consts'
 import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import clsx from 'clsx'
 import { forwardRef, memo, useRef, useState } from 'react'
@@ -14,6 +15,8 @@ import s from './s.module.scss'
 
 export const UploadFiles = memo(
     forwardRef<HTMLInputElement, IUploadFiles>((props: IUploadFiles, ref) => {
+        const { acceptFiles = consts.acceptFiles } = props
+
         const [isOver, setIsOver] = useState<boolean>(false)
 
         const inputRef = useRef<HTMLInputElement>(null)
@@ -54,7 +57,7 @@ export const UploadFiles = memo(
                     onChange={onChange}
                     ref={combineRef}
                     name={props.name}
-                    accept='image/*'
+                    accept={acceptFiles.join(',')}
                     type='file'
                     hidden={true}
                 />

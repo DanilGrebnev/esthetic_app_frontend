@@ -41,9 +41,11 @@ export const CreatePostForm = memo(
         } = useForm<TCreatePosts>({
             mode: 'onBlur',
             defaultValues: {
-                name: defaultValues?.name,
-                link: defaultValues?.link,
-                description: defaultValues?.description,
+                /* Устанавливаем пустую строку по умолчанию, чтобы не было
+                 перехода инпута из некотролируемого в контролируемый */
+                name: defaultValues?.name ?? '',
+                link: defaultValues?.link ?? '',
+                description: defaultValues?.description ?? '',
             },
         })
 
