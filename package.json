@@ -5,8 +5,9 @@
     "type": "module",
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
-        "build:remote": "cross-env MODE=\"production:remote\" LINT=\"false\" NEXT_PUBLIC_FETCH_URL=\"https://postes.ru/api\" NODE_TLS_REJECT_UNAUTHORIZED=\"0\" next build && next start",
+        "build": "next build && next start",
+        "build:remote": "cross-env \n MODE=\"production:remote\" LINT=\"false\" next build",
+        "build:local": "cross-env \n MODE=\"production:local\" LINT=\"false\" next build",
         "start": "next start",
         "start:standalone": "node .next/standalone/server.js",
         "lint": "next lint",
@@ -47,7 +48,7 @@
     },
     "resolutions": {
         "wrap-ansi": "8.1.0",
-        "string-width": "4.2.3"
+        "string-width": "5.1.2"
     },
     "devDependencies": {
         "@chromatic-com/storybook": "1.8.0",
@@ -99,6 +100,5 @@
         "ts-jest": "^29.2.5",
         "ts-node": "^10.9.2",
         "typescript": "^5.7.3"
-    },
-    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+    }
 }
