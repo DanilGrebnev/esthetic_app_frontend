@@ -18,43 +18,44 @@ interface PostsListRenderProps<TData extends any[]> {
     enabled?: boolean
 }
 
-export const PostsListRender = memo(
-    <TData extends any[]>(props: PostsListRenderProps<TData>) => {
-        const {
-            render,
-            endReached,
-            data,
-            useWindowScroll,
-            loading,
-            zeroDataTitle,
-            enabled,
-        } = props
+export const PostsListRender = <TData extends any[]>(
+    props: PostsListRenderProps<TData>,
+) => {
+    const {
+        render,
+        endReached,
+        data,
+        useWindowScroll,
+        loading,
+        zeroDataTitle,
+        enabled,
+    } = props
 
-        const columnsAmount = useCalculateColumnsAmountByScreenSize()
+    const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
-        if (loading) {
-            return <PostsListSkeleton itemsAmount={10} />
-        }
+    if (loading) {
+        return <PostsListSkeleton itemsAmount={10} />
+    }
 
-        if (zeroDataTitle && !data?.length && !loading) {
-            return (
-                <p style={{ fontSize: 'var(--font-350)' }}>{zeroDataTitle}</p>
-            )
-        }
+    if (zeroDataTitle && !data?.length && !loading) {
+        return <p style={{ fontSize: 'var(--font-350)' }}>{zeroDataTitle}</p>
+    }
 
-        return (
-            <VirtualGrid
-                gap='5px'
-                enabled={enabled}
-                totalCount={data?.length}
-                useWindowScroll={useWindowScroll}
-                columnAmount={columnsAmount}
-                endReached={endReached}
-            >
-                {(i) => render(data?.[i])}
-            </VirtualGrid>
-        )
-    },
-)
+    return (
+        <VirtualGrid
+            gap='5px'
+            enabled={enabled}
+            totalCount={data?.length || 0}
+            useWindowScroll={useWindowScroll}
+            columnAmount={columnsAmount}
+            endReached={endReached}
+        >
+            {(i) => {
+                if (!data?.length) return <></>
+                return render(data?.[i])
+            }}
+        </VirtualGrid>
+    )
+}
 
 PostsListRender.displayName = 'PostsListRender'

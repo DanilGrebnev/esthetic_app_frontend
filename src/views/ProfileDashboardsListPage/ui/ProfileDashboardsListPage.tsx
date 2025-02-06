@@ -6,9 +6,9 @@ interface UserDashboardsPageProps {
     }>
 }
 
-export const ProfileDashboardsListPage = async (
-    props: UserDashboardsPageProps,
-) => {
-    const { userId } = await props.params
+export const ProfileDashboardsListPage = async ({
+    params,
+}: UserDashboardsPageProps) => {
+    const { userId } = await params
     return <DashboardsList userId={userId} />
 }
