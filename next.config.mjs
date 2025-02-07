@@ -1,6 +1,8 @@
 // @ts-check
 
 /** @type {import('next').NextConfig} */
+import { unauthorized } from 'next/navigation.js'
+
 import { SWGRWebpackConfig } from './webpackConfig/SWGRWebpackConfig.js'
 
 const nextConfig = {
@@ -11,7 +13,9 @@ const nextConfig = {
     env: {
         ...getEnvConfig(getEnv('MODE', process.env.MODE)),
     },
+
     images: {
+        unauthorized: true,
         remotePatterns: [
             {
                 hostname: '*',
