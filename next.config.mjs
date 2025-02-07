@@ -15,7 +15,7 @@ const nextConfig = {
     },
 
     images: {
-        unauthorized: true,
+        unoptimized: true,
         remotePatterns: [
             {
                 hostname: '*',
