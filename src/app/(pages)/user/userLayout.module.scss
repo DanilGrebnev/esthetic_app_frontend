@@ -1,3 +1,7 @@
-.user-layout-header {
+.container {
+    @apply flex flex-col grow;
+}
+
+.header {
     @apply flex p-[--padding-normal];
 }

@@ -1,0 +1,15 @@
+.virtual_posts_list_wrapper {
+    @apply grow 
+    min-h-full 
+    h-full 
+    flex 
+    flex-col 
+    relative;
+}
+
+.to_top_btn {
+    @apply fixed
+    z-[10000]
+    right-[20px]
+    bottom-[20px];
+}

@@ -2,12 +2,13 @@
 
 import { PostsListRender } from '@/entities/posts'
 import { useGetPostsQuery } from '@/shared/api/posts'
+import { useScrollDirection } from '@/shared/hooks/useScrollDirection'
 import { useGetSearchPostsPayloadFromActiveTags } from '@/shared/store/posts'
 import { PostsCard } from '@/widgets/PostsCard'
-import { useEffect } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 
-export const PostsList = () => {
+export const HomePagePostsList = memo(() => {
     const search = useGetSearchPostsPayloadFromActiveTags()
 
     const { data, isPending, fetchNextPage, isError } = useGetPostsQuery({
@@ -15,14 +16,16 @@ export const PostsList = () => {
     })
 
     useEffect(() => {
-        if (!isError) return
+        if (!isError || isPending) return
         toast.error('Ошибка получения постов')
-    }, [isError])
+    }, [isError, isPending])
 
     return (
         <PostsListRender
+            showToTopBtn={true}
             data={data?.posts}
             enabled={!isPending || !isError}
+            useWindowScroll={true}
             endReached={fetchNextPage}
             loading={isPending || isError}
             render={(post) => (
@@ -35,4 +38,6 @@ export const PostsList = () => {
             )}
         />
     )
-}
+})
+
+HomePagePostsList.displayName = 'HomePagePostsList'

@@ -32,7 +32,7 @@ export const CreatedPostsPage = memo((props: CreatedPostsPageProps) => {
 
     return (
         <Container>
-            <Header userId={props.userId} />
+            {/* <Header userId={props.userId} /> */}
             <PostsListRender
                 zeroDataTitle='У пользователя нет созданных постов.'
                 data={data?.posts}

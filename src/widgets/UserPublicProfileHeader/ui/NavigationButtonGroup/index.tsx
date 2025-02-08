@@ -1,5 +1,6 @@
 'use client'
 
+import { useGetProfileByCookieQuery } from '@/shared/api/users'
 import { routes } from '@/shared/routes'
 import { Button } from '@/shared/ui/Button'
 import { usePathname } from 'next/navigation'

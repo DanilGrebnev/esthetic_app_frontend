@@ -11,7 +11,7 @@ export const TanStackQueryProvider = ({ children }: Layout) => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             {children}
         </QueryClientProvider>
     )

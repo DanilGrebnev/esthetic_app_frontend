@@ -1,7 +1,7 @@
 import { Ref, RefObject } from 'react'
 
-export const useCombinedRef = <T extends HTMLElement = HTMLElement>(
-    ...refs: ((Ref<T> | undefined) | (RefObject<T> | undefined))[]
+export const useCombinedRef = <T extends any>(
+    ...refs: ((Ref<T | null> | undefined) | (RefObject<T | null> | undefined))[]
 ) => {
     return (element: T) => {
         refs.forEach((ref) => {

@@ -8,16 +8,13 @@ export default function UserLayout({ children }: Layout) {
     return (
         <section
             id='Users layout'
-            className='flex flex-col grow'
+            className={s.container}
             style={{ height: '100%' }}
         >
-            <header
-                id='User layout header'
-                className={s['user-layout-header']}
-            >
+            <header className={s.header}>
                 <Button
                     href={routes.main.getRoute()}
-                    variant='standart'
+                    variant='silver'
                 >
                     На главную
                 </Button>

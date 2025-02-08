@@ -6,7 +6,7 @@ import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { memo } from 'react'
 
 import { ButtonGroup } from './ButtonGroup/ButtonGroup'
-import { Navigation } from './Navigation'
+import { Navigation } from './NavigationButtonGroup'
 import s from './UserPublicProfileHeader.module.scss'
 
 interface UserHeaderLayoutProps {

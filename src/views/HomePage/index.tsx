@@ -1,10 +1,10 @@
 import { Container } from '@/shared/ui/Container'
-import { PostsList } from '@/widgets/HomePagePostsList'
+import { HomePagePostsList } from '@/widgets/HomePagePostsList'
 
 export const Home = () => {
     return (
         <Container className='flex flex-col grow'>
-            <PostsList />
+            <HomePagePostsList />
         </Container>
     )
 }

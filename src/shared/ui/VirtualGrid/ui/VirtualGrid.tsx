@@ -1,6 +1,5 @@
-import { Layout } from '@/shared/types/layout'
-import { type JSX, ReactNode, memo, useCallback } from 'react'
-import { VirtuosoGrid } from 'react-virtuoso'
+import { type JSX, type Ref, memo } from 'react'
+import { VirtuosoGrid, VirtuosoGridHandle } from 'react-virtuoso'
 
 import { useEndReachedCallback } from '../hooks'
 import { GridItem } from './GridItem'
@@ -17,6 +16,7 @@ export interface IVirtualGridProps {
     useWindowScroll?: boolean
     endReached?: () => void
     children?: (index: number) => JSX.Element
+    ref?: Ref<VirtuosoGridHandle>
 }
 /**
  * usage example:
@@ -73,6 +73,7 @@ export const VirtualGrid = memo((props: IVirtualGridProps) => {
         increaseViewportBy = { top: 0, bottom: 0 },
         children,
         endReached,
+        ref,
     } = props
 
     const endReachedCallback = useEndReachedCallback({ enabled, endReached })
@@ -81,6 +82,7 @@ export const VirtualGrid = memo((props: IVirtualGridProps) => {
 
     return (
         <VirtuosoGrid
+            ref={ref}
             listClassName={listClassName}
             useWindowScroll={useWindowScroll}
             increaseViewportBy={increaseViewportBy}

@@ -52,3 +52,11 @@
 .edit {
     width: 55%;
 }
+
+.arrow {
+    --s: 30px;
+    @apply absolute
+    w-[--s]
+    max-w-[--s]
+    h-[--s];
+}

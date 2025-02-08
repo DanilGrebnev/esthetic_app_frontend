@@ -1,10 +1,15 @@
 'use client'
 
+import { useCombinedRef } from '@/shared/hooks/useCombineRef'
+import { useScrollDirection } from '@/shared/hooks/useScrollDirection'
+import { CircleButton } from '@/shared/ui/CircleButton'
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
-import { JSX, memo, useCallback, useMemo } from 'react'
+import { type JSX, type Ref, useCallback, useRef } from 'react'
+import { type VirtuosoGridHandle } from 'react-virtuoso'
 
 import { useCalculateColumnsAmountByScreenSize } from '../../model/utils/useCalculateColumnsAmountByScreenSize'
 import { PostsListSkeleton } from '../PostsListSkeleton'
+import s from './posts-list.module.scss'
 
 interface PostsListRenderProps<TData extends any[]> {
     render: (data: TData[number]) => JSX.Element
@@ -16,6 +21,8 @@ interface PostsListRenderProps<TData extends any[]> {
     loading?: boolean
     useWindowScroll?: boolean
     enabled?: boolean
+    ref?: Ref<VirtuosoGridHandle>
+    showToTopBtn?: boolean
 }
 
 export const PostsListRender = <TData extends any[]>(
@@ -29,7 +36,14 @@ export const PostsListRender = <TData extends any[]>(
         loading,
         zeroDataTitle,
         enabled,
+        ref,
+        showToTopBtn,
     } = props
+    const { scrollDirection } = useScrollDirection()
+
+    const virtuoso = useRef<VirtuosoGridHandle>(null)
+
+    const combinedVirtuoso = useCombinedRef(virtuoso, ref)
 
     const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
@@ -47,16 +61,31 @@ export const PostsListRender = <TData extends any[]>(
     }
 
     return (
-        <VirtualGrid
-            gap='5px'
-            enabled={enabled}
-            totalCount={data?.length ?? 0}
-            useWindowScroll={useWindowScroll}
-            columnAmount={columnsAmount}
-            endReached={endReached}
-        >
-            {renderCallback}
-        </VirtualGrid>
+        <div className={s.virtual_posts_list_wrapper}>
+            <VirtualGrid
+                ref={combinedVirtuoso}
+                gap='5px'
+                enabled={enabled}
+                totalCount={data?.length ?? 0}
+                useWindowScroll={useWindowScroll}
+                columnAmount={columnsAmount}
+                endReached={endReached}
+            >
+                {renderCallback}
+            </VirtualGrid>
+            {showToTopBtn && scrollDirection !== 'down' && (
+                <CircleButton
+                    onClick={() => {
+                        virtuoso.current?.scrollToIndex({
+                            index: 0,
+                            behavior: 'smooth',
+                        })
+                    }}
+                    className={s.to_top_btn}
+                    icon='arrow'
+                />
+            )}
+        </div>
     )
 }
 

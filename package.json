@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build && next start",
+        "build:nolint": "cross-env LINT=\"false\" next build && next start",
         "build:remote": "cross-env MODE=\"production:remote\" LINT=\"false\" next build",
         "build:local": "cross-env MODE=\"production:local\" LINT=\"false\" next build",
         "start": "next start",
