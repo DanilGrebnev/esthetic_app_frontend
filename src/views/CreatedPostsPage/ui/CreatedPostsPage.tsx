@@ -6,6 +6,8 @@ import { useGetCreatedUserPostsQuery } from '@/shared/api/users'
 import { Container } from '@/shared/ui/Container'
 import { PostsCard } from '@/widgets/PostsCard'
 
+import { Header } from './Header'
+
 interface CreatedPostsPageProps {
     userId: string
 }
@@ -17,6 +19,7 @@ export const CreatedPostsPage = (props: CreatedPostsPageProps) => {
 
     return (
         <Container>
+            <Header userId={props.userId} />
             <PostsListRender
                 zeroDataTitle='У пользователя нет созданных постов.'
                 data={data?.posts}

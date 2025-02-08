@@ -1,18 +1,18 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
-interface UserState {
+type State = {
     auth: boolean
 }
 
-interface Actions {
+type Actions = {
     setAuth: (auth: boolean) => void
 }
 
-export const useAuthStore = create<UserState & Actions>()(
+export const useAuthStore = create<State & Actions>()(
     immer((set) => ({
         auth: false,
-        setAuth: (auth: boolean) => {
+        setAuth(auth) {
             set((state) => {
                 state.auth = auth
             })
