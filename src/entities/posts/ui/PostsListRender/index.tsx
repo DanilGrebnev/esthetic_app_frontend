@@ -9,6 +9,7 @@ import { type VirtuosoGridHandle } from 'react-virtuoso'
 
 import { useCalculateColumnsAmountByScreenSize } from '../../model/utils/useCalculateColumnsAmountByScreenSize'
 import { PostsListSkeleton } from '../PostsListSkeleton'
+import { ToTopBtn } from './ToTopBtn'
 import s from './posts-list.module.scss'
 
 interface PostsListRenderProps<TData extends any[]> {
@@ -23,6 +24,7 @@ interface PostsListRenderProps<TData extends any[]> {
     enabled?: boolean
     ref?: Ref<VirtuosoGridHandle>
     showToTopBtn?: boolean
+    increaseViewportBy?: number
 }
 
 export const PostsListRender = <TData extends any[]>(
@@ -38,19 +40,16 @@ export const PostsListRender = <TData extends any[]>(
         enabled,
         ref,
         showToTopBtn,
+        increaseViewportBy,
     } = props
-    const { scrollDirection } = useScrollDirection()
+
+    const { scrollDirection } = useScrollDirection(showToTopBtn ?? false)
 
     const virtuoso = useRef<VirtuosoGridHandle>(null)
 
     const combinedVirtuoso = useCombinedRef(virtuoso, ref)
 
     const columnsAmount = useCalculateColumnsAmountByScreenSize()
-
-    const renderCallback = useCallback(
-        (i: number) => render(data?.[i]),
-        [data, render],
-    )
 
     if (loading) {
         return <PostsListSkeleton itemsAmount={10} />
@@ -66,25 +65,22 @@ export const PostsListRender = <TData extends any[]>(
                 ref={combinedVirtuoso}
                 gap='5px'
                 enabled={enabled}
+                increaseViewportBy={increaseViewportBy}
                 totalCount={data?.length ?? 0}
                 useWindowScroll={useWindowScroll}
                 columnAmount={columnsAmount}
                 endReached={endReached}
             >
-                {renderCallback}
+                {(i: number) => render(data?.[i])}
             </VirtualGrid>
-            {showToTopBtn && scrollDirection !== 'down' && (
-                <CircleButton
-                    onClick={() => {
-                        virtuoso.current?.scrollToIndex({
-                            index: 0,
-                            behavior: 'smooth',
-                        })
-                    }}
-                    className={s.to_top_btn}
-                    icon='arrow'
-                />
-            )}
+            <ToTopBtn
+                show={
+                    showToTopBtn &&
+                    scrollDirection !== 'down' &&
+                    !!scrollDirection
+                }
+                virtuoso={virtuoso}
+            />
         </div>
     )
 }

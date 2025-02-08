@@ -22,6 +22,7 @@ export const HomePagePostsList = memo(() => {
 
     return (
         <PostsListRender
+            increaseViewportBy={1000}
             showToTopBtn={true}
             data={data?.posts}
             enabled={!isPending || !isError}

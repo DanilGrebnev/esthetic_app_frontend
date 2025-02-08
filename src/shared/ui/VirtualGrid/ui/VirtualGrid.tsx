@@ -1,4 +1,4 @@
-import { type JSX, type Ref, memo } from 'react'
+import { type JSX, type Ref, memo, useMemo } from 'react'
 import { VirtuosoGrid, VirtuosoGridHandle } from 'react-virtuoso'
 
 import { useEndReachedCallback } from '../hooks'
@@ -78,7 +78,7 @@ export const VirtualGrid = memo((props: IVirtualGridProps) => {
 
     const endReachedCallback = useEndReachedCallback({ enabled, endReached })
 
-    const w = 100 / columnAmount + '%'
+    const w = useMemo(() => 100 / columnAmount + '%', [columnAmount])
 
     return (
         <VirtuosoGrid
