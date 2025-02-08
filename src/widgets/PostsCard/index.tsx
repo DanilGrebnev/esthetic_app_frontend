@@ -7,7 +7,7 @@ import { routes } from '@/shared/routes'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { type CSSProperties, memo } from 'react'
+import { type CSSProperties, memo, useEffect } from 'react'
 
 import s from './s.module.scss'
 

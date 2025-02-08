@@ -8,8 +8,11 @@ import { SWGRWebpackConfig } from './webpackConfig/SWGRWebpackConfig.js'
 const nextConfig = {
     ...toggleLinting(getEnv('LINT', process.env.LINT)),
     ...setOutput(getEnv('MODE', process.env.MODE)),
+
     reactStrictMode: false,
-    experimental: {},
+    experimental: {
+        reactCompiler: true,
+    },
     env: {
         ...getEnvConfig(getEnv('MODE', process.env.MODE)),
     },
@@ -33,8 +36,9 @@ export default nextConfig
 function setOutput(MODE) {
     if (MODE === 'production') {
         return { output: 'standalone' }
+    } else {
+        return {}
     }
-    return {}
 }
 
 function toggleLinting(LINT) {

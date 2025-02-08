@@ -1,5 +1,3 @@
-'use client'
-
 import { routes } from '@/shared/routes'
 import { type Layout } from '@/shared/types/layout'
 import { Button } from '@/shared/ui/Button'

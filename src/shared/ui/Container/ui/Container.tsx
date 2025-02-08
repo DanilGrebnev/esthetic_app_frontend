@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import type { CSSProperties, ReactNode } from 'react'
+import { type CSSProperties, type ReactNode, memo } from 'react'
 
 import s from './s.module.scss'
 
@@ -11,7 +11,7 @@ interface IContainer {
     id?: string
 }
 
-export const Container = (props: IContainer) => {
+export const Container = memo((props: IContainer) => {
     const { children, className, size = 'l', ...otherProps } = props
 
     return (
@@ -22,4 +22,6 @@ export const Container = (props: IContainer) => {
             {children}
         </section>
     )
-}
+})
+
+Container.displayName = 'Container'

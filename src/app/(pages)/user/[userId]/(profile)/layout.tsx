@@ -21,7 +21,7 @@ const UserLayout = async ({ children, params }: UserLayout) => {
         <Container
             size='l'
             id='Profile layout'
-            className={s['profile-container']}
+            className={s.profile_container}
         >
             <Suspense fallback={<UserPublicProfileHeaderSkeleton />}>
                 <UserPublicProfileHeader userId={userId} />

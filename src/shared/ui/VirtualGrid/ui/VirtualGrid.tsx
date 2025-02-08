@@ -1,8 +1,10 @@
+import { Layout } from '@/shared/types/layout'
+import { type JSX, ReactNode, memo, useCallback } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
 
-import { Item } from './Item'
+import { useEndReachedCallback } from '../hooks'
+import { GridItem } from './GridItem'
 import { List } from './List'
-import { JSX } from 'react'
 
 export interface IVirtualGridProps {
     listClassName?: string
@@ -59,7 +61,7 @@ export interface IVirtualGridProps {
      )
  }
  */
-export const VirtualGrid = (props: IVirtualGridProps) => {
+export const VirtualGrid = memo((props: IVirtualGridProps) => {
     const {
         columnAmount,
         gap,
@@ -73,6 +75,10 @@ export const VirtualGrid = (props: IVirtualGridProps) => {
         endReached,
     } = props
 
+    const endReachedCallback = useEndReachedCallback({ enabled, endReached })
+
+    const w = 100 / columnAmount + '%'
+
     return (
         <VirtuosoGrid
             listClassName={listClassName}
@@ -80,20 +86,22 @@ export const VirtualGrid = (props: IVirtualGridProps) => {
             increaseViewportBy={increaseViewportBy}
             style={{ height: '100%', flexGrow: 1 }}
             totalCount={totalCount}
-            endReached={() => (enabled ? endReached?.() : () => {})}
+            endReached={endReachedCallback}
             components={{
                 List,
                 Item: ({ children }) => (
-                    <Item
+                    <GridItem
                         itemHeight={itemHeight}
-                        width={100 / columnAmount + '%'}
+                        width={w}
                         gap={gap}
                     >
                         {children}
-                    </Item>
+                    </GridItem>
                 ),
             }}
             itemContent={children}
         />
     )
-}
+})
+
+VirtualGrid.displayName = 'VirtualGrid'

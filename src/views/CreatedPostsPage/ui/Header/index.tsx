@@ -20,6 +20,7 @@ export const Header = memo((props: HeaderProps) => {
     if (!isOwner || isPending || !isAuth) {
         return
     }
+    
 
     return (
         <header>
@@ -30,6 +31,7 @@ export const Header = memo((props: HeaderProps) => {
             >
                 Создать
             </Button>
+            
         </header>
     )
 })

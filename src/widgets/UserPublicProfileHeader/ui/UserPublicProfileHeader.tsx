@@ -3,6 +3,7 @@
 import { UserFullName } from '@/features/user'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
+import { memo } from 'react'
 
 import { ButtonGroup } from './ButtonGroup/ButtonGroup'
 import { Navigation } from './Navigation'
@@ -12,38 +13,40 @@ interface UserHeaderLayoutProps {
     userId: string
 }
 
-export const UserPublicProfileHeader = ({ userId }: UserHeaderLayoutProps) => {
-    const { data } = useGetPublicProfileQuery({ userId })
+export const UserPublicProfileHeader = memo(
+    ({ userId }: UserHeaderLayoutProps) => {
+        const { data } = useGetPublicProfileQuery({ userId })
 
-    if (data && !('user' in data))
-        return <h1>Ошикба получения профиля пользователя</h1>
+        if (data && !('user' in data))
+            return <h1>Ошикба получения профиля пользователя</h1>
 
-    const user = data?.user
+        const user = data?.user
 
-    return (
-        <header className={s.header}>
-            <UserAvatar
-                size='xl'
-                word={user?.firstName[0].toUpperCase()}
-                href={user?.avatar}
-            />
-            <UserFullName
-                size='big'
-                firstName={user?.firstName}
-                lastName={user?.lastName}
-            />
-            <p className={s.username}>{user?.userName}</p>
-            <p className={s.subscriptions}>
-                подписки: {user?.subscribersAmount}
-            </p>
+        return (
+            <header className={s.header}>
+                <UserAvatar
+                    size='xl'
+                    word={user?.firstName[0].toUpperCase()}
+                    href={user?.avatar}
+                />
+                <UserFullName
+                    size='big'
+                    firstName={user?.firstName}
+                    lastName={user?.lastName}
+                />
+                <p className={s.username}>{user?.userName}</p>
+                <p className={s.subscriptions}>
+                    подписки: {user?.subscribersAmount}
+                </p>
 
-            <ButtonGroup userId={userId} />
-            <Navigation
-                className={s['navigation-group']}
-                userId={userId}
-            />
-        </header>
-    )
-}
+                <ButtonGroup userId={userId} />
+                <Navigation
+                    className={s['navigation-group']}
+                    userId={userId}
+                />
+            </header>
+        )
+    },
+)
 
 UserPublicProfileHeader.displayName = 'UserHeaderLayout'

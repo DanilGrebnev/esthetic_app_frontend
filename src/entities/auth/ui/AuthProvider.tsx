@@ -16,8 +16,6 @@ export const AuthProvider = (props: AuthProviderProps) => {
 
     const { data } = useCheckAuthQuery()
 
-    console.log('data?.isAuth', data?.isAuth)
-
     useEffect(() => {
         setAuth(data?.isAuth ?? false)
     }, [data, setAuth])

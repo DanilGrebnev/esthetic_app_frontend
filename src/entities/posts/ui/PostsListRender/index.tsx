@@ -1,7 +1,7 @@
 'use client'
 
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
-import { JSX, memo } from 'react'
+import { JSX, memo, useCallback, useMemo } from 'react'
 
 import { useCalculateColumnsAmountByScreenSize } from '../../model/utils/useCalculateColumnsAmountByScreenSize'
 import { PostsListSkeleton } from '../PostsListSkeleton'
@@ -33,6 +33,11 @@ export const PostsListRender = <TData extends any[]>(
 
     const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
+    const renderCallback = useCallback(
+        (i: number) => render(data?.[i]),
+        [data, render],
+    )
+
     if (loading) {
         return <PostsListSkeleton itemsAmount={10} />
     }
@@ -45,15 +50,12 @@ export const PostsListRender = <TData extends any[]>(
         <VirtualGrid
             gap='5px'
             enabled={enabled}
-            totalCount={data?.length || 0}
+            totalCount={data?.length ?? 0}
             useWindowScroll={useWindowScroll}
             columnAmount={columnsAmount}
             endReached={endReached}
         >
-            {(i) => {
-                if (!data?.length) return <></>
-                return render(data?.[i])
-            }}
+            {renderCallback}
         </VirtualGrid>
     )
 }
