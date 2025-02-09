@@ -8,7 +8,7 @@ interface DashboardsContainerProps {
 }
 
 /* Адаптивный контейнер для досок без плитки */
-export const DashboardsContainer: FC<DashboardsContainerProps> = (props) => {
+export const DashboardsContainer = (props: DashboardsContainerProps) => {
     const { children } = props
 
     return (

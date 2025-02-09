@@ -2,7 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { throttle } from '../utils/throttle'
 
-export const useScrollDirection = (enabled: boolean) => {
+/**
+ * Показывает направление скролла
+ */
+export const useScrollDirection = (enabled: boolean, throttleMs?: number) => {
     type TScrollDirection = 'up' | 'down' | null
 
     const [scrollDirection, setScrollDirection] =
@@ -18,16 +21,17 @@ export const useScrollDirection = (enabled: boolean) => {
                 setScrollDirection('up')
             }
             oldYScroll.current = window.scrollY
-        }, 500),
-        [],
+        }, throttleMs ?? 500),
+        [throttleMs],
     )
 
     useEffect(() => {
-        if (!enabled) return
+        if (!enabled) return setScrollDirection(null)
         window.addEventListener('scroll', onScroll)
 
         return () => {
             window.removeEventListener('scroll', onScroll)
+            setScrollDirection(null)
         }
     }, [enabled, onScroll])
 

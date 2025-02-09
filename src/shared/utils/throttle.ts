@@ -1,10 +1,16 @@
-type TCb = (...args: any) => any
-export const throttle = <T extends TCb>(cb: T, timeout: number) => {
+type TCallback = (...args: any[]) => any
+
+type Throttle = <T extends TCallback>(
+    callback: T,
+    timeout: number,
+) => (...args: Parameters<T>) => void
+
+export const throttle: Throttle = (cb, timeout) => {
     let timer: any = null
 
-    return (...args: Parameters<T>) => {
+    return (...args) => {
         if (timer) return
-        
+
         timer = setTimeout(() => {
             cb(...args)
             timer = null

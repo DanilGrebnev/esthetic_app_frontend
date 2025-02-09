@@ -88,7 +88,6 @@ export const useGetDashboardsDetail = ({
                 searchParams: pageParam,
             }),
         getNextPageParam: (lastPage, _, lastPageParam) => {
-            console.log('get next page')
             if (lastPage.posts.length < paginationPostsAmount) return
             return {
                 limit: lastPageParam.limit,

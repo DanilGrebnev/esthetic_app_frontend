@@ -4,7 +4,7 @@ import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useScrollDirection } from '@/shared/hooks/useScrollDirection'
 import { CircleButton } from '@/shared/ui/CircleButton'
 import { VirtualGrid } from '@/shared/ui/VirtualGrid'
-import { type JSX, type Ref, useCallback, useRef } from 'react'
+import { type JSX, type Ref, useCallback, useEffect, useRef } from 'react'
 import { type VirtuosoGridHandle } from 'react-virtuoso'
 
 import { useCalculateColumnsAmountByScreenSize } from '../../model/utils/useCalculateColumnsAmountByScreenSize'
@@ -39,15 +39,15 @@ export const PostsListRender = <TData extends any[]>(
         zeroDataTitle,
         enabled,
         ref,
-        showToTopBtn,
+        showToTopBtn = false,
         increaseViewportBy,
     } = props
 
-    const { scrollDirection } = useScrollDirection(showToTopBtn ?? false)
+    const { scrollDirection } = useScrollDirection(showToTopBtn)
 
     const virtuoso = useRef<VirtuosoGridHandle>(null)
 
-    const combinedVirtuoso = useCombinedRef(virtuoso, ref)
+    const combinedRef = useCombinedRef(virtuoso, ref)
 
     const columnsAmount = useCalculateColumnsAmountByScreenSize()
 
@@ -62,7 +62,7 @@ export const PostsListRender = <TData extends any[]>(
     return (
         <div className={s.virtual_posts_list_wrapper}>
             <VirtualGrid
-                ref={combinedVirtuoso}
+                ref={combinedRef}
                 gap='5px'
                 enabled={enabled}
                 increaseViewportBy={increaseViewportBy}
@@ -74,11 +74,7 @@ export const PostsListRender = <TData extends any[]>(
                 {(i: number) => render(data?.[i])}
             </VirtualGrid>
             <ToTopBtn
-                show={
-                    showToTopBtn &&
-                    scrollDirection !== 'down' &&
-                    !!scrollDirection
-                }
+                show={scrollDirection === 'up'}
                 virtuoso={virtuoso}
             />
         </div>

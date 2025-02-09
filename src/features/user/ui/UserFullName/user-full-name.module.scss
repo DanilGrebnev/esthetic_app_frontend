@@ -2,6 +2,13 @@
     font-weight: var(--font-weight-semibold);
     font-size: var(--font-600);
 }
+.skeletons {
+    @apply flex gap-[--global-gap-1];
+}
+
+.skeleton {
+    @apply h-[37px];
+}
 
 .extra-big {
     font-size: var(--font-600);

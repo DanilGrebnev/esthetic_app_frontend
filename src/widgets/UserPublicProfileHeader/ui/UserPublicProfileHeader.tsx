@@ -15,7 +15,7 @@ interface UserHeaderLayoutProps {
 
 export const UserPublicProfileHeader = memo(
     ({ userId }: UserHeaderLayoutProps) => {
-        const { data } = useGetPublicProfileQuery({ userId })
+        const { data, isPending } = useGetPublicProfileQuery({ userId })
 
         if (data && !('user' in data))
             return <h1>Ошикба получения профиля пользователя</h1>
@@ -31,6 +31,7 @@ export const UserPublicProfileHeader = memo(
                 />
                 <UserFullName
                     size='big'
+                    loading={isPending}
                     firstName={user?.firstName}
                     lastName={user?.lastName}
                 />

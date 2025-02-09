@@ -21,7 +21,7 @@ export const ToTopBtn = memo((props: TToTopBtnProps) => {
         <AnimatePresence initial={false}>
             {show ? (
                 <m.span
-                    className={s.animate}
+                    className={s.animate_block}
                     initial={initial}
                     animate={animate}
                     exit={initial}
@@ -34,7 +34,6 @@ export const ToTopBtn = memo((props: TToTopBtnProps) => {
                                 behavior: 'smooth',
                             })
                         }}
-                        className={s.to_top_btn}
                         icon='arrow'
                     />
                 </m.span>
