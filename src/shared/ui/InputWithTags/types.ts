@@ -1,4 +1,9 @@
-import type { ComponentPropsWithRef, Dispatch, SetStateAction } from 'react'
+import type {
+    ComponentPropsWithRef,
+    Dispatch,
+    Ref,
+    SetStateAction,
+} from 'react'
 
 export interface Tag {
     tagId: string
@@ -12,14 +17,18 @@ export interface InputProps
     setTags: Dispatch<SetStateAction<Tag[]>>
     onChange?: (tags: Tag[]) => void
     tags: Tag[]
+    ref?: Ref<HTMLInputElement>
 }
+
+export type TDefaultTagsValue = Tag[] | []
 
 export interface InputWithTagsProps {
     className?: string
-    defaultValue?: Tag[] | []
+    defaultValue?: TDefaultTagsValue
     onClick?: (tag: Tag) => void
     onChange?: (tags: Tag[]) => void
     disabled?: boolean
     name?: string
     value?: Tag[]
+    ref?: Ref<HTMLInputElement>
 }

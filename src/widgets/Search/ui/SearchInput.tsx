@@ -17,7 +17,9 @@ interface SearchInputProps {
     onOpen?: (open: boolean) => void
 }
 
-export const SearchInput = ({ className, onOpen, ref }: SearchInputProps) => {
+export const SearchInput = (props: SearchInputProps) => {
+    const { className, onOpen, ref } = props
+
     const [open, setOpen] = useState(false)
 
     const search = useSetSearchValueSelector()
@@ -38,6 +40,7 @@ export const SearchInput = ({ className, onOpen, ref }: SearchInputProps) => {
         setOpen(true)
     }
 
+    /* Внешний onChange */
     useEffect(() => {
         onOpen?.(open)
     }, [onOpen, open])

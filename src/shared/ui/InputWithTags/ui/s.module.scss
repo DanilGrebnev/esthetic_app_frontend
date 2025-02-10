@@ -1,21 +1,18 @@
 .input {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: text;
-    border-radius: var(--global-border-radius);
-
-    background: var(--inputs-bg-1);
-    padding: 8px 12px;
-
-    min-height: 56px;
+    @apply flex 
+    items-center 
+    gap-[--global-gap-1]
+    cursor-text
+    rounded-[--global-border-radius]
+    bg-[--inputs-bg-1]
+    p-[8px_12px]
+    min-h-[56px];
 }
 
-.tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-
-    width: 100%;
-    max-width: 100%;
+.tags_list {
+    @apply flex
+    flex-wrap
+    gap-[--global-gap-1]
+    w-full
+    max-w-full;
 }

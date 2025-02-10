@@ -1,12 +1,12 @@
-import { forwardRef } from 'react'
+import { memo } from 'react'
 
 import { useTagsInput } from '../../hooks/useTagsInput'
 import { type InputProps } from '../../types'
 import { AcceptBtn } from '../AcceptBtn'
 import s from './s.module.scss'
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-    const { placeholder, setTags, onChange, tags } = props
+export const Input = memo((props: InputProps) => {
+    const { placeholder, setTags, onChange, tags, ref } = props
 
     const { onChangeTags, addTagByEnterKey, addTag, label } = useTagsInput({
         setTags,
@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     })
 
     return (
-        <div className={s['input-container']}>
+        <div className={s.input_container}>
             <input
                 ref={ref}
                 value={label}

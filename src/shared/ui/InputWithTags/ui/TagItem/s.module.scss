@@ -27,7 +27,7 @@
     }
 }
 
-.tag__delete-btn {
+.tag__delete_btn {
     --size: 20px;
     @apply flex justify-center
     items-center
@@ -35,8 +35,6 @@
     min-w-[--size]
     max-w-[--size]
     h-[--size]
-    leading-[1]
-    
-    ;
+    leading-[1];
     border: 1px solid var(--border-color-1);
 }

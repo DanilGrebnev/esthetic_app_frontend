@@ -1,13 +1,13 @@
-.input-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.input_container {
+    @apply flex 
+    items-center 
+    gap-[--global-gap-1];
 }
 
 .input {
-    width: 100%;
-    min-width: 20px;
-    max-width: max-content;
+    @apply w-full
+    min-w-[20px]
+    max-w-max;
 
     &,
     &::placeholder {
