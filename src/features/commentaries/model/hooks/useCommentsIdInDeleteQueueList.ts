@@ -4,7 +4,7 @@ import { useLocalStorage } from 'usehooks-ts'
 
 export const useCommentsIdInDeleteQueueList = () => {
     const [commentsIdList, setValue, removeValue] = useLocalStorage<string[]>(
-        consts.commentsIdOnDeleteQueueKey,
+        consts.COMMENTS_ID_ON_DELETE_QUEUE_KEY,
         [],
     )
 

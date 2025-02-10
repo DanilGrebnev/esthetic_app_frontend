@@ -85,7 +85,7 @@ export const useDeleteCommentsByCommentsIdListMutation = () => {
                     commentsApi.deleteComments(commentId),
                 ),
             )
-            setInLocalStorage(consts.commentsIdOnDeleteQueueKey, [])
+            setInLocalStorage(consts.COMMENTS_ID_ON_DELETE_QUEUE_KEY, [])
         },
 
         onSuccess: (_, postId) => {

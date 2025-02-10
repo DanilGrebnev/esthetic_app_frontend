@@ -15,7 +15,7 @@ import s from './s.module.scss'
 
 export const UploadFiles = memo(
     forwardRef<HTMLInputElement, IUploadFiles>((props: IUploadFiles, ref) => {
-        const { acceptFiles = consts.acceptFiles } = props
+        const { acceptFiles = consts.ACCEPT_FILES } = props
 
         const [isOver, setIsOver] = useState<boolean>(false)
 

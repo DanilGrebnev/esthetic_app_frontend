@@ -8,19 +8,19 @@ const baseUrl = `${PROTOCOL}://${HOST_NAME}${PORT ? ':' + PORT : ''}/` as const
 const baseApiUrl = `http://localhost:8000` as const
 
 export const consts: TConsts = {
-    baseUrl,
+    BASE_URL: baseUrl,
     pathToImage: baseUrl + 'assets/',
     baseApiUrl,
-    commentsIdOnDeleteQueueKey: 'comments-id-on-delete-queue',
-    acceptFiles: ['.jpeg', '.jpg', '.png', '.webp'],
+    COMMENTS_ID_ON_DELETE_QUEUE_KEY: 'comments-id-on-delete-queue',
+    ACCEPT_FILES: ['.png', '.jpg', '.jpeg', '.webp', '.HEIC', '.HEIF'],
 } as const
 
 type TConsts = {
-    baseUrl: string
+    BASE_URL: string
     pathToImage: string
     baseApiUrl: string
-    commentsIdOnDeleteQueueKey: string
-    acceptFiles: TAcceptFiles
+    COMMENTS_ID_ON_DELETE_QUEUE_KEY: string
+    ACCEPT_FILES: TAcceptFiles
 }
 
 export const paginationPostsAmount = Number(
