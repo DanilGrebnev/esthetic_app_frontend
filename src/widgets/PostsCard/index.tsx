@@ -2,14 +2,16 @@
 
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
+import MyPhoto from '@/shared/assets/test_photo.webp'
 import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import { routes } from '@/shared/routes'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { type CSSProperties, memo, useEffect } from 'react'
+import { type CSSProperties, memo } from 'react'
 
 import s from './s.module.scss'
+import { UserBlock } from './ui/UserBlock'
 
 interface PostCardProps {
     url: string
@@ -20,6 +22,11 @@ interface PostCardProps {
     postId: string
     quality?: number
     style?: CSSProperties
+
+    ownerAvatar?: string
+    ownerName?: string
+
+    ownerId?: string
 }
 
 export const PostsCard = memo((props: PostCardProps) => {
@@ -31,6 +38,9 @@ export const PostsCard = memo((props: PostCardProps) => {
         postId,
         className,
         style,
+        ownerAvatar,
+        ownerId,
+        ownerName,
     } = props
     const router = useRouter()
     const href = routes.postsDetail.getRoute(postId)
@@ -41,28 +51,31 @@ export const PostsCard = memo((props: PostCardProps) => {
             style={{ aspectRatio, minHeight: '20px', ...style }}
             onClick={() => router.push(href)}
         >
-            <div className={s.button_group}>
-                <SaveToDashboardButton
-                    postsId={postId}
-                    className={s.save_btn}
-                />
-                <DownloadFileBtn
-                    href={url}
-                    downloadFileName={'test_file_name'}
-                    className={s.card_circle_icon}
+            <div className={s.wrapper}>
+                <div className={s.button_group}>
+                    <SaveToDashboardButton
+                        postsId={postId}
+                        className={s.save_btn}
+                    />
+                    <DownloadFileBtn
+                        href={url}
+                        downloadFileName={'test_file_name'}
+                        className={s.card_circle_icon}
+                    />
+                </div>
+
+                <ImageWithBlure
+                    className={s.img}
+                    loading='lazy'
+                    blurDataURL={urlBlur}
+                    alt='test'
+                    quality={quality}
+                    sizes='(max-width: 200px)'
+                    src={url}
+                    fill={true}
                 />
             </div>
-
-            <ImageWithBlure
-                className={s.img}
-                loading='lazy'
-                blurDataURL={urlBlur}
-                alt='test'
-                quality={quality}
-                sizes='(max-width: 200px)'
-                src={url}
-                fill={true}
-            />
+            {ownerId && <UserBlock />}
         </div>
     )
 })

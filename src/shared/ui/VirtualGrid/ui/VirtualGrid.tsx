@@ -14,8 +14,11 @@ export interface IVirtualGridProps {
     enabled?: boolean
     increaseViewportBy?: number
     useWindowScroll?: boolean
+    overscan?: number
     endReached?: () => void
     children?: (index: number) => JSX.Element
+    isScrolling?: (isScrolling: boolean) => void
+    rangeChanged?: (arg: { startIndex: number; endIndex: number }) => void
     ref?: Ref<VirtuosoGridHandle>
 }
 /**
@@ -66,14 +69,15 @@ export const VirtualGrid = memo((props: IVirtualGridProps) => {
         columnAmount,
         gap,
         itemHeight,
-        totalCount,
-        useWindowScroll,
         enabled = true,
-        listClassName,
-        increaseViewportBy = { top: 0, bottom: 0 },
         children,
         endReached,
-        ref,
+        // НЕ УБИРАТЬ! Иначе возникает ошибка с top.
+        increaseViewportBy = {
+            top: 0,
+            bottom: 0,
+        },
+        ...otherProps
     } = props
 
     const endReachedCallback = useEndReachedCallback({ enabled, endReached })
@@ -82,13 +86,11 @@ export const VirtualGrid = memo((props: IVirtualGridProps) => {
 
     return (
         <VirtuosoGrid
-            ref={ref}
-            listClassName={listClassName}
-            useWindowScroll={useWindowScroll}
-            increaseViewportBy={increaseViewportBy}
             style={{ height: '100%', flexGrow: 1 }}
-            totalCount={totalCount}
             endReached={endReachedCallback}
+            itemContent={children}
+            increaseViewportBy={increaseViewportBy}
+            {...otherProps}
             components={{
                 List,
                 Item: ({ children }) => (
@@ -101,7 +103,6 @@ export const VirtualGrid = memo((props: IVirtualGridProps) => {
                     </GridItem>
                 ),
             }}
-            itemContent={children}
         />
     )
 })

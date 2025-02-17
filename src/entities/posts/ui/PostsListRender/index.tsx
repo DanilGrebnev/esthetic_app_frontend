@@ -23,7 +23,7 @@ interface PostsListRenderProps<TData extends any[]> {
     useWindowScroll?: boolean
     enabled?: boolean
     ref?: Ref<VirtuosoGridHandle>
-    showToTopBtn?: boolean
+    enabledToTopBtn?: boolean
     increaseViewportBy?: number
 }
 
@@ -39,11 +39,11 @@ export const PostsListRender = <TData extends any[]>(
         zeroDataTitle,
         enabled,
         ref,
-        showToTopBtn = false,
+        enabledToTopBtn = false,
         increaseViewportBy,
     } = props
 
-    const { scrollDirection } = useScrollDirection(showToTopBtn)
+    const { scrollDirection, setEnabled } = useScrollDirection(enabledToTopBtn)
 
     const virtuoso = useRef<VirtuosoGridHandle>(null)
 
@@ -60,7 +60,7 @@ export const PostsListRender = <TData extends any[]>(
     }
 
     return (
-        <div className={s.virtual_posts_list_wrapper}>
+        <div className={s.container}>
             <VirtualGrid
                 ref={combinedRef}
                 gap='5px'
@@ -69,11 +69,18 @@ export const PostsListRender = <TData extends any[]>(
                 totalCount={data?.length ?? 0}
                 useWindowScroll={useWindowScroll}
                 columnAmount={columnsAmount}
+                overscan={500}
                 endReached={endReached}
+                rangeChanged={({ startIndex }) => {
+                    if (startIndex !== 0) {
+                        setEnabled(true)
+                    }
+                }}
             >
-                {(i: number) => render(data?.[i])}
+                {(i) => render(data?.[i])}
             </VirtualGrid>
             <ToTopBtn
+                onClick={() => setEnabled(false)}
                 show={scrollDirection === 'up'}
                 virtuoso={virtuoso}
             />

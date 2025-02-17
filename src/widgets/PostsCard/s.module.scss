@@ -1,15 +1,10 @@
 .card {
-    @apply relative
+    @apply flex
+    flex-col
     cursor-pointer
     w-full
-    select-none;
-
-    &:hover {
-        .button_group {
-            opacity: 1;
-            background: rgb(0 0 0 / 20%);
-        }
-    }
+    select-none
+    gap-[--global-gap-1];
 }
 
 .card,
@@ -25,15 +20,26 @@
 .button_group {
     @apply flex 
     flex-col
-    absolute
     justify-between
     items-end
+    absolute
     opacity-0
     z-[1]
     p-[--padding-normal]
     w-full
     h-full;
-
     transition: 0.2s;
     background: rgba(0 0 0 / 0%);
 }
+
+.wrapper {
+    @apply relative grow;
+    &:hover {
+        .button_group {
+            opacity: 1;
+            background: rgb(0 0 0 / 20%);
+        }
+    }
+}
+
+

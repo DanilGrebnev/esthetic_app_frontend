@@ -9,10 +9,11 @@ import s from './to-top-btn.module.scss'
 interface TToTopBtnProps {
     virtuoso: RefObject<VirtuosoGridHandle | null>
     show?: boolean
+    onClick?: () => void
 }
 
 export const ToTopBtn = memo((props: TToTopBtnProps) => {
-    const { virtuoso, show = true } = props
+    const { virtuoso, show = true, onClick } = props
 
     const initial = { opacity: 0, bottom: -20 }
     const animate = { opacity: 1, bottom: 20 }
@@ -33,6 +34,7 @@ export const ToTopBtn = memo((props: TToTopBtnProps) => {
                                 index: 0,
                                 behavior: 'smooth',
                             })
+                            onClick?.()
                         }}
                         icon='arrow'
                     />
