@@ -1,7 +1,8 @@
 import { JSX } from 'react'
+
 import s from './tabs-render.module.scss'
 
-type TData = any[]
+type TData = string[]
 interface TabRenderProps<
     TData extends any[],
     TChildren = (item: TData[number]) => JSX.Element,

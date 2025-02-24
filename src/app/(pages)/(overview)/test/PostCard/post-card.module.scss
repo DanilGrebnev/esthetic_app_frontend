@@ -1,0 +1,25 @@
+.card_wrapper {
+    @apply flex 
+    flex-col 
+    w-[250px]
+    aspect-[9/16];
+    border: 2px solid black;
+}
+
+.body {
+    @apply w-full
+    relative
+    rounded-[--global-border-radius]
+    overflow-hidden;
+    background: red;
+    // border: 5px solid red;
+}
+
+.img {
+    @apply object-cover;
+}
+
+.info {
+    @apply flex flex-col grow
+    justify-end;
+}

@@ -2,9 +2,8 @@
 
 import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useScrollDirection } from '@/shared/hooks/useScrollDirection'
-import { CircleButton } from '@/shared/ui/CircleButton'
-import { VirtualGrid } from '@/shared/ui/VirtualGrid'
-import { type JSX, type Ref, useCallback, useEffect, useRef } from 'react'
+import { MasonryVirtual } from '@/shared/ui/MasonryVirtual'
+import { type JSX, type Ref, useRef } from 'react'
 import { type VirtuosoGridHandle } from 'react-virtuoso'
 
 import { useCalculateColumnsAmountByScreenSize } from '../../model/utils/useCalculateColumnsAmountByScreenSize'
@@ -13,12 +12,10 @@ import { ToTopBtn } from './ToTopBtn'
 import s from './posts-list.module.scss'
 
 interface PostsListRenderProps<TData extends any[]> {
-    render: (data: TData[number]) => JSX.Element
     data?: TData
     endReached: () => void
-
+    children: (data: TData[number]) => JSX.Element
     zeroDataTitle?: string
-
     loading?: boolean
     useWindowScroll?: boolean
     enabled?: boolean
@@ -31,7 +28,7 @@ export const PostsListRender = <TData extends any[]>(
     props: PostsListRenderProps<TData>,
 ) => {
     const {
-        render,
+        children,
         endReached,
         data,
         useWindowScroll,
@@ -46,10 +43,7 @@ export const PostsListRender = <TData extends any[]>(
     const { scrollDirection, setEnabled } = useScrollDirection(enabledToTopBtn)
 
     const virtuoso = useRef<VirtuosoGridHandle>(null)
-
-    const combinedRef = useCombinedRef(virtuoso, ref)
-
-    const columnsAmount = useCalculateColumnsAmountByScreenSize()
+    const columnAmount = useCalculateColumnsAmountByScreenSize()
 
     if (loading) {
         return <PostsListSkeleton itemsAmount={10} />
@@ -61,24 +55,15 @@ export const PostsListRender = <TData extends any[]>(
 
     return (
         <div className={s.container}>
-            <VirtualGrid
-                ref={combinedRef}
-                gap='5px'
-                enabled={enabled}
-                increaseViewportBy={increaseViewportBy}
-                totalCount={data?.length ?? 0}
-                useWindowScroll={useWindowScroll}
-                columnAmount={columnsAmount}
-                overscan={500}
+            <MasonryVirtual
+                gap={10}
+                data={data}
                 endReached={endReached}
-                rangeChanged={({ startIndex }) => {
-                    if (startIndex !== 0) {
-                        setEnabled(true)
-                    }
-                }}
+                columnCount={columnAmount}
             >
-                {(i) => render(data?.[i])}
-            </VirtualGrid>
+                {({ data }) => children(data)}
+            </MasonryVirtual>
+
             <ToTopBtn
                 onClick={() => setEnabled(false)}
                 show={scrollDirection === 'up'}

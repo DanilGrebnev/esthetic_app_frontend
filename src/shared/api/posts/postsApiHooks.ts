@@ -33,9 +33,11 @@ export const useGetPostsQuery = (args?: {
             })
         },
         getNextPageParam: (lastPage, __, lastPageParam) => {
-            if (lastPage.posts.length < lastPageParam.limit) return
+            const next = lastPage.posts.length === lastPageParam.limit
+            if (!next) return
+
             return {
-                offset: lastPageParam.offset + paginationPostsAmount,
+                offset: lastPageParam.offset + lastPageParam.limit,
                 limit: lastPageParam.limit,
             }
         },
@@ -44,8 +46,9 @@ export const useGetPostsQuery = (args?: {
             const postsAmount = pages[0].postsAmount
             const posts = pages.map((page) => page.posts).flat()
             const next = pageParams.at(-1)?.limit === pages.at(-1)?.posts.length
+            const key = JSON.stringify(pageParams.at(-1))
 
-            return { postsAmount, posts, next }
+            return { postsAmount, posts, next, pageParams, key }
         },
 
         initialPageParam: { offset: 0, limit: paginationPostsAmount },

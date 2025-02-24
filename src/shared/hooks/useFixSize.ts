@@ -13,6 +13,11 @@ export const useFixSize = <T extends HTMLElement>() => {
         maxWidth: styleRef?.current?.width,
     }
 
+    const fixHeightStyle = {
+        minHeight: styleRef?.current?.height,
+        maxHeight: styleRef?.current?.height,
+    }
+
     useEffect(() => {
         if (!nodeRef.current) return
         const width = nodeRef.current.offsetWidth
@@ -24,5 +29,12 @@ export const useFixSize = <T extends HTMLElement>() => {
         styleRef.current = size
     }, [])
 
-    return { nodeRef, size, styleRef, fixWidthStyle, width: size?.width }
+    return {
+        nodeRef,
+        size,
+        styleRef,
+        fixWidthStyle,
+        fixHeightStyle,
+        width: size?.width,
+    }
 }

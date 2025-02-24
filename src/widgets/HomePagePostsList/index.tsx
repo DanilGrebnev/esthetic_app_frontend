@@ -4,7 +4,8 @@ import { PostsListRender } from '@/entities/posts'
 import { useGetPostsQuery } from '@/shared/api/posts'
 import { useGetSearchPostsPayloadFromActiveTags } from '@/shared/store/posts'
 import { PostsCard } from '@/widgets/PostsCard'
-import { memo, useEffect, useRef } from 'react'
+import { Masonry, useInfiniteLoader } from 'masonic'
+import { memo, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 export const HomePagePostsList = memo(() => {
@@ -21,24 +22,20 @@ export const HomePagePostsList = memo(() => {
 
     return (
         <PostsListRender
-            increaseViewportBy={1000}
-            enabledToTopBtn={true}
-            data={data?.posts}
-            enabled={!isPending || !isError}
-            useWindowScroll={true}
+            key={search}
             endReached={fetchNextPage}
-            loading={isPending || isError}
-            render={(post) => (
-                <PostsCard
-                    name=''
-                    // Если передать ownerId, то отобразится блок с информацией о пользователе
-                    // ownerId='123'
-                    postId={post?.postId}
-                    url={post?.url}
-                    urlBlur={post?.urlBlur}
-                />
-            )}
-        />
+            data={data?.posts ?? []}
+        >
+            {(post) => {
+                return (
+                    <PostsCard
+                        key={post.postId}
+                        name='test'
+                        {...post}
+                    />
+                )
+            }}
+        </PostsListRender>
     )
 })
 

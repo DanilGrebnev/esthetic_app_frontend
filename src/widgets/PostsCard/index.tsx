@@ -2,11 +2,11 @@
 
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
-import MyPhoto from '@/shared/assets/test_photo.webp'
 import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import { routes } from '@/shared/routes'
 import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import clsx from 'clsx'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { type CSSProperties, memo } from 'react'
 
@@ -52,7 +52,7 @@ export const PostsCard = memo((props: PostCardProps) => {
             onClick={() => router.push(href)}
         >
             <div className={s.wrapper}>
-                <div className={s.button_group}>
+                <div className={s.btn_group}>
                     <SaveToDashboardButton
                         postsId={postId}
                         className={s.save_btn}
@@ -63,7 +63,16 @@ export const PostsCard = memo((props: PostCardProps) => {
                         className={s.card_circle_icon}
                     />
                 </div>
-
+                {/* <Image
+                    className={s.img}
+                    loading='lazy'
+                    // blurDataURL={urlBlur}
+                    alt='test'
+                    quality={quality}
+                    sizes='(max-width: 200px)'
+                    src={url}
+                    fill={true}
+                /> */}
                 <ImageWithBlure
                     className={s.img}
                     loading='lazy'

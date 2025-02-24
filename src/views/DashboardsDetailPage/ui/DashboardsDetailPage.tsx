@@ -45,15 +45,17 @@ export const DashboardDetailPage = ({ params }: DashboardDetailPageProps) => {
                 enabled={data?.next}
                 loading={isPending}
                 zeroDataTitle='В доске нет постов'
-                render={({ postId, url, urlBlur }) => (
+            >
+                {({ postId, url, aspectRatio, urlBlur }) => (
                     <PostsCard
                         name={''}
+                        aspectRatio={aspectRatio}
                         url={url}
                         urlBlur={urlBlur}
                         postId={postId}
                     />
                 )}
-            />
+            </PostsListRender>
         </div>
     )
 }
