@@ -84,12 +84,14 @@ export const VirtualGrid = memo((props: IVirtualGridProps) => {
 
     const w = useMemo(() => 100 / columnAmount + '%', [columnAmount])
 
+    const increaseViewportByCb = useMemo(() => increaseViewportBy, [])
+
     return (
         <VirtuosoGrid
             style={{ height: '100%', flexGrow: 1 }}
             endReached={endReachedCallback}
             itemContent={children}
-            increaseViewportBy={increaseViewportBy}
+            increaseViewportBy={increaseViewportByCb}
             {...otherProps}
             components={{
                 List,

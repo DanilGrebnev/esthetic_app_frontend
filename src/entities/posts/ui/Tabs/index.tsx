@@ -35,7 +35,7 @@ export const Tabs = (props: ITabs) => {
                 value={aspectRatio}
                 type='hidden'
             />
-            <TabsRender data={aspectRatioVariants}>
+            <TabsRender data={[...aspectRatioVariants]}>
                 {(label) => (
                     <TabItem
                         key={label}

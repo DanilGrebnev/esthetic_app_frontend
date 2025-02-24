@@ -8,7 +8,7 @@
 }
 
 .card,
-.button_group,
+.btn_group,
 .img {
     border-radius: var(--global-border-radius);
 }
@@ -17,7 +17,7 @@
     object-fit: cover;
 }
 
-.button_group {
+.btn_group {
     @apply flex 
     flex-col
     justify-between
@@ -35,11 +35,9 @@
 .wrapper {
     @apply relative grow;
     &:hover {
-        .button_group {
+        .btn_group {
             opacity: 1;
             background: rgb(0 0 0 / 20%);
         }
     }
 }
-
-

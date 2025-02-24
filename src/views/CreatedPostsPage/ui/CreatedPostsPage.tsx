@@ -19,9 +19,10 @@ export const CreatedPostsPage = memo((props: CreatedPostsPageProps) => {
     )
 
     const render = useCallback(
-        ({ postId, url, urlBlur }: TPostsCard) => (
+        ({ postId, url, aspectRatio, urlBlur }: TPostsCard) => (
             <PostsCard
                 name=''
+                aspectRatio={aspectRatio}
                 postId={postId}
                 url={url}
                 urlBlur={urlBlur}
@@ -32,7 +33,6 @@ export const CreatedPostsPage = memo((props: CreatedPostsPageProps) => {
 
     return (
         <Container>
-            {/* <Header userId={props.userId} /> */}
             <PostsListRender
                 zeroDataTitle='У пользователя нет созданных постов.'
                 data={data?.posts}
@@ -40,8 +40,9 @@ export const CreatedPostsPage = memo((props: CreatedPostsPageProps) => {
                 loading={isPending}
                 enabled={data?.next}
                 endReached={fetchNextPage}
-                render={render}
-            />
+            >
+                {render}
+            </PostsListRender>
         </Container>
     )
 })
