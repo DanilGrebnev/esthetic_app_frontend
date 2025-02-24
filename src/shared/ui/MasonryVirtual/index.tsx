@@ -1,8 +1,12 @@
 import { Masonry, useInfiniteLoader } from 'masonic'
 
-import type { TData, TProps } from './MasonryVirtualTypes'
+import type { TData, TMasonryVirtualProps } from './MasonryVirtualTypes'
 
-export const MasonryVirtual = <T extends TData>(props: TProps<T>) => {
+export type { TMasonryVirtualProps } from './MasonryVirtualTypes'
+
+export const MasonryVirtual = <T extends TData>(
+    props: TMasonryVirtualProps<T>,
+) => {
     const {
         endReached,
         children,
@@ -10,11 +14,13 @@ export const MasonryVirtual = <T extends TData>(props: TProps<T>) => {
         data,
         gap = 0,
         defaultData,
+        itemKey,
     } = props
     const infiniteLoader = useInfiniteLoader(() => endReached?.())
 
     return (
         <Masonry
+            itemKey={itemKey}
             columnCount={columnCount}
             items={data ?? defaultData ?? []}
             columnGutter={gap}

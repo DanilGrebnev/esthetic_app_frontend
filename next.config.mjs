@@ -11,7 +11,7 @@ const nextConfig = {
 
     reactStrictMode: false,
     experimental: {
-        // reactCompiler: true,
+        reactCompiler: true,
     },
     env: {
         ...getEnvConfig(getEnv('MODE', process.env.MODE)),

@@ -1,6 +1,7 @@
-.btn-container {
+.btn_container {
     @apply flex
-    max-w-max;
+    max-w-max
+    gap-[5px];
 }
 
 .icon {
@@ -13,7 +14,7 @@
     stroke: var(--text-palette-3);
 }
 
-.like-amount {
+.like_amount {
     color: var(--text-palette-3);
     font-size: var(--font-200);
 }

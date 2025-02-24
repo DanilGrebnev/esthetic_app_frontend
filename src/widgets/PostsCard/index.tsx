@@ -4,14 +4,13 @@ import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn } from '@/entities/posts'
 import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import { routes } from '@/shared/routes'
-import { ImageWithBlure } from '@/shared/ui/ImageWithBlure'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { type CSSProperties, memo } from 'react'
 
 import s from './s.module.scss'
-import { UserBlock } from './ui/UserBlock'
+import { PostInfo } from './ui/PostInfo'
 
 interface PostCardProps {
     url: string
@@ -22,34 +21,25 @@ interface PostCardProps {
     postId: string
     quality?: number
     style?: CSSProperties
-
-    ownerAvatar?: string
-    ownerName?: string
-
-    ownerId?: string
+    uniqueId?: string
 }
 
 export const PostsCard = memo((props: PostCardProps) => {
     const {
         url,
         quality = 20,
-        urlBlur,
         aspectRatio = '9/16',
         postId,
         className,
         style,
-        ownerAvatar,
-        ownerId,
-        ownerName,
     } = props
-    const router = useRouter()
     const href = routes.postsDetail.getRoute(postId)
 
     return (
-        <div
+        <Link
             className={clsx(s.card, className)}
             style={{ aspectRatio, minHeight: '20px', ...style }}
-            onClick={() => router.push(href)}
+            href={href}
         >
             <div className={s.wrapper}>
                 <div className={s.btn_group}>
@@ -57,26 +47,19 @@ export const PostsCard = memo((props: PostCardProps) => {
                         postsId={postId}
                         className={s.save_btn}
                     />
+                    <PostInfo
+                        commentsAmount={31}
+                        likeAmount={21}
+                    />
                     <DownloadFileBtn
                         href={url}
                         downloadFileName={'test_file_name'}
                         className={s.card_circle_icon}
                     />
                 </div>
-                {/* <Image
+                <Image
                     className={s.img}
                     loading='lazy'
-                    // blurDataURL={urlBlur}
-                    alt='test'
-                    quality={quality}
-                    sizes='(max-width: 200px)'
-                    src={url}
-                    fill={true}
-                /> */}
-                <ImageWithBlure
-                    className={s.img}
-                    loading='lazy'
-                    blurDataURL={urlBlur}
                     alt='test'
                     quality={quality}
                     sizes='(max-width: 200px)'
@@ -84,8 +67,7 @@ export const PostsCard = memo((props: PostCardProps) => {
                     fill={true}
                 />
             </div>
-            {ownerId && <UserBlock />}
-        </div>
+        </Link>
     )
 })
 

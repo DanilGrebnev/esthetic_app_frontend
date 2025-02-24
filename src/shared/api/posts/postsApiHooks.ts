@@ -7,6 +7,7 @@ import {
     useQuery,
     useQueryClient,
 } from '@tanstack/react-query'
+import { nanoid } from 'nanoid'
 
 import { revalidatePostsDetailPage } from './postsApiServerActions'
 
@@ -44,7 +45,10 @@ export const useGetPostsQuery = (args?: {
 
         select: ({ pageParams, pages }) => {
             const postsAmount = pages[0].postsAmount
-            const posts = pages.map((page) => page.posts).flat()
+            const posts = pages
+                .map((page) => page.posts)
+                .flat()
+                .map((post) => ({ ...post, uniqueId: nanoid() }))
             const next = pageParams.at(-1)?.limit === pages.at(-1)?.posts.length
             const key = JSON.stringify(pageParams.at(-1))
 

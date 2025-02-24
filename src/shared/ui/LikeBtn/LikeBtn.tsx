@@ -31,7 +31,7 @@ export const LikeBtn = (props: CommentLikeBtnProps) => {
     return (
         <div
             ref={ref}
-            className={clsx(s['btn-container'], className)}
+            className={clsx(s.btn_container, className)}
         >
             <HeartIcon
                 onClick={onClick}
@@ -40,7 +40,7 @@ export const LikeBtn = (props: CommentLikeBtnProps) => {
                     [s.unactive]: unactive,
                 })}
             />
-            {enableLikeCount && <p className={s['like-amount']}>{likeCount}</p>}
+            {enableLikeCount && <p className={s.like_amount}>{likeCount}</p>}
         </div>
     )
 }

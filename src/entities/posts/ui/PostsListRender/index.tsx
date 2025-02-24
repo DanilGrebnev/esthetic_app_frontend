@@ -3,6 +3,7 @@
 import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import { useScrollDirection } from '@/shared/hooks/useScrollDirection'
 import { MasonryVirtual } from '@/shared/ui/MasonryVirtual'
+import { type TMasonryVirtualProps } from '@/shared/ui/MasonryVirtual'
 import { type JSX, type Ref, useRef } from 'react'
 import { type VirtuosoGridHandle } from 'react-virtuoso'
 
@@ -11,17 +12,15 @@ import { PostsListSkeleton } from '../PostsListSkeleton'
 import { ToTopBtn } from './ToTopBtn'
 import s from './posts-list.module.scss'
 
-interface PostsListRenderProps<TData extends any[]> {
-    data?: TData
-    endReached: () => void
-    children: (data: TData[number]) => JSX.Element
+interface PostsListRenderProps<TData extends any[]>
+    extends TMasonryVirtualProps<TData> {
     zeroDataTitle?: string
+    children: (data: TData[number]) => JSX.Element
     loading?: boolean
     useWindowScroll?: boolean
     enabled?: boolean
     ref?: Ref<VirtuosoGridHandle>
     enabledToTopBtn?: boolean
-    increaseViewportBy?: number
 }
 
 export const PostsListRender = <TData extends any[]>(
@@ -31,13 +30,10 @@ export const PostsListRender = <TData extends any[]>(
         children,
         endReached,
         data,
-        useWindowScroll,
         loading,
         zeroDataTitle,
-        enabled,
-        ref,
         enabledToTopBtn = false,
-        increaseViewportBy,
+        itemKey,
     } = props
 
     const { scrollDirection, setEnabled } = useScrollDirection(enabledToTopBtn)
@@ -56,6 +52,7 @@ export const PostsListRender = <TData extends any[]>(
     return (
         <div className={s.container}>
             <MasonryVirtual
+                itemKey={itemKey}
                 gap={10}
                 data={data}
                 endReached={endReached}
