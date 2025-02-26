@@ -11,6 +11,7 @@ import { Dialog } from '@/shared/ui/Dialog'
 import { Input } from '@/shared/ui/Input'
 import { InputWithTags } from '@/shared/ui/InputWithTags'
 import { InputWithValidation } from '@/shared/ui/InputWithValidation'
+import { NumberInput } from '@/shared/ui/NumberInput'
 import { ProgressWindow } from '@/shared/ui/ProgressWindow'
 import { RecommendedTags } from '@/shared/ui/RecommendedTags'
 import { validationInputs } from '@/shared/validationInputs'
@@ -23,6 +24,7 @@ import toast from 'react-hot-toast'
 import { Signature } from '../../../Signature'
 import { SubTitle } from '../../../SubTitle'
 import { Title } from '../../../Title'
+import { AcceptEmail } from '../AcceptEmail'
 import { NextBtn } from '../Buttons/NextBtn'
 import { PrevBtn } from '../Buttons/PrevBtn'
 import s from './s.module.scss'
@@ -89,15 +91,15 @@ export const RegistrationForm = () => {
             className={s.page}
         >
             <Box boxShadow={true}>
-                <Title text='Регистрация' />
+                <Title>Регистрация</Title>
                 <form
                     onSubmit={onSubmit}
-                    className={s['registration-form']}
+                    className={s.registration_form}
                 >
                     <ProgressWindow.Provider>
                         <ProgressWindow.Container>
                             <ProgressWindow.Tab>
-                                <div className={s['inputs-wrapper']}>
+                                <div className={s.inputs_wrapper}>
                                     <SubTitle>Заполните информацию</SubTitle>
                                     <InputWithValidation
                                         register={register}
@@ -157,17 +159,17 @@ export const RegistrationForm = () => {
                                 </div>
                             </ProgressWindow.Tab>
                             <ProgressWindow.Tab
-                                className={s['upload-avatar-page']}
+                                className={s.upload_avatar_page}
                             >
                                 <SubTitle>Добавьте аватар</SubTitle>
-                                <div className={s['upload-avatar-wrapper']}>
+                                <div className={s.upload_avatar_wrapper}>
                                     <UploadUserAvatar
-                                        className={s['upload-avatar']}
+                                        className={s.upload_avatar}
                                         onChange={onChangeAvatar}
                                     />
                                 </div>
                             </ProgressWindow.Tab>
-                            <ProgressWindow.Tab className={s['tag-page']}>
+                            <ProgressWindow.Tab className={s.tag_page}>
                                 <SubTitle>Выберите теги</SubTitle>
                                 <RecommendedTags
                                     name='recommendedTags'
@@ -190,10 +192,13 @@ export const RegistrationForm = () => {
                                     Регистрация успешна
                                 </Dialog>
                             </ProgressWindow.Tab>
+                            <ProgressWindow.Tab>
+                                <AcceptEmail />
+                            </ProgressWindow.Tab>
                         </ProgressWindow.Container>
-                        <div className={s['btn-group']}>
+                        <div className={s.btn_group}>
                             <PrevBtn disabled={isSuccess} />
-                            <NextBtn disabled={!nextResolve || isSuccess} />
+                            <NextBtn disabled={!nextResolve} />
                             <SubmitButton
                                 loading={isPending}
                                 disabled={isSuccess}

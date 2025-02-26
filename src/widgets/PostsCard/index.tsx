@@ -6,7 +6,7 @@ import { aspectRatioVariants } from '@/shared/consts/aspectRatioVariants'
 import { routes } from '@/shared/routes'
 import clsx from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { type CSSProperties, memo } from 'react'
 
 import s from './s.module.scss'
@@ -25,21 +25,15 @@ interface PostCardProps {
 }
 
 export const PostsCard = memo((props: PostCardProps) => {
-    const {
-        url,
-        quality = 20,
-        aspectRatio = '9/16',
-        postId,
-        className,
-        style,
-    } = props
+    const { url, aspectRatio = '9/16', postId, className, style } = props
     const href = routes.postsDetail.getRoute(postId)
+    const router = useRouter()
 
     return (
-        <Link
+        <div
             className={clsx(s.card, className)}
             style={{ aspectRatio, minHeight: '20px', ...style }}
-            href={href}
+            onClick={() => router.push(href)}
         >
             <div className={s.wrapper}>
                 <div className={s.btn_group}>
@@ -61,13 +55,13 @@ export const PostsCard = memo((props: PostCardProps) => {
                     className={s.img}
                     loading='lazy'
                     alt='test'
-                    quality={quality}
+                    quality={75}
                     sizes='(max-width: 200px)'
                     src={url}
                     fill={true}
                 />
             </div>
-        </Link>
+        </div>
     )
 })
 

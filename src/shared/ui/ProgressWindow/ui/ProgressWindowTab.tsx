@@ -1,12 +1,13 @@
 'use client'
 
-import { type CSSProperties } from 'react'
+import { type CSSProperties, memo } from 'react'
 
 import { usePrivateProgressWindowContext } from '../model/hooks'
 import { ProgressWindowTabProps } from '../model/types'
 
-export function ProgressWindowTab(props: ProgressWindowTabProps) {
+export const ProgressWindowTab = memo((props: ProgressWindowTabProps) => {
     const { children, className, style } = props
+
     const { parentContainerWidth } = usePrivateProgressWindowContext()
 
     if (!children || !parentContainerWidth) return
@@ -19,7 +20,7 @@ export function ProgressWindowTab(props: ProgressWindowTabProps) {
             {children}
         </div>
     )
-}
+})
 
 ProgressWindowTab.displayName = 'ProgressWindowTab'
 

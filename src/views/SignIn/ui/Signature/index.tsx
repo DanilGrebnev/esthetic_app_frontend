@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { FC } from 'react'
 
 import s from './Signature.module.scss'
 
@@ -9,7 +8,7 @@ interface Signature {
     linkText: string
 }
 
-export const Signature: FC<Signature> = (props) => {
+export const Signature = (props: Signature) => {
     const { linkText, href, text } = props
     return (
         <div className={s.signature}>

@@ -1,8 +1,6 @@
 // @ts-check
 
 /** @type {import('next').NextConfig} */
-import { unauthorized } from 'next/navigation.js'
-
 import { SWGRWebpackConfig } from './webpackConfig/SWGRWebpackConfig.js'
 
 const nextConfig = {
@@ -18,6 +16,7 @@ const nextConfig = {
     },
 
     images: {
+        formats: ['image/webp'],
         remotePatterns: [
             {
                 hostname: '*',

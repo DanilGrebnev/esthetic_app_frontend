@@ -10,3 +10,21 @@ export const getSetting = (setting?: TSetting) => {
     return { transition }
 }
 
+export function setTabIndexOnInputs(
+    node: HTMLElement | null,
+    disabled: boolean,
+) {
+    if (!node) return
+
+    const elements = node?.querySelectorAll('*')
+
+    if (!elements.length) return
+
+    elements.forEach((el) => {
+        if (disabled) {
+            el.setAttribute('tabindex', '-1')
+        } else {
+            el.removeAttribute('tabindex')
+        }
+    })
+}

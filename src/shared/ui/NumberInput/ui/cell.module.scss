@@ -1,0 +1,15 @@
+.cell {
+    @apply p-[2px] 
+    w-[30px] 
+    h-[40px] 
+    select-none
+    text-center
+    rounded-[5px];
+    outline: 1px solid black;
+    caret-color: transparent;
+    font-size: 20px;
+
+    &:focus {
+        outline: 3px solid green;
+    }
+}

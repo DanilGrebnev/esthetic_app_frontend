@@ -5,7 +5,7 @@ import { createContext } from 'react'
 import type {
     TPrivateProgressWindowContext,
     TProgressWindowContext,
-} from '../types'
+} from './types'
 
 export const ProgressWindowContext =
     createContext<TProgressWindowContext | null>(null)

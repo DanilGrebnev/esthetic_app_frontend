@@ -1,11 +1,15 @@
 'use client'
 
-import { getSetting } from '@/shared/ui/ProgressWindow/model/lib'
+import {
+    getSetting,
+    setTabIndexOnInputs,
+} from '@/shared/ui/ProgressWindow/model/lib'
 import { clsx } from 'clsx'
 import { useEffect, useState } from 'react'
 
 import { usePrivateProgressWindowContext } from '../model/hooks'
 import { TProgressWindowContainer } from '../model/types'
+import { _ProgressWindowTabWrapper } from './_ProgressWindowTabWrapper'
 import s from './s.module.scss'
 
 export const ProgressWindowContainer = ({
@@ -15,7 +19,7 @@ export const ProgressWindowContainer = ({
 }: TProgressWindowContainer) => {
     const {
         setPagesAmount,
-        currentPage,
+        currentPageInView,
         containerRef,
         parentContainerWidth: width,
     } = usePrivateProgressWindowContext()
@@ -24,8 +28,8 @@ export const ProgressWindowContainer = ({
 
     useEffect(() => {
         if (!width) return
-        setCurrentPosition(-(width * currentPage))
-    }, [currentPage, width])
+        setCurrentPosition(-(width * currentPageInView))
+    }, [currentPageInView, width])
 
     useEffect(() => {
         setPagesAmount(children.length)
@@ -37,40 +41,30 @@ export const ProgressWindowContainer = ({
     return (
         <div
             ref={containerRef}
-            className={clsx(s['slider-wrapper'], className)}
+            className={clsx(s.slider_wrapper, className)}
         >
             <div
                 style={{
                     transform: `translateX(${currentPosition}px)`,
                     transition: settings?.transition,
                 }}
-                className={clsx(s['window-container'])}
+                className={clsx(s.window_container)}
             >
                 {children.map((child, i) => {
+                    const disabledTab = i !== currentPageInView
+
                     return (
-                        <div
-                            className='flex'
+                        <_ProgressWindowTabWrapper
                             key={i}
-                            ref={setTabIndexOnInputs(i, currentPage)}
+                            ref={(node) =>
+                                setTabIndexOnInputs(node, disabledTab)
+                            }
                         >
                             {child}
-                        </div>
+                        </_ProgressWindowTabWrapper>
                     )
                 })}
             </div>
         </div>
     )
-}
-
-function setTabIndexOnInputs(i: number, currentPage: number) {
-    return (node: HTMLDivElement | null) => {
-        if (!node) return
-        const inputs = node?.querySelectorAll('input')
-        if (!inputs.length) return
-        if (i === currentPage) {
-            inputs.forEach((input) => (input.tabIndex = 1))
-        } else {
-            inputs.forEach((input) => (input.tabIndex = -1))
-        }
-    }
 }

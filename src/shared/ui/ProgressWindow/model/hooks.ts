@@ -3,7 +3,7 @@ import { type Context, useContext } from 'react'
 import {
     PrivateProgressWindowContext,
     ProgressWindowContext,
-} from './context/ProgressWindowContext'
+} from './ProgressWindowContext'
 
 /* Осуществляет проверку на вызов контекста внутри контекст провайдера. */
 const useErrorBoundaryContext = <T>(contextProps: Context<T>) => {

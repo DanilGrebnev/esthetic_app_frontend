@@ -6,28 +6,28 @@
     h-[100vh];
 }
 
-.registration-form {
+.registration_form {
     @apply flex 
     flex-col
     gap-[--global-gap-1]
     h-max;
 }
 
-.inputs-wrapper {
+.inputs_wrapper {
     @apply flex 
     flex-col 
     gap-[--global-gap-1];
 }
 
-.btn-group {
+.btn_group {
     display: flex;
 }
 
-.upload-avatar-page {
+.upload_avatar_page {
     @apply flex flex-col;
 }
 
-.upload-avatar-wrapper {
+.upload_avatar_wrapper {
     @apply flex 
     flex-col 
     justify-center 
@@ -42,7 +42,7 @@
      max-h-[--size];
 }
 
-.tag-page {
+.tag_page {
     @apply flex 
     flex-col 
     gap-[--global-gap-1];

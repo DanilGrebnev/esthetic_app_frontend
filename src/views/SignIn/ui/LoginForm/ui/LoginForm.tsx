@@ -37,7 +37,7 @@ export const LoginForm = () => {
     return (
         <Container
             size='s'
-            className={s['login-container']}
+            className={s.login_container}
         >
             <Box
                 boxShadow={true}
@@ -47,7 +47,7 @@ export const LoginForm = () => {
                     onSubmit={onSubmit}
                     className={s.form}
                 >
-                    <Title text='Войти' />
+                    <Title>Войти</Title>
                     <Controller
                         control={control}
                         rules={{

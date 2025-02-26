@@ -1,8 +1,8 @@
-.slider-wrapper {
+.slider_wrapper {
     @apply relative overflow-hidden;
 }
 
-.window-container {
+.window_container {
     @apply flex relative;
     transition: all 0.3s ease-in;
 }

@@ -1,4 +1,4 @@
-import { ProgressWindowProvider } from './model/context/ProgressWindowProvider'
+import { ProgressWindowProvider } from './model/ProgressWindowProvider'
 import { ProgressWindowContainer } from './ui/ProgressWindowContainer'
 import { ProgressWindowTab } from './ui/ProgressWindowTab'
 

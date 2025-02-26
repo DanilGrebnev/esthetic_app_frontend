@@ -1,4 +1,10 @@
-import { CSSProperties, type MutableRefObject, type ReactNode } from 'react'
+import {
+    CSSProperties,
+    Dispatch,
+    type ReactNode,
+    Ref,
+    SetStateAction,
+} from 'react'
 
 export interface TProgressWindowContext {
     onNext: () => void
@@ -6,14 +12,15 @@ export interface TProgressWindowContext {
     currentPage: number
     totalPages: number
     isLastPage: boolean
+    setCurrentPage: Dispatch<SetStateAction<number>>
 }
 
 /* Приватный контекст */
 export interface TPrivateProgressWindowContext {
     parentContainerWidth?: number
-    containerRef: MutableRefObject<HTMLDivElement | null>
+    containerRef: Ref<HTMLDivElement | null>
     setPagesAmount: (pagesAmount: number) => void
-    currentPage: number
+    currentPageInView: number
 }
 
 export interface ProgressWindowProviderProps {

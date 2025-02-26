@@ -50,7 +50,7 @@ export const PostImage = (props: PostImageProps) => {
                 fill={true}
                 priority={false}
                 sizes='400px'
-                quality={30}
+                quality={100}
                 loading='lazy'
                 alt=''
                 src={url}

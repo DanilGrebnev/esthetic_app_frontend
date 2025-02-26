@@ -1,7 +1,4 @@
-import Hearticon from '@/shared/assets/heart-icon.svg'
-
 import { InfoWithIcon } from './InfoWithIcon'
-import s from './s.module.scss'
 
 interface LikeAmountProps {
     likeAmount: number
