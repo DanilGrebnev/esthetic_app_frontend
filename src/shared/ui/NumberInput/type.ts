@@ -6,5 +6,6 @@ export interface NumberInputProps {
 
 export interface TCells {
     position: number
+    value: string
     focus: boolean
 }

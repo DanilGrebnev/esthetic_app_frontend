@@ -3,7 +3,7 @@ import { TCells } from './type'
 export const createCells = (length: number): TCells[] => {
     return new Array(length)
         .fill('')
-        .map((_, i) => ({ position: i, focus: false }))
+        .map((_, i) => ({ position: i, focus: false, value: '' }))
 }
 
 export const focusNextElement = (cells: TCells[], position: number) => {

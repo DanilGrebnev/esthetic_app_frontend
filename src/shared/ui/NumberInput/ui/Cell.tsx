@@ -8,7 +8,6 @@ import {
     SetStateAction,
     useEffect,
     useRef,
-    useState,
 } from 'react'
 
 import { focusNextElement, focusPrevElement } from '../lib'
@@ -20,61 +19,96 @@ interface CellProps {
     focus?: boolean
     ref?: Ref<HTMLInputElement>
     position: number
+    value: string
     onChange?: (value: string) => void
-    setCells: Dispatch<SetStateAction<TCells[]>>
+    setCellsStore: Dispatch<SetStateAction<TCells[]>>
 }
 
 export const Cell = (props: CellProps) => {
-    const { className, focus, setCells, onChange, position } = props
-    const [value, setValue] = useState('')
+    const { className, focus, value, setCellsStore, onChange, position } = props
 
     const inputRef = useRef<HTMLInputElement>(null)
 
-    useEffect(() => {
-        if (!focus) return
-        inputRef.current?.focus()
-    }, [focus])
+    /* Изменяем focus в store на нужной ячейке */
+    const onFocus = () => {
+        setCellsStore((p) =>
+            p.map((cell) => {
+                if (cell.position === position) {
+                    cell.focus = true
+                } else {
+                    cell.focus = false
+                }
+                return cell
+            }),
+        )
+    }
+
+    // Установка значения в store
+    const setValue = (value: string) => {
+        setCellsStore((p) =>
+            p.map((cell) => {
+                /* Используем position в качестве 
+                уникального идентификатора */
+                if (cell.position === position) {
+                    cell.value = value
+                }
+                return cell
+            }),
+        )
+    }
 
     const onChanges = (e: ChangeEvent<HTMLInputElement>) => {
-        const v = e.target.value
+        const { value } = e.target
+
+        // Берем последний символ из строки
+        const v = [...value].at(-1) ?? ''
         onChange?.(v)
         setValue(v)
     }
 
     const onKeyDownCb = (e: KeyboardEvent<HTMLInputElement>) => {
         const key = e.key
-        // Если нажимает кнопку backspace
+        // Удаляем значение при нажатии Backspace
         if (key === 'Backspace') {
             setValue('')
             return
         }
 
+        // Смещаем фокус назад при нажатии стрелочки влево
         if (e.key === 'ArrowLeft') {
-            setCells((p) => focusPrevElement(p, position))
+            setCellsStore((p) => focusPrevElement(p, position))
             return
         }
     }
-
-    useEffect(() => {
-        if (value.length === 1) {
-            setCells((p) => focusNextElement(p, position))
-        }
-    }, [value])
-
+    // Смещае фокус далее при нажатии стрелочки вправо
     const onKeyUpCb = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowRight') {
-            setCells((p) => focusNextElement(p, position))
+            setCellsStore((p) => focusNextElement(p, position))
         }
     }
 
+    // Устанавливаем focus на элементе
+    useEffect(() => {
+        if (!focus) return
+        inputRef.current?.focus()
+    }, [focus])
+
+    // Смещаем фокус дальше при изменении значения
+    useEffect(() => {
+        if (value.length === 1) {
+            setCellsStore((p) => focusNextElement(p, position))
+        }
+    }, [value])
+
     return (
         <input
-            autoComplete={'off'}
-            // autoComplete='new-password'
+            onFocus={onFocus}
+            // Пытаемся отключить autocomplete (не работает в edge)
+            autoComplete='off'
+            // Пытаемся отключить автозапоминание браузером поля
             name={nanoid()}
             ref={inputRef}
             value={value}
-            maxLength={1}
             type='text'
             onKeyUp={onKeyUpCb}
             onKeyDown={onKeyDownCb}
