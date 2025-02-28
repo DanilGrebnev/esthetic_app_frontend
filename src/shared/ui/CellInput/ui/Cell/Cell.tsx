@@ -1,5 +1,5 @@
+import { useCombinedRef } from '@/shared/hooks/useCombineRef'
 import {
-    type ChangeEvent,
     type Dispatch,
     type KeyboardEvent,
     type Ref,
@@ -19,13 +19,25 @@ interface CellProps {
     ref?: Ref<HTMLInputElement>
     position: number
     value: string
-    onChangeEvent: () => void
+    onChangeEvent: (value: number | string, position: number) => void
     setCellsStore: Dispatch<SetStateAction<TCells[]>>
+    type?: 'number' | 'word'
 }
 
 export const Cell = memo((props: CellProps) => {
-    const { setCellsStore, onChangeEvent, focus, value, position } = props
+    const {
+        setCellsStore,
+        onChangeEvent,
+        type = 'number',
+        focus,
+        value,
+        position,
+        ref,
+    } = props
     const randomId = useId()
+
+    const inputRef = useRef<HTMLInputElement>(null)
+    const combinedInputRef = useCombinedRef<HTMLInputElement>(inputRef, ref)
 
     /* Изменяем focus в store на нужной ячейке */
     const onFocus = () => {
@@ -56,27 +68,32 @@ export const Cell = memo((props: CellProps) => {
         )
     }
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log({ 'e.target.value': e.target.value })
-        // Берем последний символ из строки
-        const v = [...e.target.value].reverse().at(-1) ?? ''
-        console.log({ v })
-        setValue(v)
-        // Реагируем на изменение value
-        onChangeEvent()
-    }
-
-    const onKeyDownCb = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         const key = e.key
+        /* Используем регулярное выражение, чтобы получать символы строки или числа. */
+        let regExp
+        /* Т.к. буква или цифра - это 1 символ, то мы можем отлавить нажатие клавиши,
+        состоящей из 1 символа */
+        if (type === 'number') regExp = /^\d$/
+        if (type === 'word') regExp = /^[a-zA-Zа-яА-Я]$/
+        const symbol = regExp?.exec(key)?.[0]
+
+        // Если нажатие было на клавишу с цифрой или буквой
+        if (symbol) {
+            setValue(symbol)
+            // Реагируем на изменение value
+            onChangeEvent(symbol, position)
+        }
+
         // Удаляем значение при нажатии Backspace
         if (key === 'Backspace') {
             setValue('')
-            // Реагируем на изменение value
-            onChangeEvent()
+            // Реагируем на очистку value ячейки
+            onChangeEvent('', position)
             return
         }
 
-        // // Смещаем фокус назад при нажатии стрелочки влево
+        // Смещаем фокус назад при нажатии стрелочки влево
         if (e.key === 'ArrowLeft') {
             setCellsStore((p) => focusPrevElement(p, position))
             return
@@ -84,7 +101,7 @@ export const Cell = memo((props: CellProps) => {
     }
 
     // Смещае фокус далее при нажатии стрелочки вправо
-    const onKeyUpCb = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowRight') {
             setCellsStore((p) => focusNextElement(p, position))
         }
@@ -97,22 +114,25 @@ export const Cell = memo((props: CellProps) => {
         }
     }, [value, position, setCellsStore])
 
+    // Устанавливаем фокус
+    useEffect(() => {
+        if (!focus) return
+        inputRef?.current?.focus()
+    }, [focus])
+
     return (
         <input
             type='text'
+            className={s.cell}
             // Пытаемся отключить autocomplete (не работает в edge)
             autoComplete='off'
             // Пытаемся отключить автозапоминание браузером поля
+            ref={combinedInputRef}
             name={randomId}
-            ref={(el) => {
-                if (focus) el?.focus()
-            }}
             value={value}
             onFocus={onFocus}
-            onKeyUp={onKeyUpCb}
-            onKeyDown={onKeyDownCb}
-            onChange={onChange}
-            className={s.cell}
+            onKeyUp={onKeyUp}
+            onKeyDown={onKeyDown}
         />
     )
 })
