@@ -13,9 +13,9 @@
 html,
 body,
 #theme-provider {
+    background: var(--theme-bg-color-1);
     max-width: 100vw;
     height: 100vh;
-    background: var(--theme-bg-color-1);
 }
 
 .text-ellipsis {
@@ -58,5 +58,5 @@ body,
 
 .scrollbar::-webkit-scrollbar-thumb {
     border-radius: var(--global-border-radius);
-    background: green;
+    background: var(--theme-bg-color-2);
 }
