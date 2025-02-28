@@ -128,6 +128,7 @@ export const Cell = memo((props: CellProps) => {
             autoComplete='off'
             // Пытаемся отключить автозапоминание браузером поля
             ref={combinedInputRef}
+            onChange={() => {}}
             name={randomId}
             value={value}
             onFocus={onFocus}
