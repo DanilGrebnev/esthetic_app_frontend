@@ -18,7 +18,7 @@ export const CellInput = (props: NumberInputProps) => {
 
     /* Реагируем только на изменение value значения */
     const onChangeEvent = () => {
-        console.log(cellsStore)
+        // console.log(cellsStore)
     }
 
     return (

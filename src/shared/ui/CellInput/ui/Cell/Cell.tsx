@@ -26,7 +26,6 @@ interface CellProps {
 export const Cell = memo((props: CellProps) => {
     const { setCellsStore, onChangeEvent, focus, value, position } = props
     const randomId = useId()
-    const inputRef = useRef<HTMLInputElement>(null)
 
     /* Изменяем focus в store на нужной ячейке */
     const onFocus = () => {
@@ -47,7 +46,7 @@ export const Cell = memo((props: CellProps) => {
     const setValue = (value: string) => {
         setCellsStore((p) =>
             p.map((cell) => {
-                /* Используем position в качестве 
+                /* Используем position в качестве
                 уникального идентификатора */
                 if (cell.position === position) {
                     cell.value = value
@@ -57,11 +56,11 @@ export const Cell = memo((props: CellProps) => {
         )
     }
 
-    const onChanges = (e: ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target
-
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log({ 'e.target.value': e.target.value })
         // Берем последний символ из строки
-        const v = [...value].at(-1) ?? ''
+        const v = [...e.target.value].reverse().at(-1) ?? ''
+        console.log({ v })
         setValue(v)
         // Реагируем на изменение value
         onChangeEvent()
@@ -77,7 +76,7 @@ export const Cell = memo((props: CellProps) => {
             return
         }
 
-        // Смещаем фокус назад при нажатии стрелочки влево
+        // // Смещаем фокус назад при нажатии стрелочки влево
         if (e.key === 'ArrowLeft') {
             setCellsStore((p) => focusPrevElement(p, position))
             return
@@ -90,12 +89,6 @@ export const Cell = memo((props: CellProps) => {
             setCellsStore((p) => focusNextElement(p, position))
         }
     }
-
-    // Устанавливаем focus на элементе
-    useEffect(() => {
-        if (!focus) return
-        inputRef.current?.focus()
-    }, [focus])
 
     // Смещаем фокус дальше при изменении значения
     useEffect(() => {
@@ -111,12 +104,14 @@ export const Cell = memo((props: CellProps) => {
             autoComplete='off'
             // Пытаемся отключить автозапоминание браузером поля
             name={randomId}
-            ref={inputRef}
+            ref={(el) => {
+                if (focus) el?.focus()
+            }}
             value={value}
             onFocus={onFocus}
             onKeyUp={onKeyUpCb}
             onKeyDown={onKeyDownCb}
-            onChange={onChanges}
+            onChange={onChange}
             className={s.cell}
         />
     )
