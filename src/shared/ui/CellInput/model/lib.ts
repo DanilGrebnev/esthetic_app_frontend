@@ -1,4 +1,4 @@
-import { TCells } from './type'
+import { TCells } from './types'
 
 export const createCells = (length: number): TCells[] => {
     return new Array(length)

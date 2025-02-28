@@ -1,32 +1,31 @@
-import clsx from 'clsx'
-import { nanoid } from 'nanoid'
 import {
-    ChangeEvent,
-    Dispatch,
-    KeyboardEvent,
-    Ref,
-    SetStateAction,
+    type ChangeEvent,
+    type Dispatch,
+    type KeyboardEvent,
+    type Ref,
+    type SetStateAction,
+    memo,
     useEffect,
     useRef,
 } from 'react'
+import { useId } from 'react'
 
-import { focusNextElement, focusPrevElement } from '../lib'
-import { TCells } from '../type'
-import s from './cell.module.scss'
+import { focusNextElement, focusPrevElement } from '../../model/lib'
+import { TCells } from '../../model/types'
+import s from './Cell.module.scss'
 
 interface CellProps {
-    className?: string
     focus?: boolean
     ref?: Ref<HTMLInputElement>
     position: number
     value: string
-    onChange?: (value: string) => void
+    onChangeEvent: () => void
     setCellsStore: Dispatch<SetStateAction<TCells[]>>
 }
 
-export const Cell = (props: CellProps) => {
-    const { className, focus, value, setCellsStore, onChange, position } = props
-
+export const Cell = memo((props: CellProps) => {
+    const { setCellsStore, onChangeEvent, focus, value, position } = props
+    const randomId = useId()
     const inputRef = useRef<HTMLInputElement>(null)
 
     /* Изменяем focus в store на нужной ячейке */
@@ -36,6 +35,7 @@ export const Cell = (props: CellProps) => {
                 if (cell.position === position) {
                     cell.focus = true
                 } else {
+                    // Сбрасываем фокус у всех остальных ячеек
                     cell.focus = false
                 }
                 return cell
@@ -62,8 +62,9 @@ export const Cell = (props: CellProps) => {
 
         // Берем последний символ из строки
         const v = [...value].at(-1) ?? ''
-        onChange?.(v)
         setValue(v)
+        // Реагируем на изменение value
+        onChangeEvent()
     }
 
     const onKeyDownCb = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -71,6 +72,8 @@ export const Cell = (props: CellProps) => {
         // Удаляем значение при нажатии Backspace
         if (key === 'Backspace') {
             setValue('')
+            // Реагируем на изменение value
+            onChangeEvent()
             return
         }
 
@@ -80,6 +83,7 @@ export const Cell = (props: CellProps) => {
             return
         }
     }
+
     // Смещае фокус далее при нажатии стрелочки вправо
     const onKeyUpCb = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowRight') {
@@ -98,22 +102,24 @@ export const Cell = (props: CellProps) => {
         if (value.length === 1) {
             setCellsStore((p) => focusNextElement(p, position))
         }
-    }, [value])
+    }, [value, position, setCellsStore])
 
     return (
         <input
-            onFocus={onFocus}
+            type='text'
             // Пытаемся отключить autocomplete (не работает в edge)
             autoComplete='off'
             // Пытаемся отключить автозапоминание браузером поля
-            name={nanoid()}
+            name={randomId}
             ref={inputRef}
             value={value}
-            type='text'
+            onFocus={onFocus}
             onKeyUp={onKeyUpCb}
             onKeyDown={onKeyDownCb}
             onChange={onChanges}
-            className={clsx(s.cell, className)}
+            className={s.cell}
         />
     )
-}
+})
+
+Cell.displayName = 'Cell'

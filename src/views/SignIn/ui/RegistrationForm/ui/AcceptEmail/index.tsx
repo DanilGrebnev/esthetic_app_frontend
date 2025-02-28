@@ -1,5 +1,5 @@
 import { Button } from '@/shared/ui/Button'
-import { NumberInput } from '@/shared/ui/NumberInput'
+import { CellInput } from '@/shared/ui/CellInput'
 
 import { SubTitle } from '../../../SubTitle'
 import s from './accept-email.module.scss'
@@ -11,7 +11,7 @@ export const AcceptEmail = () => {
                 <SubTitle>
                     Введите специальный код, отправленный на почту
                 </SubTitle>
-                <NumberInput
+                <CellInput
                     className={s.input}
                     length={5}
                 />
