@@ -28,6 +28,12 @@ class UsersApi {
         })
     }
     registration = async (body: FormData) => {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res({ message: 'ok', status: 200 })
+            }, 2000)
+        })
+
         try {
             return await api
                 .post(this.basePath + '/registration', {

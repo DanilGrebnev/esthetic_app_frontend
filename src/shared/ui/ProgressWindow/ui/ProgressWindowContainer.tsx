@@ -1,9 +1,6 @@
 'use client'
 
-import {
-    getSetting,
-    setTabIndexOnInputs,
-} from '@/shared/ui/ProgressWindow/model/lib'
+import { getSetting, setTabIndex } from '@/shared/ui/ProgressWindow/model/lib'
 import { clsx } from 'clsx'
 import { useEffect, useState } from 'react'
 
@@ -31,10 +28,15 @@ export const ProgressWindowContainer = ({
         setCurrentPosition(-(width * currentPageInView))
     }, [currentPageInView, width])
 
+    /**  Фильтруем false, null, undefined,
+     * чтобы длинна children была корректной */
+    const filteredChildren = children.filter((child) => !!child)
+
+    /* Обновляем количество страниц при 
+    изменении количества чилдренов */
     useEffect(() => {
-        setPagesAmount(children.length)
-        // eslint-disable-next-line
-    }, [])
+        setPagesAmount(filteredChildren.length)
+    }, [filteredChildren])
 
     const settings = getSetting(setting)
 
@@ -48,17 +50,15 @@ export const ProgressWindowContainer = ({
                     transform: `translateX(${currentPosition}px)`,
                     transition: settings?.transition,
                 }}
-                className={clsx(s.window_container)}
+                className={s.window_container}
             >
-                {children.map((child, i) => {
+                {filteredChildren.map((child, i) => {
                     const disabledTab = i !== currentPageInView
 
                     return (
                         <_ProgressWindowTabWrapper
                             key={i}
-                            ref={(node) =>
-                                setTabIndexOnInputs(node, disabledTab)
-                            }
+                            ref={(node) => setTabIndex(node, disabledTab)}
                         >
                             {child}
                         </_ProgressWindowTabWrapper>
@@ -68,3 +68,5 @@ export const ProgressWindowContainer = ({
         </div>
     )
 }
+
+ProgressWindowContainer.displayName = 'ProgressWindowContainer'

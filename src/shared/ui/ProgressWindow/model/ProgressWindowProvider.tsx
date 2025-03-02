@@ -2,7 +2,7 @@
 
 import { useGetComponentSizes } from '@/shared/hooks/useGetComponentSizes'
 import { useLatest } from '@/shared/hooks/useLatest'
-import { useCallback, useId, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 
 import {
     PrivateProgressWindowContext,
@@ -16,6 +16,7 @@ import type {
 
 export const ProgressWindowProvider = ({
     children,
+    getPublicContext,
 }: ProgressWindowProviderProps) => {
     const [currentPageInView, setCurrentPage] = useState(0)
     const latestCurrentPage = useLatest(currentPageInView)
@@ -25,6 +26,7 @@ export const ProgressWindowProvider = ({
     const setPagesAmount = useCallback(setTotalPages, [])
 
     const onNext = useCallback(() => {
+        // Если мы на последней странице, то отменить действие
         if (latestCurrentPage.current + 1 === totalPages) return
         setCurrentPage((p) => p + 1)
     }, [totalPages, latestCurrentPage])
@@ -42,6 +44,11 @@ export const ProgressWindowProvider = ({
         totalPages,
         isLastPage: currentPageInView + 1 === totalPages,
     }
+
+    useLayoutEffect(() => {
+        getPublicContext?.(publicContext)
+        return () => getPublicContext?.(null)
+    }, [])
 
     const privateContext: TPrivateProgressWindowContext = {
         parentContainerWidth: width,

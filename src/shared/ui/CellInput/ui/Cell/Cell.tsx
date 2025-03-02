@@ -21,14 +21,14 @@ interface CellProps {
     value: string
     onChangeEvent: (value: number | string, position: number) => void
     setCellsStore: Dispatch<SetStateAction<TCells[]>>
-    type?: 'number' | 'word'
+    validate?: 'number' | 'word' | RegExp
 }
 
 export const Cell = memo((props: CellProps) => {
     const {
         setCellsStore,
         onChangeEvent,
-        type = 'number',
+        validate = 'number',
         focus,
         value,
         position,
@@ -70,12 +70,19 @@ export const Cell = memo((props: CellProps) => {
 
     const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         const key = e.key
+        console.log(key)
         /* Используем регулярное выражение, чтобы получать символы строки или числа. */
         let regExp
         /* Т.к. буква или цифра - это 1 символ, то мы можем отлавить нажатие клавиши,
         состоящей из 1 символа */
-        if (type === 'number') regExp = /^\d$/
-        if (type === 'word') regExp = /^[a-zA-Zа-яА-Я]$/
+        if (validate === 'number') {
+            regExp = /^\d$/
+        } else if (validate === 'word') {
+            regExp = /^[a-zA-Zа-яА-Я]$/
+        } else {
+            regExp = validate
+        }
+
         const symbol = regExp?.exec(key)?.[0]
 
         // Если нажатие было на клавишу с цифрой или буквой

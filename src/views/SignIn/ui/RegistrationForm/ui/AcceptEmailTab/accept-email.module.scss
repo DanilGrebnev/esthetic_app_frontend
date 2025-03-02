@@ -10,8 +10,13 @@
     grow;
 }
 
-.input {
-    margin: auto;
+.main_content {
+    @apply flex 
+    flex-col
+    grow
+    items-center
+    gap-[--global-gap-1]
+    justify-center;
 }
 
 .btn {

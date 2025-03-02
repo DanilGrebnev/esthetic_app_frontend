@@ -64,6 +64,7 @@ export const useRegistrationMutation = (options?: {
     return useMutation({
         mutationFn: usersApi.registration,
         onSuccess: options?.onSuccess,
+        
     })
 }
 

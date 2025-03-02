@@ -1,10 +1,14 @@
 import { Dispatch, SetStateAction } from 'react'
 
+export type DefaultValue = Omit<TCells, 'position'>[]
+
 export interface NumberInputProps {
     length: number
-    value?: TCells[]
-    /** onChange, передаётся для контроля компонента снаружи. */
-    onChange?: Dispatch<SetStateAction<TCells[]>>
+    /** Строка, либо регулярное выражение,
+     * указывающее, какие значения может принимать компонент */
+    validate?: 'number' | 'word' | RegExp
+    /** Значение устанавливается единожды при 1 рендере */
+    defaultValue?: DefaultValue
     /** Получение результата ввода в инпут.
      * Вызывайется на каждый ввод */
     getResult?: (result: string) => void

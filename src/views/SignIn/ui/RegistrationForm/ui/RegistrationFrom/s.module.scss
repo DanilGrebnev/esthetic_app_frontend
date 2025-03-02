@@ -22,28 +22,3 @@
 .btn_group {
     display: flex;
 }
-
-.upload_avatar_page {
-    @apply flex flex-col;
-}
-
-.upload_avatar_wrapper {
-    @apply flex 
-    flex-col 
-    justify-center 
-    content-center
-    items-center
-    h-full;
-}
-
-.upload-avatar {
-    --size: 200px;
-    @apply w-[--size]
-     max-h-[--size];
-}
-
-.tag_page {
-    @apply flex 
-    flex-col 
-    gap-[--global-gap-1];
-}

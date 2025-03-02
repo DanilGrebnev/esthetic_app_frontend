@@ -7,7 +7,6 @@ import { ProgressWindowTabProps } from '../model/types'
 
 export const ProgressWindowTab = memo((props: ProgressWindowTabProps) => {
     const { children, className, style } = props
-
     const { parentContainerWidth } = usePrivateProgressWindowContext()
 
     if (!children || !parentContainerWidth) return

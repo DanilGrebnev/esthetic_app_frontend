@@ -1,6 +1,6 @@
 import { type Tag } from '@/shared/ui/InputWithTags'
 
-import { SuccessResponse } from './apiResponses'
+import { Prettify } from './UtilityTypes'
 
 /* Base user type */
 interface BaseUser {
@@ -11,11 +11,14 @@ interface BaseUser {
 }
 
 /* Full user profile */
-export interface UserProfile extends BaseUser {
-    userId: string
-    subscribersAmount: number
-    avatar: string | null
-}
+
+export type UserProfile = Prettify<
+    BaseUser & {
+        userId: string
+        subscribersAmount: number
+        avatar: string | null
+    }
+>
 
 /* Public users profile */
 export interface UserPublicProfile {
@@ -24,32 +27,34 @@ export interface UserPublicProfile {
 }
 
 /* Private users profile*/
-export type UserPrivateProfile = UserProfile & {
-    tags: Tag[] | []
-    avatarBlur?: string | null
-}
+export type UserPrivateProfile = Prettify<
+    UserProfile & {
+        tags: Tag[] | []
+        avatarBlur?: string | null
+    }
+>
 
 /* Info about posts author */
-export interface TAuthor extends Omit<BaseUser, 'email'> {
-    userId: string
-    avatar?: string | null
-    avatarBlur?: string | null
-}
+
+export type TAuthor = Prettify<
+    {
+        userId: string
+        avatar?: string | null
+        avatarBlur?: string | null
+    } & Omit<BaseUser, 'email'>
+>
 
 /* Info about guest. Use with UserPublicProfile type */
 interface Guest {
     isOwner: boolean
     isSubscribe: boolean
 }
-
-export interface CreateUser extends BaseUser {
-    password: string
-    avatar: File
-    tags: Tag[]
-}
+export type CreateUser = Prettify<
+    { password: string; avatar: File; tags: Tag[] } & BaseUser
+>
 
 /* Данные для изменения профиля пользователя */
-export interface ChangeUser extends CreateUser {}
+export type ChangeUser = Prettify<CreateUser>
 
 export interface UsersLoginBody {
     email: string

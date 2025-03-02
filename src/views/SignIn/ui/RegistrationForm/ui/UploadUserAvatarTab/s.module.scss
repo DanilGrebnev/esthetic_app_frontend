@@ -1,0 +1,19 @@
+.upload_avatar_page {
+    @apply flex flex-col;
+}
+
+.upload_avatar_wrapper {
+    @apply flex 
+    flex-col 
+    justify-center 
+    content-center
+    items-center
+    h-full;
+}
+
+.upload_avatar {
+    --size: 200px;
+
+    @apply max-w-[--size]
+     max-h-[--size];
+}

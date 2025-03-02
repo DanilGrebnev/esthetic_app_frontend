@@ -24,8 +24,8 @@ export interface TPrivateProgressWindowContext {
 }
 
 export interface ProgressWindowProviderProps {
-    className?: string
     children?: ReactNode | ReactNode[]
+    getPublicContext?: (context: TProgressWindowContext | null) => void
 }
 
 export type TSetting = { transition?: number }

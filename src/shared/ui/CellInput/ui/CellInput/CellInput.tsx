@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { createCells } from '../../model/lib'
 import { NumberInputProps, TCells } from '../../model/types'
@@ -9,16 +9,18 @@ import { Cell } from '../Cell/Cell'
 import s from './cell-input.module.scss'
 
 export const CellInput = (props: NumberInputProps) => {
-    const { length, getResult, getStore, onChange, value, className } = props
+    const { length, getResult, getStore, defaultValue, validate, className } =
+        props
+
+    const [cellsStore, setCellsStore] = useState<TCells[]>(() =>
+        createCells(length, defaultValue),
+    )
+
     // Ref для сбора всех значений
     const valuesRef = useRef<(string | number)[]>([])
 
-    const [cellsStore, setCellsStore] = useState<TCells[]>(() =>
-        createCells(length),
-    )
-
     // Передаём ссылку на Dispatch внутреннего состояния
-    useLayoutEffect(() => {
+    useEffect(() => {
         getStore?.(setCellsStore)
     }, [])
 
@@ -33,19 +35,16 @@ export const CellInput = (props: NumberInputProps) => {
         [getResult],
     )
 
-    if (value && !onChange) {
-        throw new Error('onChange обязателен, если компонент контролируемый')
-    }
-
     return (
         <div className={clsx(s.wrapper, className)}>
-            {(value ?? cellsStore).map((cell, i) => {
+            {cellsStore.map((cell, i) => {
                 return (
                     <Cell
                         key={i}
                         {...cell}
+                        validate={validate}
                         onChangeEvent={onChangeEvent}
-                        setCellsStore={onChange ?? setCellsStore}
+                        setCellsStore={setCellsStore}
                     />
                 )
             })}

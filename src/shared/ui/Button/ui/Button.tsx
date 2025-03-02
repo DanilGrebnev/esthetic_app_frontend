@@ -10,10 +10,8 @@ import { useClickWithHref } from '../model/hooks'
 import { ButtonProps } from '../model/types'
 import s from './s.module.scss'
 
-/**
- * Кнопка, которая так же может быть использована для мягкой навигации
- * @example <Button href="some href to navigate" />
- */
+/** Кнопка, которая так же может быть использована для мягкой навигации
+ * @example <Button href="some href to navigate" /> */
 export const Button = memo((props: ButtonProps) => {
     const {
         className,

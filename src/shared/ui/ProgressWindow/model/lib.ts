@@ -10,13 +10,12 @@ export const getSetting = (setting?: TSetting) => {
     return { transition }
 }
 
-export function setTabIndexOnInputs(
-    node: HTMLElement | null,
-    disabled: boolean,
-) {
+export function setTabIndex(node: HTMLElement | null, disabled: boolean) {
     if (!node) return
 
-    const elements = node?.querySelectorAll('*')
+    const elements = node?.querySelectorAll(
+        'input, button, checkbox, textarea, a',
+    )
 
     if (!elements.length) return
 

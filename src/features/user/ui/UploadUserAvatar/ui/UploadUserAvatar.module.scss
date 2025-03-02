@@ -1,10 +1,13 @@
 .avatar_container {
+    --size: 300px;
     @apply flex
     flex-col
     grow
     justify-center
     items-center
-    aspect-square;
+    aspect-square
+    w-[--size]
+    h-[--size];
 }
 
 .preview_area {
@@ -12,9 +15,9 @@
     flex
     justify-center
     items-center
+    w-full
+    h-full
     rounded-[--global-border-radius]
-    min-w-full
-    min-h-full
     overflow-hidden;
 }
 

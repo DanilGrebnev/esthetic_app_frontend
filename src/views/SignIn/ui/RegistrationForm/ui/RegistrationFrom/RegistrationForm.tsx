@@ -1,31 +1,27 @@
 'use client'
 
-import { UploadUserAvatar } from '@/features/user'
 import { useRegistrationMutation } from '@/shared/api/users'
-import { recommendedTagsInitial } from '@/shared/data/recommendedTagsData'
 import { routes } from '@/shared/routes'
-import { type CreateUser } from '@/shared/types/user'
 import { Box } from '@/shared/ui/Box'
 import { Container } from '@/shared/ui/Container'
-import { Dialog } from '@/shared/ui/Dialog'
 import { Input } from '@/shared/ui/Input'
-import { InputWithTags } from '@/shared/ui/InputWithTags'
-import { InputWithValidation } from '@/shared/ui/InputWithValidation'
 import { ProgressWindow } from '@/shared/ui/ProgressWindow'
-import { RecommendedTags } from '@/shared/ui/RecommendedTags'
-import { validationInputs } from '@/shared/validationInputs'
-import { useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { TProgressWindowContext } from '@/shared/ui/ProgressWindow/model/types'
+import { useCallback, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 
 import { Signature } from '../../../Signature'
 import { SubTitle } from '../../../SubTitle'
 import { Title } from '../../../Title'
-import { AcceptEmail } from '../AcceptEmail'
+import { inputsFields } from '../../model/InputFields'
+import { useShowToast } from '../../model/hooks'
+import { RegistrationFormFields } from '../../model/types'
+import { AcceptEmailTab } from '../AcceptEmailTab'
 import { NextBtn } from '../Buttons/NextBtn'
 import { PrevBtn } from '../Buttons/PrevBtn'
 import { SubmitButton } from '../Buttons/SubmitButton'
+import { ChooseTagsTab } from '../ChooseTagsTab'
+import { UploadUserAvatarTab } from '../UploadUserAvatarTab'
 import s from './s.module.scss'
 
 export const RegistrationForm = () => {
@@ -35,22 +31,19 @@ export const RegistrationForm = () => {
         handleSubmit,
         setValue,
         formState: { errors, isValid },
-    } = useForm<Omit<CreateUser, 'tags'>>({
+    } = useForm<RegistrationFormFields>({
         mode: 'onBlur',
     })
 
-    const router = useRouter()
+    const timeoutRef = useRef<NodeJS.Timeout>(undefined)
+    const refContext = useRef<TProgressWindowContext>(null)
 
-    const {
-        mutate,
-        isPending,
-        isError,
-        error: errorFromServer,
-        data,
-        isSuccess,
-    } = useRegistrationMutation()
+    const { mutate, isPending, isError, isIdle, isSuccess } =
+        useRegistrationMutation()
 
-    const onSubmit = handleSubmit(async (_, e) => {
+    useShowToast(isSuccess, isError)
+
+    const onSubmit = handleSubmit((_, e) => {
         const formData = new FormData(e?.target)
         function getTagsFromFormData(key: 'recommendedTags' | 'tags') {
             return JSON.parse((formData.get(key) as string) || '[]')
@@ -58,31 +51,42 @@ export const RegistrationForm = () => {
 
         formData.set(
             'tags',
-            JSON.stringify([
-                ...getTagsFromFormData('tags'),
-                ...getTagsFromFormData('recommendedTags'),
-            ]),
+            JSON.stringify(
+                getTagsFromFormData('tags').concat(
+                    getTagsFromFormData('recommendedTags'),
+                ),
+            ),
         )
+
         formData.delete('recommendedTags')
 
-        mutate(formData, {
-            onSuccess: () => {
-                toast.success('Регистрация успешна')
-                router.push(routes.login.getRoute())
-            },
-        })
+        mutate(formData)
     })
+
+    const onChangeAvatar = useCallback((file: File) => {
+        setValue('avatar', file)
+    }, [])
 
     const { email, firstName, password, userName } = watch()
 
-    const nextResolve = firstName && userName && password && email && isValid
-
-    const onChangeAvatar = useCallback(
-        (file: File) => {
-            setValue('avatar', file)
-        },
-        [] /* eslint-disable-line */,
+    const isValidForm = !!(
+        firstName &&
+        userName &&
+        password &&
+        email &&
+        isValid
     )
+    const disabledNextBtn = isIdle ? !isValidForm : !isValidForm && !isIdle
+
+    /** Листаем страницу далее на страницу с вводом кода
+    при успешном ответе от сервера */
+    useEffect(() => {
+        if (isSuccess) {
+            timeoutRef.current = setTimeout(() => {
+                refContext?.current?.onNext()
+            }, 3000)
+        }
+    }, [isSuccess])
 
     return (
         <Container
@@ -95,113 +99,52 @@ export const RegistrationForm = () => {
                     onSubmit={onSubmit}
                     className={s.registration_form}
                 >
-                    <ProgressWindow.Provider>
+                    <ProgressWindow.Provider
+                        getPublicContext={(context) => {
+                            refContext.current = context
+                        }}
+                    >
                         <ProgressWindow.Container>
                             <ProgressWindow.Tab>
                                 <div className={s.inputs_wrapper}>
                                     <SubTitle>Заполните информацию</SubTitle>
-                                    <InputWithValidation
-                                        register={register}
-                                        label='Имя*'
-                                        name='firstName'
-                                        errors={errors}
-                                        required
-                                    />
-                                    <InputWithValidation
-                                        register={register}
-                                        label='Фамилия'
-                                        placeholder='Ведите вашу фамилию'
-                                        name='lastName'
-                                        errors={errors}
-                                    />
-                                    <InputWithValidation
-                                        register={register}
-                                        label='Псевдоним пользователя*'
-                                        name='userName'
-                                        placeholder='Введите желаемый псевдоним'
-                                        errors={errors}
-                                        required
-                                    />
-                                    <InputWithValidation
-                                        register={register}
-                                        label='Пароль*'
-                                        name='password'
-                                        placeholder='Введите пароль'
-                                        errors={errors}
-                                        required
-                                        validation={{
-                                            minLength: {
-                                                value: 5,
-                                                message:
-                                                    'Пароль должен содержать больше 5 символов',
-                                            },
-                                        }}
-                                    />
-                                    <Input
-                                        label='Почта*'
-                                        placeholder='Введите почту'
-                                        {...register('email', {
-                                            required:
-                                                validationInputs.required
-                                                    .message,
-                                            pattern: {
-                                                value: validationInputs.email
-                                                    .pattern,
-                                                message:
-                                                    validationInputs.email
-                                                        .message,
-                                            },
-                                        })}
-                                        error={!!errors.email?.message}
-                                        helperText={errors.email?.message}
-                                    />
+                                    {inputsFields.map(
+                                        ({ label, name, registerOptions }) => {
+                                            return (
+                                                <Input
+                                                    key={name}
+                                                    label={label}
+                                                    {...register(
+                                                        name,
+                                                        registerOptions,
+                                                    )}
+                                                    error={
+                                                        !!errors[name]?.message
+                                                    }
+                                                    helperText={
+                                                        errors[name]?.message
+                                                    }
+                                                />
+                                            )
+                                        },
+                                    )}
                                 </div>
                             </ProgressWindow.Tab>
-                            <ProgressWindow.Tab
-                                className={s.upload_avatar_page}
-                            >
-                                <SubTitle>Добавьте аватар</SubTitle>
-                                <div className={s.upload_avatar_wrapper}>
-                                    <UploadUserAvatar
-                                        className={s.upload_avatar}
-                                        onChange={onChangeAvatar}
-                                    />
-                                </div>
-                            </ProgressWindow.Tab>
-                            <ProgressWindow.Tab className={s.tag_page}>
-                                <SubTitle>Выберите теги</SubTitle>
-                                <RecommendedTags
-                                    name='recommendedTags'
-                                    initialTags={recommendedTagsInitial}
-                                />
-                                <SubTitle>Или создайте свои</SubTitle>
-                                <InputWithTags />
-                                <Dialog
-                                    variant='warning'
-                                    open={isError}
-                                    closeTimeout={3000}
-                                >
-                                    {errorFromServer?.message ??
-                                        'Ошибка регистрации'}
-                                </Dialog>
-                                <Dialog
-                                    open={isSuccess}
-                                    variant='success'
-                                >
-                                    Регистрация успешна
-                                </Dialog>
-                            </ProgressWindow.Tab>
-                            <ProgressWindow.Tab>
-                                <AcceptEmail />
-                            </ProgressWindow.Tab>
+                            <UploadUserAvatarTab
+                                onChangeAvatar={onChangeAvatar}
+                            />
+                            <ChooseTagsTab />
+                            {isSuccess && <AcceptEmailTab />}
                         </ProgressWindow.Container>
                         <div className={s.btn_group}>
-                            <PrevBtn disabled={isSuccess} />
-                            <NextBtn disabled={!nextResolve} />
-                            <SubmitButton
-                                loading={isPending}
-                                disabled={isSuccess}
+                            <PrevBtn disabled={isPending} />
+                            <NextBtn
+                                disabled={disabledNextBtn}
+                                onClick={() => {
+                                    clearTimeout(timeoutRef.current)
+                                }}
                             />
+                            <SubmitButton loading={isPending} />
                         </div>
                     </ProgressWindow.Provider>
                 </form>

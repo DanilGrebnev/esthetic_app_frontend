@@ -1,9 +1,14 @@
-import { TCells } from './types'
+import { DefaultValue, TCells } from './types'
 
-export const createCells = (length: number): TCells[] => {
-    return new Array(length)
-        .fill('')
-        .map((_, i) => ({ position: i, focus: false, value: '' }))
+export const createCells = (
+    length: number,
+    defaultValue?: DefaultValue,
+): TCells[] => {
+    return new Array(length).fill('').map((_, i) => ({
+        position: i,
+        focus: defaultValue?.[i]?.focus ?? false,
+        value: defaultValue?.[i]?.value ?? '',
+    }))
 }
 
 export const focusNextElement = (cells: TCells[], position: number) => {
