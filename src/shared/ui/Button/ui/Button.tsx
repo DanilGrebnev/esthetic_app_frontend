@@ -20,6 +20,7 @@ export const Button = memo((props: ButtonProps) => {
         variant = 'standart',
         activeVariant = 'active-fill',
         href,
+        fixSize = true,
         style,
         loading,
         onClick,
@@ -33,13 +34,17 @@ export const Button = memo((props: ButtonProps) => {
     const combinedRef = useCombinedRef<HTMLButtonElement>(ref, nodeRef)
     const onClickWithHref = useClickWithHref(onClick, href)
 
-    function createStyle() {
-        return fullWidth
-            ? { minWidth: '100%', ...style }
-            : {
-                  ...style,
-                  ...fixWidthStyle,
-              }
+    const createStyle = () => {
+        if (fullWidth) {
+            return { minWidth: '100%', ...style }
+        } else if (fixSize) {
+            return {
+                ...style,
+                ...fixWidthStyle,
+            }
+        } else {
+            return style
+        }
     }
 
     return (

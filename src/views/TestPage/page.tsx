@@ -19,6 +19,8 @@ export const TestPage = () => {
                 }}
             />
             <Button
+                active={true}
+                activeVariant='active-underline'
                 variant='silver'
                 onClick={() => {
                     setS((p) => (p = !p))

@@ -4,7 +4,7 @@ export const createCells = (
     length: number,
     defaultValue?: DefaultValue,
 ): TCells[] => {
-    return new Array(length).fill('').map((_, i) => ({
+    return Array.from({ length }, (_, i) => ({
         position: i,
         focus: defaultValue?.[i]?.focus ?? false,
         value: defaultValue?.[i]?.value ?? '',
@@ -41,4 +41,26 @@ export const focusPrevElement = (cells: TCells[], position: number) => {
 
         return el
     })
+}
+/** Возвращает регулярное выражение для получения 1 символа.
+ * Если в качестве параметра передаётся регуялрное выражение,
+ * то оно обязательно должно содержать ^$ в конце, чтобы брался только 1
+ * символ
+ * @example
+ * const regExp = /^\w$/
+ * or
+ * const = regExp = /^[\[\]]$/
+ */
+export const getRegExp = (validate: 'word' | 'number' | RegExp) => {
+    let regExp
+
+    if (validate === 'number') {
+        regExp = /^\d$/
+    } else if (validate === 'word') {
+        regExp = /^[a-zA-Zа-яА-Я]$/
+    } else {
+        regExp = validate
+    }
+
+    return regExp
 }

@@ -7,14 +7,15 @@ import { Container } from '@/shared/ui/Container'
 import { Input } from '@/shared/ui/Input'
 import { ProgressWindow } from '@/shared/ui/ProgressWindow'
 import { TProgressWindowContext } from '@/shared/ui/ProgressWindow/model/types'
-import { useCallback, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { Signature } from '../../../Signature'
 import { SubTitle } from '../../../SubTitle'
 import { Title } from '../../../Title'
 import { inputsFields } from '../../model/InputFields'
-import { useShowToast } from '../../model/hooks'
 import { RegistrationFormFields } from '../../model/types'
 import { AcceptEmailTab } from '../AcceptEmailTab'
 import { NextBtn } from '../Buttons/NextBtn'
@@ -35,13 +36,14 @@ export const RegistrationForm = () => {
         mode: 'onBlur',
     })
 
-    const timeoutRef = useRef<NodeJS.Timeout>(undefined)
-    const refContext = useRef<TProgressWindowContext>(null)
-
     const { mutate, isPending, isError, isIdle, isSuccess } =
         useRegistrationMutation()
+    const router = useRouter()
 
-    useShowToast(isSuccess, isError)
+    // useShowToast(isSuccess, isError)
+
+    const timeoutRef = useRef<NodeJS.Timeout>(undefined)
+    const refContext = useRef<TProgressWindowContext>(null)
 
     const onSubmit = handleSubmit((_, e) => {
         const formData = new FormData(e?.target)
@@ -57,15 +59,14 @@ export const RegistrationForm = () => {
                 ),
             ),
         )
-
         formData.delete('recommendedTags')
 
         mutate(formData)
     })
 
-    const onChangeAvatar = useCallback((file: File) => {
+    const onChangeAvatar = (file: File) => {
         setValue('avatar', file)
-    }, [])
+    }
 
     const { email, firstName, password, userName } = watch()
 
@@ -80,12 +81,20 @@ export const RegistrationForm = () => {
 
     /** Листаем страницу далее на страницу с вводом кода
     при успешном ответе от сервера */
+    // useEffect(() => {
+    //     if (isSuccess) {
+    //         timeoutRef.current = setTimeout(() => {
+    //             refContext?.current?.onNext()
+    //         }, 3000)
+    //     }
+    // }, [isSuccess])
+
     useEffect(() => {
-        if (isSuccess) {
-            timeoutRef.current = setTimeout(() => {
-                refContext?.current?.onNext()
-            }, 3000)
-        }
+        if (!isSuccess) return
+        toast.success('Регистрация успешна')
+        setTimeout(() => {
+            router.push(routes.main.getRoute())
+        }, 2000)
     }, [isSuccess])
 
     return (
@@ -134,7 +143,7 @@ export const RegistrationForm = () => {
                                 onChangeAvatar={onChangeAvatar}
                             />
                             <ChooseTagsTab />
-                            {isSuccess && <AcceptEmailTab />}
+                            {/* {isSuccess && <AcceptEmailTab />} */}
                         </ProgressWindow.Container>
                         <div className={s.btn_group}>
                             <PrevBtn disabled={isPending} />
@@ -144,7 +153,10 @@ export const RegistrationForm = () => {
                                     clearTimeout(timeoutRef.current)
                                 }}
                             />
-                            <SubmitButton loading={isPending} />
+                            <SubmitButton
+                                disabled={isSuccess}
+                                loading={isPending}
+                            />
                         </div>
                     </ProgressWindow.Provider>
                 </form>

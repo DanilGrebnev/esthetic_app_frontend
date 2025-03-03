@@ -8,9 +8,8 @@ import {
     useEffect,
     useRef,
 } from 'react'
-import { useId } from 'react'
 
-import { focusNextElement, focusPrevElement } from '../../model/lib'
+import { focusNextElement, focusPrevElement, getRegExp } from '../../model/lib'
 import { TCells } from '../../model/types'
 import s from './Cell.module.scss'
 
@@ -34,7 +33,6 @@ export const Cell = memo((props: CellProps) => {
         position,
         ref,
     } = props
-    const randomId = useId()
 
     const inputRef = useRef<HTMLInputElement>(null)
     const combinedInputRef = useCombinedRef<HTMLInputElement>(inputRef, ref)
@@ -70,22 +68,11 @@ export const Cell = memo((props: CellProps) => {
 
     const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         const key = e.key
-        console.log(key)
-        /* Используем регулярное выражение, чтобы получать символы строки или числа. */
-        let regExp
-        /* Т.к. буква или цифра - это 1 символ, то мы можем отлавить нажатие клавиши,
+        /* Используем регулярное выражение, чтобы получать символы строки или числа.
+        Т.к. буква или цифра - это 1 символ, то мы можем отловить нажатие клавиши,
         состоящей из 1 символа */
-        if (validate === 'number') {
-            regExp = /^\d$/
-        } else if (validate === 'word') {
-            regExp = /^[a-zA-Zа-яА-Я]$/
-        } else {
-            regExp = validate
-        }
+        const symbol = getRegExp(validate).exec(key)?.[0]
 
-        const symbol = regExp?.exec(key)?.[0]
-
-        // Если нажатие было на клавишу с цифрой или буквой
         if (symbol) {
             setValue(symbol)
             // Реагируем на изменение value
@@ -136,7 +123,6 @@ export const Cell = memo((props: CellProps) => {
             // Пытаемся отключить автозапоминание браузером поля
             ref={combinedInputRef}
             onChange={() => {}}
-            name={randomId}
             value={value}
             onFocus={onFocus}
             onKeyUp={onKeyUp}

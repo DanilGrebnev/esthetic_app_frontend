@@ -1,6 +1,8 @@
 import { CommentsList } from '@/features/commentaries'
 import { DeleteCommentsAfterUnmount } from '@/features/commentaries'
 import { Container } from '@/shared/ui/Container'
+import { NotAuthMessage } from '@/shared/ui/NotAuthMessage'
+import { WithAuth } from '@/shared/ui/WithAuth'
 
 import { CommentsWriteFielSection } from './CommentsWriteFieldSection'
 import { InitialSetPostIdInStore } from './InitialSetPostIdInStore'
@@ -40,7 +42,13 @@ export const PostsDetailPage = async ({ params }: DetailPostsParams) => {
                     />
 
                     <div className={s.write_commentaries}>
-                        <CommentsWriteFielSection />
+                        <WithAuth
+                            fallback={
+                                <NotAuthMessage prefixText='чтобы оставлять комментарии' />
+                            }
+                        >
+                            <CommentsWriteFielSection />
+                        </WithAuth>
                     </div>
                 </div>
             </div>

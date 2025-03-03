@@ -1,4 +1,4 @@
-.dashboard-container {
+.dashboard_container {
     @apply flex 
     flex-col 
     rounded-[--global-border-radius]
@@ -9,10 +9,4 @@
     min-h-[80%]
     overflow-auto
     duration-[0.3s];
-}
-
-.container-title {
-    @apply p-[10px]
-    text-center;
-    font-size: var(--font-400);
 }

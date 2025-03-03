@@ -10,4 +10,5 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'> {
     loading?: boolean
     fullWidth?: boolean
     size?: 'm' | 'l'
+    fixSize?: boolean
 }

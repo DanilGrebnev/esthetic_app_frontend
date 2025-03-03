@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from 'react'
 export type DefaultValue = Omit<TCells, 'position'>[]
 
 export interface NumberInputProps {
+    name?: string
     length: number
     /** Строка, либо регулярное выражение,
      * указывающее, какие значения может принимать компонент */
