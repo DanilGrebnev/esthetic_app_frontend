@@ -1,5 +1,6 @@
 import CommentIcon from '@/shared/assets/comment-icon.svg'
 import HeartIcon from '@/shared/assets/heart-icon.svg'
+import { Text } from '@/shared/ui/Text'
 
 import s from './info-with-icon.module.scss'
 
@@ -28,7 +29,7 @@ export const InfoWithIcon = (props: InfoWithIconProps) => {
                 variant={icon}
                 className={s.icon}
             />
-            <p className={s.text}>{text}</p>
+            <Text className={s.text}>{text}</Text>
         </div>
     )
 }

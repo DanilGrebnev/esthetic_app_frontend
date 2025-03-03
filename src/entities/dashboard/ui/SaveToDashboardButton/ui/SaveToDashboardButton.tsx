@@ -34,6 +34,7 @@ export const SaveToDashboardButton = memo(
             <>
                 <Button
                     variant='red'
+                    size='m'
                     className={className}
                     onClick={onOpen}
                 >

@@ -4,13 +4,19 @@
     cursor-pointer
     w-full
     select-none
-    gap-[--global-gap-1];
+    overflow-hidden
+    gap-[--global-gap-1]
+    rounded-[--global-border-radius];
 }
 
-.card,
-.btn_group,
-.img {
-    border-radius: var(--global-border-radius);
+.wrapper {
+    @apply relative grow;
+    &:hover {
+        .btn_group {
+            opacity: 1;
+            background: rgb(0 0 0 / 20%);
+        }
+    }
 }
 
 .img {
@@ -30,14 +36,4 @@
     h-full;
     transition: 0.2s;
     background: rgba(0 0 0 / 0%);
-}
-
-.wrapper {
-    @apply relative grow;
-    &:hover {
-        .btn_group {
-            opacity: 1;
-            background: rgb(0 0 0 / 20%);
-        }
-    }
 }

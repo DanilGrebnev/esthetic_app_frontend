@@ -1,4 +1,5 @@
 import { InfoWithIcon } from './InfoWithIcon'
+import s from './s.module.scss'
 
 interface LikeAmountProps {
     likeAmount: number
@@ -9,7 +10,7 @@ export const PostInfo = (props: LikeAmountProps) => {
     const { likeAmount, commentsAmount } = props
 
     return (
-        <div className='flex mx-auto gap-[--global-gap-1]'>
+        <div className={s.wrapper}>
             <InfoWithIcon
                 text={likeAmount}
                 icon='heart'
