@@ -2,15 +2,9 @@
 
 import { SaveToDashboardButton } from '@/entities/dashboard'
 import { DownloadFileBtn, MenuPostBtn } from '@/entities/posts'
-import { UserFullName } from '@/features/user'
 import { useGetDetailPostsQuery } from '@/shared/api/posts'
-import { routes } from '@/shared/routes'
-import { TAuthor } from '@/shared/types/user'
-import { Skeleton } from '@/shared/ui/Skeleton'
-import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { WithPlaceholder } from '@/shared/ui/WithPlaceholder'
 import { clsx } from 'clsx'
-import Link from 'next/link'
 
 import s from './PostsDetailHeader.module.scss'
 import { Description } from './ui/Description'

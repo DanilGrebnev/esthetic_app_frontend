@@ -8,3 +8,5 @@ export type TTitle = `h${TTitleNumber}`
 export type AppliedTags = TTitle | 'p' | 'span' | 'a'
 
 export type GetTagType<T extends AppliedTags> = ComponentPropsWithRef<T>
+
+export type TWeight = 'normal' | 'semibold' | 'bold'

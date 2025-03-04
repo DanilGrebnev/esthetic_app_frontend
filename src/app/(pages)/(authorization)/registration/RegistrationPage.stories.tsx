@@ -1,12 +1,12 @@
-import { RegistrationForm } from '@/views/SignIn'
+import { RegistrationPage } from '@/views/RegistrationPage'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const meta: Meta<typeof RegistrationForm> = {
+const meta: Meta<typeof RegistrationPage> = {
     title: 'views/RegistrationPage',
-    component: RegistrationForm,
+    component: RegistrationPage,
 }
 export default meta
 
-type Story = StoryObj<typeof RegistrationForm>
+type Story = StoryObj<typeof RegistrationPage>
 
-export const RegistrationPage: Story = {}
+export const RegistrationPageStory: Story = {}

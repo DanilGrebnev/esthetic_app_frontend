@@ -1,4 +1,4 @@
-import { UserFullName } from '@/features/user'
+import { UserFullName } from '@/entities/user'
 import { routes } from '@/shared/routes'
 import { Skeleton } from '@/shared/ui/Skeleton'
 import { UserAvatar } from '@/shared/ui/UserAvatar'

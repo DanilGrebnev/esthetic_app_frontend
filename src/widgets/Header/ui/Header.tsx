@@ -1,7 +1,7 @@
 'use client'
 
 import { SearchInput } from '@/entities/posts'
-import { UserProfileIcon } from '@/features/user'
+import { UserProfileIcon } from '@/entities/user'
 import { useOutsideClick } from '@/shared/hooks/useOutsideClick'
 import clsx from 'clsx'
 import { useState } from 'react'

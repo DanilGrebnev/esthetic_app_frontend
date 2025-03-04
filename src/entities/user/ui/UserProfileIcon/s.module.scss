@@ -1,0 +1,28 @@
+.profile_icon {
+    position: relative;
+}
+
+.modal {
+    position: absolute;
+    right: 0px;
+    z-index: 2;
+}
+
+.user-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: var(--global-transition-2);
+    cursor: pointer;
+    border-radius: var(--global-border-radius);
+
+    background: rgb(0 0 0 / 0%);
+
+    aspect-ratio: 1 / 1;
+    height: var(--button-l-height);
+
+    &:hover {
+        background: var(--global-btn-hover);
+    }
+}

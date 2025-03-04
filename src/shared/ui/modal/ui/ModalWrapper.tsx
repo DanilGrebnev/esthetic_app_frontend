@@ -16,15 +16,16 @@ export default function ModalWrapper({ children }: Layout) {
                 e.stopPropagation()
                 onClose?.()
             }}
-            className={s['modal-bg-filter']}
+            className={s.modal_bg_filter}
         >
             <AnimatePresence>
                 <m.div
+                    className={s.animate_wrapper}
                     initial={{}}
                     animate={isOpen ? { scale: 1 } : { scale: 0 }}
                     transition={{ duration: 0.1 }}
                     exit={{ scale: 0.01 }}
-                    className={s['animate-wrapper']}
+                    onClick={(e) => e.stopPropagation()}
                 >
                     {children}
                 </m.div>

@@ -1,16 +1,16 @@
-.modal-root {
+.modal_root {
     @apply fixed
     z-[1000]
     w-screen
     h-screen
     pointer-events-none;
 
-    & > * {
+    & * {
         pointer-events: all;
     }
 }
 
-.modal-bg-filter {
+.modal_bg_filter {
     @apply flex 
     justify-center 
     items-center
@@ -25,10 +25,11 @@
     bg-[--theme-bg-color-1];
 }
 
-.animate-wrapper {
+.animate_wrapper {
     @apply flex
     justify-center
     items-center
+    pointer-events-none
     w-full
     h-full;
 }

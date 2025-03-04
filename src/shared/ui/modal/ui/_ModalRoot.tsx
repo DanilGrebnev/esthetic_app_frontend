@@ -6,7 +6,7 @@ export const _ModalRoot = () => {
     return (
         <div
             id='modal-root'
-            className={s['modal-root']}
+            className={s.modal_root}
         ></div>
     )
 }

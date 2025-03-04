@@ -1,6 +1,6 @@
 'use client'
 
-import { UserFullName } from '@/features/user'
+import { UserFullName } from '@/entities/user'
 import { useGetPublicProfileQuery } from '@/shared/api/users'
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { memo } from 'react'

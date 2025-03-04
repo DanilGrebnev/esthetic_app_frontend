@@ -1,6 +1,6 @@
 'use client'
 
-import { UploadUserAvatar } from '@/features/user'
+import { UploadUserAvatar } from '@/entities/user'
 import {
     useChangeUserProfileData,
     useGetProfileByCookieQuery,

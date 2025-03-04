@@ -1,0 +1,6 @@
+.drop_down {
+    @apply rounded-[--global-border-radius] 
+    bg-[--theme-bg-color-1] 
+    overflow-hidden;
+    box-shadow: var(--global-box-shadow);
+}

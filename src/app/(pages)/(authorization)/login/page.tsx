@@ -1,1 +1,1 @@
-export { LoginForm as default } from '@/views/SignIn'
+export { LoginPage as default } from '@/views/LoginPage'
